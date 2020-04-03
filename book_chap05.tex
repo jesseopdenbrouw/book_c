@@ -1,0 +1,528 @@
+\chapter{Pointers}
+\thispagestyle{empty}
+
+Een pointer-variabele, of kortweg \textsl{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer bij de variabele te komen.
+
+Pointers zijn een krachtig middel om efficiënt gegevens te beheren en parameters over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
+%We zullen zien dat pointers en array's nauw met elkaar verbonden zijn.
+
+Pointers worden samen met het \texttt{goto}-statement in verband gebracht met het schrijven van ondoorzichtige programma's. En zeker, onzorgvuldig gebruik van pointers komt de leesbaarheid en aantonen van correctheid van programma's niet ten goede. Maar met discipline kunnen programma's zeer efficient geschreven worden.
+
+Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan hier gemakshalve vanuit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
+
+%picture is a bit to high...
+\vspace*{-0.5\baselineskip}
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\foreach \ii [count=\i from 0] in {1,...,15} {
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {};
+}
+\draw[center*-latex,shorten >=2pt] (nod2.center) to [bend left] (nod10.north);
+\draw (nod2.center) node [yshift=-\unitsize cm] {p};
+\draw[center*-latex,shorten >=2pt] (nod4.center) to [bend right] (nod13.south);
+\draw (nod4.center) node [yshift=-\unitsize cm] {q};
+\draw (nod10.center) node [yshift=-\unitsize cm] {i};
+\draw (nod13.center) node [yshift=-\unitsize cm] {j};
+\end{tikzpicture}
+\caption{Uitbeelding van twee pointers naar variabelen in het geheugen wijzen.}
+\label{fig:poiinmem}
+\end{figure}
+
+Een pointer kan wijzen naar een enkelvoudige variabele, een (element van een) array, een structure of (het begin van) een functie. Een pointer kan niet wijzen naar een constante, een uitdrukking en een \texttt{register} variabele.
+
+Het is ook mogelijk om een pointer naar het datatype \texttt{void} te laten ``wijzen''.
+Deze pointers worden generieke pointers genoemd. We zullen dit bespreken in paragraaf~\ref{sec:poipointertovoid}.
+
+\section{Pointers naar enkelvoudige datatypes}
+
+In listing~\ref{cod:poidecla} is de declaratie van enkele pointers van enkelvoudige datatypes te zien. Bij de declaratie moet het type variabele waarnaar de pointer wijst worden opgegeven. De asterisk (\texttt{*}) geeft aan dat het de declaratie van een pointer betreft.
+
+\begin{lstlisting}[caption=Enkele declaraties van pointers.,label=cod:poidecla]
+int *pint;          /* pint is a pointer to an int */
+char *pchar;        /* pchar is a pointer to a character */
+double *pdouble;    /* pdouble is a pointer to a double */
+\end{lstlisting}
+
+We kunnen pointers uitbeelden door middel van vakjes, zoals te zien is in figuur~\ref{fig:poivoorstelling1}. Elk vakje stelt een pointer voor. In beginsel hebben de pointers geen correcte inhoud. Er wordt dan wel gesproken dat de pointer nergens naar toe wijst, maar dat is feitelijk onjuist\footnote{Er is\'e\'en uitzondering. De NULL-pointer wordt algemeen aanvaard als een pointer die nergens naartoe wijst. Zie paragraaf~\ref{sec:nullpointer}.}. Een pointer heeft altijd een adres als inhoud, maar het kan zijn dat de pointer niet naar een bekende variabele wijst.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\node[memloc] (A) at (0,0) {};
+\draw (A) node [yshift=\unitsize cm] {pint};
+\node[memloc] (B) at (4,0) {};
+\draw (B) node [yshift=\unitsize cm] {pchar};
+\node[memloc] (C) at (8,0) {};
+\draw (C) node [yshift=\unitsize cm] {pdouble};
+\end{tikzpicture}
+\caption{Voorstelling van drie pointers in het geheugen.}
+\label{fig:poivoorstelling1}
+\end{figure}
+
+Aan een pointer is het adres van een variabele van hetzelfde type toe te kennen. Hiervoor gebruiken we de \textsl{adres-operator} \texttt{\&} (ampersand). In listing~\ref{cod:poiassign} is een aantal toekenningen van adressen te zien.
+
+\begin{lstlisting}[caption=Enkele toekenningen van adressen aan pointers.,label=cod:poiassign]
+int i;           /* the variables */
+char c;
+double d;
+
+int *pint;       /* the pointers */
+char *pchar;
+double *pdouble;
+
+pint = &i;       /* pint points to variable i */
+pchar = &c;      /* pchar points to variable c */
+pdouble = &d;    /* pdouble points to variable d */
+\end{lstlisting}
+
+Nu de pointers geïnitialieerd zijn, kunnen we een voorstelling maken van de relatie tussen de pointers en de variabelen. Dit is te zien in figuur~\ref{fig:poivoorstelling2}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\node[memloc] (A) at (0,0) {};
+\draw (A) node [yshift=\unitsize cm] {pint};
+\node[memloc] (Aa) at (4,0) {};
+\draw (Aa) node [yshift=\unitsize cm] {i};
+\draw[center*-latex] (A.center) -- (Aa.west);
+
+\node[memloc] (A) at (0,-2) {};
+\draw (A) node [yshift=\unitsize cm] {pchar};
+\node[memloc] (Aa) at (4,-2) {};
+\draw (Aa) node [yshift=\unitsize cm] {c};
+\draw[center*-latex] (A.center) -- (Aa.west);
+
+\node[memloc] (A) at (0,-4) {};
+\draw (A) node [yshift=\unitsize cm] {pdouble};
+\node[memloc] (Aa) at (4,-4) {};
+\draw (Aa) node [yshift=\unitsize cm] {d};
+\draw[center*-latex] (A.center) -- (Aa.west);
+\end{tikzpicture}
+\caption{Voorstelling van drie pointers die naar variabelen wijzen.}
+\label{fig:poivoorstelling2}
+\end{figure}
+
+Via de pointers kunnen we de variabelen gebruiken. Stel dat we variabele \texttt{i} met één willen verhogen. Dat kunnen we doen door gebruik te maken van de \textsl{indirectie} of \textsl{dereference} operator \texttt{*}. Deze operator heeft voorrang op de optelling.
+
+\begin{lstlisting}[caption=Gebruik van een pointer bij een toekenning.]
+*pint = *pint + 1;     /* increment i with one */
+\end{lstlisting}
+
+We mogen de dereference operator overal gebruiken waar een variabele gebruikt mag worden, bijvoorbeeld bij een optelling.
+
+\begin{lstlisting}[caption=Gebruik van een pointer bij het afdrukken van een variabele.]
+int i = 2, *pint;
+
+pint = &i;
+
+i = *pint + 1;    /* add 1 to variable i */
+\end{lstlisting}
+
+Overigens kan tijdens declaratie ook gelijk de initialsatie van een pointer plaatsvinden. Deze declaratie kan verwarrend zijn. In onderstaande listing wordt de pointer \texttt{pint} gedeclareerd en geïnitialiseerd met het adres van variabele \texttt{i}. Het betreft hier dus \textsl{geen} dereference.
+
+\begin{lstlisting}[caption=Declaratie en initialisatie van een pointer.]
+int i = 2;
+int *pint = &i;     /* declare and initialize pint */
+\end{lstlisting}
+
+\section{De NULL-pointer}
+\label{sec:nullpointer}
+In principe wijst een pointer naar een variabele (of beter: naar een geheugenadres). Om aan te geven dat een pointer niet naar een variabele wijst, kunnen we de \textsl{NULL-pointer} gebruiken. Let erop dat de NULL-pointer niet hetzelfde is als een niet-geïnitialiseerde pointer. In C is een preprocessor-macro genaamd \texttt{NULL}\marginpar{\fbox{C89}} te gebruiken om een pointer als NULL-pointer te initialiseren. De C-standaard schrijft voor voor dat \texttt{NULL} wordt gedefinieerd in \texttt{locale.h}, \texttt{stddef.h}, \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{string.h}, \texttt{time.h}, en \texttt{wchar.h}. Slechts een van deze header-bestanden is noodzakelijk om \texttt{NULL} te definiëren.
+
+\begin{lstlisting}[caption=Declaratie en initialisatie van een NULL-pointer.]
+#include <stdio.h>
+
+int *p = NULL;   /* p is initialized as NULL-pointer */
+\end{lstlisting}
+
+NULL-pointers kunnen \textsl{niet} gebruikt worden bij dereferentie. Dat veroorzaakt over het algemeen dat de executie van een programma wordt afgebroken.
+
+\begin{lstlisting}[caption=Dereferentie van een NULL-pointer.]
+#include <stdio.h>
+
+int *p = NULL;   /* p is initialized as NULL-pointer */
+
+*p = *p + 1;     /* Oops, dereference of NULL-pointer! */
+\end{lstlisting}
+
+In een vergelijking zullen twee NULL-pointers altijd \texttt{true} opleveren.
+
+\begin{lstlisting}[caption=Vergelijken van twee NULL-pointers.]
+int *p = NULL, *q = NULL;
+...
+if (p == q) {
+    /* true */
+}
+\end{lstlisting}
+
+De NULL-pointer wordt door diverse standaard functies gebruikt om aan te geven dat er een fout is geconstateerd. Zo geeft de functie \texttt{fopen} de waarde \texttt{NULL} terug als het niet gelukt is om een bestand te openen. De functie \texttt{malloc} geeft de waarde \texttt{NULL} terug als het niet gelukt is om een stuk geheugen te alloceren.
+
+Bij het voorstellen van NULL-pointers zijn diverse mogelijkheden die gebruikt worden. Bij de linker voorstelling wordt het woord \texttt{NULL} in een vakje gezet, bij de middelste voorstelling wordt een kruis in het vakje gezet en bij de rechter voorstelling wordt een pijl getrokken naar een vakje met een kruis erin.
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\node (null1) at (0,0) [memlocnull] {};
+\draw (null1) node [yshift=\unitsize cm] {p};
+\node (null2) at (3,0) [memloc] {};
+\draw (null2) node [yshift=\unitsize cm] {p};
+\node (null20) at (5,0) [memlocnull] {};
+\draw[center*-latex] (null2.center) -- (null20.west);
+\node (null3) at (-3,0) [memloc] {NULL};
+\draw (null3) node [yshift=\unitsize cm] {p};
+\end{tikzpicture}
+\caption{Drie voorstellingen van NULL-pointers.}
+\label{fig:poinullpointers}
+\end{figure}
+
+
+
+\section{Pointer naar \texttt{void}}
+\label{sec:poipointertovoid}
+%The void pointer, also known as the generic pointer, is a special type of pointer that can be pointed at objects of any data type! A void pointer is declared like a normal pointer, using the void keyword as the pointer’s type:
+
+De void-pointer, ook wel \textsl{generieke pointer} genoemd, is een speciaal type pointer die naar elk type variabele kan wijzen. Een void-pointer wordt net als een gewone pointer gedeclareerd middels het keyword \texttt{void}. Toekenning aan een void-pointer gebeurt met de adres-operator~\texttt{\&}.
+
+\begin{lstlisting}[caption=Declaratie en initialisatie van een void-pointer.]
+int i;
+char c;
+double d;
+
+void *p;  /* void-pointer */
+
+p = &i;   /* valid */
+p = &c;   /* valid */
+p = &d;   /* valid */
+\end{lstlisting}
+
+Omdat het type van een void-pointer niet bekend is, kan een void-pointer niet zonder meer in een deferentie gebruikt worden. De void-pointer moet expliciet gecast worden naar het correcte type.
+
+\begin{lstlisting}[caption=Declaratie en initialisatie van een void-pointer.]
+int i = 2;
+
+void *p = &i;  /* void-pointer */
+
+*(int *) p = *(int *) p + 1;   /* explicit type cast */
+
+printf("De waarde is %d\n", *(int *) p);
+\end{lstlisting}
+
+\section{Afdrukken van pointers}
+Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specifier \texttt{\%p}. Merk op dat de pointer van het type \texttt{void} moet zijn, maar veel compilers accepteren pointers naar een datatype.
+
+\begin{lstlisting}[caption=Afdrukken van een pointer.]
+#include <stdio.h>
+
+int main() {
+
+    int i = 2, *p = &i;
+
+    printf("Pointer: %p\n", (void *) p);
+
+    return 0;
+}
+\end{lstlisting}
+
+Noot: Bij 32-bits compilers is de grootte van een pointer 32 bits (4 bytes). Zo'n pointer kan maximaal 4 GB adresseren. Bij 64-bits compilers is de grootte van een pointer 64 bits (8 bytes). Zo'n pointer kan maximaal 16 EB (exa-bytes) adresseren.
+
+\section{Pointers naar array's}
+We kunnen een pointer ook laten wijzen naar het eerste element van een array. Dit is te zien in listing~\ref{cod:poifirstarray}. De array bestaat uit negen elementen van het type \texttt{int}. De pointer \texttt{p} laten we wijzen naar het eerste element van de array. We gebruiken hiervoor de adres-operator \texttt{\&} en de index 0.
+
+\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray]
+int ary[] = {3,6,1,0,9,7,6,2,7};
+
+int *p = &ary[0]; /* p points to first element for array */
+\end{lstlisting}
+
+De uitbeelding hiervan is te zien in figuur~\ref{fig:poifirstarray}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\foreach \ii [count=\i from 0] in {3,6,1,0,9,7,6,2,7} {
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
+	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
+}
+\node at (-0.5,0) [left] {ary};
+\node (A) at (-2,-2) [memloc] {};
+\draw (A) node [yshift=\unitsize cm] {p};
+\draw[center*-latex] (A.center) to [bend right] (nod0.south);
+\end{tikzpicture}
+\caption{Uitbeelding van een pointer naar het eerste element van een array.}
+\label{fig:poifirstarray}
+\end{figure}
+
+Omdat deze toekenning zeer vaak in een C-programma voorkomt, is er een verkorte notatie mogelijk. We kunnen in plaats van \texttt{\&ary[0]} ook de naam van de array gebruiken: \textsl{de naam van een array een synoniem is voor een adres van het eerste element van de array}. Zie listing~\ref{cod:poifirstarray2}.
+
+\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray2]
+int ary[] = {3,6,1,0,9,7,6,2,7};
+
+int *p = ary; /* p points to first element of array */
+\end{lstlisting}
+
+Omdat de naam van een array een synoniem is, mag het dus niet gebruikt worden aan de linkerkant van een toekenning.
+
+\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray3]
+int *p, ary[] = {3,6,1,0,9,7,6,2,7};
+
+p = &ary[0];      /* correct use of pointer */
+ary[2] = *p;      /* correct use of pointer and array */
+
+ary = p;          /* ERROR: name of array cannot be used */
+\end{lstlisting}
+
+Het is ook mogelijk om een pointer naar een ander element van een array te laten wijzen. De compiler test niet of de toekenning binnen de array-grenzen ligt.
+
+\begin{lstlisting}[caption=Een pointer naar het derde element van een array.,label=cod:poifirstarray]
+int ary[] = {3,6,1,0,9,7,6,2,7};
+
+int *p = &ary[2]; /* p points to third element of array */
+\end{lstlisting}
+
+Een uitbeelding is te zien in figuur~\ref{fig:poithirdarray}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\foreach \ii [count=\i from 0] in {3,6,1,0,9,7,6,2,7} {
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
+	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
+}
+\node at (-0.5,0) [left] {ary};
+
+\node (A) at (-1,-2) [memloc] {};
+\draw (A) node [yshift=\unitsize cm] {p};
+\draw[center*-latex] (A.center) to [out=0, in=-90] (nod2.south);
+\end{tikzpicture}
+\caption{Uitbeelding van een pointer naar het derde element van een array.}
+\label{fig:poithirdarray}
+\end{figure}
+
+\section{Strings}
+Een string in C is niets anders dan een array van karakters, afgesloten met een nul-karakter (\lstinline|'\0'|). Er is dus altijd één geheugenplaats meer nodig dan het aantal karakters in de string. Een nul-karakter is niet hetzelfde als een NULL-pointer.
+
+\begin{lstlisting}[caption=Declaratie en initialisatie van twee C-strings.]
+char str[] = "Hello ";
+char *pstr = "world!";
+\end{lstlisting}
+
+Merk op dat \texttt{str} niet aangepast mag worden, want dit is de naam van een array. Pointer \texttt{pstr} mag wel aangepast worden want \texttt{pstr} is een pointer naar het eerste element van de array. Een voorstelling van beide strings is te zien in figuur~\ref{fig:poistrings}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\foreach \ii [count=\i from 0] in {h, e, l, l, o, \ , \textbackslash 0} {
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
+	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
+}
+\node at (-0.5,0) [left] {str};
+
+\foreach \ii [count=\i from 0] in {w, o, r, l, d, ! , \textbackslash 0} {
+	\node[memlocarray] (nod\i) at (\i*\unitsize,-2) {\ii};
+	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
+}
+
+
+\node (A) at (-3,-2) [memloc] {};
+\draw (A) node [yshift=\unitsize cm] {pstr};
+\draw[center*-latex] (A.center) -- (nod0.west);
+\end{tikzpicture}
+\caption{Uitbeelding van twee C-strings.}
+\label{fig:poistrings}
+\end{figure}
+
+
+\section{Rekenen met pointers}
+Pointers kunnen rekenkundig worden aagepast dat vooral nuttig is bij het gebruik van array's.
+In het onderstaande programma wijst pointer \texttt{p} in eerste instantie naar het begin van de array \texttt{ary} (dus \texttt{ary[0]}). Daarna wordt \texttt{p} twee maal met 1 verhoogd en daarna met 3 verhoogd. Bij rekenkundige operaties op pointers wordt rekening gehouden met de grootte van de datatypes. De grootte van een \texttt{int} is in de regel vier bytes. Door de pointer met 1 te verhogen wordt dus naar de volgende \texttt{int} gewezen.
+
+
+\begin{lstlisting}[caption=Rekenen met pointers.]
+int ary[] = {3,6,1,0,9,7,6,2,7};
+int *p = ary;  /* p pointe to ary[0] */
+
+p = p + 1;     /* p points to ary[1] */
+...
+p = p + 1;     /* p points to ary[2] */
+...
+p = p + 3;     /* p points to ary[5] */
+
+\end{lstlisting}
+
+Een mooi voorbeeld van het rekenen met pointers is het bepalen van de lengte van een C-string. In listing~\ref{cod:poistrlen1} wordt pointer \texttt{str} gedeclareerd en wijst naar het begin van de string. Pointer \texttt{begin} wijst ook naar het begin van de string. Daarna verhogen we pointer \texttt{str} totdat het einde van de string is bereikt. Daarna drukken we het verschil van de twee pointers af.
+
+\begin{lstlisting}[caption=Berekenen van de lengte van een string met behulp van pointers.,label=cod:poistrlen1]
+#include <stdio.h>
+
+int main() {
+
+    char *str = "Hallo wereld!";
+    char *begin = str;
+
+    while (*str != '\0') {   /* while not end of string ... */
+        str = str + 1;       /* point to the next character */
+    }
+
+    printf("Lengte is %d\n", str-begin);
+}
+\end{lstlisting}
+
+Let erop dat de twee pointers naar elementen in dezelfde array moeten wijzen (of één na het laatste element). Alleen dan levert de aftrekking \texttt{str-begin} een gedefinieerd resultaat. De aftrekking is van het type \texttt{ptrdiff\_t} (dat meestal gelijk is aan een \texttt{int}) en levert het verschil in elementen. Het onderstaande programmafragment geeft als uitvoer de waarde~3.
+
+\begin{lstlisting}[caption=Het berekenen van het verschil van twee pointers.]
+int ary[] = {3,6,1,0,9,7,6,2,7};
+int *p = &ary[2];
+int *q = &ary[5];
+
+printf("Verschil is %d\n", q-p);
+\end{lstlisting}
+
+
+
+Vergelijken van twee pointers kan ook. Zo kunnen pointers op gelijkheid worden vergeleken, maar ongelijkheid kan ook. We zouden de \texttt{printf}-regel van listing~\ref{cod:poistrlen1} kunnen vervangen door de onderstaande programmafragment.
+Uiteraard moeten de twee pointers naar hetzelfde datatype wijzen.
+
+\begin{lstlisting}[caption=Vergelijken van twee pointers.]
+    if (str>begin) {
+        printf("Lengte is %d\n", str-begin);
+    } else {
+        printf("De string is leeg\n");
+    }
+\end{lstlisting}
+
+
+\section{Pointers als functie-argumenten}
+Net als ``gewone'' variabelen, kunnen ook pointers als argumenten bij het aanroepen van een functie gebruikt worden. Een typisch voorbeeld is een functie die een string kopieert naar een andere string. De functie krijgt twee pointers naar strings als argumenten mee. Bij het aanroepen van de functie worden de namen van de twee strings als argumenten meegegeven. De naam van een string is immers een pointer naar het eerste karakter van de string. Deze manier van argumentenoverdracht wordt \textsl{Call by Reference} genoemd.
+
+\begin{lstlisting}[caption=Functie voor het kopieren van een string.]
+void string_copy(char *to, char *from) {
+
+    while (*from != '\0') {   /* while not end of string ... */
+        *to = *from;          /* copy character */
+        to = to + 1;          /* point to the next character */
+        from = from + 1;
+    }
+    *to = '\0';               /* terminate string */
+}
+
+int main() {
+
+    char stra[] = "Hello world!";
+    char strb[100];
+
+    string_copy(strb, stra);  /* copy stra to strb */
+
+}
+\end{lstlisting}
+
+Merk op dat de geheugenruimte voor de kopie groot genoeg moet zijn om de kopie op te slaan en dat de twee string elkaar in het geheugen niet mogen overlappen.
+
+Noot: een array kan alleen maar via een pointer als argument aan een functie worden doorgegeven. Dit is veel efficiënter dan de hele array mee te geven. In het bovenstaande programma wordt dus \textsl{niet} de hele array meegegeven, maar alleen de pointers naar de eerste elementen. We mogen daarom de pointers \texttt{to} en \texttt{from} ook als namen van array's beschouwen. Zie onderstaande listing.
+
+\begin{lstlisting}[caption=Functie voor het kopieren van een string.]
+void string_copy(char to[], char from[]) {
+
+    int i=0;
+
+    while (from[i] != '\0') {    /* while not end of string ... */
+        to[i] = from[i];         /* copy character */
+        i = i + 1;               /* point to the next character */
+    }
+    to[i] = '\0';                /* terminate string */
+}
+\end{lstlisting}
+
+
+
+
+\begin{infobox}[Call by reference...]
+In de programmeerwereld is het gebruikelijk om ondercheid te maken tussen twee manieren van argumentoverdracht: \textsl{Call by Value} en \textsl{Call by Reference}. Bij Call by Value wordt een kopie van de waarde van een variabele aan de functie meegegeven. Alleen de kopie kan veranderd worden door de functie. De variabele waarvan de kopie is gemaakt kan dus niet op deze manier veranderd worden. Bij Call by Reference wordt het adres van de variabele aan de functie meegegeven. Via dit adres is het dus wel mogelijk om de originele variabele te veranderen.
+
+Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En daar is wat voor te zeggen. Er wordt immers een waarde aan de functie meegegeven en dat is het adres van een variabele. Dit adres kan in de functie veranderd worden maar het originele adres waar de variabele in het geheugen staat wordt niet aangepast. Toch maken programmeurs onderscheid tussen deze twee manieren van argumentenoverdracht.
+\end{infobox}
+
+
+\section{Pointer als return-waarde}
+Een pointer kan ook als return-waarde dienen. In het onderstaande voorbeeld wordt in een string gezocht naar een bepaalde karakter in een string. Als het karakter gevonden is, wordt een pointer naar het karakter teruggegeven. Als het karakter niet wordt gevonden wordt \texttt{NULL} teruggegeven. Na het uitvoeren van de functie moet hier op getest worden. Tevens wordt in het begin getest of de pointer naar de string wel een geldige waarde heeft. Geldig wil zeggen dat de pointer niet \texttt{NULL} is. Het is \textsl{good practice} om altijd te testen of een pointer \texttt{NULL} is.
+
+\begin{lstlisting}[caption=Pointer als return-waarde.]
+char *find_token(char *str, char ch) {
+
+    if (str == NULL) {       /* sanity check */
+        return NULL;
+    }
+
+    while (*str != '\0') {   /* while not end of string ... */
+        if (*str == ch) {    /* if character found ... */
+            return str;      /* return pointer */
+        }
+        str++;
+    }
+
+    return NULL;             /* character not found */
+}
+\end{lstlisting}
+
+
+\section{Complexe pointers: pointer naar pointer}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\node (A) at (0,0) [memloc] {};
+\node (B) at (3,0) [memloc] {};
+\node (C) at (6,0) [memloc] {2};
+\draw[center*-latex] (A.center) -- (B.west);
+\draw[center*-latex] (B.center) -- (C.west);
+\draw (A) node [yshift=\unitsize cm] {pp};
+\draw (B) node [yshift=\unitsize cm] {p};
+\draw (C) node [yshift=\unitsize cm] {i};
+\end{tikzpicture}
+\caption{Uitbeelding van een pointer naar een pointer naar een \texttt{int}.}
+\label{fig:poipointertopointer}
+\end{figure}
+
+\begin{lstlisting}[caption=Voorbeeld van een pointer naar een pointer.]
+int i = 2;        /* the integer */
+int *p = &i;      /* p points to i */
+int **pp = &p;    /* pp points to p */
+
+printf("De waarde is %d\n", **pp);
+\end{lstlisting}
+
+
+
+
+\section{Complexe pointers: pointer naar array van pointers}
+
+\section{Argumenten meegeven aan een C-programma}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\node (argc) at (0,0) [memloc] {3};
+\draw (argc) node [yshift=\unitsize cm] {argc};
+\node (argv) at (3,0) [memloc] {};
+\draw (argv) node [yshift=\unitsize cm] {argv};
+\node (argv0) at (6,0) [memloc] {};
+\node (argv1) at (6,-\unitsize) [memloc] {};
+\node (argv2) at (6,-2*\unitsize) [memloc] {};
+\node (argv3) at (6,-3*\unitsize) [memlocnull] {};
+\draw[center*-latex] (argv.center) -- (argv0.west);
+\node (argv0s) at (8,0) [memloc,anchor=west] {myprog.exe\textbackslash 0};
+\node (argv1s) at (8,-\unitsize) [memloc,anchor=west] {argument1\textbackslash 0};
+\node (argv2s) at (8,-2*\unitsize) [memloc,anchor=west] {argument2\textbackslash 0};
+\draw[center*-latex] (argv0.center) -- (argv0s.west);
+\draw[center*-latex] (argv1.center) -- (argv1s.west);
+\draw[center*-latex] (argv2.center) -- (argv2s.west);
+\end{tikzpicture}
+\caption{Voorstelling van de variabelen \texttt{argc} en \texttt{argv}.}
+\label{fig:argcargv}
+\end{figure}
+
+\section{Pointers naar functies}
+Functies zijn stukken programma die ergens in het geheugen liggen opgeslagen. De naam van een functie is het adres van de eerste instructie van de functies. Het is dus mogelijk om de naam van een functie te gebruiken als een pointer.
+

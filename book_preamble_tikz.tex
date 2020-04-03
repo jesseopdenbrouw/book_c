@@ -1,0 +1,53 @@
+%% Use Tikz and friends
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc,fit}
+\usetikzlibrary{arrows,backgrounds}
+
+% Definitions of memory units with TikZ
+\newcommand\unitsize{0.80}
+\tikzset{pointerstyle/.style={font=\ttfamily\small, thick}}
+\tikzset{memloc/.style={rectangle,draw=black, minimum height=\unitsize cm, minimum width=1.6*\unitsize cm}}
+\tikzset{memlocarray/.style={rectangle,draw=black, minimum height=\unitsize cm, minimum width=\unitsize cm}}
+\tikzset{memlocnull/.style={memloc, append after command={
+			node [
+			fit=(\tikzlastnode),
+			draw=black,
+			thin,
+			inner sep=-\pgflinewidth,
+			cross out
+			] {}
+		}
+	}
+}
+\makeatletter
+\pgfarrowsdeclare{center*}{center*}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfarrowsrightextend{4.5\pgfutil@tempdima}
+}
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfqpoint{3.0\pgfutil@tempdima}{0bp}}{3.0\pgfutil@tempdima}
+  \pgfusepathqfillstroke
+}
+
+\pgfarrowsdeclare{centero}{centero}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfarrowsrightextend{4.5\pgfutil@tempdima}
+}
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfqpoint{3.75\pgfutil@tempdima}{0bp}}{3.75\pgfutil@tempdima}
+  \pgfusepathqstroke
+}
+\makeatother
+

@@ -1,0 +1,35 @@
+\chapter{Datatypes, variabelen en constanten}
+\thispagestyle{empty}
+
+\section{Datatypes}
+C kent een aantal datatypes.
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[!ht]
+\centering
+\caption{De dataypes die beschikbaar zijn in C.}
+\label{tab:my-table}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{type}          & \textbf{bits} & \textbf{bereik}  \\ \midrule
+\texttt{char}          & 8                       & $-128$ --- $+127$  \\
+\texttt{short int}     & 16                      & $-32768$ --- $+32768$ \\
+\multirow{2}{*}{int}   & 16                      & $-32768$ --- $+32768$ \\
+                       & 32                      & $-2147483648$ --- $+2147483647$ \\
+\texttt{long long int} & 64                      & $-9223372036854775807$ --- $+9223372036854775808$  \\
+%\texttt{float}         & 32                      &                  \\
+%\texttt{double}        & 64                      &                  \\
+   \bottomrule
+\end{tabular}
+\end{table}
+
+%
+%\begin{dosbox}
+%C:\textbackslash Users\textbackslash C> \\
+%C:\textbackslash Users\textbackslash C> gcc -o opdracht.exe opdracht.c \\
+%C:\textbackslash Users\textbackslash C> .\textbackslash opdracht.exe \\
+%Hallo wereld! \\
+%C:\textbackslash Users\textbackslash C>
+%\end{dosbox}
