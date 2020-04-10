@@ -19,7 +19,17 @@
 		}
 	}
 }
-\makeatletter
+\tikzset{memlocarraynull/.style={memlocarray, append after command={
+			node [
+			fit=(\tikzlastnode),
+			draw=black,
+			thin,
+			inner sep=-\pgflinewidth,
+			cross out
+			] {}
+		}
+	}
+}\makeatletter
 \pgfarrowsdeclare{center*}{center*}
 {
   \pgfarrowsleftextend{+-.5\pgflinewidth}

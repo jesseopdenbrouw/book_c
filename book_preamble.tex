@@ -43,7 +43,7 @@
 
 %% Set page layout
 \usepackage{marginnote}
-\usepackage[a4paper,outer=1in,inner=1in,top=1.2in,bottom=1.0in,footskip=0.4in, marginparwidth=1cm, marginparsep=0.5cm,headsep=1cm,footnotesep=4mm plus 4pt minus 4pt,showframe]{geometry}
+\usepackage[a4paper,outer=1in,inner=1in,top=1.2in,bottom=1.0in,footskip=0.4in, marginparwidth=1cm, marginparsep=0.5cm,headsep=1cm,footnotesep=4mm plus 4pt minus 4pt]{geometry}
                                                                
 %% Use of dashed lines in tables
 \usepackage{tabu}
@@ -85,7 +85,7 @@
 %% Use floats
 \usepackage{float}
 %% Separation between floats 12pt --> 24 pt
-\setlength{\floatsep}{24.0pt plus 2.0pt minus 2.0pt}
+%\setlength{\floatsep}{24.0pt plus 2.0pt minus 2.0pt}
 
 %% Using footnotes in tables
 %%%\usepackage{tablefootnote}
@@ -287,7 +287,7 @@
 % inspringen
 \setlength{\footnotemargin}{1em}
 % ruimte tussen footnotes:
-\setlength{\footnotesep}{.6\baselineskip}
+\setlength{\footnotesep}{.8\baselineskip}
 
 
 %% Using fancy headers and footers
@@ -383,13 +383,13 @@
 \lstset{%
   language=C,
   basicstyle=\footnotesize\ttfamily,
-  numbers=none,
+  numbers=left,
   numberstyle=\tiny\color{listingnumbercolor},
   stepnumber=1,                           
   numbersep=8pt,
   backgroundcolor=\color{listingbgcolor},
   showspaces=false,
-  showstringspaces=false,
+  showstringspaces=true,
   showtabs=false,
   frame=lines,
   framerule=1pt,
@@ -546,7 +546,7 @@
 \usepackage[most]{tcolorbox}
 \newtcolorbox{infobox}[1][]{title=#1,colback=infoboxbg,colframe=bookcolor,fonttitle=\large\scshape,colbacktitle=infoboxbgtitle,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners,boxrule=2pt,titlerule=0pt,top=7pt,parbox=false,floatplacement=!b,float=!b}
 
-\newtcolorbox{dosbox}{title=\includegraphics{images/commandprompt} Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt}
+\newtcolorbox{dosbox}[1][]{title=\includegraphics{images/commandprompt} Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
 
 
 \newcounter{example}[chapter]

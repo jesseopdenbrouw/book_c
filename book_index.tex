@@ -1,0 +1,16 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%       INDEX
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Add index to toc with clickable reference
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\indexname}
+% Next doesn't work with imakeidx, use \indexsetup{othercode=\thispagestyle{fancy}}
+%\thispagestyle{fancy}
+
+\printindex
+
