@@ -1,0 +1,31 @@
+\chapter{Voorrangsregels van operatoren}
+\label{cha:voorrang}
+In deze tabel zijn alle operatoren in C opgesomd. De voorrang of prioriteit is in aflopende volgorde van hoog naar laag. Twee opmerkelijke operatoren zijn (\textsl{type cast}) en \texttt{sizeof}. Bij (\textsl{type cast}) wordt het casten van een enkelvoudig datatype bedoeld, \texttt{sizeof} berekent de grootte in bytes van een datatype of variabele tijdens \textsl{compile time}\index{compile time}.
+
+\begin{table}[!ht]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\caption{Voorrangsregels van de alle operatoren.}
+\label{tab:bijvoorrangsregels}
+\begin{tabular}{p{9cm}l}
+\toprule
+\textbf{Operator} & \textbf{Associativiteit} \\
+\midrule
+\texttt{() [] -> .} & links naar rechts \\
+\texttt{! \textasciitilde\ + - ++ -- (}\textsl{type cast}\texttt{)} \texttt{sizeof * \&} & rechts naar links \\
+\texttt{* / \%} & links naar rechts \\
+\texttt{+ -} & links naar rechts \\
+\texttt{<< >>} & links naar rechts\\
+\texttt{< <= > >=} & links naar rechts\\
+\texttt{== !=} & links naar rechts\\
+\texttt{\&} & links naar rechts\\
+\texttt{\^{}} & links naar rechts\\
+\texttt{\textbar} & links naar rechts\\
+\texttt{\&\&} & links naar rechts\\
+\texttt{\textbar\textbar} & links naar rechts\\
+\texttt{?:} & rechts naar links \\
+\texttt{= += -= *= /= \%= \&= \^{}= \textbar= <<= >>=} & rechts naar links \\
+\texttt{,} & links naar rechts \\
+\bottomrule
+\end{tabular}
+\end{table}

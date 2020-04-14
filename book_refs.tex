@@ -1,0 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%       BIBLIOGRAPHY
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Add bibliography to toc with clickable reference
+\cleardoublepage
+\renewcommand{\bibsetup}{\thispagestyle{fancy}}
+\renewcommand*{\bibfont}{\footnotesize}
+%\thispagestyle{fancy}
+%\pagestyle{fancy}
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+%\bibliographystyle{babplain}
+%\bibliography{citations}
+\defbibnote{bookprenote}{Veel materiaal is tegenwoordig (alleen) via Internet beschikbaar. Voorbeelden hiervan zijn de datasheets van ic's die alleen nog maar via de website van de fabrikant beschikbaar worden gesteld. Dat is veel sneller toegankelijk dan boeken en tijdschriften. De keerzijde is dat websites van tijd tot tijd veranderen of verdwijnen. De geciteerde weblinks werken dan niet meer. Helaas is daar niet veel aan te doen. Er is geen garantie te geven dat een weblink in de toekomst beschikbaar blijft.}
+\printbibliography[prenote=bookprenote]

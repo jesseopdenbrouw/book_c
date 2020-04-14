@@ -1,0 +1,54 @@
+\chapter{De ASCII-tabel}
+\label{cha:asciitabel}
+\thispagestyle{empty}
+
+We hebben gezien dat binaire coderingen worden gebruikt om
+numerieke gegevens (of informatie) weer te geven. Maar niet alle gegevens zijn numeriek.
+Informatie kan ook bestaan uit letters en leestekens. Om er voor te zorgen dat
+computers informatie kunnen uitwisselen is de ASCII-code bedacht.
+
+\begin{table}[!p]
+\caption{De ASCII-code~\cite{eijkhout2010ascii}.}
+\label{tab:talascii-code}
+\vspace*{0.7cm}
+%\input{ascii-a4paper.tex}
+\resizebox{\textwidth}{!}{\input{ascii.tex}}
+%\resizebox*{!}{\dimexpr\textheight-6\baselineskip\relax}{\input{ascii.tex}}
+
+%\bigskip\bigskip
+%{\centering\small Deze tabel kan gevonden worden op \url{http://www.ctan.org/tex-archive/info/ascii-chart}}
+\end{table}
+
+De naam ASCII betekent \textsl{American Standard Code for Information Interchange} en
+dat geeft al goed aan waarvoor de code bedoeld is: op een gestandaardiseerde wijze
+informatie uitwisselen. De code is in 1963 voor het eerst gepubliceerd~\cite{asa1963ascii}
+en in die tijd
+was er nog geen noodzaak om andere tekens te gebruiken dan de bekende westerse letters,
+cijfers en leestekens. Vandaar dat het aantal tekens beperkt is.
+
+De ASCII-code bestaat uit 128 7-bits tekens zoals te zien is in
+tabel~\ref{tab:talascii-code}. De tekens zijn verdeeld in leesbare tekens, zoals letters,
+cijfers en leestekens en zogenoemde \textsl{besturingstekens}. De besturingstekens zijn nodig
+\index{besturingsteken}
+om informatie-overdracht af te bakenen en om een bepaalde \textsl{handshake} 
+(uitwisselingsprotocol) te regelen.
+Zo zijn er codes voor de \textsl{carriage return} (CR, code~$13_{10}$) en de
+\textsl{backspace} (BS, code $8_{10}$). De eerste 32 tekens zijn besturingstekens
+waarvan de meeste tegenwoordig niet meer gebruikt worden~\cite{maini2007digital}.
+
+De codes zijn niet willekeurig toegekend dat we goed kunnen zien bij de cijfers
+en letters. De tabel is zo opgesteld dat de cijfers elkaar opvolgen. Dat is
+handig bij het afdrukken van een (decimaal) getal.
+Hetzelfde geldt voor de letters, ook die volgen elkaar op. De makers hebben ook nagedacht
+over de positie van hoofd- en kleine letters. Deze verschillen in de tabel in slechts
+\'{e}\'{e}n bit (bit b$_{6}$ in de tabel). Bij het gebruik van de Caps Lock-toets
+of Shift-toets hoeft dus maar \'{e}\'{e}n bit (in combinatie met een letter) gewijzigd
+te worden.
+
+Een aantal besturingstekens is ook in C direct te gebruiken.
+Een besturingsteken begint altijd met een \textsl{backslash} (`\textbackslash')
+gevolgd door een letter, cijfer of teken. Zo is het teken voor een horizontale tab
+`\texttt{\textbackslash t}' en voor de \textsl{line feed} is het teken
+`\texttt{\textbackslash n}'. Met een line feed gaat de cursor naar het begin van de
+volgende regel.
+

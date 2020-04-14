@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%   VOORWOORD
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Voorwoord}
+\label{cha:voorwoord}
+\thispagestyle{empty}
+
+ Een van de beste boeken over C is
+\textsl{The C Programming Language} van Brian Kernighan en Dennis
+Ritchie~\cite{kernighan1988c}. Het boek is kort en bondig maar laat toch
+ruimte om de tekst te ondersteunen met voorbeelden. Helaas zijn veel van
+de voorbeelden lastig te volgen voor de beginnende programmeur. Zoals de
+schrijvers zelf opmerken:
+
+\begin{displayquote}
+The book is not an introductory programming manual; it assumes some familiarity
+with basic programming concepts like variables, assignment statements,
+loops, and functions.
+[...]
+C is not a big language, and it is not well served by a big book.
+\end{displayquote}
+
+Dit boek is bedoeld als inleiding op de programmeertaal C en is niet
+toereikend om alle facetten van de taal te leren. Dat is ook niet de
+bedoeling van dit boek. We laten alleen maar zien wat gebruikelijk is bij
+het ontwikkelen van C-programma's. 
+
+Veel boeken over C beschrijven het ontwikkelen van programma's op het Unix
+operating system en afgeleide varianten zoals Linux, FreeBSD en Mac OS-X.
+Dat is echter niet de werkwijze van veel programmeurs. Veel software wordt
+ontwikkeld met een Integrated Development Environment (IDE). Bekende IDE's
+zijn Visual Studio, Code:Blocks en Xcode. Het is natuurlijk niet mogelijk
+om alle mogelijkheden van zulke IDE's te beschrijven (of af te beelden).
+
+Dit boek is opgemaakt in \LaTeX~\cite{latexwebsite} (\LaTeX-engine = \booktexbanner).
+\LaTeX\@ leent zich uitstekend
+voor het opmaken van lopende tekst, tabellen, figuren, programmacode, vergelijkingen
+en referenties. De gebruikte \LaTeX-distributie is TexLive uit 2019~\cite{texlivewebsite}.
+Als editor is TexStudio~\cite{texstudiowebsite} gebruikt. Tekst is gezet in
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+Calibri~\cite{calibrifont}, een van de standaard fonts op een bekend besturingssysteem.
+Code is opgemaakt in Consolas~\cite{consolasfont}
+\else
+Charter~\cite{charterfont}, een van de standaard fonts in \LaTeX.
+De keuze hiervoor is dat het een prettig te lezen lettertype is, een
+\textsl{slanted} letterserie heeft en een bijbehorende wiskundige tekenset heeft.
+Code is opgemaakt in Nimbus Mono~\cite{nimbusfont}
+\fi
+met behulp van de \textsl{listings}-package~\cite{listingsctan}.
+Voor het
+tekenen van array's en pointers is \textsl{TikZ/PGF} gebruikt~\cite{tikzctan}.
+Alle figuren zijn door de auteur zelf ontwikkeld, behalve de logo's van Creative
+Commons en De Haagse Hogeschool.
+
+Natuurlijk zullen docenten ook nu opmerken dat dit boek niet aan al hun
+verwachtingen voldoet. Dat zal altijd wel zo blijven. Daarom wordt de broncode
+van vrij beschikbaar. Eenieder die dit wil, kan de inhoud
+vrijelijk aanpassen, mits wijzigingen gedeeld
+worden. Hiermee wordt dit boek een levend document dat nooit af is.
+De broncode
+van dit boek is beschikbaar op \url{https://github.com/jesseopdenbrouw/book_c}.
+
+
+
+\subsubsection*{Leeswijzer}
+Hoofdstuk~\ref{cha:tour}
+
+
+\subsubsection*{Studiewijzer}
+In onderstaande tabel wordt een overzicht gegeven van de stof die een student
+bij een eerste introductie onderwezen zou moeten krijgen. Uiteraard is iedereen
+vrij om zelf de onderwerpen te kiezen.
+
+\begin{tabbing}
+\hspace{1em}\=\hspace{3cm}\=\kill
+   \> \textbf{Tekst} \> \\
+\end{tabbing}
+
+
+\subsubsection*{Verantwoording inhoud}
+Dit boek voldoet alleen aan aandachtspunt 4,01 van
+de basis Basic of Knowledge and Skills (BoKS) Elektrotechniek. De
+BoKS is te vinden via~\cite{hboengineering2016boks}. 
+
+\subsubsection*{Website}
+Op de website \url{http://ds.opdenbrouw.nl} zijn slides, practicumopdrachten
+en aanvullende informatie te vinden. De laatste versie van dit boek wordt
+hierop gepubliceerd. Er zijn ook voorbeeldprojecten voor Visual Studio en
+Code::Blocks te vinden.
+
+\subsubsection*{Dankbetuigingen}
+Dit boek had niet tot stand kunnen komen zonder hulp van een aantal mensen.
+Ik wil collega Harry Broeders van Hogeschool Rotterdam bedanken voor zijn
+geweldige bijdrage. Niet alleen op technisch gebied, maar ook taalkundig en
+op de indeling van dit boek. Collega Ben Kuiper heeft een waardevolle bijdrage
+geleverd op technisch en taalkundig gebied.
+
+De ASCII-tabel op pagina~\pageref{tab:talascii-code} is ontwikkeld door Victor
+Eijkhout. Deze tabel kan gevonden worden op
+\url{http://www.ctan.org/tex-archive/info/ascii-chart}.
+
+
+%\bigskip%
+\hfill \author, \the\year.
