@@ -29,6 +29,7 @@
 \def\figscaleE{0.7}
 \def\figscaleF{0.6}
 \def\figscaleG{0.8}
+\def\figscaleH{0.55}
 
 %% Define which part of the book is included
 \newif\ifusebookpartI\bookpartI
@@ -167,13 +168,13 @@
 \makeatother
 \else
 %% Use the Charter and Nimbus Mono fonts
-\usepackage{nimbusmono}
+\usepackage[scale=0.95]{nimbusmono}
 %\usepackage{charter}
 \usepackage[bitstream-charter]{mathdesign}
 %% Use microtype
 \usepackage[stretch=10]{microtype}
-\pdfminorversion=5
-\pdfobjcompresslevel=1
+%\pdfminorversion=5
+%\pdfobjcompresslevel=1
 %% Set input encoding to UTF-8
 \usepackage[utf8]{inputenc}
 \makeatletter
@@ -303,8 +304,6 @@
     \renewcommand{\footrulewidth}{0.4pt}
 }
 \pagestyle{fancy}
-%\addtolength{\headwidth}{\marginparsep}
-%\addtolength{\headwidth}{\marginparwidth}
 \bookfancy
 %% Clear header and footer for blank pages, possibly print "This page ..."
 \makeatletter
@@ -360,6 +359,7 @@
 \colorlet{infoboxbg}{gray!5}
 \colorlet{infoboxbgtitle}{gray!15}
 \colorlet{venndiagramcolor}{lightgray}
+\colorlet{covercolor}{white}
 %\colorlet{regcell}{gray!90}
 \else
 \colorlet{covercolor}{LightPink1}
@@ -382,7 +382,7 @@
 %% Define listing style for VHDL
 \lstset{%
   language=C,
-  basicstyle=\footnotesize\ttfamily,
+  basicstyle=\small\ttfamily,
   numbers=left,
   numberstyle=\tiny\color{listingnumbercolor},
   stepnumber=1,                           
@@ -402,8 +402,8 @@
   title=\lstname,
   upquote=true,
   aboveskip=1.1\baselineskip,
-  xleftmargin=2em,
-  xrightmargin=2em,
+  xleftmargin=1.5em,
+  xrightmargin=1.5em,
 }
 
 %% Using hyperrefs...
@@ -468,34 +468,15 @@
 %\def\circled#1{{\ooalign{\hfil\lower.1ex\hbox{#1}\hfil\crcr\Orb}}}
 \def\circled#1{\textcircled{\raisebox{.95pt}{\scriptsize #1}}}
 
-%% Typeset propositions and postulates
-\newcommand{\propositie}[1]{\par\hspace*{1em}#1\par}
-
 %% Log notation with base
 \newcommand\logbase[1]{\mathop{{}^{#1}\mathrm{log}}}
 
-%% To input and print files.
-%% \booklising{lang}{caption}{filename}{ext}{floatplace}
-%%%\newcommand{\booklisting}[5]{%
-%%%\begin{figure}[#5]%
-%%%\lstinputlisting[language=#1,caption={#2.},label=cod:#3]{code/#3.#4}%
-%%%\vspace*{-\baselineskip}
-%%%\end{figure}%
-%%%}
 \newcommand{\booklisting}[6][]{%
 \begin{figure}[#6]%
 \lstinputlisting[language=#2,caption={#3.},label=cod:#4,#1]{code/#4.#5}%
 \vspace*{-\baselineskip}
 \end{figure}%
 }
-%\lstinputlisting[language=#1,caption={#2.},label=cod:#3,float]{code/#3.vhd}%
-%\lstinputlisting[language=#1,caption={#2.},label=cod:#3,float,floatplacement=h]{code/#3.vhd}%
-%\begin{minipage}{\textwidth}%
-%\lstinputlisting[language=#1,caption={#2.},label=cod:#3]{code/#3.vhd}%
-%\end{minipage}%
-%%% werkt niet
-%%%\captionsetup{belowskip=100pt}
-%%%\setlength{\abovecaptionskip}{-100pt plus 0pt minus 0pt}
 
 \newcommand{\lstmodelsim}[1]{\lstinline[language=modelsim]|#1|}   %[
 \newcommand{\lstvhdl}[1]{\lstinline[language=vhdl]|#1|}   %[
@@ -548,6 +529,7 @@
 
 \newtcolorbox{dosbox}[1][]{title=\includegraphics{images/commandprompt} Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
 
+\newtcolorbox{remarkbox}[1][]{title=#1,colback=infoboxbg,colframe=bookcolor,fonttitle=\large\scshape,colbacktitle=infoboxbgtitle,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners,boxrule=2pt,titlerule=0pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht}
 
 \newcounter{example}[chapter]
 \setcounter{example}{0}
@@ -595,5 +577,11 @@
 \thispagestyle{empty}
 \fi
 }
+
+\makeatletter
+\newcommand{\indexkeyword}[1]{\index{#1@\texttt{#1}, keyword}}
+\newcommand{\indexop}[1]{\index{#1@\texttt{#1}, operator}}
+\newcommand{\indextwo}[2]{\index{#1@{\texttt{#1}}, #2}}
+\makeatother
 
 %%% No package loading from here

@@ -1,3 +1,21 @@
 \chapter{Flow control}
 \label{cha:programmabesturing}
 \thispagestyle{empty}
+
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Afdrukken van de tafel van 9 met behulp van de komma-operator.]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+    int i, ione, j;
+
+    for (i=0, ione=1, j=9; i<10; i++, ione++, j--) {
+         printf("%2dx9 = %1d%1d\n", ione, i, j);
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{figure}

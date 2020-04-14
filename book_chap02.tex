@@ -1,18 +1,18 @@
 \chapter{Variabelen, datatypes en expressies}
 \thispagestyle{empty}
 
-Een C-programma bestaat uit variabelen en functies. We gebruiken variabelen om data te bewerken, zoals berekenen van nieuwe waarden of testen of twee variabelen aan elkaar gelijk zijn. De compiler moet notie hebben welke variabelen in een programma gebruikt worden en hoe groot de variabelen zijn. De meeste moderen computersystemen werken met 64-bits eenheiden en dat betekent dat een variabele een bepaald bereik heeft; niet elk getal kunnen we in een variabele opslaan.
+Een C-programma bestaat uit variabelen en functies. We gebruiken variabelen om data te bewerken, zoals berekenen van nieuwe waarden of testen of twee variabelen aan elkaar gelijk zijn. De compiler moet notie hebben welke variabelen in een programma gebruikt worden en hoe groot de variabelen zijn. De meeste moderne computersystemen werken met 64-bits eenheden en dat betekent dat een variabele een bepaald bereik heeft; niet elk getal kunnen we in een variabele opslaan.
 We gebruiken functies om bewerkingen op de variabelen te beschrijven. We hebben al één functie gezien: \texttt{main}. Functies worden in detail besproken in hoofdstuk~\ref{cha:functies}.
 
 
 \section{Variabelen}
-Een \textsl{variabale}\index{variabele} is een object waaraan een waarde kan worden toegekend. Een variabele moet aan het C-programma kenbaar gemaakt worden. We noemen dat de \textsl{declaratie}\index{declaratie} van de variabele. Bij de declaratie wordt het \textsl{type} van de variabele opgegeven. Zo geeft de declaratie
+Een \textsl{variabele}\index{variabele} is een object waaraan een waarde kan worden toegekend. Een variabele moet aan het C-programma kenbaar gemaakt worden. We noemen dat de \textsl{declaratie}\index{declaratie} van de variabele. Bij de declaratie wordt het \textsl{type} van de variabele opgegeven. Zo geeft de declaratie
 
-\hspace*{1em}\lstinline|int a;|
+\hspace*{1em}\texttt{int a;}
 
-aan dat in het programma de variabele \texttt{a} wordt gebruikt van het type \texttt{int}. Een \texttt{int} is een geheeltallig getal; het Engelse woord hiervoor is \textsl{integer}\index{integer}. Getallen met een komma, zoals~$3,14159$, kunnen we niet in een \texttt{int} opslaan. We kunnen nu in het programma de waarde van de variabele vastleggen met een \textsl{toekenning}\index{toekennen}. In het Engels is dat een \textsl{assignment}.\index{assignememt} Als we aan \texttt{a} de waarde 2 willen toekennen dan schrijven we
+aan dat in het programma de variabele \texttt{a} wordt gebruikt van het type \texttt{int}. Een \texttt{int} is een geheeltallig getal; het Engelse woord hiervoor is \textsl{integer}\index{integer}. Getallen met een komma, zoals~$3,14159$, kunnen we niet in een \texttt{int} opslaan. We kunnen nu in het programma de waarde van de variabele vastleggen met een \textsl{toekenning}\index{toekennen}. In het Engels is dat een \textsl{assignment}.\index{assignmemt} Als we aan \texttt{a} de waarde 2 willen toekennen dan schrijven we
 
-\hspace*{1em}\lstinline|a = 2;|
+\hspace*{1em}\texttt{a = 2;}
 
 De C-compiler zorgt ervoor dat in het geheugen van de computer ruimte wordt gereserveerd om de variabele op te slaan. Als we in een programma de variabele \texttt{a} gebruiken dan weet de compiler op welk geheugenadres hij moet zoeken. We mogen de variabele onbeperkt aantal keer aanpassen. Zo kunnen we schrijven:
 
@@ -24,10 +24,11 @@ a = 2;
 ...
 a = -3;
 ...
+a = 5;
 \end{lstlisting}
 \end{figure}
 
-De naam van de variabelen mag 31 karakters lang zijn. Er is geen noodzaak (en zelfs \textsl{bad practice}) om namen uit één karakters te laten bestaan. Hoofdletters en kleine letters zijn \textsl{niet} gelijk aan elkaar dus \texttt{count} is niet hetzelfde als \texttt{COUNT}. Dit wordt kast-ongevoelig genoemd. Overigens accepteren C-compilers langere namen dan 31 karakters.
+De naam van de variabelen mag 31 karakters lang zijn. Er is geen noodzaak (en zelfs \textsl{bad practice}) om namen uit één karakters te laten bestaan. Hoofdletters en kleine letters zijn \textsl{niet} gelijk aan elkaar dus \texttt{count} is niet hetzelfde als \texttt{COUNT}. Dit wordt kast-ongevoelig\index{kast-ongevoelig} genoemd. Overigens accepteren C-compilers langere namen dan 31 karakters.
 
 Er zijn enkele regels aan de namen van variabelen:
 
@@ -78,7 +79,7 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
 \end{tabular}
 \end{table}
 
-\index{int}\index{char}\index{short}\index{long}\index{long long}
+\indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
 Een \texttt{char} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarom het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
@@ -89,20 +90,20 @@ Nu is de C-compiler erg coulant in het toekennen van waarden. We mogen voor de t
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = 65; \ \ \ /* assign character A */}
 
-Uiteraard moet de waarde passen en we merken terloops op dat negatieve waarden geen echte karakters voorstellen. Een \texttt{short int} is meestal 16 bits. Een \texttt{int} is 16 of 32 bits groot afhankelijk van de gebruikte C-compiler en de onderliggende hardware. Een \texttt{long int} is meestal 32 bits. De C-standaard legt vast dat
+Uiteraard moet de waarde passen en we merken terloops op dat negatieve waarden geen echte karakters voorstellen. Een \texttt{short int} is meestal 16 bits. Een \texttt{int} is 16 of 32 bits groot afhankelijk van de gebruikte C-compiler en de onderliggende hardware. Een \texttt{long int} is meestal 32 bits. De C-standaard legt vast dat:
 
 \hspace*{1em}grootte \texttt{short int} $\quad\leq\quad$ grootte \texttt{int} $\quad\leq\quad$ grootte \texttt{long int}
 
-De keywords \texttt{short} en \texttt{long} worden \textsl{qualifiers} genoemd. Bij gebruik hiervan mag \texttt{int} weggelaten worden:
+De keywords \texttt{short} en \texttt{long} worden \textsl{qualifiers}\index{qualifier} genoemd. Bij gebruik hiervan mag \texttt{int} weggelaten worden:
 
 \hspace*{1em}\texttt{short sh; \ \ \ /* short int */}\\
 \hspace*{1em}\texttt{long lo; \ \ \ \ /* long int */}
 
-Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen we de qualifier \texttt{unsigned}\index{unsigned} bij declaratie opgeven. Het (positieve) bereik is dan ongeveer twee keer zo groot als bij de integer:
+Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen we de qualifier \texttt{unsigned}\index{unsigned} bij declaratie opgeven. Het (positieve) bereik is dan ongeveer twee keer zo groot als bij de signed variant:
 
 \hspace*{1em}\texttt{unsigned short int ush; \ \ \ /* range 0 to 65535 */}
 
-Naast geheeltallige datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier onstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt. We schijven dus $3.14$ en niet $3,14$.
+Naast geheeltallige datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier ontstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt, zoals gebruikelijk is in Engelstalige literatuur. We schijven dus $3.14$ en niet $3,14$.
 
 Een \texttt{float}\index{float} is een datatype met een grootte van 32 bits. Een \texttt{double}\index{double} is een datatype met een grootte van 64 bits. We zouden verwachten dat de \texttt{long double}\index{long double} dan een datatype van 128 bits is, maar dat is niet altijd waar. De \texttt{long double} is soms ook 80 bits, bijvoorbeeld in Intel-processoren.
 
@@ -116,7 +117,7 @@ Een \texttt{float}\index{float} is een datatype met een grootte van 32 bits. Een
 \texttt{float}         & 32                      & $\approx1,18\times10^{-38}$ & $\approx3,4\times10^{38}$  \\
 \texttt{double   }     & 64                      & $\approx2.2\times10^{-308}$ & $\approx1.8\times10^{308}$ \\
 \texttt{long double}   & 80/128                      & $^1$) & $^1$)  \\
-   \bottomrule
+\bottomrule
 \end{tabular}\\
 \footnotesize$^1$) Afhankelijk van de implementatie 80 of 128 bits.
 \end{table}
@@ -126,27 +127,29 @@ Voorbeelden van floating point variabelen:
 \hspace*{1em}\texttt{float f;}\\
 \hspace*{1em}\texttt{double d;}
 
-Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \texttt{float} heeft een nauwkeurigheid van ongeveer 6 decimale cijfers. Het heeft dus geen zin om meer cijfers toe te voegen, de extra cijfers worden genegeerd. Een \texttt{double} heeft een nauwkeurigheid van 16 decimale cijfers. Niet alle getallen kunnen exact in een floating point-variabele worden opgeslagen. Zo is 1/7 niet exact te representeren. Bij veelvuldig rekenen met floating point-variabelen treedt er verlies op in de representatie. Als we bijvoorbeeld 1/3 met 3 vermenigvuldigen, kan het zijn dat het resultaat 0,99999 is en niet 1,0.
+Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \texttt{float} heeft een nauwkeurigheid van ongeveer 6 decimale cijfers. Het heeft dus geen zin om meer cijfers toe te voegen, de extra cijfers worden genegeerd. Een \texttt{double} heeft een nauwkeurigheid van ongeveer 16 decimale cijfers. Niet alle getallen kunnen exact in een floating point-variabele worden opgeslagen. Zo is 1/7 niet exact te representeren. Bij veelvuldig rekenen met floating point-variabelen treedt er verlies op in de representatie. Als we bijvoorbeeld 1/3 met 3 vermenigvuldigen, kan het zijn dat het resultaat 0,99999 is en niet 1,0.
 
 Al deze datatypes worden \textsl{enkelvoudige datatypes}\index{enkelvoudige datatypes} genoemd. Dat betekent dat de compiler ze ziet als één eenheid. Het is niet mogelijk om enkelvoudige datatypes te splitsen over meerdere andere datatypes.
 
 Naast de genoemde datatypes bestaat er nog een datatype: de \textsl{pointer}\index{pointer}. Een pointer is een variabele die het \textsl{adres}\index{adres} bevat van een (andere) variabele. Pointers worden in detail besproken in hoofdstuk~\ref{cha:pointers}.
 
+
 \section{Constanten}
 \index{constante}
 Een geheeltallige constante zoals \texttt{123} is van het type \texttt{int}. Door er een \texttt{L} achter te zetten wordt de constante een \texttt{long}. Dus \texttt{123L} is een \texttt{long}. Als een constante te groot is voor een \texttt{int} wordt het automatisch gezien als een \texttt{long}. Een unsigned constante wordt aangegeven met een \texttt{U} aan het einde. Dat mag in combinatie met de \texttt{L}. Een floating point-constante bestaat uit cijfers, optioneel met een punt. Dus \texttt{1.23} is een floating point-constante. Om 10-machten aan te geven wordt de $E$-notatie gebruikt. Zo staat \texttt{125.0E-3} voor $0,125$. Een floating point-constante is automatisch van het type \texttt{double}, tenzij er een \texttt{F} aan het einde staat, dan is de constante van het type \texttt{float}.
 
-Geheeltallige constanten kunnen op drie manieren worden ingevoerd: als decimaal getal, als octaal getal of als hexaxdecimaal getal. Een constante die begint met \texttt{0} wordt gezien als octaal getal. Een octaal getal bestaat alleen uit de cijfers 1 t/m 7. Een constante die begin met de \textsl{prefix}\index{prefix} \texttt{0x} of \texttt{0X} wordt gezien als een hexadecimaal getal. Een constante die begint met de cijfers \texttt{1} t/m \texttt{9} wordt gezien als een decimaal getal.
+Geheeltallige constanten kunnen op drie manieren worden ingevoerd: als decimaal getal, als octaal getal of als hexadecimaal getal. Een constante die begint met \texttt{0} wordt gezien als octaal getal. Een octaal getal bestaat alleen uit de cijfers 1 t/m 7. Een constante die begin met de \textsl{prefix}\index{prefix} \texttt{0x} of \texttt{0X} wordt gezien als een hexadecimaal getal. Een constante die begint met de cijfers \texttt{1} t/m \texttt{9} wordt gezien als een decimaal getal.
 
 \hspace*{1em}\texttt{int a = 0377; \ \ \ /* octal 377 is decimal 255 */}\\ 
 \hspace*{1em}\texttt{int b = 0xa9; \ \ \ /* hexadecimal A9 is decimal 169 */}\\ 
 \hspace*{1em}\texttt{int c = 127; \ \ \ \ /* decimal 127 */}
 
-De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers ondersteunen dit toch door de prefix \texttt{0b} te gebruiken. Zo is de constante \texttt{0b10101001} gelijk aan 169.
+De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers ondersteunen dit toch door de prefix \texttt{0b} te gebruiken. Zo is de constante \texttt{0b10101001} gelijk aan~169.
 
-Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, gescheven als een één karakter tussen apostrofes. Zo is \texttt{'A'} een karakerconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{'A'} overeen met de waarde 65.
+Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofes. Zo is \texttt{'A'} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{'A'} overeen met de waarde 65.
+De standaard ASCII-tabel is te vinden in bijlage~\ref{cha:asciitabel}.
 
-Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \texttt{'} zelf. Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash} (\texttt{\textbackslash}) en een karakter. We kunnen de apostrofe dus voorstellen met \texttt{'\textbackslash''}.
+Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \texttt{'} zelf. Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\texttt{\textbackslash}) en een karakter. We kunnen de apostrofe dus voorstellen met \texttt{'\textbackslash''}.
 
 De C-standaard kent een hele verzameling van dit soort escape sequences. Eén daarvan hebben we al meerdere malen gezien: de newline. Deze wordt aangegeven met \texttt{'\textbackslash n'}. Een aantal is vermeld in tabel~\ref{tab:varescseq}.
 
@@ -165,15 +168,20 @@ De C-standaard kent een hele verzameling van dit soort escape sequences. Eén da
 \end{tabular}
 \end{table}
 
+\indextwo{\textbackslash n}{newline karakter}\index{newline}
+\indextwo{\textbackslash r}{carriage return karakter}\index{carriage return}
+\indextwo{\textbackslash \textbackslash }{backslash karakter}\index{backslash}
+\indextwo{\textbackslash 0}{nul-karakter}
+\indextwo{\textbackslash t}{horizontal tab karakter}\index{horizontal tab}
+
 Andere karakters kunnen worden gevormd door de backslash, gevolgd door de letter \texttt{x} en één of twee hexadecimale cijfers. We kunnen de letter \texttt{A} dus ook schrijven als \texttt{'\textbackslash x41}`.
 
 Een \textsl{string constante}\index{string constante}, of kortweg string\index{string}, is een rij van karakters die wordt begonnen en afgesloten met aanhalingstekens. De rij mag ook leeg zijn. Dan spreken we dan van een lege string. Twee voorbeelden:
 
 \hspace*{1em}\texttt{"Dit is een string"}\\
-\hspace*{1em}\lstinline[basicstyle=\ttfamily]|""|\texttt{\ \  /* een lege string */}
+\hspace*{1em}\lstinline[basicstyle=\ttfamily]|""|\texttt{\ \  /* The empty string*/}
 
-Let erop dat een string \textsl{geen} enkelvoudig datatype is zoals \texttt{int} en \texttt{double}. Een string is een rij karakters die in het geheugen liggen. Technisch gezien is een string een \textsl{array}\index{string array}. We kunnen dus niet de waarde van een string bepalen zoals dat wel mogelijk is van een \texttt{int} of een \texttt{char}. Aan het einde van een string wordt automatisch een nul-byte\index{nul-byte} geplaatst. Er is dus altijd één karakter meer nodig dan het aantal karakters in een string.
-In figuur~\ref{fig:varstrings} zijn de twee strings afgebeeld.
+Let erop dat een string \textsl{geen} enkelvoudig datatype is zoals \texttt{int} en \texttt{double}. Een string is een rij karakters die in het geheugen liggen. Technisch gezien is een string een \textsl{array}\index{string array}. We kunnen dus niet de waarde van een string bepalen zoals dat wel mogelijk is van een \texttt{int} of een \texttt{char}. Aan het einde van een string wordt automatisch een nul-karakter\index{nul-karakter} geplaatst. Er is dus altijd één karakter meer nodig dan het aantal karakters in een string. In figuur~\ref{fig:varstrings} zijn de twee strings afgebeeld.
 
 \begin{figure}[!ht]
 \centering
@@ -191,7 +199,7 @@ In figuur~\ref{fig:varstrings} zijn de twee strings afgebeeld.
 \label{fig:varstrings}
 \end{figure}
 
-C kent geen ingebouwde operaties op strings, zoals inkorten, aan elkaar plakken, kopieren of lengte bepalen. Dit moet allemaal door de programmeur zelf ontworpen worden. Gelukkig kent de standaard C-bibliotheek een groot aantal functies voor het bewerken van strings. We komen hierop terug in hoofdstuk~\ref{cha:arrays}.
+C kent geen ingebouwde operaties op strings, zoals inkorten, aan elkaar plakken, kopiëren of lengte bepalen. Dit moet allemaal door de programmeur zelf ontworpen worden. Gelukkig kent de standaard C-bibliotheek een groot aantal functies voor het bewerken van strings. We komen hierop terug in hoofdstuk~\ref{cha:arrays}.
 
 Bij de declaratie van variabelen mogen ook gelijk waarden worden toegekend, op voorspraak dat de waarden constant zijn. De constante waarde mag ook berekend worden. Een aantal voorbeelden is hieronder te zien:
 
@@ -204,22 +212,23 @@ Bij de declaratie van variabelen mogen ook gelijk waarden worden toegekend, op v
 \hspace*{1em}\texttt{double googol = 1E100;}\\
 \hspace*{1em}\texttt{unsigned char = 128+127;}
 
-Let erop dat de constante wordt geconverteerd naar het type van de variabele. Sommige compilers geven een waarschuwing als zo'n conversie plaatvindt.
+Let erop dat de constante wordt geconverteerd naar het type van de variabele. Sommige compilers geven een waarschuwing als zo'n conversie plaatsvindt.
 
 \hspace*{1em}\texttt{int a = 25.6; \ \ /* converted to 25 */}\\
 \hspace*{1em}\texttt{float b = 7; \ \ \ /* converted to 7.0 */}
 
-Bij de declaratie van een variabele mag de qualifier \texttt{const}\index{const} worden opgegeven dat inhoudt dat aan  de variabele eenmalig een waarde wordt toegekend. De \texttt{const}-variabele kan daarna niet meer veranderen. Dat is bijzonder handig als we een constante waarde moeten gebruiken in een programma. Zo kunnen we na de declaratie
+Bij de declaratie van een variabele mag de qualifier \texttt{const}\indexkeyword{const} worden opgegeven dat inhoudt dat aan  de variabele eenmalig een waarde wordt toegekend. De \texttt{const}-variabele kan daarna niet meer veranderen. Dat is bijzonder handig als we een constante waarde moeten gebruiken in een programma. Zo kunnen we na de declaratie
 
 \hspace*{1em}\texttt{const int aantal = 10;}
 
-We kunnen \texttt{aantal} nu gebruiken als vervanging voor het getal 10. Als later blijkt dat het aantal moet worden aangepast, dan hoeven we alleen maar de variabele \texttt{aantal} aan te passen.
+de variabele \texttt{aantal} gebruiken als vervanging voor het getal 10. Als later blijkt dat het aantal moet worden aangepast, dan hoeven we alleen maar de variabele \texttt{aantal} aan te passen.
 
 Uiteraard moet de constante passen. Als we bijvoorbeeld
 
 \hspace*{1em}\texttt{char ch = 65536;}
 
 uitvoeren zal de compiler een waarschuwing geven dat de constante niet past in een \texttt{char}.
+
 
 \section{Expressies}
 \index{expressie}
@@ -241,12 +250,12 @@ is een expressie die 4 oplevert als de waarde van \texttt{a} 4 is. Ook het verge
 
 Als \texttt{b} gelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan 1. Als \texttt{b} ongelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan~0. We zullen het vergelijken van variabelen en constanten nader bekijken in hoofdstuk~\ref{cha:programmabesturing}.
 
-Een expressie mag willekeurig complex zijn, maar let op de voorrangsregels: vermenigvuldigen en delen gaat voor op optellen en aftrekken. Haakjes worden gebruikt de prioriteiten te veranderen:
+Een expressie mag willekeurig complex zijn, maar let op de voorrangsregels: vermenigvuldigen en delen gaan voor op optellen en aftrekken. Haakjes worden gebruikt de prioriteiten te veranderen:
 
 \hspace*{1em}\texttt{a = (2+b)*5+c;}
 
 \subsection{Rekenkundige operatoren}
-De \textsl{binaire} rekenkundige operatoren zijn \texttt{*}\index{*}, \texttt{/}\index{/}, \texttt{\%}\index{\%}, \texttt{+}\index{+} en \texttt{-}\index{$-$}. Binair wil in dit verband zeggen dat de operatoren op twee variabelen (of constanten of expressies) werken. De expressie
+De \textsl{binaire} rekenkundige operatoren zijn \texttt{*}\indextwo{*}{vermenigvuldigen}, \texttt{/}\indextwo{/}{delen}, \texttt{\%}\index{\%}{modules operator}, \texttt{+}\index{+}{optellen} en \texttt{-}\index{$-$}{aftrekken}. Binair wil in dit verband zeggen dat de operatoren op twee variabelen (of constanten of expressies) werken. De expressie
 
 \hspace*{1em}\texttt{a \% b}
 
@@ -277,10 +286,9 @@ De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 
 \hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{>=}
 
-Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige operatoren, dus \texttt{i < len-1} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere priotiteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator 0 op.
+Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige operatoren, dus \texttt{i < len-1} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator 0 op.
 
 De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
-
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
@@ -298,7 +306,7 @@ int main(void) {
 
 \subsection{Logische operatoren}
 \index{logische operatoren}
-De \texttt{\&\&}-\index{\&\&} en \texttt{||}-operatoren\index{\textbar{}\textbar{}} zijn logische operatoren die expressies met elkaar verbinden. Ze hebben een relatie met de relationele operatoren. Zo wordt variable \texttt{isdig} in de expressie
+De \texttt{\&\&}-\indextwo{\&\&}{logische AND} en \texttt{||}-operatoren\indextwo{\textbar{}\textbar{}}{logische OR} zijn logische operatoren die expressies met elkaar verbinden. Ze hebben een relatie met de relationele operatoren. Zo wordt variabele \texttt{isdig} in de expressie
 
 \hspace*{1em}\texttt{isdig = ch>='0' \&\& ch<='9';}
 
@@ -312,7 +320,7 @@ wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een '0' of een '1' is, anders 
 
 wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd.
 
-De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\index{"!} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
+De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
@@ -329,11 +337,11 @@ int main{void} {
 \end{lstlisting}
 \end{figure}
 
-Met al deze operatoren kunnen we willekeurig complexe expressies realiseren. Om bijvoorbeeld te bepalen of een jaartal een schikkeljaar\index{schikkeljaar} (Engels: leap year)\index{leap year} is, gebruiken we de volgende expressie:
+Met al deze operatoren kunnen we willekeurig complexe expressies realiseren. Om bijvoorbeeld te bepalen of een jaartal een schrikkeljaar\index{schrikkeljaar} (Engels: leap year)\index{leap year} is, gebruiken we de volgende expressie:
 
 \hspace*{1em}\texttt{\small int leap = (year \% 4 == 0 \&\& year \% 100 != 0) || year \% 400 == 0};
 
-We zullen het even uitleggen. Een schikkeljaar is een jaar met als extra dag 29 februari. Zo'n jaartal is deelbaar door 4 en niet deelbaar door 100, of als het jaartal deelbaar is door~400, dan is het wel een schikkeljaar. Dus 1984 is een schikkeljaar, 2100 is geen schikkeljaar maar~2000 weer wel. Deze expressie wordt vaak gebruikt bij het bepalen van een geldige datum.
+We zullen het even uitleggen. Een schrikkeljaar is een jaar met als extra dag 29 februari. Zo'n jaartal is deelbaar door 4 en niet deelbaar door 100, of als het jaartal deelbaar is door~400, dan is het wel een schrikkeljaar. Dus 1984 is een schrikkeljaar, 2100 is geen schrikkeljaar maar~2000 weer wel. Deze expressie wordt vaak gebruikt bij het bepalen van een geldige datum.
 
 \subsection{Bitsgewijze operatoren}
 C biedt zes zogenoemde \textsl{bitsgewijze operatoren}\index{bitsgewijze operatoren}. Ze kunnen alleen maar gebruikt worden bij geheeltallige variabele, constanten of expressies. Deze zijn:
@@ -347,6 +355,7 @@ C biedt zes zogenoemde \textsl{bitsgewijze operatoren}\index{bitsgewijze operato
  \texttt{\textasciitilde} & one's complement (alle bits geïnverteerd)
 \end{tabular}
 
+\indextwo{\&}{bitsgewijze AND}\indextwo{\textbar}{bitsgewijze OR}\indextwo{\^{}}{bitsgewijze EXOR}\indextwo{<<}{links schuiven}\indextwo{>>}{rechts schuiven}\indextwo{\textasciitilde}{bitsgewijze inverse}
 De \textsl{waarheidstabellen}\index{waarheidstabel} van de AND-, OR- en EXOR-functies zijn gegeven in tabel~\ref{tab:driebaisfuncties}. De AND-functie wordt gebruikt om een of meer bits uit een variabele te selecteren of op 0 te zetten. De OR-functie wordt gebruikt om bits in een variabele op 1 te zetten en de EXOR-functie wordt gebruikt om bits in een variabele te inverteren.
 
 
@@ -389,17 +398,17 @@ De \textsl{waarheidstabellen}\index{waarheidstabel} van de AND-, OR- en EXOR-fun
 \end{subtable}
 \end{table}
 
-De schuifoperator\index{schuifoperator} \texttt{<<} schuift de bits in een variabele een aantal plekken naar links. De vrijgekomen bits worden opgevuld met nullen. De bits die aan de linkerkant ``eruit vallen'' verdwijnen. De expressie
+De schuifoperator\index{schuifoperator} \texttt{<<} schuift de bits in een variabele een aantal plekken naar links. De vrijgekomen bits worden opgevuld met nullen. De bits die aan de linkerkant ``eruit vallen'' gaan verloren. De expressie
 
 \hspace*{1em}\texttt{ 1 << 4}
 
-geeft als resultaat 16. De schuifoperator \texttt{>>} schuift de bits in een variabele een aantal plekken naar rechts. De vrijgekoment bits worden \textsl{bij unsigned variabelen} aangevuld met nullen. Bij  \textsl{signed variabelen} worden ze aangevuld met de \textsl{tekenbit}\index{tekenbit}. De bits die aan de rechterkant eruit vallen gaan verloren. De unaire operator \texttt{\textasciitilde} inverteert\index{inverteren} alle bits in een variabele. Een bit die 1 is wordt een 0 en een bit die 0 is wordt een 1. In veel boeken wordt dit \textsl{one's complement}\index{one's complement} genoemd.
+geeft als resultaat 16. De schuifoperator \texttt{>>} schuift de bits in een variabele een aantal plekken naar rechts. De vrijgekomen bits worden \textsl{bij unsigned variabelen} aangevuld met nullen. Bij  \textsl{signed variabelen} worden ze aangevuld met de \textsl{tekenbit}\index{tekenbit}. De bits die aan de rechterkant eruit vallen gaan verloren. De unaire operator \texttt{\textasciitilde} inverteert\index{inverteren} alle bits in een variabele. Een bit die 1 is wordt een 0 en een bit die 0 is wordt een 1. In veel boeken wordt dit \textsl{one's complement}\index{one's complement} genoemd.
 
 De operatoren kunnen door elkaar gebruikt worden. Een voorbeeld is:
 
 \hspace*{1em}\texttt{a = a \& \textasciitilde 0xff;}
 
-Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanupilatie met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
+Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanupilaties met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
 
 \begin{figure}[!ht]
 \centering
@@ -424,13 +433,7 @@ Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden. 
 \label{fig:threeexamples}
 \end{figure}
 
-
-
 De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van microcontrollers. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit 0 van de (speciale) variabele \texttt{PORTB}.
-
-
-
-
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=bla]
@@ -446,8 +449,9 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
+
 \section{Datatypeconversie}
-Het omzetten of converteren\index{converteren} van het ene datatype naar het andere datatype kan op twee manieren worden gerealiseerd: automatisch door de C-compiler of expliciet door een \textsl{type cast} in het programma. We kunnen redelijkerwijs verwachten dat een ``kleiner'' type wordt omgezet naar een ``groter'' type. We noemen dat \textsl{promotie}\index{promotie}. De regels voor automatische conversie zijn complex; we geven hier slecht een korte opsomming:
+Het omzetten of converteren\index{datatypeconversie} van het ene datatype naar het andere datatype kan op twee manieren worden gerealiseerd: automatisch door de C-compiler of expliciet door een \textsl{type cast} in het programma. We kunnen redelijkerwijs verwachten dat een ``kleiner'' type wordt omgezet naar een ``groter'' type. We noemen dat \textsl{promotie}\index{promotie}. De regels voor automatische conversie zijn complex; we geven hier slecht een korte opsomming:
 
 \begin{itemize}
 \item Als een van de twee operanden een \texttt{long double} is, converteer de andere naar \texttt{long double};
@@ -457,7 +461,7 @@ Het omzetten of converteren\index{converteren} van het ene datatype naar het and
 \item Als een van de twee operanden een \texttt{long} is, converteer de andere naar \texttt{long}.
 \end{itemize}
 
-De regels voor unsigned variabelen zijn nog lastiger als ze gecombineerd worden met signed integers. Het beste is om deze \textsl{mixed types} te vermijden.
+De regels voor unsigned variabelen zijn nog lastiger, zeker als ze gecombineerd worden met signed integers. Het beste is om deze \textsl{mixed types} te vermijden.
 
 Een conversie kan ook expliciet worden opgegeven. We noemen dit een \textsl{type cast}\index{type cast}. We geven dit aan door het type tussen haken te zetten:
 
@@ -467,25 +471,26 @@ In dit geval geeft dat geen problemen want een karakter past in een integer. Maa
 
 \hspace*{1em}\texttt{ch = (char) i; \ \ \  /* demote integer to character */}
 
-kan voor problemen zorgen als de waarde \texttt{i} te groot is om in een karakter te plaatsen. Er gaan dan bits verloren. Een mooi voorbeeld van een type case is het omrekenen van een temperatuur in graden Celsius naar graden Fahrenheit. Stel we hebben twee \texttt{float}s voor de temperaturen. Dan kan de conversie berekend worden met:
+kan voor problemen zorgen als de waarde van \texttt{i} te groot is om in een karakter te plaatsen. Er gaan dan bits verloren. Een mooi voorbeeld van een type case is het omrekenen van een temperatuur in graden Celsius naar graden Fahrenheit. Stel we hebben twee \texttt{float}s voor de temperaturen. Dan kan de conversie berekend worden met:
 
 \hspace*{1em}\texttt{f = (float)9/5 * c + 32;}
 
 We hebben hier de integer 9 gecast naar een \texttt{float} want anders gaat bij de deling 9/5 informatie verloren. De constante 32 hoeft niet gecast te worden omdat eerder al de getallen en variabelen naar een \texttt{float} gecast zijn. Het is overigens \textsl{good practice} om \texttt{32.0} te schrijven.
  
+
 \section{Overflow}
-\textsl{Overflow}\index{overflow} is de situatie als een expressie een waarde oplevert die te groot of te klein is en niet in de variabele kan worden opgeslagen. De C-compiler genereert geen code om hierop te testen. Dat zou wel kunnen, maar dat zou de executietijd van programma's nadelig beïnvloeden. De ontwerper van het programma moet hier zelf op toezien dat een overflow-conditie niet kan voorkomen. De reden dat overflow voorkomt is dat datatypes (en dus variabelen) uit een eindig aantal bits\index{bit} bestaan. Zo bestaat een \texttt{unsigned char} uit 8 bits is het grootste getal dat kan worden opgeslagen 255 (binair $11111111_2$) bedraagt. Tellen we daar 1 bij op dat is het resultaat 256 (binair $100000000_2$) maar dat kan niet in de variabele worden opgeslagen. Het resultaat is dat de overvloedige bits gewoonweg worden geschrapt.
+\textsl{Overflow}\index{overflow} is de situatie als een expressie een waarde oplevert die te groot of te klein is en niet in de variabele kan worden opgeslagen. De C-compiler genereert geen code om hierop te testen. Dat zou wel kunnen, maar dat zou de executietijd van programma's nadelig beïnvloeden. De ontwerper van het programma moet hier zelf op toezien dat een overflow-conditie niet kan voorkomen. De reden dat overflow voorkomt is dat datatypes (en dus variabelen) uit een eindig aantal bits\index{bit} bestaan. Zo bestaat een \texttt{unsigned char} uit 8 bits en het grootste getal dat kan worden opgeslagen is 255 (binair $11111111_2$). Tellen we daar 1 bij op dat is het resultaat 256 (binair $100000000_2$) maar dat kan niet in de variabele worden opgeslagen. Het resultaat is dat de overvloedige bits gewoonweg worden geschrapt.
 
 Overflow bij floating point-getallen werkt anders. Dat heeft te maken met de gebruikte specificatie van de getallen.
-Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als oneiding.}. De deling 0/0 resulteert in NaN.
+Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als oneindig.}. De deling 0/0 resulteert in NaN.
 
 
 \section{Vaste-lenge datatypes}
-Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor problemen leiden. We weten nu niet of een \texttt{int} nou 16 of 32 bits is. Dit heeft geleid tot een aantal nieuwe datatypes die in de C99-standaard zijn vastgelegd. De grootte van deze types zijn exact. Zo is een \texttt{int8\_t} een integer van precies 8 bits. Naast de integer met teken zijn er ook enkele types zonder teken. Zo is een \texttt{uint16\_t} en integer van precies 16 bits met een minimale waarde van 0 en een maximale waarde van 65535.
+Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor problemen leiden. We weten nu niet of een \texttt{int} nu 16 of 32 bits is. Dit heeft geleid tot een aantal nieuwe datatypes die in de C99-standaard zijn vastgelegd. De grootte van deze types zijn exact. Zo is een \texttt{int8\_t} een integer van precies 8 bits. Naast de integer met teken zijn er ook enkele types zonder teken. Zo is een \texttt{uint16\_t} en integer van precies 16 bits met een minimale waarde van 0 en een maximale waarde van 65535.
 
 Voor ``normaal'' gebruik zijn deze datatypes niet echt nodig. Maar bij het schrijven van programma's op microcontrollers is het vaak de enige goede methode om zeker ervan te zijn dat een bepaalde grootte van een variabele gegarandeerd is. Dit is met name belangrijk bij het gebruik van zogenoemde \textsl{I/O-adressen}\index{I/O-adressen}. Dat zijn speciale adressen in het geheugen van de microcontroller waarmee communicatie met de buitenwereld mogelijk is, zoals het inlezen van de stand van een schakelaar of het laten branden van een led.
 
-In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de nieuwe datatypes voor signed en unsigned te zien. Voordat we ze kunnen gebruiken moeten we eerst het \textsl{headerbestand}\index{headerbestand} \texttt{stdint.h} laden. Dit is te zien in listing~\ref{cod:vastelengte}.
+In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de nieuwe datatypes voor signed en unsigned te zien. Voordat we ze kunnen gebruiken moeten we eerst het \textsl{header-bestand}\index{header-bestand} \texttt{stdint.h} laden. Dit is te zien in listing~\ref{cod:vastelengte}.
 
 \begin{table}[!ht]
 \centering
@@ -539,15 +544,14 @@ int main(void) {
 C kent veel operatoren. In deze paragraaf beschrijven we ze even kort. In de volgende hoofdstukken worden ze verder uitgelegd.
 
 \subsection{Grootte van een variabele}
-De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\index{sizeof}. Dit kan alleen tijdens compileren van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend. We zullen \texttt{sizeof} bespreken in hoofdstuk~\ref{cha:arrays}. Deze operator heeft een hoge prioriteit.
-
+De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan alleen \textsl{tijdens het compileren} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader bespreken in hoofdstuk~\ref{cha:arrays}.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=sizeof.]
+\begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
 int main(void) {
 	int i;
 
-    if (sizeof i == sizeof long) {
+    if (sizeof i == sizeof (long)) {
         printf("De grootte van i is gelijk aan een long\n");
     }
 
@@ -569,7 +573,7 @@ of als
 
 \hspace*{1em}\texttt{++i;}
 
-Het verschil is dat bij \texttt{i++} eerst de waarde van \texttt{i} wordt gebruikt en daarna met 1 wordt opgehoogd (dit wordt \textsl{postfix}\index{postfix} genoemd), bij \texttt{++i} wordt de waarde van \texttt{i} eerst opgehoogd en daarn gebruikt (dit wordt \textsl{prefix}\index{prefix} genoemd). Stel dat \texttt{i} is 5 dan zorgt
+Het verschil is dat bij \texttt{i++} eerst de waarde van \texttt{i} wordt gebruikt en daarna met 1 wordt opgehoogd (dit wordt \textsl{postfix}\index{postfix} genoemd), bij \texttt{++i} wordt de waarde van \texttt{i} eerst opgehoogd en daarna gebruikt (dit wordt \textsl{prefix}\index{prefix} genoemd). Stel dat \texttt{i} is 5 dan zorgt
 
 \hspace*{1em}\texttt{k = i++;}
 
@@ -578,7 +582,6 @@ dat \texttt{k} gelijk is aan 5 en \texttt{i} gelijk is aan 6. Bij
 \hspace*{1em}\texttt{k = ++i;}
 
 zijn \texttt{k} en \texttt{i} gelijk aan 6. We zullen deze operatoren tegenkomen in hoofdstuk~\ref{cha:arrays}. Deze operatoren hebben een hoge prioriteit.
-
 
 \subsection{Toekenningsoperatoren}
 Een toekenning als
@@ -597,9 +600,9 @@ wordt uitgewerkt als
 
 \hspace*{1em}\texttt{i = i * (y + 1);}
 
-Zo'n beetje alle gangbare operatoren kunnen worden gebruikt. Een lijst is te vinden in tabel~{tab:vartoekenningsoperatoren}. Deze operatoren hebben een lage prioteit.
+Zo'n beetje alle gangbare operatoren kunnen worden gebruikt. Een lijst is te vinden in tabel~\ref{tab:vartoekenningsoperatoren}. Deze operatoren hebben een lage prioriteit. Merk op dat bij de kolom ``Evaluatie'' de expressies \texttt{a} en \texttt{b} omringd zijn door haakjes. Dat geeft ook gelijk aan dat deze expressies eerst geëvalueerd worden voordat de operatie en toekenning plaatsvindt.
 
-\begin{table}[!ht]
+\begin{table}[!t]
 \centering
 \renewcommand{\arraystretch}{1.2}
 \caption{Toekenningsoperatoren.}
@@ -616,16 +619,52 @@ Zo'n beetje alle gangbare operatoren kunnen worden gebruikt. Een lijst is te vin
 \texttt{a <<= b} & lees als & \texttt{a = (a) << (b)}\\
 \texttt{a >>= b} & lees als & \texttt{a = (a) >> (b)}\\
 \texttt{a \&= b} & lees als & \texttt{a = (a) \& (b)}\\
-\texttt{a \textbar= b} & lees als & \texttt{(a) = a \textbar{} (b)}\\
-\texttt{a \^{}= b} & lees als & \texttt{(a) = a \^{} (b)}\\
+\texttt{a \textbar= b} & lees als & \texttt{a = (a) \textbar{} (b)}\\
+\texttt{a \^{}= b} & lees als & \texttt{a = (a) \^{} (b)}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Nog enkele operatoren}
-De volgende opertoren worden de verder op in het boek besproken:
+\subsection{Conditionele expressie}
+\label{sec:conditioneleexpressie}
+De \textsl{conditionele expressie}\index{conditionele expressie} is een operator die aan de hand van de waarde van een variabele (of constante of expressie) een van de twee opgegeven expressies uitvoert. Als we de maximale waarde van \texttt{a} en \texttt{b} willen bepalen dan kunnen we schrijven:
 
-\hspace*{1cm}\texttt{[]\ \ ->\ \ .\ \ *} (\textsl{dereference}) \texttt{\ \ \&} (\textsl{address}) \texttt{\ \ ?: \ \ ,}
+\hspace*{1em}\texttt{max = (a>b) ? a : b; \ \ /* max = maximum(a, b) */}
+
+Een typisch voorbeeld is het afdrukken van de meervoudsvorm van een woord (of niet). Stel dat we aan het einde van een programma afdrukken hoeveel documenten verwerkt zijn. Dan kunnen we met behulp van een conditionele expressie het woord \texttt{document} of \texttt{documenten} afdrukken. We doen dat zoals te zien is in de regels 11 en 12 in listing~\ref{cod:varnrdocs}.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Het afdrukken van een meervoudsvorm.,label=cod:varnrdocs]
+#include <stdio.h>
+
+int main(void) {
+
+    int nrdocs = 0;
+
+    ...
+    /*               +-------------- nrdcos      */
+    /*               |         +---- "" or "en"  */
+    /*               v         v                 */
+    printf("Er zijn %d document%s verwerkt\n", nrdocs,
+                                 (nrdocs == 1) ? "" : "en"));
+    return 0;
+}
+\end{lstlisting}
+\end{figure} 
+
+De eerste parameter (\texttt{\%d)} is het aantal documenten dat verwerkt is (\texttt{nrdocs}). De tweede parameter is een string (\texttt{\%s}). De conditionele expressie
+
+\hspace*{1em}\lstinline[basicstyle=\ttfamily]|(nrdocs == 1) ? "" | \lstinline[basicstyle=\ttfamily]| : "en";|
+
+geeft de (lege) string \lstinline[basicstyle=\ttfamily]|""| als \texttt{nrdocs} gelijk is aan 1 of de string \lstinline[basicstyle=\ttfamily]|"en"| als \texttt{nrdocs} ongelijk aan 1 is. De haken rond de expressie \texttt{nrdocs == 1} zijn eigenlijk niet nodig want de prioriteit van de conditionele expressie is erg laag, maar het komt de leesbaarheid wel ten goede.
+
+\subsection{Komma-operator}
+De komma-operator scheidt twee expressies die één statement worden gezien; We bespreken de komma-operator in hoofdstuk~\ref{cha:programmabesturing}.
+
+\subsection{Nog enkele operatoren}
+De volgende operatoren worden de verderop in het boek besproken:
+
+\hspace*{1cm}\texttt{[]\ \ ->\ \ .\ \ *} (\textsl{dereference}) \texttt{\ \ \&} (\textsl{address})
 
 \section{Voorrangsregels van operatoren}
 Bij het uitwerken van expressies worden voorrangsregels\index{voorrangsregels} gehanteerd. C kent een groot aantal operatoren. We hebben de \textsl{meest voorkomende} operatoren op volgorde van prioriteit opgesomd in tabel~\ref{tab:varvoorrangsregels}. Merk op dat de toekenningsoperator \texttt{=} ook in de lijst voorkomt. Een in C-programma's gebruikelijke constructie is het inlezen van een karakter én gelijk testen of het een newline-karakter\index{newline} betreft:
@@ -660,8 +699,13 @@ Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{get
 \texttt{,} & links naar rechts \\
 \bottomrule
 \end{tabular}
-
 \end{table}
-%Het boek is bedoeld als inleiding en is niet toereikend om alle facetten van de taal te leren.
-%We laten alleen maar zien wat gebruikelijk is bij het ontwikkelen van C-programma's.
-%Een van de beste boeken over C is \textsl{The C Programming Language} van Brian Kernighan en Dennis Ritchie. Het boek is kort en bondig maar laat toch ruimte om de tekst te ondersteunen met voorbeelden. Helaas zijn veel van de voorbeelden lastig te volgen voor de beginnende programmeur.
+
+Uit deze tabel zijn de operatoren voor array's (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
+
+Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het onleesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan. Donald Knuth schreef al eens~\cite{knuth1974}:
+
+\begin{displayquote}
+Premature optimization is the root of all evil.
+\end{displayquote}
+De lezer is gewaarschuwd.
