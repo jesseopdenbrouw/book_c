@@ -43,7 +43,7 @@
 \newcommand{\finalconceptdraft}{}
 %% Which part to include in the book
 \newcommand{\bookpartI}{\usebookpartIfalse}
-\newcommand{\bookpartII}{\usebookpartIItrue}
+\newcommand{\bookpartII}{\usebookpartIIfalse}
 \newcommand{\bookpartIII}{\usebookpartIIIfalse}
 \newcommand{\bookasbook}{\usebookasbookfalse}
 
@@ -51,6 +51,7 @@
 %% Pull in the preamble
 \input{book_preamble}
 \input{book_preamble_tikz}
+\usepackage[contents=Preliminary,color=red,opacity=0.1]{background}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Ahhhh... At last, the beginning of the document... %%
@@ -69,8 +70,8 @@
 \frontmatter
 
 % Pull in the title page, preface and table of contents
-%\input{book_title.tex}
-%\input{book_chap00.tex}
+\input{book_title.tex}
+\input{book_chap00.tex}
 \input{book_toc.tex}
 
 
@@ -83,8 +84,8 @@
 
 % Pull in the chapters
 %\ifusebookpartI
-%\setcounter{chapter}{0}
-%\input{book_chap01.tex}
+\setcounter{chapter}{0}
+\input{book_chap01.tex}
 \setcounter{chapter}{1}
 \input{book_chap02.tex}
 \setcounter{chapter}{2}
@@ -117,11 +118,13 @@
 
 
 %%%% Pull in the references
-%\input{book_refs.tex}
+\input{book_refs.tex}
 
-%%%% Pull in the appendices
-%\appendix
-%\input{book_chapA.tex}
+%%% Pull in the appendices
+\appendix
+\input{book_chapA.tex}
+\input{book_chapB.tex}
+\input{book_chapC.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
