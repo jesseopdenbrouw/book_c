@@ -1,491 +1,514 @@
-\chapter{Array's}
-\label{cha:arrays}
+\chapter{Functies}
+\label{cha:functies}
 \thispagestyle{empty}
-\index{array}
 
-De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een declaratie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
 
-We bespreken array's op vele manieren, onder andere hoe een array wordt gedeclareerd en het wordt gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een lus. We kunnen tweedimensionale array's gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet bespreken, namelijk de relatie tussen array's en pointers. Dat wordt besproken in hoofdstuk~\ref{cha:pointers}.
+Als een programma langer wordt, dan wordt het al snel onoverzichtelijk.
+Sommige stukken code komen misschien meerdere keren in het programma voor.
+Bijvoorbeeld het inlezen van een positief getal.
+Dit kopiëren van code zorgt ervoor dat het programma slecht onderhoudbaar wordt.
+Als er namelijk een wijziging in deze code moet worden doorgevoerd dan moeten ook alle kopietjes worden aangepast. 
+Ook zijn delen uit zo'n lang programma niet eenvoudig te gebruiken in een ander programma.
+De code is slecht herbruikbaar.
 
-\section{Declaratie en selectie}
-Een \textsl{array}\index{array}\index{array!declaratie van} is een manier om bij elkaar behorende gegevens onder één naam te groeperen en te bewerken. Een array is een \textsl{samengesteld datatype}\index{samengesteld datatype}, een datatype dat bestaat uit een aantal enkelvoudige datatypes.
-Zo zorgt de declaratie
+We kunnen deze problemen oplossen door het gebruik van \textsl{functies}\index{functie}.
+Een logisch bij elkaar behorend stuk code wordt dan ergens apart (in een functie) geplaatst.
+Deze functie kunnen we vervolgens naar believen aanroepen om de code van de functie uit te voeren.
 
-\hspace*{1em}\texttt{int a[10];}
 
-ervoor dat we gebruik kunnen maken van de tien \texttt{int}-variabelen:
+\newpage
+\section{Een eenvoudige functie}
+Als sterk versimpeld voorbeeld beschouwen we het programma dat gegeven is in listing~\ref{cod:slaregelsover1}.
 
-\hspace*{1em}\texttt{a[0]}\quad\texttt{a[1]}\quad\texttt{a[2]}\quad\texttt{a[3]}\quad\texttt{a[4]}\quad\texttt{a[5]}\quad\texttt{a[6]}\quad\texttt{a[7]}\quad\texttt{a[8]}\quad\texttt{a[9]}
+%\floatlstinput[style=cstyle]{slaregelsover1.c}{slaregelsover1}{Een programma waar op wee plaatsen drie regels overgeslagen worden, zie \proglink{slaregelsover1.c}.} 
 
-Bij de declaratie wordt het aantal \textsl{elementen}\index{array element}\index{element} opgegeven. In het voorbeeld zijn dat er 10. De nummering van de elementen begint bij 0 en loopt tot het aantal elementen minus 1. Tevens wordt bij de declaratie het datatype opgegeven. Dit mag elk gangbaar datatype zijn.
+\booklisting[]{C}{Een programma waar op twee plaatsen drie regels overgeslagen worden}{slaregelsover1}{c}{!ht}
 
-We kunnen een element selecteren door gebruik te maken van de blokhaken \texttt{[]}\indextwo{[]}{operator} met daarin het elementnummer. Dit elementnummer mag ook berekend worden met een expressie als het resultaat van de expressie maar een integer is. Om het achtste element toe te kennen aan de variabele \texttt{i} gebruiken we de toekenning:
 
-\hspace*{1em}\texttt{i = a[7];}
+Op twee plaatsen in dit programma worden, in de uitvoer van het programma, drie regels overgeslagen.
+In plaats van deze code te dupliceren kunnen we deze code ook opnemen in een functie.
+Het is belangrijk om de functie een duidelijke naam te geven die aangeeft wat de functie doet.
+In dit geval is gekozen voor de naam \texttt{sla\_3\_regels\_over}.
+Het programma waarbij gebruikt gemaakt wordt van een functie is gegeven in \ref{cod:slaregelsover2}.
 
-Om de variabele \texttt{i} toe te kennen aan het vijfde element gebruiken we de toekenning:
 
-\hspace*{1em}\texttt{a[4] = i;}
 
-We mogen alleen de elementen gebruiken die gedeclareerd zijn, dus de expressies
+\booklisting[]{C}{Gebruik van de functie \texttt{sla\_3\_regels\_over}}{slaregelsover2}{c}{!ht}
+%\floatlstinput[style=cstyle]{slaregelsover2.c}{slaregelsover2}{Een programma waar op twee plaatsen drie regels overgeslagen worden met behulp van de functie \ccode{sla_3_regels_over}, zie \proglink{slaregelsover2.c}.} 
 
-\hspace*{1em}\texttt{i = a[-1];}\quad\texttt{j = a[99];}
 
-zijn niet geldig\footnote{Technisch gezien zijn de elementnummers wel geldig. De compiler berekent via het elementnummer de plaats in het geheugen waar het element zich bevindt. Door gebruik te maken van \textsl{pointers} kan op zinnige wijze gebruik gemaakt worden van negatieve elementnummers.}. Overigens voegen de meeste compilers geen extra programmatuur toe om deze grenzen te bewaken. De programmeur moet het zelf in de gaten houden.
 
-Een prettige manier om een array voor te stellen is om de array als een rij vierkante hokjes te tekenen. Boven de hokjes schrijven we de elementnummers. In de hokjes schrijven we de waarden (of inhouden) van de elementen. Een voorbeeld is te zien in figuur~\ref{fig:arryinmem}.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {2,5,3,9,8,2,6,-1,10,0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {};
-    \draw (nod\i.center) node {\ii};
-	\draw (nod\i.center) node [yshift=\unitsize cm] {\i};
-}
-\node at (-0.6,0) [left] {a};
-\end{tikzpicture}
-\caption{Uitbeelding van een array met tien elementen.}
-\label{fig:arryinmem}
-\end{figure}
-
-Overigens zijn de blokhaken \texttt{[]} als geheel een \textsl{operator}\indextwo{[]}{operator} met een hoge prioriteit.
-
-\section{Initialisatie}
-De array \texttt{a} met declaratie
-
-\hspace*{1em}\texttt{int a[10];}
-
-wordt, als \textsl{globale} variabele, automatisch geïnitialiseerd met nullen. Als \textsl{lokale} variabele is de inhoud onbekend.
-We kunnen de array bij declaratie gelijk initialiseren. Om de array in figuur~\ref{fig:arryinmem} direct te initialiseren gebruiken we een rij getallen tussen accolades en gescheiden door komma's:
-
-\hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
-
-Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal element bij de declaratie weglaten. We kunnen dus ook schrijven:
-
-\hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
-
-Als de lijst korter is dan het aantal opgegeven elementen, dan worden de overige elementen met nullen geïnitialiseerd:
-
-\hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8\}; \ \ /* the rest are zero */} 
-
-Willen we een lokale array met nullen initialiseren, dan kunnen we volstaan met één nul:
-
-\hspace*{1em}\texttt{int a[10] = \{0\}; \ \ /* all elements are zero */} 
-
-Een \textsl{constante array}\index{constante array} moet altijd geïnitialiseerd worden en de elementen mogen niet gewijzigd worden:
-
-\hspace*{1em}\texttt{const int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
-
-\section{Eendimensionale array}
-De array \texttt{a} wordt na de declaratie
-
-\hspace*{1em}\texttt{int a[10];}
-
-een \textsl{eendimenationale}\index{eendimensionaal} array genoemd.
-Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat het uitkomst een geheel getal is en binnen de grenzen van van array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten kwadraten.,label=cod:arrberekenenkwadraten]
-#include <stdio.h>
-
-int main(void) {
-
-    int kwad[10], i;
-    int a = 3, b = 5, som;
-
-    for (i = 0; i < 10; i = i + 1) {
-        kwad[i] = i * i;
-    }
-
-    som = kwad[a] + kwad[b];
-
-    printf("De som van de kwadraten %d en %d is %d\n", a, b, som);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-Een interessant geval is dat we de inhoud van een element van een array mogen gebruiken als een elementnummer van een andere array. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten}. We declareren een array \texttt{rij} en initialiseren de array met de getallen waarvan we de kwadraten willen optellen. Daarna vullen we de array \texttt{kwad} met de kwadraten zoals we dat al eerder deden. In de regels 13 t/m 15 worden een voor een de waarden uit array \texttt{rij} opgevraagd en gebruikt als elementnummer voor array \texttt{kwad}. Merk op dat \texttt{rij[i]} eerst wordt bepaald en de uitkomst daarvan wordt gebruikt om een element uit de array \texttt{kwad} te selecteren.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten kwadraten.,label=cod:arrberekenensomrijkwadraten]
-#include <stdio.h>
-
-int main(void) {
+Bovenin het programma wordt de functie \texttt{sla\_3\_regels\_over} gedefinieerd.
+Het keyword \texttt{void}\indexkeyword{void} betekent leeg.
+Het gebruik van \texttt{void} vóór de functienaam geeft aan dat deze functie niets teruggeeft.
+Verderop in dit hoofdstuk zul je zien hoe een functie indien gewenst wel iets kan teruggeven.
+Het gebruik van \texttt{void} na de functienaam, tussen de haken, geeft aan dat aan deze functie niets meegegeven kan worden bij aanroep. 
+Verderop in dit hoofdstuk zullen we zien hoe aan een functie, indien gewenst, wel iets kan worden meegeven bij aanroep.
+Vervolgens wordt deze functie in \texttt{main} twee maal aangeroepen met de code \texttt{sla\_3\_regels\_over()}.
+De haakjes \texttt{()} achter de functienaam geven aan dat de functie aangeroepen moet worden.
  
-    int kwad[10], i, som = 0;
-
-    int rij[5] = { 2, 5, 8, 1, 6 };
-
-    for (i = 0; i < 10; i = i + 1) {
-        kwad[i] = i * i;
-    }
-
-    for (i = 0; i < 5; i = i + 1) {
-        som = som + kwad[rij[i]];
-    }
-
-    printf("De som van de kwadraten is %d\n", som);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-\section{Aantal elementen van een array bepalen}
-\index{bepalen aantal elementen}\index{aantal elementen bepalen}
-We kunnen bij de declaratie van een array het aantal elementen opgeven, maar dat hoeft niet als de array gelijk geïnitialiseerd wordt. De declaratie
-
-\hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
-
-zorgt ervoor dat \texttt{a} uit 10 elementen bestaat. In een programma moeten we erop toezien dat we niet buiten de array komen. Als we de initialisatie groter of kleiner maken, dan verandert het aantal elementen en moet het programma hierop aangepast worden. Met behulp van de operator \texttt{sizeof}\indexop{sizeof} kunnen we het aantal elementen \textsl{tijdens compile time}\index{compile time} uitrekenen. Let erop dat \texttt{sizeof} de grootte \textsl{in bytes} uitrekent. We moeten dus de grootte van de array delen door de grootte van één element. Het aantal elementen van een array wordt berekend met:
-
-\hspace*{1em}\texttt{int siz = sizeof a / sizeof a[0];}
-
-Merk op dat \texttt{sizeof} een hogere priotiteit heeft dan \texttt{/} maar lager dan \texttt{[]}. We hoeven dus geen haakjes te zetten om \texttt{a[0]}. We kunnen het getal \texttt{5} regel 13 in listing~\ref{cod:arrberekenensomrijkwadraten} vervangen door een berekening van het aantal elementen. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten2}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Bepalen van het aantal elementen in een array.,label=cod:arrberekenensomrijkwadraten2]
-    ...
-    for (i = 0; i < sizeof rij / sizeof rij[0]; i = i + 1) {
-        som = som + kwad[rij[i]];
-    }
-    ...
-\end{lstlisting}
-\end{figure}
-
-%Overigens zullen we verderop zien dat het niet altijd mogelijk is om de lengte op deze manier te berekenen.
-
-
-\section{Tweedimensionale array}
-Een \textsl{tweedimensionale}\index{tweedimensionaal} array van $5\times3$ elementen wordt gedeclareerd met:
-
-\hspace*{1em}\texttt{int matrix[5][3];}
-
-Het eerste elementnummer wordt het \textsl{rijnummer}\index{rijnummer} genoemd en het tweede elementnummer wordt het \textsl{kolomnummer}\index{kolomnummer} genoemd. Het aantal rijen en kolommen mag natuurlijk gelijk zijn.
-
-We kunnen de array tegelijk met de declaratie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we drie groepen die zijn afgebakend door accolades en gescheiden zijn door komma's.
-
-\hspace*{1em}\texttt{int matrix[3][3] = \{ \{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\} \};}
-
-We mogen hierbij het aantal rijen weglaten. De compiler berekent die automatisch. Als we een element uit de array willen gebruiken dan geven we eerst het rijnummer op en daarna het kolomnummer:
-
-\hspace*{1em}\texttt{int i = matrix[2][1]; \ \ /* row 2, column 1 */}
-
-Een veelvoorkomende fout is om het rijnummer en kolomnummer te scheiden door een komma. Dat kan niet want de komma werkt als de komma-operator:
-
-\hspace*{1em}\texttt{int i = matrix[2,1]; \ \ /* WRONG */}
-
-Let erop dat het verwisselen van het rijnummer en kolomnummer een ander element selecteert. Dus
-
-\hspace*{1em}\texttt{matrix[2,1]} \ \ en \ \ \texttt{matrix[1,2]}
-
-zijn twee verschillende elementen.
-
-We kunnen het aantal rijen en kolommen van een array bepalen met behulp van \texttt{sizeof}. Dit is te zien in listing~\ref{cod:arrsizetwodim}.
-In regel 7 bepalen we het aantal rijen door de grootte van de gehele array te delen door de grootte van een rij. Dus
-
-\hspace*{1em}\texttt{int rows = sizeof twodim / sizeof twodim[0];}
-
-kent het aantal rijen toe aan \texttt{rows}. In regel 8 bepalen we het aantal kolommen door de grootte van een rij te delen door de grootte van één element. Dus
-
-\hspace*{1em}\texttt{int cols = sizeof twodim[0] / sizeof twodim[0][0];}
-
-kent het aantal kolommen toe aan \texttt{cols}. Daarna drukken we de twee variabele af.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Bepalen van het aantal rijen en kolommen.,label=cod:arrsizetwodim]
-#include <stdio.h>
-
-int main(void) {
-
-	int twodim[15][20];
-
-	int rows = sizeof twodim / sizeof twodim[0];
-	int cols = sizeof twodim[0] / sizeof twodim[0][0];
-
-	printf("Rows: %d\n", rows);
-	printf("Cols: %d\n", cols);
-
-	return 0;
-}
-\end{lstlisting}
-\end{figure}
-\section{Afdrukken van array}
-Een array kan niet als één eenheid worden afgedrukt. We moeten dat doen met behulp van een lus. Dit is te zien in listing~\ref{cod:arrafdrukkenarray}. In regel 5 declareren en initialiseren we de array met in dit geval 12 elementen. Omdat de array kan wijzigen berekenen we in regel 7 het aantal elementen waaruit de array bestaat en drukken dat af in regel 9. Daarna selecteren we een voor een de elementen uit de array. Dat doen we met een \texttt{for}-lus. Binnen de lus, in regel~12, drukken we de waarde van het element af.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van een array.,label=cod:arrafdrukkenarray]
-#include <stdio.h>
-
-int main(void) {
-
-    int rij[] = { 2, 5, 8, 1, 6, 7, 3, 9, 0, 4, 7 , 8}, i;
-
-    int len = sizeof rij / sizeof rij[0];
-
-    printf("De array heeft %d elementen: ", len);
-
-    for (i = 0; i < len; i = i + 1) {
-        printf("%d%c", rij[i], i < len-1 ? ' ' : '\n');
-    }
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-We zullen de aanroep van de \texttt{printf}-functie even uitleggen. Het eerste argument is de format string waarin twee format specifications staan: \texttt{\%d} en \texttt{\%c}. De eerste geeft aan dat een integer moet worden afgedrukt en de tweede geeft aan dat één karakter moet worden afgedrukt. Het tweede argument is \texttt{rij[i]}, het element uit de array.
-Het derde argument wordt gevormd door een de \textsl{conditionele expressie}\index{conditionele expressie}:
-
-\hspace*{1em}\texttt{i < len-1 ? ' ' : '\textbackslash n'}
-
-Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
-
-
-\section{Array's en functies}
-\index{array!als argument}\index{array!als parameter}
-Een array kan als argument van een functie dienen. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop array's overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën wordt doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; het kent immers de declaratie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
-
-In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Als het getal meerdere keren voorkomt, wordt de eerste positie teruggegeven. Om aan te geven dat de eerste parameter een array is, wordt de declaratie \texttt{int ary[]} gegeven. De tweede parameter is de grootte van de array in elementen en de derde parameters is het getal dat gezocht wordt.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Functie voor het vinden van een getal in een array.,label=cod:arrfindnumber]
-int findnumber(int ary[], int siz, int num) {
-    int pos;
-
-    for (pos = 0; pos < siz; pos = pos + 1) {
-        if (ary[pos] == num) {
-            return pos;
-        }
-    }
-    return -1;
-}
-\end{lstlisting}
-\end{figure}
-
-In listing~\ref{cod:arrfindnumber2} is te zien hoe de functie wordt aangeroepen. Zie regel 9. Als eerste argument wordt de \textsl{naam} van de array opgegeven. De compiler weet aan de hand van de functiedefinitie en de declaratie van de array dat het om een array gaat. Het tweede argument is het aantal elementen van de array dat berekend wordt met behulp van  \texttt{sizeof}. Het derde argument is het getal waarnaar gezocht wordt.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Aanroepen van de functie \texttt{findnumber}.,label=cod:arrfindnumber2]
-#include <stdio.h>
-
-int findnumber(int ary[], int siz, int num);
-
-int main(void) {
-
-    int rij[] = { 4, 8, 3, 8, 2, 3, 4, 5, 1, 2 };
-
-    int plek = findnumber(rij, sizeof rij / sizeof rij[0], 5);
-
-    printf("Plek %d\n", plek);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-Omdat de plaats van de array in het geheugen als argument wordt meegegeven, kunnen we de array \textsl{in de functie} wijzigen. De functie \texttt{patcharray} in listing~\ref{cod:arrpatcharray} vervangt alle elementen die gelijk zijn aan parameter \texttt{what} met de parameter \texttt{with}. De functie geeft aan het einde het aantal vervangingen terug. Omdat er geen kopie wordt meegegeven maar het adres van het eerste element, kan de functie bij de originele array komen en zodoende de elementen veranderen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie om een getal te vervangen door een ander getal.,label=cod:arrpatcharray]
-int patcharray(int ary[], int siz, int what, int with) {
-
-    int pos;
-    int count = 0;
-
-    for (pos = 0; pos < siz; pos = pos + 1) {
-        if (ary[pos] == what) {
-            ary[pos] = with;
-            count = count + 1;
-        }
-    }
-    return count;
-}
-\end{lstlisting}
-\end{figure}
-
-Doorgewinterde C-programmeurs zouden het trouwens zo willen oplossen (listing~\ref{cod:arrpatcharray2}):
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie om een getal te vervangen door een ander getal.,label=cod:arrpatcharray2]
-int patcharrayunreadable(int ary[], int siz, int what, int with) {
-    int count = 0;
-
-    while (--siz > 0) {
-        ary[siz] == what ? ary[siz] = with, count++ : 0;
-    }
-    return count;
-}
-\end{lstlisting}
-\end{figure}
-
-
-\section{Array's vergelijken}
-\index{array!vergelijken van}
-Een array is een samengesteld datatype en kan niet zonder meer met een andere array vergeleken worden. Het is verleidelijk om de twee namen van de array's te vergelijken zoals te zien is in listing~\ref{cod:arrcompare}. Door de manier waarop C met de namen omgaat zorgt ervoor dat niet de inhouden van de array's vergeleken worden, maar de adressen van het eerste element. Dit is vergelijkbaar met de array als argument van een functie.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee array's (foutief).,label=cod:arrcompare]
-#include <stdio.h>
-
-int main(void) {
-
-	int ary1[10] = { 0 }, ary2[10] = { 0 };
-
-	printf("De array's zijn %sgelijk\n", ary1 == ary2 ? "" : "on");
-}
-\end{lstlisting}
-\end{figure}
-
-De juiste manier om twee array's te vergelijken is om de elementen paarsgewijs te vergelijken. We doen dit met behulp van de functie \texttt{arraycompare}, te zien in listing~\ref{cod:arrcompare2}.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare2]
-int arraycompare(int ary1[], int ary2[], int siz) {
-
-	int i;
-
-	for (i = 0; i < siz; i++) {
-		if (ary1[i] != ary2[i]) {
-			return 0;
-		}
+Als dit programma gestart wordt, begint de uitvoering zoals gebruikelijk bij \texttt{main}.
+Als de aanroep \texttt{sla\_3\_regels\_over()} moet worden uitgevoerd, wordt naar de code van deze functie gesprongen.
+Aan het einde van de functie wordt teruggekeerd achter de plaats waar de functie is aangeroepen en wordt de uitvoering van het programma daar voortgezet.
+Bij het aanroepen van een functie ``onthoudt'' de processor dus waarvandaan de functie aangeroepen wordt, zodat het programma na afloop van de functie na deze aanroep kan worden vervolgd.
+
+De functie moet ``gezien'' zijn voordat de functie aangeroepen kan worden.
+Vandaar dat de definitie van de functie \texttt{sla\_3\_regels\_over()} boven \texttt{main} geplaatst is.
+Het is echter niet nodig om de volledige code van de functie voor \texttt{main} te definiëren.
+Het is voldoende om alleen de eerste regel van de functie voor \texttt{main} te definiëren.
+Dit wordt dan een \textsl{functiedeclaratie}\index{functiedeclaratie} of \textsl{functieprototype}\index{functieprototype} genoemd.
+De volledige code van de functie moet natuurlijk nog wel worden gedefinieerd.
+Dit kan bijvoorbeeld na \texttt{main} maar kan ook in een apart bestand.
+We komen hier verderop in deze paragraaf op terug.
+
+%TODO verwijzing toevoegen.
+In listing~\ref{cod:slaregelsover3} kun je zien hoe je een functiedeclaratie kunt gebruiken\footnote{%
+	Als je de functiedeclaratie vergeet zal het programma wel compileren, al zal de compiler wel een waarschuwing geven. 
+	De compiler is in dit geval namelijk niet in staat om te controleren of de functie correct wordt aangeroepen. 
+	Het is dus sterk aan te raden om als een functie niet boven \texttt{main} gedefinieerd is een functiedeclaratie te gebruiken. Overigens geeft Visual Studio standaard een foutmelding.
+}.
+
+%\floatlstinput[style=cstyle]{slaregelsover3.c}{slaregelsover3}{Een programma waarin een functiedeclaratie gebruikt is, zie \proglink{slaregelsover3.c}.} 
+\booklisting[]{C}{Een programma waarin een functiedeclaratie gebruikt is.}{slaregelsover3}{c}{!ht} 
+
+%\newcommand{\booklisting}[6][]{%
+%\begin{figure}[#6]%
+%\lstinputlisting[language=#2,caption={#3.},label=cod:#4,#1]{code/#4.#5}%
+%\vspace*{-\baselineskip}
+%\end{figure}%
+%}
+
+
+ 
+\section{Functies met parameters} 
+Als een nog steeds sterk versimpeld voorbeeld beschouwen we nu het programma dat gegeven is in listing~\ref{cod:slaregelsover4}
+
+%\floatlstinput[style=cstyle]{slaregelsover4.c}{slaregelsover4}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt, zie \proglink{slaregelsover4.c}.} 
+\booklisting[]{C}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt}{slaregelsover4}{c}{!ht}
+
+Op twee plaatsen in dit programma worden, in de uitvoer van het programma, regels overgeslagen.
+De eerste keer worden drie regels overgeslagen en de tweede keer worden vier regels overgeslagen.
+We kunnen nu een functie kunnen definiëren om drie regels over te slaan en nog een andere functie om vier regels over te slaan.
+Maar het zou natuurlijk veel handiger zijn als we een functie zouden kunnen definiëren waarmee je een variabel aantal regels kunt overslaan.
+Dit is mogelijk door een functie met een zogenoemde \textsl{parameter}\index{parameter} te definiëren.
+Bij aanroep van de functie moet dan een zogenoemd \textsl{argument}\index{argument} worden meegegeven.
+De waarde van het argument wordt dan bij aanroep van de functie naar de parameter gekopieerd.
+
+In~\ref{cod:slaregelsover5} kun je zien hoe de functie \texttt{sla\_regel\_over} is gedefinieerd.
+De functie heeft een parameter van het type \texttt{int}.
+Bij de eerste aanroep van de functie wordt het argument \texttt{3} meegegeven.
+Deze waarde wordt bij aanroep gekopieerd naar de parameter \texttt{aantal}.
+Een parameter is in feite niets anders dan een variabele die bij het aanroepen van de functie geïnitialiseerd wordt met de waarde van het bij aanroep meegegeven argument.
+De code van de functie wordt vervolgens uitgevoerd.
+Doordat de parameter \texttt{aantal} is geïnitialiseerd met de waarde \texttt{3} wordt de code in de \texttt{for}-instructie drie maal herhaald en daardoor worden in de uitvoer drie regels overgeslagen.
+De parameter \texttt{aantal} is alleen in de functie \texttt{sla\_regels\_over} te gebruiken.
+Buiten de functie is de parameter onbekend.  
+Bij de tweede aanroep van de functie wordt het argument \texttt{4} meegegeven.
+Deze waarde wordt bij aanroep gekopieerd naar de parameter \texttt{aantal}.
+De code van de functie wordt vervolgens weer uitgevoerd.
+Doordat de parameter \texttt{aantal} nu is geïnitialiseerd met de waarde \texttt{4} wordt de code in de \texttt{for}-instructie vier maal herhaald en daardoor worden in de uitvoer vier regels overgeslagen.
+
+%\floatlstinput[style=cstyle]{slaregelsover5.c}{slaregelsover5}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt met behulp van de functie \ccode{sla_regels_over}, zie \proglink{slaregelsover5.c}.} 
+\booklisting[]{C}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt met behulp van de functie \texttt{sla\_regels\_over}}{slaregelsover5}{c}{!ht}
+
+
+Een functie kan meerdere parameters hebben. 
+De verschillende parameters worden van elkaar gescheiden door een komma.
+Elke parameter heeft zijn eigen typeaanduiding.
+Bij aanroep moet het aantal argumenten overeenkomen met het aantal parameters.
+De waarde van het eerste argument wordt gekopieerd naar de eerste parameter en de waarde van het tweede argument wordt gekopieerd naar de tweede parameter enzovoort.
+
+
+
+In listing~\ref{cod:print_rechthoek} is een voorbeeld gegeven van een functie met twee parameters.
+De functie \texttt{print\_rechthoek} print een rechthoek met een bepaalde breedte en hoogte.
+De uitvoer van het in~\ref{cod:print_rechthoek} gegeven programma is te zien in de onderstaande figuur.
+
+%\floatlstinput[style=cstyle]{print_rechthoek.c}{print_rechthoek}{Een voorbeeld van een functie met twee parameters, zie \proglink{print_rechthoek.c}.} 
+
+\booklisting[]{C}{Een voorbeeld van een functie met twee parameters}{print_rechthoek}{c}{!ht}
+
+
+\begin{dosbox}
+++++++++++++++++++++\\
++                  +\\
++                  +\\
++                  +\\
++                  +\\
++                  +\\
++                  +\\
+++++++++++++++++++++
+\end{dosbox}
+
+
+
+De functie is bedoeld voor het tekenen van een rechthoek met een breedte groter dan 2 en kleiner dan 80 en een hoogte van groter dan 2 en kleiner dan 40. 
+De standaardfunctie \texttt{assert}\indextwo{assert}{functie} wordt gebruikt om te controleren of de meegegeven argumenten aan deze voorwaarden voldoen.
+Als de expressie die in de \texttt{assert} wordt gedefinieerd \texttt{false} oplevert, dan wordt het programma afgebroken en wordt een foutmelding gegeven.
+
+Merk op dat de functie \texttt{print\_rechthoek} gebruik maakt van de functie \texttt{print\_lijn} om de boven- en onderkant van de rechthoek te printen.
+De uitvoering van het programma start in \texttt{main}.
+Vervolgens wordt de functie \texttt{print\_rechthoek} aangeroepen.
+De terugkeerlocatie wordt ``onthouden'' door de processor door het ergens in het geheugen op te slaan.
+Vervolgens wordt vanuit de functie \texttt{print\_rechthoek} de functie \texttt{print\_lijn} aangeroepen. 
+Ook deze terugkeerlocatie wordt opgeslagen door de processor.
+
+Na afloop van de functie \texttt{print\_lijn} wordt het programma vervolgt op de terugkeerlocatie die als laatste is opgeslagen.
+Vervolgens wordt de \texttt{for}-instructie in \texttt{print\_rechthoek} uitgevoerd en daarna wordt \texttt{print\_lijn} nogmaals aangeroepen.
+Ook deze terugkeerlocatie wordt weer opgeslagen door de processor.
+Na afloop van de functie \texttt{print\_lijn} wordt het programma vervolgt op de terugkeerlocatie die zojuist is opgeslagen.
+Na afloop van de functie \texttt{print\_rechthoek} wordt het programma vervolgd op de als eerste opgeslagen terugkeerlocatie.
+De volgorde waarin terugkeerlocaties worden opgeslagen en weer worden opgeroepen wordt \textsl{LIFO}\index{lifo} (Last In First Out)\index{Last In First Out} genoemd.
+
+\begin{infobox}[Stapelen maar...]
+De processor slaat terugkeerlocaties op, op de zogenoemde \textsl{stack}\index{stack}. De bovenkant van de stack wordt aangewezen door een speciaal daarvoor bestemd register in de processor: de \textsl{stack pointer}\index{stack pointer}.
+In figuur~\ref{fig:stack} is de stack getekend op het moment dat processor bezig is met het uitvoeren van de functie \texttt{print\_lijn}.
+
+	\centering%
+	\begin{tikzpicture}[scale=.8]
+		\tikzset{>=latex}
+		\tikzstyle{freecell}=[fill=infoboxbg,draw=black]
+		\draw[freecell] (0, 0)
+		+(-5.0,.5) -- +(-5.0,-.5) -- +(5.0,-.5) -- +(5.0,.5);
+		\draw (0, 0) node{...};
+		\draw[freecell] (0,-1) +(-5.0,-.5) rectangle +(5.0,+.5);
+		\draw (0,-1) node {Terugkeerlocatie in \texttt{print\_rechthoek}};
+		\draw[<-,line width=1pt] (0,-1) +(5.0,0) -- +(6.0,0);
+		\draw (6.0,-1) node[anchor=west] {Stack Pointer};
+		\draw[freecell] (0,-2) +(-5.0,-.5) rectangle +(5.0,+.5);
+		\draw (0,-2) node {Terugkeerlocatie in \texttt{main}};
+	\end{tikzpicture}
+%	\caption{De stack op het moment dat de functie \texttt{print\_lijn} wordt uitgevoerd.}
+%	\label{fig:stack}
+\end{infobox}
+
+\endinput
+
+ 
+\subsection{Functies met een returnwaarde}
+Tot nu toe heb je functies geschreven die iets afdrukken met behulp van |printf|.
+Als je kijkt naar de standaard C-functie |sin| dan zie je dat deze functie niets afdrukt maar de sinus van het argument teruggeeft.
+Een goed ontworpen functie moet in meerdere programma’s gebruikt kunnen worden.
+Functies die het berekende resultaat meteen afdrukken zijn eigenlijk helemaal niet handig om te gebruiken in verschillende programma’s.
+Stel je voor dat de functie |sin| de sinus van het argument meteen zou afdrukken in plaats van het resultaat terug te geven.
+Deze functie zou dan slechts in een beperkt aantal gevallen te gebruiken zijn.
+De versie die het resultaat teruggeeft is in veel meer gevallen te gebruiken. 
+Soms zal de waarde van de sinus afgedrukt moeten worden, door de returnwaarde van de
+|sin|-functie als argument door te geven aan de |printf|-functie:
+\begin{clstfragment}
+	print(sin(arg));
+\end{clstfragment}
+Maar meestal zal de waarde van de sinus gebruikt worden in een berekening:
+\begin{clstfragment}
+	overstaande_rechthoekszijde = sin(hoek) * schuine_zijde
+\end{clstfragment}
+De definitie van een C-functie die een waarde teruggeeft begint niet met |void| maar met het type van de waarde die wordt teruggegeven.
+Dit wordt het returntype van de functie genoemd.
+Vanuit de functie kan een waarde van het returntype worden teruggegeven met behulp van de |return|-instructie.
+Er kan slechts één waarde worden teruggegeven via de |return|-instructie. 
+
+In \cref{lst:gemiddelde1} is een voorbeeld gegeven van een functie die een waarde van het type |double| teruggeeft.
+Deze functie berekent het gemiddelde van 3 als argumenten meegegeven gehele getallen.
+  
+\floatlstinput[style=cstyle]{gemiddelde1.c}{gemiddelde1}{Een eenvoudig voorbeeld van een functie met een returntype, zie \proglink{gemiddelde1.c}.}
+
+De definitie van de functie |gemiddelde| begint met de typeaanduiding |double| waarmee aangegeven wordt dat deze functie een waarde van het type |double| teruggeeft.
+In de functie wordt een |return|-statement gebruikt.
+De waarde van de expressie achter |return| wordt gekopieerd naar de plaats waar de functie wordt aangeroepen.
+De aanroep van de functie wordt als het ware vervangen door de returnwaarde.
+In |main| wordt de waarde die wordt teruggegeven door de functie |gemiddelde| opgeslagen in de variabele |gem| en vervolgens afgedrukt met behulp van |printf|.
+
+Er is in het voorbeeld dat is weergegeven in \cref{lst:gemiddelde1} gebruik gemaakt van de variabelen |resultaat| en |gem|, maar beide variabelen zijn in feite niet nodig.
+In  \cref{lst:gemiddelde2} is een compactere versie van dit voorbeeld weergegeven.
+
+\floatlstinput[style=cstyle]{gemiddelde2.c}{gemiddelde2}{Een compactere versie van het programma uit \cref{lst:gemiddelde1}, zie \proglink{gemiddelde2.c}.}
+
+Een functie kan meerdere |return|-instructies bevatten. 
+Zodra een |return|-in\-struc\-ties wordt uitgevoerd wordt de functie beëindigd.
+Als eenvoudig voorbeeld is in \cref{lst:max1} een functie gegeven die de maximale waarde van twee, als argumenten meegegeven, gehele getallen teruggeeft.
+Merk op dat je deze functie ook kan gebruiken om de maximale waarde van 3 getallen te bepalen door de returnwaarde van de ene aanroep te gebruiken als argument van de volgende aanroep.
+
+\floatlstinput[style=cstyle]{max1.c}{max1}{Een programma dat drie gehele getallen inleest en de maximale waarde afdrukt, zie \proglink{max1.c}.}
+
+Omdat de functie meteen wordt beëindigd als de return wordt uitgevoerd, is de |else| in de functie |max| overbodig. Zie \cref{lst:max2} voor een compactere versie van deze functie.
+
+\floatlstinput[style=cstyle,linerange={3-10}]{max2.c}{max2}{Een compactere versie van de functie \ccode{max}, zie \proglink{max2.c}.}
+
+Tot nu toe waren de functies die we als voorbeeld hebben bekeken nog niet zo heel goed bruikbaar in de praktijk.
+Daarom sluiten we deze paragraaf af met een functie die je wel degelijk in de praktijk zou kunnen toepassen.
+De uitvoer van het in \cref{lst:lees_geheel_getal} gegeven programma is te zien in \cref{fig:lees_geheel_getal}.
+De door de gebruiker ingetypte invoer is groen en onderstreept weergegeven. 
+In \cref{lst:lees_geheel_getal} is een functie gegeven die een geheel getal inleest, controleert of de ingevoerde waarde een getal is en of deze waarde tussen een als argument meegegeven minimale en maximale waarde ligt (inclusief).
+Zolang dit niet zo is, wordt een foutmelding gegeven en kan de gebruiker het opnieuw proberen,
+
+\floatlstinput[style=cstyle]{lees_geheel_getal.c}{lees_geheel_getal}{Een functie om een geheel getal in te lezen, zie \proglink{lees_geheel_getal.c}.}
+
+\begin{myFigure}[!htbp]
+	\centering%
+	\begin{coutput}
+Geef een geheel getal [1..10]: \cinput{0}
+Onjuiste invoer. Probeer het opnieuw!
+Geef een geheel getal [1..10]: \cinput{11}
+Onjuiste invoer. Probeer het opnieuw!
+Geef een geheel getal [1..10]: \cinput{zeven}
+Onjuiste invoer. Probeer het opnieuw!
+Geef een geheel getal [1..10]: \cinput{7}
+Het ingelezen toetscijfer is 7.
+	\end{coutput}
+	\caption{Een mogelijke uitvoer van het programma uit \cref{lst:lees_geheel_getal}.}
+	\label{fig:lees_geheel_getal}
+\end{myFigure}
+
+\subsection{Functies die meer dan één waarde teruggeven}
+Met behulp van de |return|-instructie kun je in C vanuit een functie één waarde teruggeven.
+Als je meerdere waarden wilt teruggeven dan kan dat op twee manieren.
+\needspace{2cm}%
+Je kunt:
+\begin{itemize}
+	\item
+	de waarden \squote{inpakken} in een structure, dit wordt verderop in dit \MakeLowercase\documenttype{} behandeld, zie \cref{sec:struct};
+	\item
+	de waarden teruggeven via zogenoemde \emph{call by reference} parameters.
+\end{itemize}
+
+Bij het gebruik van normale parameters wordt de \emph{waarde} van elk argument gekopieerd naar de overeenkomstige parameter. Deze parameters worden ook wel \emph{call by value} parameters genoemd.
+Call by reference parameters kunnen in C geimplementeerd worden door pointers, zie \cref{sec:pointers}, te gebruiken.
+Beschouw het programma dat gegeven is in \cref{lst:foute_wissel}.
+Het is de bedoeling dat de waarden van de variabelen x en y verwisseld zijn na aanroep van de functie |wissel(x, y)|.
+Zo'n functie die twee getallen verwisseld kan bijvoorbeeld handig zijn bij het sorteren van getallen.
+De uitvoer van dit programma is gegeven in \cref{fig:foute_wissel}.
+
+Zoals je ziet zijn de waarden van de variabelen x en y \emph{niet} verwisseld na aanroep van de functie |wissel(x, y)|.
+Dit hadden we natuurlijk kunnen zien aankomen.
+Bij aanroep van de functie |wissel| wordt de waarde van de als argument meegegeven variabele |x| gekopieerd naar de parameter |a| en wordt de waarde van de als argument meegegeven variabele |y| gekopieerd naar de parameter |b|.
+Vervolgens worden de waarden van |a| en |b| keurig verwisseld in de functie |wissel|, maar bij terugkeer in |main| hebben |x| en |y| nog steeds hun oorspronkelijke waarden.
+De standaard parameteroverdacht in C is namelijk call by value.
+Bij aanroep wordt de waarde van elk argument gekopieerd naar de bijbehorende parameter.    
+
+\floatlstinput[style=cstyle]{foute_wissel.c}{foute_wissel}{Een \emph{niet werkende} functie om  twee getallen te verwisselen, zie \proglink{foute_wissel.c}.}
+
+\begin{myFigure}[!htbp]
+	\centering%
+	\begin{coutput}
+x = 7 en y = 8
+x = 7 en y = 8
+	\end{coutput}
+	\caption{De uitvoer van het programma uit \cref{lst:foute_wissel}.}
+	\label{fig:foute_wissel}
+\end{myFigure}
+
+Om de functie correct te laten functioneren moet je gebruik maken van pointers, zie \cref{lst:wissel}.
+De uitvoer van dit programma is gegeven in \cref{fig:wissel}.
+Als parameters van de functie |wissel| zijn nu twee pointers naar |int|'s gedefinieerd.
+Bij aanroep van de functie wordt het adres van de variabele |x| als eerste argument meegegeven.
+De waarde van dit adres wordt gekopieerd naar de parameter |ptr_a|.
+Deze pointer \squote{wijst} of \squote{refereert} dus naar de variabele |x|.
+Het adres van de variabele |y| wordt als tweede argument meegegeven.
+De waarde van dit adres wordt gekopieerd naar de parameter |ptr_b|.
+Deze pointer wijst dus naar de variabele |y|.
+
+Bij aanvang van de functie |wissel| wordt de waarde van de variabele |hulpje| gelijk aan waarde waar de pointer |a_ptr| naar wijst.
+Deze pointer wijst naar de variabele |x| en die heeft de waarde |7|, dus |hulpje| krijgt de waarde |7|.
+Vervolgens wordt de variabele waar de pointer |a_ptr| naar wijst gelijk gemaakt aan de waarde waar de pointer |b_ptr| naar wijst.
+|a_ptr| wijst naar de variabele |x| en |b_ptr| wijst naar de variabele |y|, die de waarde |8| heeft.
+Dus |x| krijgt de waarde |8|.
+Tot slot wordt de variabele waar de pointer |b_ptr| naar wijst gelijk gemaakt aan de waarde van de variabele |hulpje|.
+|a_ptr| wijst naar de variabele |y| en |hulpje| heeft de waarde |7|.
+Dus |y| krijgt de waarde |7|.
+Bij terugkeer in |main| zijn waarden van de variabelen |x| en |y| dus inderdaad verwisseld, zoals de bedoeling was.
+
+Het doorgeven van adressen als argumenten in plaats van waarden wordt call by reference genoemd.
+Een adres refereert (verwijst) namelijk naar een bepaalde variabele in het geheugen en we geven de referentie naar de variabele door in plaats van de waarde van de variabele.
+
+\floatlstinput[style=cstyle]{wissel.c}{wissel}{Een \emph{werkende} functie om  twee getallen te verwisselen, zie \proglink{wissel.c}.}
+
+\begin{myFigure}[!htbp]
+	\centering%
+	\begin{coutput}
+x = 7 en y = 8
+x = 8 en y = 7
+	\end{coutput}
+	\caption{De uitvoer van het programma uit \cref{lst:wissel}.}
+	\label{fig:wissel}
+\end{myFigure}
+
+%TODO voorbeeld berekenen reeele wortels van een kwadratische vergelijking. Verwijzen is waarschijnlijk beter! 
+
+\subsection{Zichtbaarheid en levensduur van lokale variabelen}
+\emph{Wordt nog aan gewerkt!}
+
+|static|
+
+\subsection{Recursieve functies}
+Een functie die \emph{zichzelf} aanroept wordt een recursieve functie genoemd.
+Een veel gebruikt voorbeeld van een toepassing van een recursieve functie is het berekenen van de faculteit van een natuurlijk getal $n$.
+De faculteit van $n$ is gedefinieerd zoals gegeven in \cref{eq:fac}.
+\begin{equation}
+\label{eq:fac}
+	n! = \prod_{i=1}^{n} i = 1 \cdot{} 2 \cdot{} 3 \cdot{} \cdots{} \cdot{} n
+\end{equation} 
+Dus bijvoorbeeld $4! = 1 \cdot{} 2 \cdot{} 3 \cdot 4 = 24$.
+Verder is afgesproken: $0! = 1$.
+Deze wiskundige functie is ook recursief te definiëren\footnote{%
+	In een recursieve definitie wordt hetgeen gedefinieerd wordt in de definitie zelf gebruikt.
+}, zie \cref{eq:fac_rec}.
+\begin{equation}
+\label{eq:fac_rec}
+	n! =
+	\begin{cases}
+		1, & \text{als $n <= 1$}\\
+		n \cdot{} (n - 1)!, & \text{als $n > 1$}
+	\end{cases}
+\end{equation} 
+Dus $4!$ kan ook als volgt berekend worden: $4! = 4 \cdot{} 3! = 4 \cdot{} 3 \cdot{} 2! = 4 \cdot{} 3 \cdot{} 2 \cdot 1! = 4 \cdot{} 3 \cdot{} 2 \cdot 1 = 24.$
+
+Als we deze recursieve definitie coderen in C krijgen we een recursieve functie, zie \cref{lst:faculteit_recursief}.
+
+\floatlstinput[style=cstyle]{faculteit_recursief.c}{faculteit_recursief}{Een \emph{recursieve} functie om de faculteit van een natuurlijk getal te berekenen, zie \proglink{faculteit_recursief.c}.}
+
+Omdat de faculteit gedefinieerd is voor natuurlijke getallen (gehele getallen groter dan of gelijk aan nul) is als type van de parameter |unsigned int| gekozen (een geheel getal zonder teken).
+Omdat de waarde van de facuteit van grotere getallen al snel erg groot wordt, is als returntype het type |double| gekozen. De waarde van $13!$ past bijvoorbeeld al niet meer in een (32-bits) |unsigned int|. De waarde van $171!$ past ook al niet meer in een |double|. Het nadeel van het gebruik van |double| als returntype is dat de nauwkeurigheid van een |double| beperkt is tot ongeveer 17 significante cijfers\footnote{%
+	De exacte waarde van $23! = 25852016738884976640000$ maar de functies uit \cref{lst:faculteit_recursief} geeft als resultaat 25852016738884978212864. Je ziet dat de eerste 16 cijfers correct zijn, de laatste 7 cijfers zijn echter niet juist. De functies geven dus slecht een benadering van $n!$ voor grotere waarden van $n$.  
+}.
+
+Het is in dit geval echter helemaal niet nodig om een recursieve functie te gebruiken.
+Je kunt ook \squote{gewoon} een herhalings-instructie gebruiken om $n!$ te berekenen, zie \cref{lst:faculteit_iteratief}. Een functie die een herhalings-instructie gebruikt wordt, met een mooi woord, een \emph{iteratieve} functie genoemd. 
+De meeste mensen zullen de code uit \cref{lst:faculteit_iteratief} eenvoudiger te begrijpen vinden dan de code uit \cref{lst:faculteit_recursief}. 
+
+\floatlstinput[style=cstyle]{faculteit_iteratief.c}{faculteit_iteratief}{Een \emph{iteratieve} functie om de faculteit van een natuurlijk getal te berekenen, zie \proglink{faculteit_iteratief.c}.}
+
+Een recursieve aanpak is vooral handig als er nog code wordt uitgevoerd \emph{na} de recursieve aanroep.
+Stel dat je een natuurlijk getal wilt afdrukken in het elftallig stelsel\footnote{%
+	Het elftallig stelsel is een positioneel talstelsel met elf als grondtal. Dit stelsel kent de cijfers 0 t/m 9 en A. Het getal 2A9 in het elftallig stelsel komt overeen met het getal $2 \times{} 11^2 + 10 \times{} 11 + 9 = 361$ in het tientallig stelsel. Het elftallig stelsel zou met Carnaval van pas kunnen komen, zie \url{https://www.telegraaf.nl/nieuws/1037460/gek-getal}.
+}, dan kun je gebruik maken van het iteratieve algoritme dat gegeven is in \cref{fig:elftallig_iteratief}.
+
+\figuur{scale=.7}{elftallig_iteratief}{Een iteratief algoritme om een getal om te zetten naar het elftallig stelsel.}
+
+Als je het getal 361 met behulp van dit algoritme omzet naar het elftallig stelsel, dan produceert dit algoritme de uitvoer die is gegeven in \cref{fig:output_elftallig_iteratief}. 
+
+\begin{myFigure}[!htbp]
+	\centering%
+	\begin{coutput}
+cijfer op positie 0 = 9
+cijfer op positie 1 = A
+cijfer op positie 2 = 2
+	\end{coutput}
+	\caption{De uitvoer van het algoritme uit \cref{fig:elftallig_iteratief} als getal gelijk is aan 361.}
+	\label{fig:output_elftallig_iteratief}
+\end{myFigure}
+
+Als we echter het elftallige resultaat op de normale manier willen afdrukken als |2A9|, dan is dat lastig omdat de cijfers in de verkeerde volgorde worden gegenereerd door het iteratieve algoritme.
+Je moet dus de gegenereerde cijfers ergens opslaan en ze aan het einde in de omgekeerde volgorde afdrukken.
+Dit zou je kunnen doen door een zogenoemde array te gebruiken, zie \cref{sec:arrays} verderop in dit \MakeLowercase\documenttype{}. 
+Maar je zou ook gebruik kunnen maken van het recursieve algoritme dat gegeven is in \cref{fig:elftallig_recursief}
+ 
+\figuur{scale=.55}{elftallig_recursief}{Een recursief algoritme om een getal om te zetten naar het elftallig stelsel.}
+
+\newcommand{\printInElftalligStelsel}{\hcode{print\\-In\\-Elf\\-tal\\-lig\\-Stel\\-sel}}
+
+We maken in dit geval slim gebruik van het feit dat functies die achtereenvolgens aangeroepen worden in de omgekeerde volgorde terugkeren (LIFO, zie \cpageref{lifo}).
+Als we ervan uitgaan dat het argument dat wordt doorgegeven aan de functie \printInElftalligStelsel{} voorafgaande aan de functieaanroep op de stack wordt gezet, dan ziet de stack er nadat de functie voor de derde keer is aangeroepen uit zoals gegeven in \cref{fig:stackelftallig}.
+
+\begin{myFigure}
+	\centering%
+	\begin{tikzpicture}[scale=.8]
+	\tikzset{>=stealth}
+	\tikzstyle{freecell}=[fill=green!10,draw=green!30!black]
+	\draw[freecell] (0, 0)
+	+(-5,.5) -- +(-5,-.5) -- +(5,-.5) -- +(5,.5);
+	\draw (0, 0) node{...};
+	\draw[freecell] (0,-1) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-1) node {Terugkeerlocatie in \ccode{printInElftalligStelsel}};
+	\draw[<-,line width=1pt] (0,-1) +(5,0) -- +(6,0);
+	\draw (6,-1) node[anchor=west] {Stack Pointer};
+	\draw[freecell] (0,-2) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-2) node {\ccode{getal = 2}};
+	\draw[freecell] (0,-3) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-3) node {Terugkeerlocatie in \ccode{printInElftalligStelsel}};
+	\draw[freecell] (0,-4) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-4) node {\ccode{getal = 32}};
+	\draw[freecell] (0,-5) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-5) node {Terugkeerlocatie in \ccode{main}};
+	\draw[freecell] (0,-6) +(-5,-.5) rectangle +(5,+.5);
+	\draw (0,-6) node {\ccode{getal = 361}};
+	\end{tikzpicture}
+	\caption{De stack op het moment dat de functie \printInElftalligStelsel{} drie maal is aangeroepen.}
+	\label{fig:stackelftallig}
+\end{myFigure}
+
+De implementatie in de programmeertaal C van het algoritme gegeven in \cref{fig:elftallig_recursief} is gegeven in \cref{lst:elftallig_recursief}
+
+\floatlstinput[style=cstyle]{elftallig_recursief.c}{elftallig_recursief}{De implementatie in de programmeertaal C van het in \cref{fig:elftallig_recursief} gegeven algoritme, zie \proglink{elftallig_recursief.c}.} 
+
+Omdat het erg belangrijk is dat je goed begrijpt hoe dit programma door de processor wordt uitgevoerd, wordt dit hier stap voor stap besproken.
+In de functie |main| wordt de functie \printInElftalligStelsel{} aangeroepen met als argument |361|. 
+Deze waarde wordt op de stack geplaatst en daarna wordt naar de code van de functie gesprongen. Het terugkeeradres in |main| wordt op de stack geplaatst (bovenop de waarde |361|).
+In de functie wordt de plaats op de stack waar de waarde van het argument is geplaatst aangeduid met de variabelenaam |getal|.
+Omdat de waarde van |getal| groter is dan 11 wordt de functie \printInElftalligStelsel{} nogmaals aangeroepen, nu moet |getal / 11| als argument.
+|getal| heeft de waarde |361| dus de waarde van het argument is |361 / 11| = |32|.
+Deze waarde wordt op de stack geplaatst en daarna wordt naar de code van de functie gesprongen. Het terugkeeradres in \printInElftalligStelsel{} wordt op de stack geplaatst (bovenop de waarde |32|).
+In de functie wordt de plaats op de stack waar de waarde van het argument is geplaatst aangeduid met de variabelenaam |getal|.
+Omdat de waarde van |getal| groter is dan 11 wordt de functie \printInElftalligStelsel{} nogmaals aangeroepen, nu moet |getal / 11| als argument.
+|getal| heeft de waarde |32| dus de waarde van het argument is |32 / 11| = |2|.
+Het terugkeeradres in \printInElftalligStelsel{} wordt op de stack geplaatst (bovenop de waarde |2|).
+De inhoud van de stack is nu weergegeven in \cref{fig:stackelftallig}.
+
+De functie \printInElftalligStelsel{} wordt nu niet meer aangeroepen.
+De variabele |cijfer| wordt aangemaakt en krijgt de waarde |getal % 11|.
+|getal| heeft de waarde |2| dus cijfer krijgt de waarde |2|, dit cijfer wordt vervolgens afgedrukt.
+Aan het einde van de functie \printInElftalligStelsel{} wordt het terugkeeradres en het argument van de stack verwijderd.
+We keren dus terug naar de plaats waar \printInElftalligStelsel{} in \printInElftalligStelsel{} is aangeroepen en dat is het einde van de |if|-instructie.
+De variabele |getal| heeft in deze functie de waarde |32|.
+De variabele |cijfer| wordt aangemaakt en krijgt de waarde |getal % 11|.
+|getal| heeft de waarde |32| dus cijfer krijgt de waarde |10|, vervolgens wordt het \squote{cijfer} |A| afgedrukt.
+Aan het einde van de functie \hcode{print\\-In\\-Elf\\-tal\\-lig\\-Stel\\-sel} wordt het terugkeeradres en het argument van de stack verwijderd.
+We keren dus terug naar de plaats waar \printInElftalligStelsel{} in \printInElftalligStelsel{} is aangeroepen en dat is het einde van de |if|-instructie.
+De variabele |getal| heeft in deze functie de waarde |361|.
+De variabele |cijfer| wordt aangemaakt en krijgt de waarde |getal % 11|.
+|getal| heeft de waarde |361| dus cijfer krijgt de waarde |9|, dit cijfer wordt vervolgens afgedrukt.
+Aan het einde van de functie \printInElftalligStelsel{} wordt het terugkeeradres en het argument van de stack verwijderd.
+We keren dus terug naar de plaats waar \printInElftalligStelsel{} in |main| is aangeroepen en het programma wordt beëindigd.
+
+In \cref{lst:print_in_talstelsel} is een soortgelijk voorbeeld gegeven van een recursieve functie met twee parameters.
+De functie |print_in_talstelsel| zal de integer (zonder teken) die als eerste argument wordt meegegeven afdrukken in het als tweede argument meegegeven talstelsel.
+De uitvoer van het in \cref{lst:print_in_talstelsel} gegeven programma is te zien in \cref{fig:print_in_talstelsel}.
+
+\floatlstinput[style=cstyle]{print_in_talstelsel.c}{print_in_talstelsel}{Een voorbeeld van een recursieve functie, zie \proglink{print_in_talstelsel.c}.} 
+
+\begin{myFigure}[!htbp]
+	\centering%
+	\begin{coutput}
+1111101000
+2626
+1000
+3E8
+CAFE
+	\end{coutput}
+	\caption{De uitvoer van het programma uit \cref{lst:print_in_talstelsel}.}
+	\label{fig:print_in_talstelsel}
+\end{myFigure}
+
+Twee andere leerzame toepassingen van recursieve functies zijn:
+\begin{itemize}
+	\item
+	Een programma dat sudoku's op kan lossen:
+	\iftoggle{ebook}{%
+		\href{https://bitbucket.org/HR_ELEKTRO/cpl01/downloads/sudokuEbook.pdf}{sudokuEbook.pdf}%
+	}{
+		\href{https://bitbucket.org/HR_ELEKTRO/cpl01/downloads/sudoku.pdf}{sudoku.pdf}%
 	}
-	return 1;
-}
-\end{lstlisting}
-\end{figure}
-
-De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aan elementen bestaan. Met een \texttt{for}-lus lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit de \texttt{for}-lus komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare3]
-#include <stdio.h>
-
-int arraycompare(int ary1[], int ary2[], int siz);
-	
-int main(void) {
-
-	int ary1[10] = { 0 }, ary2[10] = { 0 };
-
-	printf("De array's zijn %sgelijk\n", arraycompare(ary1, ary2,
-                        sizeof ary1 / sizeof ary1[0]) ? "" : "on");
-}
-\end{lstlisting}
-\end{figure}
-
-De standard libray bevat een aantal functies waarmee we gemakkelijk array's kunnen vergelijken, onafhankelijk van het datatype. Dit wordt besproken in hoofdstuk~\ref{cha:pointers}.
-
-\section{Strings}
-Een \textsl{string}\index{string} is een eendimensionale array van karakters afgesloten met een nul-karakter. In tegenstelling tot veel andere talen is een string in C dus \textsl{geen} enkelvoudig datatype. Dat betekent dat we niet op eenvoudige wijze strings kunnen manipleren zoals het bepalen van de lengte, inkorten en veranderen. Gelukkig zijn er functies beschikbaar die het programmeerwerk enigszins verlichten. 
-
-We definiëren een string door de rij karakters te beginnen en af te sluiten met aanhalingstekens. De declaratie
-
-\hspace*{1em}\texttt{char str[] = "Ik ben een string";}
-
-initialiseert een string van 18 karakters. Het aantal elementen van de array wordt automatisch bepaald.
-In figuur~\ref{fig:arrastring} is te zien hoe de string in het geheugen ligt. Het einde van de string wordt gekenmerkt door een \textsl{nul-karakter}\index{nul-karakter} (\texttt{\textbackslash 0})\indextwo{\textbackslash 0}{nul-karakter}. Een nul-karakter is een geheel getal, meestal een byte, waarvan alle bits 0 zijn. Er is dus altijd één karakter meer nodig dan de karakters die opgegeven zijn in de string.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {I,k,\ ,b,e,n,\ ,e,e,n,\ ,s,t,r,i,n,g,\textbackslash 0 } {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node at (-0.5,0) [left] {str};
-%\node (A) at (-2,-2) [memloc] {};
-%\draw (A) node [yshift=\unitsize cm] {p};
-%\draw[center*-latex] (A.center) to [bend right] (nod0.south);
-\end{tikzpicture}
-\caption{Uitbeelding van een stringarray.}
-\label{fig:arrastring}
-\end{figure}
-
-Door middel van dit nul-karakter kan een programma het einde van de string vinden in het geheugen. Het berekenen van het aantal karakters kan heel eenvoudig met een lus uitgevoerd worden. Dit is te zien in listing~\ref{cod:arrstrlen1}. In regel 3 declareren en initialiseren we de \texttt{str} met een string constante. In de \texttt{while}-lus lopen we een voor een langs de elementen en zolang we het nul-karakter niet gevonden hebben, verhogen we een teller. Na het uitvoeren van de lus is het aantal karakters beschikbaar in variabele \texttt{len}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Berekenen van de lengte van een string.,label=cod:arrstrlen1]
-#include <stdio.h>
-
-int main() {
-
-    char str[] = "Hallo wereld!";
-    int len = 0;
-
-    while (str[len] != '\0') {   /* while not end of string ... */
-        len = len + 1;           /* point to the next character */
-    }
-
-    printf("Lengte is %d\n", len);
-}
-\end{lstlisting}
-\end{figure}
-
-\subsection{Stringfuncties}
-De standard library kent een groot aantal functies waarmee strings kunnen worden gemanipuleerd. Om ze te gebruiken moet het header-bestand \texttt{string.h}\indextwo{string.h}{header-bestand} worden ingelezen. We hebben de vier belangrijkste functies op een rijtje gezet. Zie tabel~\ref{tab:arystringmanip}.
-
-%% Bereken de breedte van de tweede colom
-%\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
-% Bereken de breedte van de eerste kolom
-\setbox0\hbox{\texttt{strcmp(str1, str2)}}
-\begin{table}[!ht]
-\centering
-\caption{Enkele standaard functies voor stringmanipulaties.}
-\label{tab:arystringmanip}
-\begin{tabular}{@{}p{\wd0}l@{}}
-\toprule
-\texttt{strlen(s)} &  Geeft de lengte van \texttt{s} in karakters exclusief het nul-karakter.\\
-\texttt{strcpy(to, from)} &  Kopieert de string \texttt{from} naar string \texttt{to}.\\
-\texttt{strcat(to, from)} &  Voegt de string \texttt{from} toe aan het einde van string \texttt{to}.\\
-\texttt{strcmp(s1, s2)} &  Vergelijkt \texttt{s1} met \texttt{2}.\\
-\bottomrule
-\end{tabular} 
-\end{table}
-
-De functie \texttt{strlen}\indextwo{strlen}{functie} geeft het aantal karakter in de string terug exclusief het nul-karakter. De functie \texttt{stcpy}\indextwo{strcpy}{functie} kopieert de string \texttt{from} naar de string \texttt{to}. Let erop dat de ruimte van \texttt{to} groot genoeg is. De functie test dat niet en een \textsl{buffer overflow}\index{buffer overflow} is dan het gevolg. De functie \texttt{strcat}\indextwo{strcat}{functie} voegt de string \texttt{from} toe aan het einde van string \texttt{to}. In dit verband wordt vaak het Engelse woord \textsl{concatenation}\index{concatenation} gebruikt dat aaneenschakelen betekent. Ook hier moet erop gelet worden dat de ruimte in \texttt{to} groot genoeg is.
-
-De functie \texttt{strcmp}\indextwo{strcmp}{functie} vergelijkt \texttt{s1} met \texttt{s2} op \textsl{alfabetische ordening}\index{alfabetische ordening} met inachtneming van de karakterset van de computer. Alfabetische ordening wil min of meer zeggen: zoals de woorden in een woordenboek. Dat betekent dat de string \texttt{"Jan"} voorgaat op \texttt{"Janus"}. De functie geeft \texttt{-1} terug als \texttt{s1} ``kleiner'' is dan \texttt{s2}, geeft \texttt{0} terug als de strings identiek zijn en geeft \texttt{1} terug als \texttt{s1} ``groter'' is dan \texttt{s2}. Let erop dat de karakterset van de computer gebruikt wordt dus \texttt{"123"} is kleiner dan \texttt{"Jan"} en \texttt{"Janus"} is kleiner dan \texttt{"janus"}. Zie bijlage~\ref{cha:asciitabel} over de ordening van de ASCII-karakterset.
-
-Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:aryimplstrfunc} waar we overigens gebruik hebben gemaakt van enkele juweeltjes van C-snelschrift. We dagen de lezer uit om de functies te analyseren.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een implementatie van de stringfuncties.,label=cod:aryimplstrfunc]
-int stringlength(char str[]) {
-	int len;
-
-	for (len = 0; str[len] != '\0'; len++);
-
-	return len;
-}
-
-void stringcopy(char to[], char from[]) {
-
-	int len;
-
-	for (len = 0; (to[len] = from[len]) != '\0'; len++);
-}
-
-int stringcompare(char str1[], char str2[]) {
-
-	int len;
-
-	for (len = 0; str1[len] == str2[len]; len++) {
-		if (str1[len] == '\0') {
-			return 0;
-		}
+    \item
+    Een programma dat Boter Kaas en Eieren kan spelen:  
+	\iftoggle{ebook}{%
+		\href{https://bitbucket.org/HarryBroeders/dictaat-algoritmen-en-datastructuren-in-c99/downloads/Tic-Tac-Toe_ebook.pdf}{Tic-Tac-Toe\_ebook.pdf}%
+	}{
+		\href{https://bitbucket.org/HarryBroeders/dictaat-algoritmen-en-datastructuren-in-c99/downloads/Tic-Tac-Toe.pdf}{Tic-Tac-Toe.pdf}%
 	}
-	return str1[len] < str2[len] ? -1 : 1;
-}
+\end{itemize}
 
-void stringconcat(char to[], char from[]) {
-	int i, j;
+\subsection{Functie als parameter}
+%TODO functie als parameters
+\emph{Wordt nog aan gewerkt!}
 
-	for (i = j = 0; to[i] != '\0'; i++);
-
-	while ((to[i++] = from[j++]) != '\0');
-}
-\end{lstlisting}
-\end{figure}
+\subsection{Programma verdelen over meerdere bestanden}
+\emph{Wordt nog aan gewerkt!}

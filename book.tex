@@ -42,13 +42,15 @@
 %% Pick one or none, placed in outer upper corner
 \newcommand{\finalconceptdraft}{}
 %% Which part to include in the book
+%% NOT USED IN THIS BOOK
 \newcommand{\bookpartI}{\usebookpartIfalse}
 \newcommand{\bookpartII}{\usebookpartIIfalse}
 \newcommand{\bookpartIII}{\usebookpartIIIfalse}
+%% Typeset as pdf-book or printable book
 \newcommand{\bookasbook}{\usebookasbookfalse}
 
 
-%% Pull in the preamble
+%% Pull in the preamble, includes the document class
 \input{book_preamble}
 \input{book_preamble_tikz}
 %\usepackage[contents=Preliminary,color=red,opacity=0.1]{background}
@@ -70,9 +72,9 @@
 \frontmatter
 
 % Pull in the title page, preface and table of contents
-\input{book_title.tex}
-\input{book_chap00.tex}
-\input{book_toc.tex}
+%\input{book_title.tex}
+%\input{book_chap00.tex}
+%\input{book_toc.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,24 +86,24 @@
 
 % Pull in the chapters
 %\ifusebookpartI
-\setcounter{chapter}{0}
-\input{book_chap01.tex}
-\setcounter{chapter}{1}
-\input{book_chap02.tex}
-\setcounter{chapter}{2}
-\input{book_chap03.tex}
+%\setcounter{chapter}{0}
+%\input{book_chap01.tex}
+%\setcounter{chapter}{1}
+%\input{book_chap02.tex}
+%\setcounter{chapter}{2}
+%\input{book_chap03.tex}
 \setcounter{chapter}{3}
 \input{book_chap04.tex}
-\setcounter{chapter}{4}
-\input{book_chap05.tex}
-\setcounter{chapter}{5}
-\input{book_chap06.tex}
-%\fi
-%\ifusebookpartII
-\setcounter{chapter}{6}
-\input{book_chap07.tex}
-\setcounter{chapter}{7}
-\input{book_chap08.tex}
+%\setcounter{chapter}{4}
+%\input{book_chap05.tex}
+%\setcounter{chapter}{5}
+%\input{book_chap06.tex}
+%%\fi
+%%\ifusebookpartII
+%\setcounter{chapter}{6}
+%\input{book_chap07.tex}
+%\setcounter{chapter}{7}
+%\input{book_chap08.tex}
 %\setcounter{chapter}{8}
 %\input{book_chap09.tex}
 %\setcounter{chapter}{9}
@@ -118,13 +120,13 @@
 
 
 %%%% Pull in the references
-\input{book_refs.tex}
+%\input{book_refs.tex}
 
 %%% Pull in the appendices
-\appendix
-\input{book_chapA.tex}
-\input{book_chapB.tex}
-\input{book_chapC.tex}
+%\appendix
+%\input{book_chapA.tex}
+%\input{book_chapB.tex}
+%\input{book_chapC.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

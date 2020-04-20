@@ -1,3 +1,385 @@
-\chapter{Functies}
-\label{cha:functies}
+\chapter{Flowcharts}
 \thispagestyle{empty}
+\label{cha:flowcharts}
+
+Een \textsl{flowchart}\index{flowchart} (Nederlands: stroomschema)\index{stroomschema}
+is een grafische weergave van een (deel van een ) computerprogramma.
+Flowcharts gebruiken rechthoeken, ovalen, ruiten en mogelijk andere vormen om het type stap te
+definiëren om samen met verbindingspijlen de stroom en volgorde te definiëren. Ze
+kunnen variëren van eenvoudige, met de hand getekende diagrammen tot uitgebreide
+computergegenereerde diagrammen die meerdere stappen en routes weergeven. Als we alle
+verschillende vormen van stroomdiagrammen beschouwen, zijn ze een van de meest
+voorkomende diagrammen op aarde, die door zowel technische als niet-technische mensen
+gebruikt worden. Ze zijn gerelateerd aan andere
+populaire diagrammen, zoals Data Flow Diagrams (DFD's) en Unified Modeling Language
+(UML) activiteitendiagrammen.
+
+Het is belangrijk om een flowchart overzichtelijk te houden. Het heeft geen zin
+om op een A4'tje bijvoorbeeld 40 symbolen te tekenen. Afhankelijk van de grootte
+van het programma moeten we stukken code ``comprimeren''. Zo zouden we de code voor
+het inlezen van tien elementen van een array als \'e\'en statement in een flowchart
+kunnen tekenen met de tekst ``lees array in''.
+
+De gebruikte symbolen in een flowchart staan hieronder weergegeven:
+
+\medskip
+\begin{minipage}[c]{0.3\textwidth}
+\centering
+\begin{tikzpicture}\node (start) [startstop] {start};\end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Dit symbool geeft het begin of het einde van de flowchart aan. Naast ``start'' en ``stop'' kunnen ook de termen ``begin'' en ``einde'' gebruikt worden.
+\end{minipage}
+\bigskip
+
+\begin{minipage}[c]{0.3\textwidth}
+\centering
+\begin{tikzpicture}\node (io) [io] {invoer\\uitvoer};\end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Dit symbool geeft invoer of uitvoer aan, bijvoorbeeld het inlezen van een getal of het afdrukken van tekst.\end{minipage}
+\bigskip
+
+\begin{minipage}[c]{0.3\textwidth}
+\centering
+\begin{tikzpicture}\node (proces) [process] {statements};\end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Dit symbool wordt gebruikt om statements anders dan invoer en uitvoer aan te duiden. Een statement kan bijvoorbeeld een berekening zijn, maar ook een functie-aanroep. Meerdere sequenti\"ele statements mogen samengenomen worden in \'e\'en symbool.
+\end{minipage}
+\bigskip
+
+\begin{minipage}[c]{0.3\textwidth}
+\centering
+\begin{tikzpicture}\node (dec) [decision] {expressie};\end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Dit symbool geeft een beslissing aan. De expressie kan alleen maar ``waar'' of ``niet waar`` opleveren. Een beslissing levert een vertakking op. De vertakkingen kunnen naar links of rechts zijn \'en naar beneden (dus niet links en rechts). Bij de uitgaande vertakkingen worden de woorden ``yes'' en ``no'' geschreven. Naast
+``yes'' en ``no'' kunnen ook de termen ``true'' of ``T'' en ``false'' of ``F'' gebruikt worden.
+\end{minipage}
+\bigskip
+
+\begin{minipage}[c]{0.3\textwidth}
+\centering
+\begin{tikzpicture}\draw [arrow] (0,0) -- (2,0);\end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Een pijl geeft een \textsl{flow} aan. De pijl begint bij een van de symbolen en eindigt bij een symbool of een andere pijl. Bij een symbool komt altijd maar \'e\'en pijl aan.
+\end{minipage}
+\bigskip
+
+\begin{minipage}[c]{0.3\textwidth}
+\begin{tikzpicture}\node (con) [connector] {};\end{tikzpicture}
+\centering
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.68\textwidth}
+Een connector kan gebruikt worden om een plek aan te geven waar twee pijlpunten samenkomen. Dit symbool wordt niet in dit boek gebruikt.
+\end{minipage}
+
+Voorbeelden van invoer en uitvoer zijn: ``lees $i$'' en ``print $k$''. Voorbeelden
+van statements zijn (geen invoer en uitvoer): ``$j = j+1$'' en ``$k=2*j$''.
+Voorbeelden van expressies zijn: ``$j<10$'' en ``$a>5 \mathrm{\ en\ } a<25$''.
+
+
+\section{If-statement}
+Een if-statement is te modelleren door middel van een beslissing en een statement.
+
+\begin{lstlisting}[caption=if-statement in C]
+if ((*\normalfont\textsl{expressie}*)) {
+    (*\normalfont\textsl{statements}*)
+}
+\end{lstlisting}
+
+De flowchart is hieronder weergegeven.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node (dec1) [decision, below =of start] {\textsl{expressie}};
+\node (pro1) [process, below =of dec1] {\textsl{statements}};
+\node [ghostnode] (stop) [below =of pro1] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+
+\draw [arrow, dashed] (start) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1);
+\draw [arrow,-] (pro1) -- (stop) coordinate (entrypoint1);
+\draw [arrow] (dec1.east) -- node[anchor=south] {no} ++(1.6,0) |- (entrypoint1);
+\draw [ghostarrow] (stop) -- (stop2);
+\end{tikzpicture}
+\caption{Flowchart van een if-statement.}
+\end{figure}
+
+
+\section{If-else-statement}
+
+Een if-else-statement van de vorm
+
+\begin{lstlisting}[caption=If-else-statement in C.]
+if ((*\normalfont\textsl{expressie}*)) {
+    (*\normalfont\textsl{statements\textsubscript{1}}*)
+else {
+    (*\normalfont\textsl{statements\textsubscript{2}}*)
+}
+\end{lstlisting}
+
+is in een flowchart te tekenen als
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node (dec1) [decision, below =of start] {\textsl{expressie}};
+\node (pro1) [process, below =of dec1] {\textsl{statements\textsubscript{1}}};
+\node (pro2) [process, right =of pro1]  {\textsl{statements\textsubscript{2}}};
+\node [ghostnode] (stop) [below =of pro1] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+
+\draw [ghostarrow] (start) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1);
+\draw [arrow,-] (pro1) -- (stop) coordinate (entrypoint1);
+\draw [arrow] (dec1.east) -| node[anchor=south,pos=0.2] {no} (pro2);
+\draw [arrow] (pro2.south) |- (entrypoint1);
+\draw [ghostarrow] (stop) -- (stop2);
+\end{tikzpicture}
+\caption{Flowchart van een if-else-statement.}
+\end{figure}
+
+
+\section{\texttt{while}-lus en \texttt{do-while}-lus}
+
+Een \texttt{while}-lus heeft de gedaante:
+
+\begin{lstlisting}[caption=while-lus in C.]
+while ((*\normalfont\textsl{expressie}*)) {
+    (*\normalfont\textsl{statements}*)
+}
+\end{lstlisting}
+
+wordt weergegeven als flowchart (figuur~\ref{fig:flowhile}):
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node (start) [ghostnode] {};
+\node (start1) [ghostnode, below =of start] {};
+\node (dec1) [decision, below =of start1] {\textsl{expressie}};
+\node (pro1) [process, below =of dec1] {\textsl{statements}};
+\node [ghostnode] (stop) [below =of pro1] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+\node [ghostnode] (stop3) [below of= stop2] {};
+
+\draw [ghostarrow,-] (start) -- (start1) coordinate (entrypoint1);
+\draw [arrow] (start1) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1);
+\draw [arrow] (pro1) -- (stop) |- ++(-3,0) |- (entrypoint1);
+\draw [arrow,-] (dec1.east) -- ++(1.5,0) node[anchor=south, midway] {no} |- (stop2);
+\draw [ghostarrow] (stop2) -- (stop3);
+\end{tikzpicture}
+\caption{Flowchart van een \texttt{while}-lus.}
+\label{fig:flowhile}
+\end{figure}
+
+
+De \texttt{do-while}-lus heeft in C de volgende gedaante:
+
+\begin{lstlisting}[caption=Do-while-lus in C.]
+do {
+    (*\normalfont\textsl{statements}*)
+} while ((*\normalfont\textsl{expressie}*)};
+\end{lstlisting}
+
+De flowchart is te vinden in figuur~\ref{fig:flodowhile}.
+Let erop dat \textsl{statements} minstens \'e\'en keer wordt uitgevoerd, ook al is \textsl{expressie}
+niet waar.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node [ghostnode, below =of start] (start1) {};
+\node [process, below =of start1] (pro1) {\textsl{statements}};
+\node (dec1) [decision, below =of pro1] {\textsl{expressie}};
+\node [ghostnode] (stop) [below =of dec1] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+\node [ghostnode] (stop3) [below of= stop2] {};
+
+\draw [ghostarrow,-] (start) -- (start1);
+\draw [arrow] (start1) -- (pro1) coordinate (entrypoint1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (stop) |- ++(-3,0) |- (start1);
+\draw [arrow,-] (dec1.east) -- ++(1.5,0) node[anchor=south, midway] {no} |- (stop2);
+\draw [ghostarrow] (stop2) -- (stop3);
+\end{tikzpicture}
+\caption{Flowchart van een \texttt{do-while}-lus.}
+\label{fig:flodowhile}
+\end{figure}
+
+
+\newpage
+\section{\texttt{for}-lus}
+
+Een for-lus van de gedaante:
+%
+\begin{lstlisting}[caption=For-lus in C.]
+for ((*\normalfont\textsl{statements\textsubscript{1}}*); (*\normalfont\textsl{expressie}*); (*\normalfont\textsl{statements\textsubscript{2}}*)) {
+    (*\normalfont\textsl{statements\textsubscript{3}}*)
+}
+\end{lstlisting}
+%
+is \textsl{semantisch identiek} aan:
+%
+\begin{lstlisting}[caption=For-lus herschreven als while-lus in C.]
+(*\normalfont\textsl{statements\textsubscript{1}}*)
+while ((*\normalfont\textsl{expressie}*)} {
+    (*\normalfont\textsl{statements\textsubscript{3}}*)
+    (*\normalfont\textsl{statements\textsubscript{2}}*)
+}
+\end{lstlisting}
+
+Let erop dat \textsl{statements\textsubscript{2}} n\'a \textsl{statements\textsubscript{3}} komt.
+De flowchart is hieronder te vinden.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node [process, below =of start] (pro1) {\textsl{statements\textsubscript{1}}};
+\node [ghostnode, below =of pro1] (start1) {};
+\node (dec1) [decision, below =of start1] {\textsl{expressie}};
+\node (pro2) [process, below =of dec1] {\textsl{statements\textsubscript{3}}};
+\node (pro3) [process, below =of pro2] {\textsl{statements\textsubscript{2}}};
+\node [ghostnode] (stop) [below =of pro3] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+\node [ghostnode] (stop3) [below of= stop2] {};
+
+\draw [ghostarrow] (start) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- (pro2) node[anchor=east, midway] {yes};
+\draw [arrow] (pro2) -- (pro3);
+\draw [arrow] (pro3) -- (stop) |- ++(-3,0) |- (start1);
+\draw [arrow,-] (dec1.east) -- ++(1.5,0) node[anchor=south, midway] {no} |- (stop2);
+\draw [ghostarrow] (stop2) -- (stop3);
+\end{tikzpicture}
+\caption{Flowchart van een for-lus.}
+\end{figure}
+
+
+\section{\texttt{switch}-statement}
+Een \texttt{switch}-statement is een meervoudige \texttt{if}-statement met steeds dezelfde variabele.
+
+\begin{lstlisting}[caption=switch-statement in C.]
+switch ((*\normalfont\textsl{variabele}*)) {
+    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*)
+    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*)
+    ...
+    case (*\normalfont\textsl{expressie\textsubscript{n}}*): (*\normalfont\textsl{statements\textsubscript{n}}*)
+    default : (*\normalfont\textsl{statements\textsubscript{d}}*)
+}
+\end{lstlisting}
+
+Merk op dat \textsl{expressie\textsubscript{1}}, \textsl{expressie\textsubscript{2}}, \ldots, \textsl{expressie\textsubscript{n}}
+een constante moeten opleveren. De flowchart is te zien in figuur~\ref{fig:switch}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node (dec1) [decision, below =of start] {\textsl{variabele = expressie\textsubscript{1}}};
+\node (dec2) [decision, below =of dec1] {\textsl{variabele = expressie\textsubscript{2}}};
+\node (decn) [decision, below =of dec2] {\textsl{variabele = expressie\textsubscript{n}}};
+\node (prod) [process, below =of decn] {\textsl{statements\textsubscript{d}}};
+\node [ghostnode] (stop) [below =of prod] {};
+\node [ghostnode] (stop2) [below of= stop] {};
+\node (pro1) [process, right =of dec1] {\textsl{statements\textsubscript{1}}};
+\node (pro2) [process, right =of dec2] {\textsl{statements\textsubscript{2}}};
+\node (pron) [process, right =of decn] {\textsl{statements\textsubscript{n}}};
+\node (entrypoint1) [ghostnode, right =of pro1] {};
+\node (entrypoint2) [ghostnode, right =of pro2] {};
+\node (entrypointn) [ghostnode, right =of pron] {};
+
+\draw [ghostarrow] (start) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {no} (dec2);
+\draw [ghostarrow] (dec2) -- node[anchor=east] {no} (decn);
+\draw [arrow] (decn) -- node[anchor=east] {no} (prod);
+\draw [arrow,-] (prod) -- (stop);
+\draw [ghostarrow] (stop) -- (stop2);
+\draw [arrow] (dec1) -- node[anchor=south] {yes} (pro1);
+\draw [arrow] (dec2) -- node[anchor=south] {yes} (pro2);
+\draw [arrow] (decn) -- node[anchor=south] {yes} (pron);
+\draw [arrow] (pro1) -- (entrypoint1) |- (stop);
+\draw [arrow] (pro2) -- (entrypoint2);
+\draw [arrow] (pron) -- (entrypointn);
+
+%%%\draw [arrow,-] (pro1) -- (stop) coordinate (entrypoint1);
+%%%\draw [arrow] (dec1.east) -- node[anchor=south] {no} ++(1.6,0) |- (entrypoint1);
+%%%\draw [ghostarrow] (stop) -- (stop2);
+\end{tikzpicture}
+\caption{Flowchart van een switch-statement.}
+\label{fig:switch}
+\end{figure}
+
+\section{Voorbeeld}
+We zullen een flowchart presenteren van een kort programma.
+Hieronder is een een eenvoudig C-programma gegeven dat een variabele $k$ inleest en
+vervolgens de som bepaalt van alle cijfer tussen 1 en $k$ (inclusief), dus:
+%
+\begin{equation}
+j = 1 + 2 +3 + 4 +\cdots + k
+\end{equation}
+
+\begin{lstlisting}[caption=Codevoorbeeld in C.]
+#include <stdio.h>
+
+int main(void) {
+
+    int k, i, j;
+    
+    scanf("%d", &k);
+
+    j=0;
+    
+    for (i=1; i<=k; i=i+1) {
+        j=j+i;
+    }
+    
+    printf("%d\n", j);
+        
+    return 0;
+}
+\end{lstlisting}
+We hebben hier te maken met het begin en einde van het programma, het inlezen en
+afdrukken van variabelen en het doorlopen van een for-lus waarbij variabelen worden
+aangepast. Uiteindelijk komen uit bij het einde van het programma.
+
+In figuur~\ref{fig:exampleflowchart} is de flowchart te zien.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}%[node distance=1cm]
+\node (start) [startstop] {Start};
+\node (in1) [io, below =of start] {Input $k$};
+\node (pro1) [process, below =of in1] {$j=0$\\$i=1$};
+\node (dec1) [decision, below =of pro1] {$i\leq k$};
+\node (pro2a) [process, below =of dec1] {$j=j+i$\\$i=i+1$};
+\node (gnode) [ghostnode, below =of pro2a] {};
+\node (gstnde) [ghostnode, below =of gnode] {};
+\node (out1) [io, below =of gstnde] {Print $j$};
+\node (stop) [startstop, below =of out1] {Stop};
+
+\draw [arrow] (start) -- (in1);
+\draw [arrow] (in1) -- (pro1);
+\draw [arrow] (pro1) -- (dec1) coordinate[midway] (entrypoint1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro2a);
+\draw [arrow] (dec1) -- node[anchor=south] {no} ++(3,0) |- (gstnde) -| (out1);
+\draw [arrow] (pro2a) -- (gnode) |- ++(-3,0) |- (entrypoint1);
+%\draw [arrow] (pro2a) -- (out1);
+\draw [arrow] (out1) -- (stop);
+
+%%%\begin{pgfonlayer}{background}
+%%%\node[densely dashed, draw=black, fill=yellow!50, fit=(pro1) (dec1) (pro2b) (test),inner sep=10pt] {};
+%%%\end{pgfonlayer}
+\end{tikzpicture}
+\caption{Voorbeeld van een flowchart.}
+\label{fig:exampleflowchart}
+\end{figure}

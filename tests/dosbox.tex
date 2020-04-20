@@ -1,0 +1,46 @@
+\documentclass[a4paper,11pt,twoside]{report}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[fleqn]{amsmath}
+
+\usepackage[scaled=.95]{inconsolata}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{listings, breakable,skins}
+
+\newtcolorbox{tdosbox}[1][]{title=Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
+
+
+\AtBeginDocument{%
+\newtcblisting[blend into=figures]{dosbox}[1][]{%
+  colback=white,
+  colframe=black,
+  coltitle=black,
+  enhanced,
+  listing only,
+  sharp corners,
+  listing remove caption=false,
+  listing options={basicstyle=\normalsize\ttfamily, 
+  },
+  attach boxed title to bottom center={yshift=-10pt},
+  boxed title style={enhanced jigsaw, colback=white, boxrule=0pt},
+  #1
+}
+}
+\begin{document}
+
+\chapter{test}
+
+\begin{tdosbox}
+Tekst
+\end{tdosbox}
+
+\begin{dosbox}[title={Een programma.}]
+#include <stdio.h>
+
+int main()
+{
+    stub;
+}
+\end{dosbox}
+\end{document}

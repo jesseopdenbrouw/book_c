@@ -2,6 +2,9 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc,fit}
 \usetikzlibrary{arrows,backgrounds}
+\usetikzlibrary{shapes.geometric, positioning, fit, automata}
+
+
 
 % Definitions of memory units with TikZ
 \newcommand\unitsize{0.80}
@@ -60,4 +63,16 @@
   \pgfusepathqstroke
 }
 \makeatother
+
+\tikzset{flowchart/.style = {minimum width=2cm, minimum height=0.67cm, text centered, text width=2cm, draw=black,font=\sffamily\small, thick}}
+
+\tikzset{startstop/.style = {flowchart, rectangle, rounded corners, fill=listingbgcolor}}
+\tikzset{io/.style = {flowchart, trapezium, trapezium left angle=70, trapezium right angle=110, trapezium stretches body, text width =\pgfkeysvalueof{/pgf/minimum width}-2*\pgfkeysvalueof{/pgf/inner xsep}, fill=listingbgcolor}}
+\tikzset{process/.style = {flowchart, rectangle, fill=listingbgcolor}}
+\tikzset{decision/.style = {flowchart, diamond, aspect=1.5, fill=listingbgcolor}}
+\tikzset{arrow/.style={thick,->,>=stealth}}
+\tikzset{connector/.style={thick, circle, minimum width=.7cm, radius=.7cm, draw=black, fill=listingbgcolor}}
+
+\tikzset{ghostnode/.style={minimum size=0pt, inner sep=0pt, outer sep=0pt}}
+\tikzset{ghostarrow/.style={arrow, dashed}}
 

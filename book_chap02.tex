@@ -627,7 +627,7 @@ Zo'n beetje alle gangbare operatoren kunnen worden gebruikt. Een lijst is te vin
 
 \subsection{Conditionele expressie}
 \label{sec:conditioneleexpressie}
-De \textsl{conditionele expressie}\index{conditionele expressie} is een operator die aan de hand van de waarde van een variabele (of constante of expressie) een van de twee opgegeven expressies uitvoert. Als we de maximale waarde van \texttt{a} en \texttt{b} willen bepalen dan kunnen we schrijven:
+De \textsl{conditionele expressie}\index{conditionele expressie}\indexop{?:} is een operator die aan de hand van de waarde van een variabele (of constante of expressie) een van de twee opgegeven expressies uitvoert. Als we de maximale waarde van \texttt{a} en \texttt{b} willen bepalen dan kunnen we schrijven:
 
 \hspace*{1em}\texttt{max = (a>b) ? a : b; \ \ /* max = maximum(a, b) */}
 
@@ -671,7 +671,7 @@ Bij het uitwerken van expressies worden voorrangsregels\index{voorrangsregels} g
 
 \hspace*{1em}\texttt{while ((ch = getchar()) != '\textbackslash n') \{ ... \}}
 
-Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\index{getchar} aangeroepen om een karakter van het toetsenbord te lezen. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter gelijk is aan het newline-karakter.
+Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indextwo{getchar}{functie} aangeroepen om een karakter van het toetsenbord te lezen. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter gelijk is aan het newline-karakter.
 
 \begin{table}[!ht]
 \centering

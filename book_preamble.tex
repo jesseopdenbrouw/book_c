@@ -317,7 +317,7 @@
 %% Indexing words...
 \usepackage[noautomatic]{imakeidx}
 %% The index page is typeset...
-\indexsetup{othercode=\footnotesize\thispagestyle{fancy}}
+\indexsetup{othercode=\footnotesize\thispagestyle{empty}}
 \makeindex[columns=2]
 %\usepackage{showidx}
 
@@ -404,6 +404,7 @@
   aboveskip=1.1\baselineskip,
   xleftmargin=1.5em,
   xrightmargin=1.5em,
+  escapeinside={(*}{*)}
 }
 
 %% Using hyperrefs...
