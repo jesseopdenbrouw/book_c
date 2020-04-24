@@ -4,15 +4,41 @@
 \usepackage[fleqn]{amsmath}
 
 \usepackage[scaled=.95]{inconsolata}
-\usepackage{tcolorbox}
+\usepackage[most]{tcolorbox}
 
-\tcbuselibrary{listings, breakable,skins}
+\tcbuselibrary{listings, breakable, skins}
 
-\newtcolorbox{tdosbox}[1][]{title=Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
+%\tcbset{
+%    titlecommon/.style={
+%        fontupper=\sffamily,
+%        %top=0mm,
+%        %bottom=2mm,
+%        %halign=center,
+%        sharp corners,
+%        %leftrule=0.5mm, %to draw left side in subtitle box
+%        %rightrule=0.5mm, %to draw right side in subtitle box
+%        %opacityfill=.5,  %to test subtitles geometry and positioning
+%    },
+%    toptitle/.style={
+%        titlecommon,
+%        %colframe=green,
+%        colback=white,
+%    },
+%    bottomtitle/.style={
+%        titlecommon,
+%        colframe=red,
+%        colback=red!20,
+%    },
+%}
+
+\newtcolorbox{tdosbox}[1][]{title=\includegraphics{commandprompt.png}Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
 
 
 \AtBeginDocument{%
 \newtcblisting[blend into=figures]{dosbox}[1][]{%
+  before upper={\tcbsubtitle[colback=white,toprule=0mm]{\includegraphics{commandprompt.png}\hspace*{0.5em}\footnotesize\sffamily \raisebox{0.4ex}{Command Prompt}}},
+  top=0pt,
+  bottomtitle=3pt,
   colback=white,
   colframe=black,
   coltitle=black,
@@ -24,18 +50,21 @@
   },
   attach boxed title to bottom center={yshift=-10pt},
   boxed title style={enhanced jigsaw, colback=white, boxrule=0pt},
+  parbox=false,
+  floatplacement=!ht,
+  float=!ht,
+  left=7pt,
+  right=3pt,
   #1
 }
-}
+} % AtBeginDocument
 \begin{document}
 
 \chapter{test}
 
-\begin{tdosbox}
-Tekst
-\end{tdosbox}
+Fig \ref{hallo}.
 
-\begin{dosbox}[title={Een programma.}]
+\begin{dosbox}[label={hallo},title={Een programma.}]
 #include <stdio.h>
 
 int main()

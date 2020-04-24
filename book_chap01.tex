@@ -52,14 +52,14 @@ Bij de C-compiler wordt een zeer uitgebreide bibliotheek geleverd, de zogenoemde
 
 \section{Ontwikkelsystemen}
 De meeste boeken gaan uit van een \textsl{command line interface} op een Unix-derivaat. Met behulp van een \textsl{editor} wordt een programma ingevoerd en wordt op de commandoregel de C-compiler gestart. Daarna wordt het programma (ook via de commandoregel) gestart.
-Natuurlijk is het ook mogelijk om alles met behulp van de command line te doen. Deze werkwijze wordt veel gebruikt op Linux-systemen maar kan ook op Windows worden gebruikt. Een voorbeeld is te zien in onderstaande figuur.
+Natuurlijk is het ook mogelijk om alles met behulp van de command line te doen. Deze werkwijze wordt veel gebruikt op Linux-systemen maar kan ook op Windows worden gebruikt. Een voorbeeld is te zien in figuur~\ref{fig:commandlineint}.
 
-\begin{dosbox}
-C:\textbackslash Users\textbackslash C> notepad mooi.c \hfill\textrm{(start Notepad)} \\
-C:\textbackslash Users\textbackslash C> gcc -o mooi.exe mooi.c \hfill\textrm{(start C-compiler)}\\
-C:\textbackslash Users\textbackslash C> .\textbackslash mooi.exe \hfill\textrm{(start uitvoerbaar programma)}\\
-C is een mooie taal \hfill\textrm{(de uitvoer op het scherm)}\\
-C:\textbackslash Users\textbackslash C>
+\begin{dosbox}[title=Een voorbeeld van een command line interface.,label=fig:commandlineint]
+C:\Users\C> notepad mooi.c (*\hfill\textrm{(start Notepad)} *)
+C:\Users\C> gcc -o mooi.exe mooi.c (*\hfill\textrm{(start C-compiler)}*)
+C:\Users\C> .\mooi.exe (*\hfill\textrm{(start uitvoerbaar programma)}*)
+C is een mooie taal (*\hfill\textrm{(de uitvoer op het scherm)}*)
+C:\Users\C>
 \end{dosbox}
 
 Dit is echter niet de werkwijze van veel programmeurs. Gelukkig zijn er goede ontwikkelsystemen (IDE: Integrated Development Environment) die het programmeerwerk verlichten. Bekende systemen zijn Microsoft Visual Studio, Code::Blocks en Apple's Xcode.

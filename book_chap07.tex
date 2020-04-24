@@ -121,7 +121,7 @@ Via de pointers kunnen we de variabelen gebruiken. Stel dat we variabele \texttt
 We mogen de dereferentie operator overal gebruiken waar een variabele gebruikt mag worden, bijvoorbeeld bij een optelling of in een test.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Gebruik van een pointer bij het afdrukken van een variabele.]
+\begin{lstlisting}[caption=Gebruik van een pointer bij het afdrukken van een variabele.,escapeinside={}{}]
 int i = 2, *pint;
 ...
 pint = &i;
@@ -405,7 +405,7 @@ p = p + 3;     /* p points to ary[5] */
 Een mooi voorbeeld van het rekenen met pointers is het bepalen van de lengte van een C-string. In listing~\ref{cod:poistrlen1} wordt pointer \texttt{str} gedeclareerd en wijst naar het begin van de string. Pointer \texttt{begin} wijst ook naar het begin van de string. Daarna verhogen we pointer \texttt{str} totdat het einde van de string is bereikt. Daarna drukken we het verschil van de twee pointers af.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Berekenen van de lengte van een string met behulp van pointers.,label=cod:poistrlen1]
+\begin{lstlisting}[caption=Berekenen van de lengte van een string met behulp van pointers.,label=cod:poistrlen1,escapeinside={}{}]
 #include <stdio.h>
 
 int main() {
@@ -548,7 +548,7 @@ int main(void) {
 Een typisch voorbeeld is een functie die een string kopieert naar een andere string. De functie krijgt twee pointers naar strings als argumenten mee. Bij het aanroepen van de functie worden de namen van de twee strings als argumenten meegegeven. De naam van een string is immers een pointer naar het eerste karakter van de string. Het programma is te zien in listing~\ref{cod:poicopystrings1}.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie voor het kopieren van een string.,label=cod:poicopystrings1]
+\begin{lstlisting}[caption=Functie voor het kopieren van een string.,label=cod:poicopystrings1,escapeinside={}{}]
 void string_copy(char *to, char *from) {
 
    if (from == NULL) {        /* sanity check */
@@ -614,7 +614,7 @@ void printarray(int ary[], int len) {
 int main(void) {
 
     int list[] = {1,2,3,4,5,6,7,8,9};
-    int length = sizeof(list)/sizeof(list[0]);
+    int length = sizeof list / sizeof list[0];
 
     printarray(list, length);
 
@@ -636,7 +636,7 @@ Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En da
 Een pointer kan ook als return-waarde dienen. In het onderstaande voorbeeld wordt in een string gezocht naar een bepaalde karakter in een string. Als het karakter gevonden is, wordt een pointer naar het karakter teruggegeven. Als het karakter niet wordt gevonden wordt \texttt{NULL} teruggegeven. Na het uitvoeren van de functie moet hier op getest worden. Tevens wordt in het begin getest of de pointer naar de string wel een geldige waarde heeft. Geldig wil zeggen dat de pointer niet \texttt{NULL} is. Het is \textsl{good practice} om altijd te testen of een pointer \texttt{NULL} is.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Pointer als return-waarde.]
+\begin{lstlisting}[caption=Pointer als return-waarde.,escapeinside={}{}]
 char *find_token(char *str, char ch) {
 
     if (str == NULL) {       /* sanity check */
@@ -764,7 +764,7 @@ Maar stel dat we zulke verwisselingen vaker in een programma moeten uitvoeren. D
 
 In listing~\ref{cod:poiswaptopointers} is de functie te zien voor het verwisselen van twee pointers. De functie heeft twee parameters \texttt{ppa} en \texttt{ppb} die een pointer zijn naar een pointer naar een string. In de functie declareren we een pointer \texttt{temp} die een pointer is naar string (of eigenlijk: een karakter). Met behulp van de dereferentie \texttt{*ppa} kopiëren we de inhoud van pointer \texttt{pa} naar \texttt{temp}. Daarna kopiëren we \texttt{pb} naar \texttt{pa} en als laatste kopiëren we \texttt{temp} naar \texttt{pb}.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Functie voor het verwisselen van twee pointers.,label=cod:poiswaptopointers]
 #include <stdio.h>
 #include <stdlib.h>
@@ -791,10 +791,10 @@ int main()
 \end{lstlisting}
 \end{figure}
 
-De uitvoer van dit programma is te zien in de onderstaande figuur.
+De uitvoer van dit programma is te zien in de figuur~\ref{fig:poiwisselen}. Te zien is dat de in de eerste regels de string op originele volgorde worden afgedrukt en in de twee regel in omgekeerde volgorde. Deze manier van herschikken van array's van strings is veel efficiënter dan strings kopiëren.
 
-\begin{dosbox}
-hello world!\\
+\begin{dosbox}[title=Verwisselen van twee stings.,label=fig:poiwisselen]
+hello world!
 world!hello
 \end{dosbox}
 
@@ -908,15 +908,16 @@ int main(void) {
 
 In regel 8 declareren we de pointer \texttt{pp} (let op het gebruik van de dubbele dereferentie-operator) en initialiseren \texttt{pp} met het adres van \texttt{p}. In regel 10 drukken alle adressen van de pointers af. In de regels 12 t/m 15 drukken we de adressen van de integers en de inhouden van de array-elementen af. Om variabele \texttt{i} af te drukken hebben we drie mogelijkheden: \texttt{i} (de variabele), \texttt{*p[0]} (waar \texttt{p[0]} heen wijst) en \texttt{**pp}. Die wijst dus via dubbele dereferentie ook naar \texttt{i}.
 
-Een mogelijke uitvoer is te zien in de onderstaande figuur. We zeggen hierbij mogelijk omdat het draaien van het programma op een computer andere waarden (adressen) kan opleveren. In de onderstaande figuur is te zien dat pointer met acht hexadecimale cijfers worden afgedrukt.  Dat betekent dat de pointers met 32 bits worden opgeslagen. We hebben gebruik gemaakt van een 32-bits C-compiler.
+Een mogelijke uitvoer is te zien in de figuur~\ref{fig:poienkelepointers}. We zeggen hierbij mogelijk omdat het draaien van het programma op een computer andere waarden (adressen) kan opleveren. In de onderstaande figuur is te zien dat pointer met acht hexadecimale cijfers worden afgedrukt.  Dat betekent dat de pointers met 32 bits worden opgeslagen. We hebben gebruik gemaakt van een 32-bits C-compiler.
 
-\begin{dosbox}
-\&p: 0061FDF0, \&pp: 0061FDE8, \&p[0]: 0061FDF0, \&p[1]: 0061FDF8,\\ \&p[2]: 0061FE00, \&p[3]: 0061FE08
+\begin{dosbox}[title=Uitvoer van enkele pointers.,label=fig:poienkelepointers]
+&p: 0061FDF0, &pp: 0061FDE8, &p[0]: 0061FDF0, &p[1]: 0061FDF8,
+&p[2]: 0061FE00, &p[3]: 0061FE08
 
-\&i: 0061FE1C, p[0]: 0061FE1C\\
-\&j: 0061FE18, p[1]: 0061FE18\\
-\&k: 0061FE14, p[2]: 0061FE14\\
-\&l: 0061FE10, p[3]: 0061FE10
+&i: 0061FE1C, p[0]: 0061FE1C
+&j: 0061FE18, p[1]: 0061FE18
+&k: 0061FE14, p[2]: 0061FE14
+&l: 0061FE10, p[3]: 0061FE10
 
 i: 3, *p[0]: 3, **pp: 3
 \end{dosbox}
@@ -929,16 +930,16 @@ i: 3, *p[0]: 3, **pp: 3
 \label{sec:argumentenmeegevenaaneencprogramma}
 In besturingssystemen die C ondersteunen zoals Windows, Linux en Mac OS-X, is het mogelijk om een C-programma \textsl{command line argumenten} mee te geven. Bij het starten van een programma kunnen we (optioneel) gegevens invoeren en overdragen aan een gecompileerd C-programma. Als voorbeeld starten we het programma \texttt{myprog.exe} met de argumenten \texttt{argument1} en \texttt{argument2}. Het programma drukt eenvoudigweg alle argumenten op het beeldscherm af. Te zien is dat ook de programmanaam als argument wordt meegegeven.
 
-\begin{dosbox}
-C:\textbackslash Users\textbackslash C> myprog.exe argument1 argument2\\
-\\
-Aantal argumenten: 3\\
-\\
-Argument 0: myprog.exe\\
-Argument 1: argument1\\
-Argument 2: argument2\\
-\\
-C:\textbackslash Users\textbackslash C>
+\begin{dosbox}[title=Afdrukken van programmanaam en argumenten.,label=fig:poiargcv]
+C:\Users\C> myprog.exe argument1 argument2
+
+Aantal argumenten: 3
+
+Argument 0: myprog.exe
+Argument 1: argument1
+Argument 2: argument2
+
+C:\Users\C>
 \end{dosbox}
 
 Elk C-programma krijgt per definitie de twee parameters \texttt{argc} en \texttt{argv} mee, die aan \texttt{main} worden meegegeven. Dit is te zien in listing~\ref{cod:poiargs}.
@@ -1034,7 +1035,7 @@ Functies zijn stukken programma die ergens in het geheugen liggen opgeslagen. De
 In listing~\ref{cod:poipointertofunction} is te zien hoe een functie-pointer wordt gedeclareerd. In de eerste regel wordt een functie gedefinieerd, een zogenoemde prototype, die een \texttt{int} als parameter meekrijgt en een \texttt{int} teruggeeft. In de tweede regel wordt \texttt{pf} gedeclareerd als een pointer naar een functie die een \texttt{int} meekrijgt en een \texttt{int} teruggeeft.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction]
+\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction,escapeinside={}{}]
 int func(int a);   /* func is a function returning an int */
 int (*pf)(int a);  /* pf is a pointer to a function
                                          returning an int */
@@ -1046,7 +1047,7 @@ pf = func;             /* assign pf */
 Let op het gebruik van de haakjes. Die zijn nodig om prioriteiten vast te leggen. Zonder de haken staat er \texttt{int *pf(int a)} en dan is \texttt{pf} een functie die een \texttt{int} als parameters meekrijgt en een pointer naar een \texttt{int} teruggeeft. Zie listing~\ref{cod:poipointertofunction2}.
 
 \begin{figure}[H]
-\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction2]
+\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction2,escapeinside={}{}]
 int (*pf)(int a);  /* pf: pointer to a function returning an int */
 int *pf(int a);    /* pf: function returning a pointer to an int */
 \end{lstlisting}
@@ -1227,46 +1228,46 @@ De toekenning en initialisatie
 
 zorgt ervoor dat \texttt{p} een pointer is naar een integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
 
-We geven hieronder een voorbeeld van het gebruik van dit soort pointers op een ATmega-microtroller van Atmel.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.]
-typedef unsigned char uint8_t;
-
-void wait(void) {
-
-    volatile int i;
-
-    for (i = 0; i < 30000; ++i)
-        /*empty*/;
-}
-
-int main(void) {
-
-    uint8_t c1, c2, i;
-
-    volatile uint8_t* ddrb = (uint8_t*)0x37;    /* DDRB address */
-    volatile uint8_t* portb = (uint8_t*)0x38;   /* PORTB address */
-
-    *ddrb = 0xFF;
-
-    while (1) {
-        c1 = 0x80;
-        c2 = 0x01;
-
-        for (i = 0; i < 4; i++) {
-            wait();
-            *portb = ~(c1 | c2);
-            c1 >>= 1;
-            c2 <<= 1;
-        }
-    }
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-\basic
+%%We geven hieronder een voorbeeld van het gebruik van dit soort pointers op een ATmega-microtroller van Atmel.
+%%
+%%\begin{figure}[H]
+%%\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.]
+%%typedef unsigned char uint8_t;
+%%
+%%void wait(void) {
+%%
+%%    volatile int i;
+%%
+%%    for (i = 0; i < 30000; ++i)
+%%        /*empty*/;
+%%}
+%%
+%%int main(void) {
+%%
+%%    uint8_t c1, c2, i;
+%%
+%%    volatile uint8_t* ddrb = (uint8_t*)0x37;    /* DDRB address */
+%%    volatile uint8_t* portb = (uint8_t*)0x38;   /* PORTB address */
+%%
+%%    *ddrb = 0xFF;
+%%
+%%    while (1) {
+%%        c1 = 0x80;
+%%        c2 = 0x01;
+%%
+%%        for (i = 0; i < 4; i++) {
+%%            wait();
+%%            *portb = ~(c1 | c2);
+%%            c1 >>= 1;
+%%            c2 <<= 1;
+%%        }
+%%    }
+%%
+%%    return 0;
+%%}
+%%\end{lstlisting}
+%%\end{figure}
+%%\basic
 
 
 

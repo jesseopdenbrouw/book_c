@@ -379,6 +379,24 @@
 %% Use textcomp for upright quotes in listings
 \usepackage{textcomp}
 
+\lstdefinestyle{lstempty}{
+  basicstyle=\small\ttfamily,
+  numbers=none,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=none,
+  title={},
+  upquote=true,
+  aboveskip=0.5\baselineskip,
+  belowskip=-0\baselineskip,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  escapeinside={(*}{*)},
+}
+
+
 %% Define listing style for VHDL
 \lstset{%
   language=C,
@@ -402,10 +420,12 @@
   title=\lstname,
   upquote=true,
   aboveskip=1.1\baselineskip,
+  belowskip=0.8\baselineskip,
   xleftmargin=1.5em,
   xrightmargin=1.5em,
-  escapeinside={(*}{*)}
+  escapeinside={(*}{*)},
 }
+
 
 %% Using hyperrefs...
 \usepackage{hyperref}
@@ -526,9 +546,37 @@
 
 %% Using tcolorbox for Infobox environment settings
 \usepackage[most]{tcolorbox}
+\tcbuselibrary{listings, breakable, skins}
+
 \newtcolorbox{infobox}[1][]{title=#1,colback=infoboxbg,colframe=bookcolor,fonttitle=\large\scshape,colbacktitle=infoboxbgtitle,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners,boxrule=2pt,titlerule=0pt,top=7pt,parbox=false,floatplacement=!b,float=!b}
 
-\newtcolorbox{dosbox}[1][]{title=\includegraphics{images/commandprompt} Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
+%\newtcolorbox{dosbox}[1][]{title=\includegraphics{images/commandprompt} Command Prompt,colback=white,colframe=black,fonttitle=\footnotesize\sffamily,colbacktitle=white,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners, fontupper=\ttfamily\small,fontlower=\ttfamily\small,boxrule=2pt,titlerule=1pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht,left=7pt,right=3pt,#1}
+
+\AtBeginDocument{%
+\newtcblisting[blend into=figures]{dosbox}[1][title=please fill in]{%
+  before upper={\tcbsubtitle[colback=white,toprule=0mm]{\includegraphics{images/commandprompt.png}\hspace*{0.5em}\footnotesize\sffamily \raisebox{0.2ex}{Command Prompt}}},
+  top=0pt,
+  bottomtitle=3pt,
+  colback=white,
+  colframe=black,
+  coltitle=black,
+  enhanced,
+  listing only,
+  sharp corners,
+  listing remove caption=true,
+  listing options={style=lstempty},
+  attach boxed title to bottom center={yshift=-10pt},
+  boxed title style={enhanced jigsaw, colback=white, boxrule=0pt,},
+  fonttitle=\footnotesize,
+  parbox=false,
+  floatplacement=!ht,
+  float=!ht,
+  left=7pt,
+  right=3pt,
+  blend before title code={\bfseries Figuur \thefigure:~\normalfont\slshape},
+  #1
+}
+} % AtBeginDocument
 
 \newtcolorbox{remarkbox}[1][]{title=#1,colback=infoboxbg,colframe=bookcolor,fonttitle=\large\scshape,colbacktitle=infoboxbgtitle,coltitle=black,toptitle=5pt,bottomtitle=5pt,sharp corners,boxrule=2pt,titlerule=0pt,top=7pt,parbox=false,floatplacement=!ht,float=!ht}
 

@@ -61,7 +61,7 @@ We kunnen de array bij declaratie gelijk initialiseren. Om de array in figuur~\r
 
 \hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
-Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal element bij de declaratie weglaten. We kunnen dus ook schrijven:
+Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal elementen bij de declaratie weglaten. We kunnen dus ook schrijven:
 
 \hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
@@ -140,7 +140,7 @@ We kunnen bij de declaratie van een array het aantal elementen opgeven, maar dat
 
 \hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
-zorgt ervoor dat \texttt{a} uit 10 elementen bestaat. In een programma moeten we erop toezien dat we niet buiten de array komen. Als we de initialisatie groter of kleiner maken, dan verandert het aantal elementen en moet het programma hierop aangepast worden. Met behulp van de operator \texttt{sizeof}\indexop{sizeof} kunnen we het aantal elementen \textsl{tijdens compile time}\index{compile time} uitrekenen. Let erop dat \texttt{sizeof} de grootte \textsl{in bytes} uitrekent. We moeten dus de grootte van de array delen door de grootte van één element. Het aantal elementen van een array wordt berekend met:
+zorgt ervoor dat \texttt{a} uit 10 elementen bestaat. In een programma moeten we erop toezien dat we niet buiten de array komen. Als we de initialisatie groter of kleiner maken, dan verandert het aantal elementen en moet het programma hierop aangepast worden. Met behulp van de operator \texttt{sizeof}\indexop{sizeof} kunnen we het aantal elementen \textsl{tijdens compile-time}\index{compile-time} uitrekenen. Let erop dat \texttt{sizeof} de grootte \textsl{in bytes} uitrekent. We moeten dus de grootte van de array delen door de grootte van één element. Het aantal elementen van een array wordt berekend met:
 
 \hspace*{1em}\texttt{int siz = sizeof a / sizeof a[0];}
 
@@ -358,7 +358,7 @@ int arraycompare(int ary1[], int ary2[], int siz) {
 \end{lstlisting}
 \end{figure}
 
-De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aan elementen bestaan. Met een \texttt{for}-lus lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit de \texttt{for}-lus komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
+De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aantal elementen bestaan. Met een \texttt{for}-lus lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit de \texttt{for}-lus komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare3]

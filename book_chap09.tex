@@ -46,8 +46,8 @@ int main(void) {
 
 Als we dit programma uitvoeren en als invoer het woord \texttt{Hallo} intypen dan verschijnt de volgende uitvoer:
 
-\begin{dosbox}
-Geef een geheel getal: Hallo\\
+\begin{dosbox}[title=Invoer van een heel getal.]
+Geef een geheel getal: Hallo
 Het getal is -12345.
 \end{dosbox}
 
@@ -72,14 +72,14 @@ int main(void) {
 
 De uitvoer is nu:
 
-\begin{dosbox}
-Geef een geheel getal groter dan 0: Hallo\\
-Geef een geheel getal groter dan 0: Geef een geheel getal groter dan\\
-0: Geef een geheel getal groter dan 0: Geef een geheel getal groter \\
-dan 0: Geef een geheel getal groter dan 0: Geef een geheel getal gro\\
-ter dan 0: Geef een geheel getal groter dan 0: Geef een geheel getal\\
-\bfseries\textsl{\textrm{enzovoorts}}
-\textbf{}\end{dosbox}
+\begin{dosbox}[title=Uivoer van het programma na invoer van een string.]
+Geef een geheel getal groter dan 0: Hallo
+Geef een geheel getal groter dan 0: Geef een geheel getal groter dan
+0: Geef een geheel getal groter dan 0: Geef een geheel getal groter 
+dan 0: Geef een geheel getal groter dan 0: Geef een geheel getal gro
+ter dan 0: Geef een geheel getal groter dan 0: Geef een geheel getal
+(*\bfseries\textsl{\textrm{enzovoorts}}*)
+\end{dosbox}
 
 Het programma gaat nu als een razende te werk en de enige manier om het te stoppen is het programma af te sluiten. Maar hoe komt dat nou?
 
@@ -92,35 +92,38 @@ Omdat \texttt{scanf} geen cijfers heeft kunnen inlezen, wordt de opgegeven varia
 
 Dit kun je vrij eenvoudig voorkomen door de returnwaarde van de functie \lstinline|scanf| te testen. Deze functie geeft het aantal variabelen terug dat succesvol is geconverteerd en ingelezen (dat kan dus ook 0 zijn), anders geeft de functie de integer waarde \lstinline|EOF| terug. Je kan dat als volgt doen:
 
+\begin{figure}[!ht]
 \begin{lstlisting}
 #include <stdio.h>
 
 int main(void) {
-int getal = -12345;
-int ret;
 
-printf("Geef een geheel getal groter dan 0: ");
-ret = scanf("%d", &getal);
+    int getal = -12345;
+    int ret;
 
-if (ret == 1) {
-printf("Het getal is %d.\n", getal);
-} else {
-printf("Geen getal ingevoerd!\n");
-}
+    printf("Geef een geheel getal groter dan 0: ");
+    ret = scanf("%d", &getal);
 
-printf("Druk op de Enter toets om dit window te sluiten.");
-getchar();
-return 0;
+    if (ret == 1) {
+        printf("Het getal is %d.\n", getal);
+    } else {
+        printf("Geen getal ingevoerd!\n");
+    }
+
+    printf("Druk op de Enter toets om dit window te sluiten.");
+    getchar();
+    return 0;
 }
 \end{lstlisting}
+\end{figure}
 
 De uitvoer wordt dan:
 
-\begin{lstlisting}[language=,literate=]
+\begin{dosbox}
 Geef een geheel getal groter dan 0: Hallo
 Geen getal ingevoerd!
 Druk op de Enter toets om dit window te sluiten.
-\end{lstlisting}
+\end{dosbox}
 
 Er is nog \'e\'en probleem. De karakters van \lstinline|Hallo| staan nog steeds in de invoerbuffer. Die zullen we er een voor een uit moeten halen. Dat kan met het onderstaande programma:
 
