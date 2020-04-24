@@ -11,8 +11,8 @@ Dit boek is in ontwikkeling.
 5. Functies
 6. Array's
 7. Pointers
-8. Stuctures
+8. Structures
 9. Invoer en uitvoer
 
-Meewerken aan dit boek? Mail [J.E.J.opdenBrouwi@hhs.nl](mailto:J.E.J.opdenBrouwi@hhs.nl).
+Meewerken aan dit boek? Mail [J.E.J.opdenBrouw@hhs.nl](mailto:J.E.J.opdenBrouw@hhs.nl).
 
