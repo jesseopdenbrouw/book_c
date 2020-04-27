@@ -1224,52 +1224,48 @@ alloceert 1000 integers en vult ze met nul-bytes. Als het niet lukt, wordt een N
 C is erg coulant bij het toekennen van adressen aan pointers. Zo is het mogelijk om een pointer naar een vast adres te laten wijzen.
 De toekenning en initialisatie
 
-\hspace*{1em}\texttt{int *p = (int *) 0x40fe;}
+\hspace*{1em}\texttt{int *p = (unsigned int *) 0x40fe;}
 
-zorgt ervoor dat \texttt{p} een pointer is naar een integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. We kunnen nu iets in die geheugenplaats zetten door een dereferentie:
 
-%%We geven hieronder een voorbeeld van het gebruik van dit soort pointers op een ATmega-microtroller van Atmel.
-%%
-%%\begin{figure}[H]
-%%\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.]
-%%typedef unsigned char uint8_t;
-%%
-%%void wait(void) {
-%%
-%%    volatile int i;
-%%
-%%    for (i = 0; i < 30000; ++i)
-%%        /*empty*/;
-%%}
-%%
-%%int main(void) {
-%%
-%%    uint8_t c1, c2, i;
-%%
-%%    volatile uint8_t* ddrb = (uint8_t*)0x37;    /* DDRB address */
-%%    volatile uint8_t* portb = (uint8_t*)0x38;   /* PORTB address */
-%%
-%%    *ddrb = 0xFF;
-%%
-%%    while (1) {
-%%        c1 = 0x80;
-%%        c2 = 0x01;
-%%
-%%        for (i = 0; i < 4; i++) {
-%%            wait();
-%%            *portb = ~(c1 | c2);
-%%            c1 >>= 1;
-%%            c2 <<= 1;
-%%        }
-%%    }
-%%
-%%    return 0;
-%%}
-%%\end{lstlisting}
-%%\end{figure}
-%%\basic
+\hspace*{1em}\texttt{*p = 0x3ff;}
 
 
+Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal systeem}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+
+We geven hieronder een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel.
+
+\begin{figure}[!p]
+\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.]
+typedef unsigned char uint8_t;
+
+int main(void) {
+
+    uint8_t c1, c2, i;
+    volatile int i;
+
+    // Pointers to addresses
+    volatile uint8_t* ddrb = (uint8_t*) 0x37;   // DDRB address
+    volatile uint8_t* portb = (uint8_t*) 0x38;  // PORTB address
+
+    *ddrb = 0xFF; // Set PORTB to all outputs
+
+    while (1) {
+        c1 = 0x80;
+        c2 = 0x01;
+
+        for (i = 0; i < 4; i++) {
+            for (i = 0; i < 30000; ++i); // wait a bit
+            *portb = ~(c1 | c2);  // Leds on Port B are active low
+            c1 >>= 1;
+            c2 <<= 1;
+        }
+    }
+
+    return 0;
+}
+\end{lstlisting}
+\end{figure}
 
 
 \section{Subtiele verschillen en complexe declaraties}
@@ -1280,7 +1276,7 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 % Bereken de breedte van de eerste kolom
 \setbox0\hbox{\texttt{char (*(*x[3])())[5]}}
 \newdimen\delengte\delengte=\textwidth\advance\delengte by -\wd0\advance\delengte by -2\tabcolsep
-\begin{table}[!ht]
+\begin{table}[!p]
 \begin{tabular}{@{}lp{\delengte}@{}}
 \texttt{int *p} & \texttt{p}: pointer to int\\
 \texttt{int **pp} & \texttt{pp}: pointer to pointer to int \\
@@ -1298,3 +1294,4 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 \texttt{char (*(*x[3])())[5]} & \texttt{x}: array[3] of pointer to function returning pointer to array[5] of char.\\
 \end{tabular}
 \end{table}
+\basic

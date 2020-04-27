@@ -81,16 +81,16 @@ van statements zijn (geen invoer en uitvoer): ``$j = j+1$'' en ``$k=2*j$''.
 Voorbeelden van expressies zijn: ``$j<10$'' en ``$a>5 \mathrm{\ en\ } a<25$''.
 
 
-\section{If-statement}
-Een if-statement is te modelleren door middel van een beslissing en een statement.
+\section{\texttt{if}-statement}
+Een \texttt{if}-statement is te modelleren door middel van een beslissing en een statement.
 
-\begin{lstlisting}[caption=if-statement in C]
+\begin{lstlisting}[caption=\texttt{if}-statement in C]
 if ((*\normalfont\textsl{expressie}*)) {
     (*\normalfont\textsl{statements}*)
 }
 \end{lstlisting}
 
-De flowchart is hieronder weergegeven.
+De flowchart is gegeven in figuur~\ref{fig:flowif}.
 
 \begin{figure}[!ht]
 \centering
@@ -107,15 +107,16 @@ De flowchart is hieronder weergegeven.
 \draw [arrow] (dec1.east) -- node[anchor=south] {no} ++(1.6,0) |- (entrypoint1);
 \draw [ghostarrow] (stop) -- (stop2);
 \end{tikzpicture}
-\caption{Flowchart van een if-statement.}
+\caption{Flowchart van een \texttt{if}-statement.}
+\label{fig:flowif}
 \end{figure}
 
 
-\section{If-else-statement}
+\section{\texttt{if-else}-statement}
 
-Een if-else-statement van de vorm
+Een \texttt{if-else}-statement van de vorm
 
-\begin{lstlisting}[caption=If-else-statement in C.]
+\begin{lstlisting}[caption=\texttt{if-else}-statement in C.]
 if ((*\normalfont\textsl{expressie}*)) {
     (*\normalfont\textsl{statements\textsubscript{1}}*)
 else {
@@ -123,7 +124,7 @@ else {
 }
 \end{lstlisting}
 
-is in een flowchart te tekenen als
+is in een flowchart te tekenen zoals te zien is in figuur~\ref{fig:flowifelse}.
 
 \begin{figure}[!ht]
 \centering
@@ -142,7 +143,8 @@ is in een flowchart te tekenen als
 \draw [arrow] (pro2.south) |- (entrypoint1);
 \draw [ghostarrow] (stop) -- (stop2);
 \end{tikzpicture}
-\caption{Flowchart van een if-else-statement.}
+\caption{Flowchart van een \texttt{if-else}-statement.}
+\label{fig:flowifelse}
 \end{figure}
 
 
@@ -220,7 +222,7 @@ niet waar.
 
 Een for-lus van de gedaante:
 %
-\begin{lstlisting}[caption=For-lus in C.]
+\begin{lstlisting}[caption=\texttt{for}-lus in C.]
 for ((*\normalfont\textsl{statements\textsubscript{1}}*); (*\normalfont\textsl{expressie}*); (*\normalfont\textsl{statements\textsubscript{2}}*)) {
     (*\normalfont\textsl{statements\textsubscript{3}}*)
 }
@@ -228,7 +230,7 @@ for ((*\normalfont\textsl{statements\textsubscript{1}}*); (*\normalfont\textsl{e
 %
 is \textsl{semantisch identiek} aan:
 %
-\begin{lstlisting}[caption=For-lus herschreven als while-lus in C.]
+\begin{lstlisting}[caption=\texttt{for}-lus herschreven als \texttt{while}-lus in C.]
 (*\normalfont\textsl{statements\textsubscript{1}}*)
 while ((*\normalfont\textsl{expressie}*)} {
     (*\normalfont\textsl{statements\textsubscript{3}}*)
@@ -237,7 +239,7 @@ while ((*\normalfont\textsl{expressie}*)} {
 \end{lstlisting}
 
 Let erop dat \textsl{statements\textsubscript{2}} n\'a \textsl{statements\textsubscript{3}} komt.
-De flowchart is hieronder te vinden.
+De flowchart is te vinden in figuur~\ref{fig:flowfor}.
 
 \begin{figure}[H]
 \centering
@@ -260,7 +262,8 @@ De flowchart is hieronder te vinden.
 \draw [arrow,-] (dec1.east) -- ++(1.5,0) node[anchor=south, midway] {no} |- (stop2);
 \draw [ghostarrow] (stop2) -- (stop3);
 \end{tikzpicture}
-\caption{Flowchart van een for-lus.}
+\caption{Flowchart van een \texttt{for}-lus.}
+\label{fig:flowfor}
 \end{figure}
 
 
@@ -321,7 +324,7 @@ een constante moeten opleveren. De flowchart is te zien in figuur~\ref{fig:switc
 \section{Voorbeeld}
 We zullen een flowchart presenteren van een kort programma.
 Hieronder is een een eenvoudig C-programma gegeven dat een variabele $k$ inleest en
-vervolgens de som bepaalt van alle cijfer tussen 1 en $k$ (inclusief), dus:
+vervolgens de som bepaalt van alle getallen tussen 1 en $k$ (inclusief), dus:
 %
 \begin{equation}
 j = 1 + 2 +3 + 4 +\cdots + k

@@ -1,4 +1,5 @@
 \chapter{Variabelen, datatypes en expressies}
+\label{cha:vardatexp}
 \thispagestyle{empty}
 
 Een C-programma bestaat uit variabelen en functies. We gebruiken variabelen om data te bewerken, zoals berekenen van nieuwe waarden of testen of twee variabelen aan elkaar gelijk zijn. De compiler moet notie hebben welke variabelen in een programma gebruikt worden en hoe groot de variabelen zijn. De meeste moderne computersystemen werken met 64-bits eenheden en dat betekent dat een variabele een bepaald bereik heeft; niet elk getal kunnen we in een variabele opslaan.
@@ -105,7 +106,7 @@ Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen w
 
 Naast geheeltallige datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier ontstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt, zoals gebruikelijk is in Engelstalige literatuur. We schijven dus $3.14$ en niet $3,14$.
 
-Een \texttt{float}\index{float} is een datatype met een grootte van 32 bits. Een \texttt{double}\index{double} is een datatype met een grootte van 64 bits. We zouden verwachten dat de \texttt{long double}\index{long double} dan een datatype van 128 bits is, maar dat is niet altijd waar. De \texttt{long double} is soms ook 80 bits, bijvoorbeeld in Intel-processoren.
+Een \texttt{float}\indexkeyword{float} is een datatype met een grootte van 32 bits. Een \texttt{double}\indexkeyword{double} is een datatype met een grootte van 64 bits. We zouden verwachten dat de \texttt{long double}\indexkeyword{long double} dan een datatype van 128 bits is, maar dat is niet altijd waar. De \texttt{long double} is soms ook 80 bits, bijvoorbeeld in Intel-processoren.
 
 \begin{table}[!ht]
 \centering
@@ -127,7 +128,7 @@ Voorbeelden van floating point variabelen:
 \hspace*{1em}\texttt{float f;}\\
 \hspace*{1em}\texttt{double d;}
 
-Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \texttt{float} heeft een nauwkeurigheid van ongeveer 6 decimale cijfers. Het heeft dus geen zin om meer cijfers toe te voegen, de extra cijfers worden genegeerd. Een \texttt{double} heeft een nauwkeurigheid van ongeveer 16 decimale cijfers. Niet alle getallen kunnen exact in een floating point-variabele worden opgeslagen. Zo is 1/7 niet exact te representeren. Bij veelvuldig rekenen met floating point-variabelen treedt er verlies op in de representatie. Als we bijvoorbeeld 1/3 met 3 vermenigvuldigen, kan het zijn dat het resultaat 0,99999 is en niet 1,0.
+Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \texttt{float} heeft een nauwkeurigheid van ongeveer 6 decimale cijfers. Het heeft dus geen zin om meer cijfers toe te voegen, de extra cijfers worden genegeerd. Een \texttt{double} heeft een nauwkeurigheid van ongeveer 16 decimale cijfers. Niet alle getallen kunnen exact in een floating point-variabele worden opgeslagen. Zo is 1/7 niet exact te representeren. Bij veelvuldig rekenen met floating point-variabelen treedt er verlies op in de representatie. Als we bijvoorbeeld 1/3 met 3 vermenigvuldigen, kan het zijn dat het resultaat 0,99999 is en niet 1,0. De floating-point weergave maakt het mogelijk om een breed dynamisch bereik van waarden te bestrijken met een constant aantal significante bits.
 
 Al deze datatypes worden \textsl{enkelvoudige datatypes}\index{enkelvoudige datatypes} genoemd. Dat betekent dat de compiler ze ziet als één eenheid. Het is niet mogelijk om enkelvoudige datatypes te splitsen over meerdere andere datatypes.
 
@@ -284,8 +285,9 @@ de waarde 0 oplevert. Eerst wordt 1/3 berekend en de geheeltallige uitkomst hier
 \subsection{Relationele operatoren}
 De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 
-\hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{>=}
+\hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{<=}
 
+\indexop{==}\indexop{"!=}\indexop{>}\indexop{>=}\indexop{<}\indexop{<=}
 Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige operatoren, dus \texttt{i < len-1} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator 0 op.
 
 De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
@@ -408,7 +410,7 @@ De operatoren kunnen door elkaar gebruikt worden. Een voorbeeld is:
 
 \hspace*{1em}\texttt{a = a \& \textasciitilde 0xff;}
 
-Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanupilaties met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
+Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden en de overige bits ongemoeid laat. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanupilaties met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
 
 \begin{figure}[!ht]
 \centering
@@ -490,7 +492,7 @@ Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor
 
 Voor ``normaal'' gebruik zijn deze datatypes niet echt nodig. Maar bij het schrijven van programma's op microcontrollers is het vaak de enige goede methode om zeker ervan te zijn dat een bepaalde grootte van een variabele gegarandeerd is. Dit is met name belangrijk bij het gebruik van zogenoemde \textsl{I/O-adressen}\index{I/O-adressen}. Dat zijn speciale adressen in het geheugen van de microcontroller waarmee communicatie met de buitenwereld mogelijk is, zoals het inlezen van de stand van een schakelaar of het laten branden van een led.
 
-In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de nieuwe datatypes voor signed en unsigned te zien. Voordat we ze kunnen gebruiken moeten we eerst het \textsl{header-bestand}\index{header-bestand} \texttt{stdint.h} laden. Dit is te zien in listing~\ref{cod:vastelengte}.
+In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de nieuwe datatypes voor signed en unsigned te zien. Voordat we ze kunnen gebruiken moeten we eerst het\ header-bestand\indextwo{stdint.h}{header-bestand} \texttt{stdint.h} laden. Dit is te zien in listing~\ref{cod:vastelengte}.
 
 \begin{table}[!ht]
 \centering
@@ -538,6 +540,18 @@ int main(void) {
 }
 \end{lstlisting}
 \end{figure}
+
+
+\section{Enumeraties}
+Er is in C een mogelijkheid om een eigen datatype te definiëren in combinatie met een lijst van constanten: een \textsl{enumeratie}\index{enumeratie}. Een enumeratie is een lijst van geheeltallige constanten in de vorm van
+
+\hspace*{1em}\texttt{enum vartype \{ TUNKNOWN; TINT; TFLOAT; TDOUBLE \};}
+
+De eerste naam binnen de accolades krijgt de de waarde 0, de volgende de waarde 1 enzovoorts. Maar het is ook mogelijk om expliciete waarden toe te kennen
+
+\hspace*{1em}\texttt{enum vartype \{ TUNKNOWN; TINT=11; TFLOAT=13; TDOUBLE \};}
+
+In deze enumeratie krijgt \texttt{TUNKNOWN} de waarde~0 (impliciet), \texttt{TINT} de waarde 11 (expliciet), \texttt{TFLOAT} de waarde 13 (expliciet) en \texttt{TDOUBLE} de waarde 14 (impliciet). Merk op dat er niet echt een nieuw datatype wordt gerealiseerd. De compiler zoekt uit of de enumeratie in een van de integer datatypes past.
 
 
 \section{Overige operatoren}
@@ -641,11 +655,11 @@ int main(void) {
 
     int nrdocs = 0;
 
-    ...
-    /*               +-------------- nrdcos      */
-    /*               |         +---- "" or "en"  */
-    /*               v         v                 */
-    printf("Er zijn %d document%s verwerkt\n", nrdocs,
+    //...
+    /*                 +-------------- nrdcos      */
+    /*                 |         +---- "" or "en"  */
+    /*                 v         v                 */
+    printf("In totaal %d document%s verwerkt\n", nrdocs,
                                  (nrdocs == 1) ? "" : "en"));
     return 0;
 }
@@ -671,7 +685,7 @@ Bij het uitwerken van expressies worden voorrangsregels\index{voorrangsregels} g
 
 \hspace*{1em}\texttt{while ((ch = getchar()) != '\textbackslash n') \{ ... \}}
 
-Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indextwo{getchar}{functie} aangeroepen om een karakter van het toetsenbord te lezen. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter gelijk is aan het newline-karakter.
+Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indextwo{getchar}{functie} aangeroepen om een karakter van het toetsenbord te lezen. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter ongelijk is aan het newline-karakter.
 
 \begin{table}[!ht]
 \centering

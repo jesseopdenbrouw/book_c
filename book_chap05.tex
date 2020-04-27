@@ -357,7 +357,7 @@ We maken in dit geval slim gebruik van het feit dat functies die achtereenvolgen
 Merk op dat ook het argument voorafgaande aan de functieaanroep op de stack wordt gezet. Dat is nodig omdat het argument steeds verandert. We kunnen het argument dus niet in een register van de processor opslaan.
 Nadat de functie voor de vierde keer is aangeroepen ziet de stack eruit zoals te zien is in figuur~\ref{fig:stacktientallig}.
 
-\begin{figure}
+\begin{figure}[!ht]
 	\centering%
 	\begin{tikzpicture}[scale=.8]
 	\tikzset{>=stealth}
@@ -412,7 +412,7 @@ F(0)=0,\, F(1) = 1,\, F(2)=1,\, F(3)=2,\, F(4) =3,\, F(5)=5,\, F(6)=8,\, F(7)=13
 
 Een recursieve functie hiervoor is vrij eenvoudig. Dit is te zien in listing~\ref{cod:fibsimple}.
 
-\begin{figure}[!p]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Recursieve functie voor berekenen van Fibonacci-getallen.,label=cod:fibsimple]
 int fib(int n) {
 
@@ -429,7 +429,7 @@ Stel dat we $F(10)$ willen uitrekenen, dan vinden we via de functie dat $F(10)= 
 In listing~\ref{cod:fibonacci_recursive} is een programma te zien dat het aantal aanroepen van de functie en de totale tijd om een Fibonacci-getal te berekenen bijhoudt. Omdat de getallen vrij snel groot worden hebben gebruik gemaakt van \texttt{unsigned long long}-getallen dat bij veel computers neerkomt op 64-bits getallen.
 We houden bij elke berekening bij hoe vaak de functie is aangeroepen en maken gebruik van de \texttt{clock}-functie in C om de rekentijd bij te houden.
 
-\booklisting[]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!p}
+\booklisting[]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!ht}
 
 We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1200\footnote{De tijdschaal is niet zozeer van belang. Het gaat ons meer om de relatieve uitkomsten.}. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 20118.
 
@@ -455,7 +455,7 @@ Voor het tijd die een berekening kost is van de orde:
 T(n) = \mathscr{O}(1,618^n)
 \end{equation}
 %
-Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekentijd een berekening kost maar wel wat de verhouding is met de rekentijd van het volgende getal. Overigens zijn er geweldig mooie relaties tussen de getallen.
+Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekentijd een berekening kost maar wel wat de verhouding is met de rekentijd van het volgende getal. Overigens zijn er geweldig mooie relaties tussen de getallen:
 %
 \begin{equation}
 \jot=5pt
