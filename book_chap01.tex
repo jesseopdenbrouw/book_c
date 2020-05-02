@@ -96,7 +96,7 @@ Dit programma kan niet direct door de computer worden uitgevoerd, het moet eerst
 
 Het C-programma begint met de definitie van de \textsl{functie} \texttt{main}\indextwo{main}{functie}. Een functie is een aantal instructies samengepakt onder een gemeenschappelijke noemer. \textsl{Elk C-programma heeft een functie \texttt{main}}. Tussen de haken staat het keyword \texttt{void}\indexkeyword{void}, dat aangeeft dat het uitvoerbaar programma geen gegevens meekrijgt van het besturingssysteem\footnote{Dat kan wel, zie hoofdstuk~\ref{cha:pointers}.}. Vóór \texttt{main} staat het keyword \texttt{int}\indexkeyword{int} dat aangeeft dat \texttt{main} een geheel getal teruggeeft aan het besturingssysteem.
  
-Statements die in het C-programma gebruikt worden, zijn afgebakend met \textsl{accolades}\index{accolades}. Het Engelse woord hier voor is \textsl{curly braces} of gewoon \textsl{braces}. De accolades geven het begin en einde aan van \textsl{block}. Een blok begint met een accolade-openen (\texttt{\{}) en eindigt met een accolade-sluiten (\texttt{\}}). Over de plaats van de accolades zijn er diverse meningen. In listing~\ref{cod:unminimaalcprogramma} is de accolade-openen geplaatst onder de definitie van \texttt{main}, maar het is ook gebruikelijk om de accolade-openen te schrijven achter de definitie van \texttt{main}.
+Statements die in het C-programma gebruikt worden, zijn afgebakend met \textsl{accolades}\index{accolades}. Het Engelse woord hier voor is \textsl{curly braces} of gewoon \textsl{braces}. De accolades geven het begin en einde aan van \textsl{blok}. Een blok begint met een accolade-openen (\texttt{\{}) en eindigt met een accolade-sluiten (\texttt{\}}). Over de plaats van de accolades zijn er diverse meningen. In listing~\ref{cod:unminimaalcprogramma} is de accolade-openen geplaatst onder de definitie van \texttt{main}, maar het is ook gebruikelijk om de accolade-openen te schrijven achter de definitie van \texttt{main}.
  
 Binnen \texttt{main} zien we één \textsl{statement}\index{statement}. Een statement is een opdracht in de C-taal. Het statement wordt gevormd door het keyword \texttt{return}\indexkeyword{return} gevolgd door het getal 0 en een punt-komma. Bij uitvoer van dit statement wordt de waarde 0 teruggegeven aan het besturingssysteem. Dat behoeft enige uitleg. Een (gecompileerd) programma wordt gestart door het besturingssysteem. Aan het einde wordt het programma afgesloten. Het besturingssysteem ``ruimt'' het programma op en zorgt ervoor dat het gebruikte geheugen weer vrijgegeven wordt voor volgende programma's. We kunnen aan het besturingssysteem een getal teruggeven, in dit geval 0. Het is aan het besturingssysteem om hier wat mee te doen. Gebruikelijk is om 0 terug te geven als alles goed verlopen is. Een ander getal dan 0 geeft over het algemeen aan dat er iets fout gegaan is.
 
@@ -174,10 +174,10 @@ int main(void)
 
 In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader op pagina~\pageref{fig:unopmerkingscanf}.
 
-\begin{remarkbox}[To \texttt{scanf} or not to \texttt{scanf}...]
+\begin{infobox}[To \texttt{scanf} or not to \texttt{scanf}...]
 \label{fig:unopmerkingscanf}
 De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilatie met \texttt{scanf} zal eindigen met een foutmelding. In plaats daarvan moet de functie \texttt{scanf\_s} worden gebruikt. Helaas ondersteunen andere compilers deze functie niet. Dat zal resulteren in een programma dat niet door iedere compiler kan worden vertaald. Om het probleem te omzeilen hebben we gebruik gemaakt van een \textsl{pragma}. In regel~4 geven we aan dat de C-compiler fout 4996 moet negeren. Op andere compilers, bijvoorbeeld de GNU-C compiler, wordt deze regel overgeslagen (er volgt wel een waarschuwing). Overigens wordt op vele fora gewaarschuwd voor de onveiligheid van \texttt{scanf} en worden alternatieven gegeven. Wij gebruiken \texttt{scanf} hier wel \textsl{for the sake of simplicity}. Het is beter om \texttt{scanf} te vermijden.
-\end{remarkbox}
+\end{infobox}
 
 Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} declareren we drie variabelen. Daarna drukken we in regel 10 een stukje tekst of dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
 
@@ -194,7 +194,7 @@ De som van 7 en 4 is 11
 
 \section{Keywords}
 
-In tabel~\ref{tab:unkeywords} is een lijst te zien met gereserveerde woorden. Een aantal van deze woorden hebben we algezien zoals \texttt{int}, \texttt{void} en \texttt{return}. Deze woorden worden \textsl{keywords}\index{keyword} en genoemd en geven de compiler aanwijzingen wat er moet gebeuren.
+In tabel~\ref{tab:unkeywords} is een lijst te zien met gereserveerde woorden. Een aantal van deze woorden hebben we algezien zoals \texttt{int}, \texttt{void} en \texttt{return}. Deze woorden worden \textsl{keywords}\index{keyword} en genoemd en geven de compiler aanwijzingen over wat er moet gebeuren.
 
 \begin{table}[!ht]
 \caption{Een lijst met keywords in de C-taal.}
@@ -345,11 +345,40 @@ De functie is te zien in listing~\ref{cod:sqrt_babylonian}. We maken hier gebrui
 Binnen de functie maken we gebruik van de twee variabelen \texttt{xiter} en \texttt{i}. \texttt{xiter} wordt gebruikt om de nieuwe waarde van de wortel te berekenen en \texttt{i} wordt gebruik om het aantal iteraties bij te houden.
 We testen in regels 8 t/m 10 of het argument 0 is en geven dan direct de waarde 0 terug.
 
-\booklisting[]{C}{caption}{sqrt_babylonian}{c}{!ht}
+\booklisting[]{C}{Programma om de wortels van 1 t/m 10 af te drukken}{sqrt_babylonian}{c}{!ht}
 
 In het \texttt{for}-statement worden tien iteraties van de middelste formule uit~\eqref{equ:sqrtbab} uitgevoerd. Bij elke doorgang wordt de waarde van de wortel steeds beter benaderd. Als het \texttt{for}-statement klaar is wordt deze waarde via \texttt{return} teruggegeven aan de aanroeper. In \texttt{main} worden bet behulp van een \texttt{for}-statement de wortels van 0 t/m 10 berekend en afgedrukt.
 
 Overigens bevat de \textsl{mathematical library} een implementatie van de wortel-functie. We hoeven dat niet zelf te schrijven.
+
+
+\section{Codeerstijlen}
+C is erg coulant in het vormgeven van een programma. Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend. We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen instructies achter elkaar op een regel plaatsen.
+
+Een mooi voorbeeld van hoe onze wortelfunctie onleesbaar te maken is, is te zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
+
+\booklisting[]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
+
+Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{codeerstijl}\index{codeerstijl}. Er zijn behoorlijk wat stijlen maar we zullen er twee noemen.
+
+In de K\&R-stijl (Kernighan en Ritchie)\index{K\&R-stijl} wordt de accolade-openen \textsl{achter} een functie, beslissings- of herhalingstatement geschreven. De statement hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statement verder of dieper ingesprongen.
+
+\begin{lstlisting}[caption=K\&R-stijl]
+if (aN < b) {
+    (*statements*))
+}
+content...
+\end{lstlisting}
+
+In de Allman-stijl\index{Allman-stijl} wordt de accolade-openen \textsl{onder} een functie, beslissings- of herhalingstatement geschreven. De statement hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statement verder of dieper ingesprongen.
+
+\begin{lstlisting}[caption=Allman-stijl]
+if (aN < b)
+{
+    (*statements*))
+}
+content...
+\end{lstlisting}
 
 \section{En verder...}
 We hebben nu enkele concepten van C uitgelegd. Maar de taal kan meer. Wat we niet behandeld hebben zijn \textsl{pointers}, \textsl{structures} en \textsl{bestandsverwerking}. Deze concepten zullen in de volgende hoofdstukken worden uitgelegd.
