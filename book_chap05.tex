@@ -12,16 +12,15 @@ De code is slecht herbruikbaar.
 
 We kunnen deze problemen oplossen door het gebruik van \textsl{functies}\index{functie}.
 Een logisch bij elkaar behorend stuk code wordt dan ergens apart (in een functie) geplaatst.
-Deze functie kunnen we vervolgens naar believen aanroepen om de code van de functie uit te voeren.
+Deze functie kunnen we vervolgens naar believen \textsl{aanroepen} om de code van de functie uit te voeren.
 
 Een functie kan eenvoudige van aard zijn en slechts een simpel stukje programma bevatten. Maar we kunnen functies ook complexer maken door ze argumenten mee te geven. Daarmee kunnen we de functie voor hetzelfde doeleind gebruiken, maar kan het stukje programma wat meer doen. We kunnen een functie ook informatie laten teruggeven. Op die manier is het mogelijk om een functie te schrijven die gegevens meekrijgt, daar iets mee laten doen en dan een resultaat teruggeeft. Een voorbeeld hiervan is een functie om de sinus van een hoek te laten berekenen.
 
 Er zijn ook functies die \textsl{zichzelf} aanroepen. Dat worden recursieve functies genoemd. De functie roept zichzelf aan met (meestal) een gewijzigd argument. Op deze manier kunnen complexe programmeerproblemen van elegant worden opgelost maar we zullen zien dat het wel zijn weerslag heeft op het geheugen en de executietijd.
 
-Binnen een functie kunnen we variabelen declareren. Deze variabelen zijn alleen binnen de functie beschikbaar. De variabele wordt aangemaakt als de functie begint en wordt verwijderd als de functie wordt geëindigd. De informatie die variabele bevat, is dan ook niet meer beschikbaar.
+Binnen een functie kunnen we lokale variabelen declareren. Deze variabelen zijn alleen binnen de functie beschikbaar. De variabele wordt aangemaakt als de functie begint en wordt verwijderd als de functie wordt geëindigd. De informatie die variabele bevat, is dan ook niet meer beschikbaar. Willen we een variabele door meerdere functies laten gebruiken dan moeten we de variabele globaal declareren.
 
 
-\newpage
 \section{Een eenvoudige functie}
 Als sterk versimpeld voorbeeld beschouwen we het programma dat gegeven is in listing~\ref{cod:slaregelsover1}.
 
@@ -60,9 +59,7 @@ We komen hier verderop in deze paragraaf op terug.
 
 %TODO verwijzing toevoegen.
 In listing~\ref{cod:slaregelsover3} zien we hoe een functiedeclaratie kan worden gebruikt\footnote{%
-	Als we de functiedeclaratie vergeten, zal het programma wel compileren, al zal de compiler wel een waarschuwing geven. 
-	De compiler is in dit geval namelijk niet in staat om te controleren of de functie correct wordt aangeroepen. 
-	Het is dus sterk aan te raden om als een functie niet boven \texttt{main} gedefinieerd is een functiedeclaratie te gebruiken. Overigens geeft Visual Studio standaard een foutmelding.
+	Als we de functiedeclaratie vergeten, zal het programma wel compileren, al zal de compiler wel een waarschuwing geven. De compiler is in dit geval namelijk niet in staat om te controleren of de functie correct wordt aangeroepen.  Het is dus noodzakelijk om, als een functie niet boven \texttt{main} gedefinieerd is, een functiedeclaratie te gebruiken. Overigens geeft Visual Studio standaard een foutmelding.
 }.
 
 \booklisting[]{C}{Een programma waarin een functiedeclaratie gebruikt is.}{slaregelsover3}{c}{!ht} 
@@ -261,28 +258,55 @@ Het ingelezen toetscijfer is 7.
 
 
 \section{Zichtbaarheid en levensduur van lokale variabelen}
-Variabelen die binnen een functie gedeclareerd zijn, zijn alleen zichtbaar in de functie. We noemen dat lokale variabelen. Ze worden aangemaakt als de functie begint en worden verwijderd als de functie terugkeert naar de aanroeper. Dat betekent dat de levensduur loopt van het begin van de uitvoer van een functie tot de terugkeer naar de aanroeper. Lokale variabelen kunnen geïnitialiseerd worden. Elke keer als de functie aangeroepen wordt, krijgt een nieuwe versie van de variabele dan zijn waarde.
+Variabelen die binnen een functie gedeclareerd zijn, zijn alleen zichtbaar in de functie. We noemen dat lokale variabelen\index{lokale variabele}\index{variabele!lokaal}. Ze worden aangemaakt als de functie begint en worden verwijderd als de functie terugkeert naar de aanroeper. Dat betekent dat de levensduur loopt van het begin van de executie van een functie tot de terugkeer naar de aanroeper. Lokale variabelen kunnen geïnitialiseerd worden. Elke keer als de functie aangeroepen wordt, krijgt een nieuwe versie van de variabele dan zijn waarde.
 
 Parameters van de functie gedragen zich als lokale variabelen. Er wordt een kopie gemaakt van het bijbehorende argument en die kopie is zichtbaar in de functie. Parameters mogen daarom ook in een functie aangepast worden; de originele variabelen (het argument) wordt dus niet aangepast. Ook de levensduur van parameters is identiek aan die van lokale variabelen.
-
-\begin{infobox}[Call by Value]
-De methode waarop een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
-
-Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofdstuk~\ref{cha:pointers} besproken.
-\end{infobox}
 
 Omdat er een kopie van een variabele aan de parameters wordt meegegeven, kan de originele variabele niet worden aangepast. Een bekend voorbeeld is een functie die twee variabelen verwisseld. Dit komt onder andere voor in sorteerprogramma's. We definiëren een functie \texttt{wissel} met twee parameters \texttt{a} en \texttt{b}. De functie en de functieaanroep zijn te zien in listing~\ref{cod:foute_wissel}. In de functie wordt een lokale variabele \texttt{hulpje} aangemaakt en met behulp ervan worden \texttt{a} en \texttt{b} verwisseld. De functie \texttt{wissel} wordt met twee argumenten \texttt{x} en \texttt{y} aangeroepen. Vooraf en daarna worden \texttt{x} en \texttt{y} op het scherm afgedrukt.
 
 \booklisting[]{C}{Een functie om twee argumenten te verwisselen (foutief)}{foute_wissel}{c}{!ht}
 
 In figuur~\ref{fig:funwisselfout} is de uitvoer van het programma te zien. We merken op dat \texttt{x} en \texttt{y} niet verwisseld zijn. Dat kan ook niet, want er worden kopieën van \texttt{x} en \texttt{y} meegegeven. In functie \texttt{wissel} worden alleen de kopieën verwisseld, niet de originele variabelen.
+Toch is het mogelijk om \texttt{x} en \texttt{y} te verwisselen. Hoe dat moet, zien we in hoofdstuk~\ref{cha:pointers}.
 
 \begin{dosbox}[title=Uitvoer van de functie \texttt{wissel}.,label=fig:funwisselfout]
 x = 7 en y = 8
 x = 7 en y = 8
 \end{dosbox}
 
-Toch is het mogelijk om \texttt{x} en \texttt{y} te verwisselen. Hoe dat moet, zien we in hoofdstuk~\ref{cha:pointers}.
+C is een blokgestructureerde taal dat betekent dat we in een \textsl{blok}\index{blokstructuur} lokale variabelen kunnen de declareren. Zie listing~\ref{cod:funvarbinnenblok}. Variabele \texttt{i} is alleen te gebruiken binnen het \texttt{if}-statement.
+
+\begin{figure}[H]
+\begin{lstlisting}[caption=Variabele binnen een blok.,label=cod:funvarbinnenblok]
+    if (n > 0) {
+        int i;
+        
+        for (i = 0; i < 10; i++) {
+            // use variable i
+        }
+    }
+\end{lstlisting}
+\end{figure}
+
+Als we de lokale variabele \texttt{i} alleen maar binnen het \texttt{for}-statement nodig hebben, kunnen we ook gebruik maken van een zeer locale declaratie. Dit is te zien in listing~\ref{cod:funvarbinnenblok2}. Voor en na het \texttt{for}-statement is lokale variabele \texttt{i} niet beschikbaar. De zichtbaarheid van \texttt{i} is beperkt tot het \texttt{for}-statement.
+
+\begin{figure}[H]
+\begin{lstlisting}[caption=Variabele binnen een blok.,label=cod:funvarbinnenblok2]
+    if (n > 0) {
+        // variable i does not exists
+        for (int i = 0; i < 10; i++) {
+            // use variable i
+        }
+        // variable i does not exists
+    }
+\end{lstlisting}
+\end{figure}
+
+
+
+
+
+
 
 Lokale variabelen worden aan het begin van het uitvoeren van een functie aangemaakt en aan het einde weer verwijderd. Soms is het nodig om een lokale variabele te gebruiken die niet steeds opnieuw wordt aangemaakt en afgebroken wordt, maar behouden blijft \textsl{over aanroepen heen}. Dat kan door bij de declaratie van een lokale variabele de qualifier \texttt{static}\indextwo{static}{qualifier}\indextwo{static}{lokale variabele} te gebruiken. Zo'n lokale variabele wordt bij het starten van het programma geïnitialiseerd, expliciet door een constante expressie of impliciet met 0, en is beschikbaar zolang het programma draait.
 
@@ -290,6 +314,40 @@ In listing~\ref{cod:static_local} is een functie te zien met een \texttt{static}
 Elke keer dat we de functie aanroepen wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper.
 
 \booklisting[]{C}{Een functie met een static variabele}{static_local}{c}{!ht}
+
+
+\section{Zichtbaarheid en levensduur van globale variabelen}
+Een globale variabele\index{globale variabele}\index{variabele!globaal} is beschikbaar en zichtbaar tijdens de gehele executie van het programma en binnen het gehele C-programma. Alle functies kunnen deze variabele gebruiken in statements. Het wordt aangemaakt als het programma start en wordt verwijderd als het programma is afgelopen. Een globale variabele kan éénmalig worden geïnitialiseerd, of wordt automatisch op 0 gezet als de initialisatie achterwege is gebleven.
+
+Lokale variabelen kunnen globale variabele verbergen. In listing~\ref{cod:funzichtglobaal} is een opzet van een C-programma te zien met een declaratie van een globale variabele \texttt{i} (regel 1). In de functie \texttt{func1} wordt geen lokale variabele \texttt{i} gedeclareerd en is de globale variabele \texttt{i} zichtbaar. We kunnen in onze statements daar gebruik van maken. In functie \texttt{func2} wordt een lokale variabele \texttt{i} gedeclareerd. Deze declaratie zorgt ervoor dat de globale variabele wordt verborgen. Binnen de functie wordt alleen gebruik gemaakt van de lokale variabele \texttt{i}. Er is in C geen mogelijkheid om toch de globale variabele te gebruikten (binnen deze functie natuurlijk).
+
+\begin{figure}[!t]
+\begin{lstlisting}[caption=Zichtbaarheid van globale variabelen.,label=cod:funzichtglobaal]
+int i;
+
+void func1{int a} {
+    // global i visible
+}
+
+void func2{int a} {
+    int i;     // overrules the global i
+}
+\end{lstlisting}
+\end{figure}
+
+Als we een globale variabele alleen maar zichtbaar willen maken binnen het C-bestand waarin de variabele wordt gedeclareerd dan moeten we de variabele voorzien van de qualifier \texttt{static}\indextwo{static}{globale variabele}.
+De globale variabele is dan alleen zichtbaar voor de functies binnen het C-bestand. Een C-programma kan namelijk verdeeld worden over meerdere bestanden (ook wel \textsl{translation units} genoemd). Zie hoofdstuk~\ref{cha:compilatieproces}.
+
+
+\begin{infobox}[Call by Value]
+De methode waarop een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
+
+Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofdstuk~\ref{cha:pointers} besproken.
+\end{infobox}
+
+\section{Zichtbaarheid en levensduur van functies}
+Elke functie is in het C-programma te gebruiken. Het is niet mogelijk om een functie alleen maar beschikbaar te stellen voor een andere functie. Willen we een functie alleen maar beschikbaar stellen voor het C-bestand waarin de functie is gedefinieerd, dan moeten we de functie voorzien van de qualifier \texttt{static}\indextwo{static}{functie}. Zie ook hoofdstuk~\ref{cha:compilatieproces}.
+
 
 \section{Recursieve functies}
 Een functie die \textsl{zichzelf} aanroept wordt een \textsl{recursieve functie}\index{recursieve functie} genoemd.
@@ -455,7 +513,7 @@ Voor het tijd die een berekening kost is van de orde:
 T(n) = \mathscr{O}(1,618^n)
 \end{equation}
 %
-Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekentijd een berekening kost maar wel wat de verhouding is met de rekentijd van het volgende getal. Overigens zijn er geweldig mooie relaties tussen de getallen:
+Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekentijd een berekening precies kost maar wel wat de verhouding is met de rekentijd van het volgende getal. Overigens zijn er geweldig mooie relaties tussen de getallen:
 %
 \begin{equation}
 \jot=5pt
