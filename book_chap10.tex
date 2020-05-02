@@ -1,0 +1,17 @@
+\chapter{Het compilatieproces}
+\label{cha:compilatieproces}
+\thispagestyle{empty}
+
+De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functie er aan vast en zorgt ervoor dat uit eindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegeneerd. In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compiler bestaan, zullen we ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruik, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop, de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers.
+
+
+
+\section{Een C-programma in meerdere bestanden}
+Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{tanslation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
+
+\hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
+
+dan wordt elk van de C-bestanden gecompileerd naar een \textsl{objectbestand}\index{object-bestand} en worden deze objectbestanden uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+
+
+
