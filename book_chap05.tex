@@ -524,12 +524,12 @@ Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekent
 \end{split}\end{equation}
 %
 Voor steeds groter wordende waarde van $n$ convergeren de verhoudingen naar de exacte waarde $\dfrac{1+\sqrt{5}}{2}$. Deze waarde wordt de \textsl{gulden snede}\index{gulden snede} genoemd\footnote{De waarde is bij benadering $1,61803398874989484820458683436563811772$.}.
-
 \basic
 
 
 \section{Pointers en functies als parameter}
 Een pointer is een variabele met als inhoud het \textsl{adres} van een (andere) variabelen. Met behulp van pointers kunnen we dus niet een kopie van een variabele als argument meegeven, maar een adres waarop de (originele) variabele ter vinden is. Ook een functie, of eigenlijk, het beginadres van een functie kan als argument en parameter dienen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
+
 
 \section{Functies die meer dan één waarde teruggeven}
 Met behulp van het \texttt{return}-statement kan in C vanuit een functie slechts één waarde teruggegeven worden.
@@ -541,3 +541,109 @@ We kunnen:
 	\item
 	de waarden teruggeven via zogenoemde \emph{Call by Reference}-parameters, dit is vooral handig bij dezelfde datatypes (array's), zie hiervoor hoofdstuk~\ref{cha:arrays}.
 \end{itemize}
+
+
+\section{Wiskundige functies}
+Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, kan met behulp van \textsl{mathematical library} toch wiskundige berekeningen gedaan worden. De functies zijn te zien in de onderstaande lijst.
+%% Bereken de breedte van de tweede colom
+%\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
+% Bereken de breedte van de eerste kolom
+\setbox0\hbox{\texttt{atan2(x,y)}}
+\newdimen\delengteb\delengteb=\textwidth\advance\delengteb by -\wd0\advance\delengteb by -2\tabcolsep
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lp{\delengteb}}
+\texttt{sin(x)} & berekent de sinus van $x$ ($x$ in radialen)\\
+\texttt{cos(x)} & berekent de cosinus van $x$ ($x$ in radialen)\\
+\texttt{tan(x)} & berekent de tangens van $x$ ($x$ in radialen)\\
+\texttt{asin(x)} & berekent de arcsin $x$ in het bereik $[-\pi/2, \pi/2]$,  $x\in [-1,1]$\\
+\texttt{acos(x)} & berekent de arccos $x$ in het bereik $[0, \pi]$,  $x\in [-1,1]$\\
+\texttt{atan(x)} & berekent de arctan $x$ in het bereik $[-\pi/2, \pi/2]$\\
+\texttt{atan2(x,y)} & berekent de arctan $x/y$ in het bereik $[-\pi, \pi]$\\
+\texttt{sinh(x)} & berekent de sinus hyperbolicus van $x$\\
+\texttt{cosh(x)} & berekent de cosinus hyperbolicus van $x$\\
+\texttt{tanh(x)} & berekent de tangens hyperbolicus van $x$\\
+\texttt{exp(x)} & berekent $\mathrm{e}^x$\\
+\texttt{log(x)} & berekent $\ln x$, $x>0$\\
+\texttt{log10(x)} & berekent $^{10}\!\log x$, $x>0$\\
+\texttt{pow(x,y)} & berekent $x^y$, $x>0,\,x=0\,\wedge\,y>0,\,x<0\,\wedge\,y\in\mathbb{Z}$\\
+\texttt{sqrt(x)} & berekent $\sqrt{x}$, $x\geq0$\\
+\texttt{ceil(x)} & kleinste geheel getal niet kleiner dan $x$\\
+\texttt{floor(x)} & grootste geheel getal niet groter dan $x$\\
+\texttt{fabs(x)} & berekent $|x|$\\
+\texttt{fmod(x)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$\\
+\end{tabular}
+\end{table}
+
+Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden.
+
+Als voorbeeld ontwikkelen we een programma om een numerieke benadering voor een Riemann-integraal te programmeren. De te integreren functie in het kwadraat van een sinus van 0 tot~$2\pi$. Dit komt onder andere voor bij het bepalen van het gemiddelde elektrisch vermogen over een tijdspanne. De algemene gedaante is:
+%
+\begin{equation}
+O = \int_{a}^{b}f(x)\,\mathrm{d}x = \lim\limits_{n\to\infty}\,\sum_{k=0}^{n-1}f\left(a+k\frac{b-a}{n}\right)\cdot\frac{b-a}{n}
+\end{equation}
+%
+waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integreren functie wordt verdeeld in een aantal rechthoeken zoals te zien is in figuur~\ref{fig:funriemannleftrule}. De punt linksboven van de rechthoek raakt de functie. Als we nu de oppervlakte van alle rechthoeken bij elkaar optellen dat vinden we een benadering van de oppervlakte. Dit wordt de Riemann-linkersom genoemd. Als we het aantal rechthoeken steeds groter maken (waarbij de breedte van de rechthoek steeds smaller wordt), dan benaderen we de exacte waarde steeds beter.
+
+\begin{figure}[!t]
+\begin{subfigure}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[font=\footnotesize,
+  declare function = { f(\x) = sin(deg(\x))^2; }
+]
+\begin{axis}[width=\textwidth, height=0.5\textwidth,
+   tick label style = {
+      /pgf/number format/use comma,
+      /pgf/number format/fixed,
+      /pgf/number format/fixed zerofill,
+      /pgf/number format/precision = 1},
+    xtick={0,pi,2*pi},
+    xticklabels={$0$,$\pi$,$2\pi$},
+    ytick={0,0.5,1.0},
+    xmax=6.5,ymax=1.1,ymin=-0.001,xmin=-0.0,
+%    enlargelimits=true,
+    axis y line=middle, axis x line=bottom,
+    clip=false,
+    domain=0:17,
+    axis on top
+    ]
+\addplot [draw=infoboxbgtitle, fill=infoboxbg, ybar interval, samples=21, domain=0:6.28] {f(x)} \closedcycle;
+\addplot[smooth, thick,domain=0:6.28,samples=40,draw=bookcolor]{f(x)};
+\end{axis}
+\end{tikzpicture}
+\caption{Met 20 rechthoeken.}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[font=\footnotesize,
+  declare function = { f(\x) = sin(deg(\x))^2; }
+]
+\begin{axis}[width=\textwidth, height=0.5\textwidth,
+   tick label style = {
+      /pgf/number format/use comma,
+      /pgf/number format/fixed,
+      /pgf/number format/fixed zerofill,
+      /pgf/number format/precision = 1},
+    xtick={0,pi,2*pi},
+    xticklabels={$0$,$\pi$,$2\pi$},
+    ytick={0,0.5,1.0},
+    xmax=6.5,ymax=1.1,ymin=-0.001,xmin=-0.0,
+%    enlargelimits=true,
+    axis y line=middle, axis x line=bottom,
+    clip=false,
+    domain=0:17,
+    axis on top
+    ]
+\addplot [draw=infoboxbgtitle, fill=infoboxbg, ybar interval, samples=51, domain=0:6.28] {f(x)} \closedcycle;
+\addplot[smooth, thick,domain=0:6.28,samples=40,draw=bookcolor]{f(x)};
+\end{axis}
+\end{tikzpicture}
+\caption{Met 50 rechthoeken.}
+\end{subfigure}
+\caption{Bepalen oppervlakte onder een kromme met behulp van de Riemann-linkersom.}
+\label{fig:funriemannleftrule}
+\end{figure}
+
+Het programma om de numerieke oplossing te berekenen is te vinden in listing~\ref{cod:riemann_left}. We stellen het aantal stappen (\texttt{n}) in op 1000, $a$ in op 0 (\texttt{left}) en $b$ in op $2\pi$ (\texttt{right}) en berekenen de stapgrootte. Daarna lopen we met behulp van een \texttt{for}-statement van 0 tot $n-1$ en berekenen we de oppervlakte van de huidige rechthoek. Tevens tellen we de rechthoeken bij elkaar op.
+
+\booklisting[]{C}{Riemann linkersom}{riemann_left}{c}{!ht}
