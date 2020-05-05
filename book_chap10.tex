@@ -1,17 +1,158 @@
-\chapter{Het compilatieproces}
-\label{cha:compilatieproces}
+\chapter{De preprocessor}
+\label{cha:preprocessor}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functie er aan vast en zorgt ervoor dat uit eindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegeneerd. In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compiler bestaan, zullen we ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruik, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop, de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers.
+De C-compiler is uitgerust met een \textsl{preprocessor}\index{preprocessor}. Dit kan een apart programma zijn dat door de C-compiler zelf gestart wordt, of het kan ingebed zijn in de C-compiler.
+
+De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Tegenwoordig wordt dit ook wel een hashtag genoemd.} (\texttt{\#}). Dit worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
+
+\section{Invoegen van bestanden}
+\indextwo{\#include}{preprocessor directive}
+Een bestand kan in een C-programma worden ingevoegd door de \textsl{include directive}. Deze heeft de vorm:
+
+\hspace*{1em}\texttt{\#include "{}}\textsl{bestandsnaam}\texttt{"}
+
+of
+
+\hspace*{1em}\texttt{\#include <}\textsl{bestandsnaam}\texttt{>}
+
+Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include directive zelf wordt verwijderd. Een bestandsnaam kan tussen aanhalingstekens staan. Dan wordt in de map gezocht waar ook het C-programma geplaatst is. Een bestandsnaam kan ook tussen \texttt{<} en~\texttt{>} staan. Dan wordt gezocht in zogenoemde \textsl{systeemmappen}. Welke dat zijn, hangt van de toolchain af. De include directive wordt typisch gebruikt om een \textsl{header-bestand}\index{header-bestand} aan het begin van een C-programma in te lezen. We hebben er al een aantal gebruikt:
+
+\hspace*{1em}\texttt{\#include <stdio.h>}\\
+\hspace*{1em}\texttt{\#include <stdint.h>}\\
+\hspace*{1em}\texttt{\#include <string.h>}\\
+
+De extensie \texttt{.h} geeft aan dat het om een header-bestand gaat. Dit is niet verplicht maar wel \textsl{good practice}. Het is \textsl{niet} de bedoeling om andere C-bestanden via de include directive in te lezen. Dat kan wel, maar is \textsl{bad practice}.
+
+Header-bestanden kunnen zelf ook weer include directives bevatten, dat ook vaak het geval is. Daarbij moet erop gelet  worden dat header-bestanden niet meerdere keren geladen worden. Hoe dan vermeden kan worden, zien we in paragraaf~\ref{sec:conditioneelinlezen}.
 
 
+\section{Macrovervanging}
+\indextwo{\#define}{preprocessor directive}
+Een \textsl{macro}\index{macro} in de eenvoudigste vorm, ziet eruit als:
 
-\section{Een C-programma in meerdere bestanden}
-Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{tanslation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
+\hspace*{1em}\texttt{\#define }\textsl{macronaam vervangende-tekst}
 
-\hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
+Overal waar \textsl{macronaam} voorkomt wordt dit vervangen door \textsl{vervangende-tekst} behalve in C-strings. De \textsl{macronaam} moet exact overeenkomen, dus als \texttt{MAX} gedefinieerd is, dan wordt er geen vervanging gedaan in \texttt{printf("{}MAX")} en \texttt{MAX\_GETAL}. Macro's mogen zelf ook weer macro's bevatten en het vervangen gaat net zolang door totdat er geen vervangingen meer worden gedaan. We noemen dit \textsl{macro-expansie}.
 
-dan wordt elk van de C-bestanden gecompileerd naar een \textsl{objectbestand}\index{object-bestand} en worden deze objectbestanden uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+Een macro kan argumenten bevatten zodat de vervangende tekst voor verschillende doeleinden gebruikt kan worden. Een klassiek voorbeeld is:
+
+\hspace*{1em}\texttt{\#define max(A, B) ((A) > (B) ? (A) : (B))}
+
+Dit ziet eruit als een functie-aanroep maar dat is het niet. Overal waar \texttt{max} voorkomt wordt het vervangen door de vervangende tekst. Merk op het gebruik van de vele haakjes. Dat is nodig om de argumenten correct uit te rekenen:
+
+\hspace*{1em}\texttt{x = max(p+q, r+s);}
+
+wordt dan vervangen door
+
+\hspace*{1em}\texttt{x = ((p+q) > (r+s) ? (p+q) : (r+s));}
+
+Een veel gemaakte fout is het definiëren van een kwadraat:
+
+\hspace*{1em}\texttt{\#define sqr(x) x * x \ \ \ \ /* WRONG */}
+
+en dat geeft een verkeerd antwoord als \texttt{x} wordt vervangen door \texttt{y+1}. De correcte manier is om extra haakjes te gebruiken:
+
+\hspace*{1em}\texttt{\#define sqr(x) ((x) * (x)) \ \ \ \ /* correct */}
+
+Het kan alsnog verkeerd gaan als we de increment- of decrement-operator gebruiken:
+
+\hspace*{1em}\texttt{j = sqr(++i);}
+
+Een voordeel van een macro is dat de argumenten onafhankelijk zijn van het datatype. Als we een floating point-getal willen kwadrateren, dan kan dat ook:
+
+\hspace*{1em}\texttt{double j = sqr(2.16);}
+
+We kunnen de preprocessor ook een macro laten vergeten:
+
+\indextwo{\#undef}{preprocessor directive}
+\hspace*{1em}\texttt{\#undef }\textsl{macronaam}
 
 
+\section{Conditionele compilatie}
+Het gebruik van macro's is bijzonder handig als we delen van een C-bestand wel of niet willen laten compileren. Een veel gebruikt voorbeeld is het afdrukken van debug-informatie:
+
+%\begin{lstlisting}[style=lstempty,caption=,keywordstyle=\ttfamily,keywordstyle=\ttfamily,xleftmargin=1em]
+\begin{lstlisting}[caption=Conditionele compilatie.]
+#include <stdio.h>
+
+#define DEBUG 1
+
+int main(void) {
+    // ...
+#if defined(DEBUG)
+    printf("Variabele: %d\n", a);
+#endif
+    // ...
+}
+\end{lstlisting}
+\indextwo{\#if}{preprocessor directive}
+
+In plaats van \texttt{defined} mogen we ook \texttt{\#ifdef} gebruiken. We kunnen ook header-bestanden aan de hand van macro's laten invoegen. De diverse C-compilers definiëren bepaalde macro's zodat deze in een C-bestand te gebruiken zijn, de zogenoemde \textsl{predefined macros}. Een voorbeeld is te zien in listing~\ref{cod:precondinc}.
+
+\begin{lstlisting}[caption=Conditioneel inlezen van header-bestanden.,label=cod:precondinc]
+#include <stdio.h>
+
+#ifdef __GNUC__                   /* GNU C-compiler */
+#define VSTRING "GNU C-compiler"
+#include <gnuc.h>
+#endif
+#ifdef _MSC_VER                   /* Microsoft C-compiler
+#define VSTRING "Visual Studio C-compiler"
+#include <ms.h>
+#endif
+#ifdef __clang__                  /* Clang C-compiler
+#define VSTRING "Clang C-compiler"
+#include <clang.h>
+#endif
+
+int main(void) {
+
+	printf("Gecompileerd met " VSTRING);
+	return 0;
+}
+
+\end{lstlisting}
+\indextwo{\#ifdef}{preprocessor directive}
+\indextwo{\#endif}{preprocessor directive}
+
+Welke predefines macros gedefinieerd zijn, is afhankelijk van de C-compiler. De documentatie moet hiervoor geraadpleegd worden. Sommige macro's hebben ook nuttige waarden zoals te zien is in listing~\ref{cod:premscver}.
+
+\begin{lstlisting}[caption=Gebruik van de \texttt{\_MSC\_VER}-macro.,label=cod:premscver]
+#ifdef _MSC_VER
+#if _MSC_VER == 1926
+#define VSTRING "Visual Studio 2019 versie 16.6"
+#elif _MSC_VER == 1925
+#define VSTRING "Visual Studio 2019 versie 16.5"
+#elif _MSC_VER == 1924
+#define VSTRING "Visual Studio 2019 versie 16.4"
+#else
+#define VSTRING "Visual Studio 2019 versie 16.3 of ouder"
+#endif
+#endif
+\end{lstlisting}
+\indextwo{\#elif}{preprocessor directive}
+
+Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgt ervoor dat er conditioneel gecomplieerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
+
+\hspace*{1em}\texttt{\#if defined(\_\_linux\_\_) \&\& !defined(\_\_ANDROID\_\_)}
+
+In principe mag de expressie willekeurig complex zijn, als het maar resulteert in een constante integer.
+
+
+\section{Conditioneel inlezen van een bestand}
+\label{sec:conditioneelinlezen}
+Om ervoor te zorgen dat tijdens een compilatie van een C-bestand een header-bestand niet meer dan één keer wordt ingelezen, kunnen we een macro gebruiken. Aan het begin van het header-bestand testen we of een bepaalde macro bestaat. Als dat \textsl{niet} zo is, dan definiëren we de macro en laden de rest van het header-bestand. De volgende keer dat het header-bestand (in dezelfde compilatieslag) wordt geladen is de macro gedefinieerd en wordt de code overgeslagen. Zie listing~\ref{cod:preheaderinc}.
+
+\begin{lstlisting}[caption=Gebruik van een macro om een header-bestand één keer in te lezen.,label=cod:preheaderinc]
+/* File myheader.h */
+
+#ifndef _MYHEADER_H
+#define _MYHEADER_H
+
+    // ... contents goes here
+    
+#endif
+\end{lstlisting}
+\indextwo{\#ifndef}{preprocessor directive}
 
