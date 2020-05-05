@@ -1,3 +1,4 @@
+\addtocontents{toc}{\protect\newpage}
 \chapter{Pointers}
 \label{cha:pointers}
 \thispagestyle{empty}
@@ -238,6 +239,7 @@ printf("De waarde is %d\n", *(int *) p);
 
 \section{Afdrukken van pointers}
 \label{sec:afdrukkenvanpointers}
+\index{pointer!afdrukken van}
 Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specifier \texttt{\%p}. Merk op dat de pointer van het type \texttt{void} moet zijn, maar veel compilers accepteren pointers naar een datatype.
 
 \begin{figure}[!ht]
@@ -256,6 +258,7 @@ int main() {
 \end{figure}
 
 Noot: Bij 32-bits compilers is de grootte van een pointer 32 bits (4 bytes). Zo'n pointer kan maximaal 4 GB adresseren. Bij 64-bits compilers is de grootte van een pointer 64 bits (8 bytes). Zo'n pointer kan maximaal 16 EB (exa-bytes) adresseren.
+
 
 \section{Pointers naar array's}
 \label{sec:pointersnaararrays}
@@ -342,6 +345,7 @@ Een uitbeelding is te zien in figuur~\ref{fig:poithirdarray}. In de figuur wijst
 
 We kunnen de lengte van \texttt{ary} bereken met de \texttt{sizeof}-operator. Dat kan alleen via \texttt{ary} omdat de compiler de lengte kan uitrekenen. Het kan \textsl{niet} via pointer \texttt{p} want dat is een pointer naar een \texttt{int}; pointer \texttt{p} ``weet'' niet dat er naar een array gewezen wordt.
 
+
 \section{Strings}
 \label{sec:strings}
 \index{string}
@@ -381,6 +385,7 @@ Merk op dat \texttt{str} niet aangepast mag worden, want dit is de naam van een 
 Ook hier merken we op dat we de lengte van \texttt{str} kunnen berekenen met de \texttt{sizeof}-operator. De compiler heeft genoeg informatie beschikbaar. We kunnen de lengte van de tweede string \textsl{niet} door de compiler laten uitrekenen, want \texttt{pstr} in een pointer naar een \texttt{char}. Pointer \texttt{pstr} ``weet'' dus niet dat er naar een string gewezen wordt.
 
 Toch is het mogelijk om tijdens het draaien van een programma de lengte van de string te vinden. We kunnen namelijk uitgaan van het feit dat een string in `C` wordt afgesloten met een nul-karakter. Dit wordt uitgelegd in de volgende paragraaf.
+
 
 \section{Rekenen met pointers}
 \label{sec:rekenenmetpointers}
@@ -509,6 +514,7 @@ int b = ary[-1];   /* ILLEGAL: points outside array */
 \end{lstlisting}
 \end{figure}
 
+
 \section{Pointers als functie-argumenten}
 \label{sec:pointersalsfunctieargumenten}
 \index{pointer!als functie-argument}
@@ -629,6 +635,7 @@ In de programmeerwereld is het gebruikelijk om onderscheid te maken tussen twee 
 
 Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En daar is wat voor te zeggen. Er wordt immers een waarde aan de functie meegegeven en dat is het adres van een variabele. Dit adres kan in de functie veranderd worden maar het originele adres waar de variabele in het geheugen staat wordt niet aangepast. Toch maken programmeurs onderscheid tussen deze twee manieren van argumentenoverdracht.
 \end{infobox}
+
 
 \section{Pointer als return-waarde}
 \label{sec:pointersalsreturnwaarde}
@@ -1027,6 +1034,7 @@ int main(int argc, char **argv) {
 \end{lstlisting}
 \end{figure}
 
+
 \section{Pointers naar functies}
 \index{pointer!naar functie}
 \label{sec:pointersnaarfunctie}
@@ -1153,6 +1161,7 @@ In listing~\ref{cod:poiexampleqsort} is een programma te zien dat een array van 
 %\end{lstlisting}
 %\end{figure}
 
+
 \section{Dynamische geheugenallocatie}
 \index{dynamische geheugenallocatie}
 \index{geheugenallocatie}
@@ -1162,47 +1171,11 @@ De standard library kent een aantal functie op dit gebied. Om deze functies te g
 
 Een van de meest voorkomende problemen is dat gealloceerd geheugen niet wordt vrijgegeven. Dit wordt een \textsl{memory leak}\index{memory leak} genoemd. Op zich is dat niet zo erg, want als het programma stopt, ruim het besturingssysteem alle gealloceerde geheugenruimtes op. Maar als een programma alsmaar geheugen vraagt en niets vrijgeeft, kan het zijn dat uiteindelijk geen geheugen meer beschikbaar is.
 
-Een eenvoudig gebruik van \texttt{malloc} en \texttt{free} is te zien in listing~\ref{cod:poimalloc}. De regel 6 definiëren we een \textsl{macro}\index{macro} met de grootte van 1000 bytes. Regel 13 zorgt ervoor dat Visual Studio de functie \texttt{strcpy}\indextwo{strcpy}{functie} accepteert. In regel 17 declareren we een karakterpointer en initialiseren we die met \texttt{NULL}. Regel 19 roept de functie \texttt{malloc} aan. De functie geeft een void-pointer terug, dus we moeten een type cast naar \texttt{char *} doen. We testen in de regels 21 t/m 24 of de allocatie gelukt is en zo niet, dan drukken we een foutmelding af en stoppen we het programma.
+Een eenvoudig gebruik van \texttt{malloc} en \texttt{free} is te zien in listing~\ref{cod:mem_alloc}. Regel 6 zorgt ervoor dat Visual Studio de functie \texttt{strcpy}\indextwo{strcpy}{functie} accepteert. In regel 8 declareren we de constante \texttt{SIZE} met de waarde van 1000. De constante is van het type \texttt{size\_t}. In regel 17 declareren we een karakterpointer en initialiseren we die met \texttt{NULL}. Regel 19 roept de functie \texttt{malloc} aan om 1000 bytes te alloceren. De functie geeft een void-pointer terug, dus we moeten een type cast naar \texttt{char *} doen. We testen in de regels 16 t/m 19 of de allocatie gelukt is en zo niet, dan drukken we een foutmelding af en stoppen we het programma.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Gebruik van malloc en free.,label=cod:poimalloc]
-#include <stdio.h>
-#include <malloc.h>
-#include <string.h>
+\booklisting[]{C}{Gebruik van \texttt{malloc} en \texttt{free}}{mem_alloc}{c}{!ht}
 
-/* Define 1000 bytes of space*/
-#define SIZE 1000
-/* Define 10 GB of space */
-/* #define SIZE 10000000000 */
-/* Define 100 GB of space */
-/* #define SIZE 100000000000 */
-
-/* Keep Visual Studio happy */
-#define strcpy(A,B) strcpy_s(A,SIZE,B);
-
-int main(void) {
-
-	char *pstr = NULL;
-
-	pstr = (char *) malloc(SIZE);
-
-	if (pstr == NULL) {
-		printf("Kan geheugen niet alloceren!");
-		return 0;
-	}
-
-	strcpy(pstr, "Vul maar wat in");
-
-	printf("%s", pstr);
-
-	free(pstr);
-
-	return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-In regel 26 t/m 28 kopiëren we een string naar het geheugen en drukken het af. In regel~30 geven we het geheugen weer vrij. We hebben twee macro's toegevoegd die we naar believen kunnen activeren: één voor~10~GB en één voor~100~GB. De lezer wordt gevraagd om deze te testen.
+In regel 21 t/m 23 kopiëren we een string naar het geheugen en drukken het af. In regel~25 geven we het geheugen weer vrij. De lezer wordt gevraagd om het programma te testen met verschillende waarden voor \texttt{SIZE}.
 
 We vermelden nog even twee andere functies: \texttt{realloc} en \texttt{calloc}. De functie \texttt{realloc}\indextwo{realloc}{functie} heralloceert een stuk geheugen. Met de aanroep
 
@@ -1217,26 +1190,31 @@ De functie \texttt{calloc}\indextwo{calloc}{functie} alloceert een aantal veelvo
 alloceert 1000 integers en vult ze met nul-bytes. Als het niet lukt, wordt een NULL-pointer teruggegeven.
 
 
-
 \advanced
 \section{Pointers naar vaste adressen}
 \index{pointer!naar vast adres}
 C is erg coulant bij het toekennen van adressen aan pointers. Zo is het mogelijk om een pointer naar een vast adres te laten wijzen.
 De toekenning en initialisatie
 
-\hspace*{1em}\texttt{int *p = (unsigned int *) 0x40fe;}
+\hspace*{1em}\texttt{unsigned int *p = (unsigned int *) 0x40fe;}
 
 zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. We kunnen nu iets in die geheugenplaats zetten door een dereferentie:
 
 \hspace*{1em}\texttt{*p = 0x3ff;}
 
 
-Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal systeem}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal system}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
 
-We geven hieronder een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel.
+We geven in listing~\ref{cod:poiatmega} een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel. Overigens bevat de toolchain\index{toolchain} header-bestanden waarin deze definities al staan.
+
+%%%We kunnen ook gebruik maken van een ``tijdelijke'' pointer:
+%%%
+%%%\hspace*{1em}\texttt{\#define DDRB (*(volatile uint8\_t*)0x37)}
+%%%
+%%%We kunnen nu \texttt{DDRB} gebruiken alsof het een gewone C-variabele is.
 
 \begin{figure}[!p]
-\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.]
+\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.,label=cod:poiatmega]
 typedef unsigned char uint8_t;
 
 int main(void) {
