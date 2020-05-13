@@ -137,7 +137,7 @@ Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande rege
 
 \hspace*{1em}\texttt{\#if defined(\_\_linux\_\_) \&\& !defined(\_\_ANDROID\_\_)}
 
-In principe mag de expressie willekeurig complex zijn, als het maar resulteert in een constante integer.
+In principe mag de expressie willekeurig complex zijn, als het maar resulteert in een constante integer. Typische C-constructies kunnen niet gebruikt worden, zoals (C-)variabelen, \texttt{sizeof} en expliciete type casts.
 
 
 \section{Conditioneel inlezen van een bestand}
