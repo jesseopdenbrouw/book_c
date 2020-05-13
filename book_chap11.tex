@@ -2,16 +2,121 @@
 \label{cha:compilatieproces}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functies er aan vast en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, zullen we ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruik, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop, de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers.
+De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functies aan vast en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
 
+In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, zullen we ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
+
+
+\section{Een C-programma in één bestand}
+De meeste kleine C-programma's worden in één bestand georganiseerd. We compileren het en daarna kan het op de computer worden uitgevoerd. Maar ``onder de motorkap`` gebeuren toch nog wel wat dingen. Laten we eens kijken hoe de C-compiler gestart wordt. We geven de opdracht (op de command line):
+
+\hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
+
+Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
 
 
 \section{Een C-programma in meerdere bestanden}
-Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{tanslation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
+Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid}. Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} van onderdelen van het programma. 
+
+Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{translation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
 
 \hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
 
-dan wordt elk van de C-bestanden gecompileerd naar een \textsl{objectbestand}\index{object-bestand} en worden deze objectbestanden uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+Als er in een van de C-programma's een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
+
+Merk op dat eventuele header-bestanden niet aan de C-compiler opgegeven worden. De header-bestanden worden tijdens compilatie van een C-bestand ingelezen door de compiler.
+
+\section{Assembler-bestanden}
+Soms is het nodig om bepaalde code te programmeren in \textit{assembly}\index{assembly}. Assembly is een taal die zeer dicht tegen de gebruikte processor ligt. Te denken valt aan code die niet in C geschreven kan worden, zoals opstartcode van het C-programma.
+
+Een assembler-bestand\index{assembler-bestand} heeft meestal de extensie \texttt{.s}, soms ook wel \texttt{.asm}. We kunnen de C-compiler vragen om een assembler-bestand te compileren:
+
+\hspace*{1em}\texttt{gcc file.s -o programma.exe}
+
+Meestal wordt een assembler-bestand samen met C-bestanden gecompileerd:
+
+\hspace*{1em}\texttt{gcc file1.c file2.c startup.s -o programma.exe}
 
 
+%dan wordt elk van de C-bestanden gecompileerd naar een \textsl{objectbestand}\index{object-bestand} en worden deze objectbestanden uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+
+
+\section{Stappen in de compilatie}
+De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een schematisch overzicht in figuur~\ref{fig:comschematisch}.
+
+\begin{sidewaysfigure}[!p]
+\centering
+\begin{tikzpicture}[font=\sffamily,scale=0.65] 
+
+\draw (0,0) rectangle (2,2);\node at (1,1) {PRE};
+\draw (0,-3) rectangle (2,-1);\node at (1,-2) {PRE};
+
+\draw (4,0) rectangle (7,2);\node at (5.5,1) {C};
+\draw (4,-3) rectangle (7,-1); \node at (5.5,-2) {C};
+
+\draw (4,-6) rectangle (7,-4);\node at (5.5,-5) {AS};
+
+\draw (13,2) rectangle (16,-10);\node at (14.5,-3) {LINKER};
+
+\node[right] at (-4,1) {file1.c}; 
+\node[right] at (-4,-2) {file2.c}; 
+\node[right] at (-4,-5) {file3.s}; 
+\node[right] at (-4,-8) {libc.a}; 
+\node[right] at (-4,-9) {libm.a}; 
+
+\draw[-latex] (-2,1) -- (0,1);
+\draw[-latex] (-2,-2) -- (0,-2);
+
+\draw[-latex] (2,1) -- (4,1);
+\draw[-latex] (2,-2) -- (4,-2);
+\draw[-latex] (-2,-5) -- (4,-5);
+
+\draw[-latex] (-2,-8) -- (13,-8);
+\draw[-latex] (-2,-9) -- (13,-9);
+
+\draw[-latex] (16,-5) -- ++(2,0) -- ++(0,-2) node[below] {prog.exe};
+\draw[-latex] (16,-4) -- ++(4,0) node[midway,above] {prog.elf};
+
+\draw[-latex] (7,1) -- (13,1) node[midway,above] {file1.o};
+\draw[-latex] (7,-2) -- (13,-2) node[midway,above] {file2.o};
+\draw[-latex] (7,-5) -- (13,-5) node[midway,above] {file3.o};
+
+\draw[dashed] (20,0) rectangle (23,-8) node[midway] {POST};
+
+\draw[-latex] (23,-4) -- ++(2,0) node[right] {prog.hex};
+\end{tikzpicture}
+\caption{Schematisch overzicht van een compilatie.}
+\label{fig:comschematisch}
+\end{sidewaysfigure}
+
+Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
+
+Een C-bestand wordt in twee stappen gecompileerd. Eerst wordt het C-bestand aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer is een een tijdelijk bestand. Daarna wordt dit tijdelijke bestand aan de ``echte'' C-compiler doorgegeven. De C-compiler genereert een \textsl{object-bestand}\index{object-bestand}. In het object-bestand is de gecompileerde code opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen.
+
+Alle gegenereerde object-bestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de object-bestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
+
+Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
+
+Een assembler-bestand wordt door de assembler gecompileerd. Dit kan in de C-compiler ingebakken zijn, maar vaak is dit een extern programma.
+
+Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
+
+\hspace*{1em}\texttt{gcc file1.c -l m -o programma.exe}
+
+Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
+
+Het is ook mogelijk om een bibliotheek te maken. Daarvoor moet een C-bestand gecompileerd worden naar een object-bestand:
+
+\hspace*{1em}\texttt{gcc -c file1.c -o file1.o}\\
+\hspace*{1em}\texttt{gcc -c file2.c -o file2.o}\\
+\hspace*{1em}\texttt{gcc -c file3.c -o file3.o}
+
+Daarna moet de \textsl{archiver} gestart worden:
+
+\hspace*{1em}\texttt{ar rcs libmy.a file1.o file2.o file3.o}
+
+De bibliotheek is nu te linken met:
+
+\hspace*{1em}\texttt{gcc file.c -l my -o programma.exe}
 
