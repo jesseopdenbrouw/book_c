@@ -1,0 +1,40 @@
+\documentclass[tikz,border=5mm]{standalone}
+\usepackage[edges]{forest}
+
+\definecolor{foldercolor}{RGB}{124,166,198}
+
+\tikzset{pics/folder/.style={code={%
+    \node[inner sep=0pt, minimum size=#1](-foldericon){};
+    \node[folder style, inner sep=0pt, minimum width=0.3*#1, minimum height=0.6*#1, above right, xshift=0.05*#1] at (-foldericon.west){};
+    \node[folder style, inner sep=0pt, minimum size=#1] at (-foldericon.center){};}
+    },
+    pics/folder/.default={20pt},
+    folder style/.style={draw=foldercolor!80!black,top color=foldercolor!40,bottom color=foldercolor}
+}
+
+\forestset{is file/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+        inner sep=1pt},
+    this folder size/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner ysep=0.6*#1},
+    folder tree indent/.style={before computing xy={l=#1}},
+    folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+    folder icons/.default={12pt},
+}
+
+\begin{document}
+  \begin{forest}
+    for tree={font=\sffamily, grow'=0,
+    folder indent=.9em, folder icons,
+    edge=densely dotted}
+    [main folder
+      [images, this folder size=20pt
+          [wallpapers]
+          [logo.pdf, is file]]
+      [tex-files
+          [chapter1.tex, is file]]
+      [main.tex, is file]
+      [main.aux, is file]
+    ]
+  \end{forest}
+\end{document}
