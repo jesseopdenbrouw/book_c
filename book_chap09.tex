@@ -257,11 +257,11 @@ Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een ui
 De standard library kent een groot aantal functies met betrekking tot het afhandelen van bestanden. We zullen hier een aantal van bespreken:
 
 \begin{itemize}[]
-\item \texttt{int fflush(FILE *fp)}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar de harddisk (to flush = doorspoelen). Geeft een \texttt{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
-\item \texttt{int fgetc(FILE *fp)}: leest één karakter in van het bestand dat gekoppeld is aan \texttt{fp}, of een EOF als het einde van een bestand is bereikt.
+\item \texttt{int fflush(FILE *fp)}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar de harddisk (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
+\item \texttt{int fgetc(FILE *fp)}: leest één karakter in van het bestand dat gekoppeld is aan \texttt{fp}, of een \texttt{EOF}\index{EOF} als het einde van een bestand is bereikt.
 \item \texttt{char *fgets(char *str, int n, FILE *fp)}: leest vanuit het bestand dat gekoppeld is aan \texttt{fp} ten hoogste \texttt{n} karakters en plaatst dat in de string \texttt{str}. Het inlezen stopt als een newline\index{newline} is gevonden (de newline komt in de string terecht), en de string wordt afgesloten met een nul-karakter\index{nul-karakter} (\texttt{'\textbackslash0')}. Geeft een NULL-pointer terug als een fout is opgetreden.
 \item \texttt{int fputc(int ch, FILE *fp)}: schrijf één karakter naar het bestand dat gekoppeld is aan \texttt{fp}, geeft \texttt{EOF} terug als er een fout is opgetreden.
-\item \texttt{int fputs(char *str, FILE *fp)}: schrijft naar het bestand dat gekoppeld is aan \texttt{fp} de string \texttt{str}. Geeft \texttt{EOF} terug als er een fout is opgetreden.
+\item \texttt{int fputs(char *str, FILE *fp)}: schrijft naar het bestand dat gekoppeld is aan \texttt{fp} de string \texttt{str}. Geeft \texttt{EOF}\index{EOF} terug als er een fout is opgetreden.
 \item \texttt{int puts(char *str)}: is equivalent aan \texttt{fputs(str, stdout)}.
 \item \texttt{int getchar(void)}: is equivalent aan \texttt{fgetc(stdin)}.
 \item \texttt{int putchar(int ch)}: is equivalent aan \texttt{fputc(ch, stdout)}.
@@ -269,9 +269,9 @@ De standard library kent een groot aantal functies met betrekking tot het afhand
 \item \texttt{void rewind(FILE *fp)}: equivalent aan \texttt{fseek(fp, 0L, SEEK\_SET)} maar heeft geen return-waarde. Zet de positie op het begin van een bestand.
 \end{itemize}
 
-Veel van deze functies krijgen een karakter mee als een \texttt{int}. Deze \texttt{int} wordt voor gebruik eerst nog geconverteerd naar een \texttt{unsigned char}. Diverse functies geven een \texttt{int} terug als karakter. De reden daarvoor is dat de functie ook een \textsl{end-of-file}\index{end of file} (\texttt{EOF}) kunnen teruggeven. De \texttt{EOF} is meestal gedefinieerd als het getal $-1$.
+Veel van deze functies krijgen een karakter mee als een \texttt{int}. Deze \texttt{int} wordt voor gebruik eerst nog geconverteerd naar een \texttt{unsigned char}. Diverse functies geven een \texttt{int} terug als karakter. De reden daarvoor is dat de functie ook een \textsl{end-of-file}\index{end of file} (\texttt{EOF})\index{EOF} kunnen teruggeven. De \texttt{EOF}\index{EOF} is meestal gedefinieerd als het getal $-1$.
 
-Er bestaat ook nog een functie \texttt{gets} die een regel van het toetsenbord inleest. Het wordt afgeraden deze functie te gebruiken omdat er geen lente van de string kan worden opgegeven, dat tot gevolg kan hebben dat meer karakters worden ingelezen dan er in de string beschikbaar zijn. Dat kan leiden tot een \textsl{buffer overflow}\index{buffer overflow}.
+Er bestaat ook nog een functie \texttt{gets} die een regel van het toetsenbord inleest. Het wordt afgeraden deze functie te gebruiken omdat er geen lengte van de string kan worden opgegeven, dat tot gevolg kan hebben dat meer karakters worden ingelezen dan er in de string beschikbaar zijn. Dat kan leiden tot een \textsl{buffer overflow}\index{buffer overflow}.
 
 
 \section{Lezen uit en schrijven naar een string}
@@ -451,7 +451,7 @@ Gelukkig zorgt het besturingssysteem ervoor dat ook het end-of-line-karakter (\t
 
 \hspace*{1em}\texttt{do \{ ch = getchar(); \} while (ch != '\textbackslash n' \&\& ch != EOF);}
 
-We lezen een karakter van de invoerbuffer en dat doen we zolang dat karakter ongelijk is aan \texttt{\textbackslash n} (end-of-line-karakter) en ongelijk is aan \texttt{EOF} (end-of-file).
+We lezen een karakter van de invoerbuffer en dat doen we zolang dat karakter ongelijk is aan \texttt{\textbackslash n} (end-of-line-karakter) en ongelijk is aan \texttt{EOF}\index{EOF} (end-of-file).
 
 Omdat we vaker gebruik willen maken van het legen van de invoerbuffer plaatsen we de code een functie. We kunnen nu aan de gebruiker vragen om een getal in te voeren:
 
