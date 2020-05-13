@@ -17,7 +17,7 @@ Open = nog niet af.
 8. Structures (review)
 9. Invoer en uitvoer (review)
 10. Preprocessor (review)
-11. Het compilatieproces (open)
+11. Het compilatieproces (review)
 
 Meewerken aan dit boek? Mail [J.E.J.opdenBrouw@hhs.nl](mailto:J.E.J.opdenBrouw@hhs.nl).
 
