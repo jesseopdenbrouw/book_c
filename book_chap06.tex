@@ -314,7 +314,7 @@ Doorgewinterde C-programmeurs zouden het trouwens zo willen oplossen (listing~\r
 int patcharrayunreadable(int ary[], int siz, int what, int with) {
     int count = 0;
 
-    while (--siz > 0) {
+    while (--siz >= 0) {
         ary[siz] == what ? ary[siz] = with, count++ : 0;
     }
     return count;
@@ -440,7 +440,7 @@ De standard library kent een groot aantal functies waarmee strings kunnen worden
 \texttt{strlen(s)} &  Geeft de lengte van \texttt{s} in karakters exclusief het nul-karakter.\\
 \texttt{strcpy(to, from)} &  Kopieert de string \texttt{from} naar string \texttt{to}.\\
 \texttt{strcat(to, from)} &  Voegt de string \texttt{from} toe aan het einde van string \texttt{to}.\\
-\texttt{strcmp(s1, s2)} &  Vergelijkt \texttt{s1} met \texttt{2}.\\
+\texttt{strcmp(s1, s2)} &  Vergelijkt \texttt{s1} met \texttt{s2}.\\
 \bottomrule
 \end{tabular} 
 \end{table}
