@@ -144,6 +144,7 @@ int *pint = &i;     /* declare and initialize pint */
 \end{lstlisting}
 \end{figure}
 
+
 \section{De NULL-pointer}
 \label{sec:nullpointer}
 \index{NULL-pointer}\index{pointer!NULL}
@@ -221,10 +222,10 @@ p = &d;   /* valid */
 \end{lstlisting}
 \end{figure}
 
-Omdat het type van een void-pointer niet bekend is, kan een void-pointer niet zonder meer in een dereferentie gebruikt worden. De void-pointer moet expliciet gecast worden naar het correcte type. In de onderstaande listing gebruiken we pointer \texttt{p} om naar een \texttt{int} te wijzen. De type cast \texttt{(int *)} zorgt ervoor dat pointer \texttt{p} naar een \texttt{int} wijst. Door gebruik te maken van de dereferentie operator \texttt{*} kunnen we bij de inhoud van variabele \texttt{i}. De constructie \texttt{*(int *)} is dus een expliciete dereferentie naar een integer.
+Omdat het type van een void-pointer niet bekend is, kan een void-pointer niet zonder meer in een dereferentie gebruikt worden. De void-pointer moet expliciet gecast worden naar het correcte type. In listing~\ref{cod:poiuseofvoidpointer} gebruiken we pointer \texttt{p} om naar een \texttt{int} te wijzen. De type cast \texttt{(int *)} zorgt ervoor dat pointer \texttt{p} naar een \texttt{int} wijst. Door gebruik te maken van de dereferentie operator \texttt{*} kunnen we bij de inhoud van variabele \texttt{i}. De constructie \texttt{*(int *)} is dus een expliciete dereferentie naar een integer.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption={Declaratie, initialisatie en deference van een void-pointer.}]
+\begin{lstlisting}[caption={Declaratie, initialisatie en deference van een void-pointer.},label=cod:poiuseofvoidpointer]
 int i = 2;
 void *p = &i;                    /* void-pointer */
 
@@ -630,7 +631,7 @@ int main(void) {
 \end{figure}
 
 \begin{infobox}[Call by reference...]
-\index{Call by Reference}
+\index{Call by Reference}%
 In de programmeerwereld is het gebruikelijk om onderscheid te maken tussen twee manieren van argumentenoverdracht: \textsl{Call by Value} en \textsl{Call by Reference}. Bij Call by Value wordt een kopie van de waarde van een variabele aan de functie meegegeven. Alleen de kopie kan veranderd worden door de functie. De variabele waarvan de kopie is gemaakt kan dus niet op deze manier veranderd worden. Bij Call by Reference wordt het adres van de variabele aan de functie meegegeven. Via dit adres is het dus wel mogelijk om de originele variabele te veranderen.
 
 Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En daar is wat voor te zeggen. Er wordt immers een waarde aan de functie meegegeven en dat is het adres van een variabele. Dit adres kan in de functie veranderd worden maar het originele adres waar de variabele in het geheugen staat wordt niet aangepast. Toch maken programmeurs onderscheid tussen deze twee manieren van argumentenoverdracht.
@@ -1162,6 +1163,19 @@ In listing~\ref{cod:poiexampleqsort} is een programma te zien dat een array van 
 %\end{figure}
 
 
+\begin{infobox}[What's in the name...]
+De schrijfwijze bij declaraties van pointers kan op twee manieren:
+
+\hspace*{1em}\texttt{int *p;}
+
+en
+
+\hspace*{1em}\texttt{int* p;}
+
+In beide gevallen is \texttt{p} en pointer naar een integer. De eerste manier sluit aan bij de gedachte ``\texttt{p} in een pointer'' (naar een \texttt{int}). De tweede manier sluit aan bij: \texttt{p} is een ``pointer naar een int''. Het gebruik van de tweede variant komt goed tot zijn recht bij listing~\ref{cod:poiexampleqsort}. Daarin wordt een expliciete cast gedaan naar een pointer van het type \texttt{int} en die wordt weer gebruikt in een derefentie naar een \texttt{int}.
+\end{infobox}
+
+
 \section{Dynamische geheugenallocatie}
 \index{dynamische geheugenallocatie}
 \index{geheugenallocatie}
@@ -1190,6 +1204,28 @@ De functie \texttt{calloc}\indextwo{calloc}{functie} alloceert een aantal veelvo
 alloceert 1000 integers en vult ze met nul-bytes. Als het niet lukt, wordt een NULL-pointer teruggegeven.
 
 
+\section{Generieke geheugenfuncties}
+We hebben gezien dat strings met behulp van diverse functies zijn te manipuleren. Deze zijn echter bedoeld voor strings, dus karakters in het geheugen. C kent ook een aantal generieke geheugenfuncties die ook gebruikt kunnen worden bij andere datatypes. Zie tabel~\ref{tab:arymemmanip}.
+
+%% Bereken de breedte van de tweede colom
+%\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
+% Bereken de breedte van de eerste kolom
+\setbox0\hbox{\texttt{memmove(to, from, n)}}
+\begin{table}[!ht]
+\centering
+\caption{Enkele standaard functies voor geheugenmanipulaties.}
+\label{tab:arymemmanip}
+\begin{tabular}{@{}p{\wd0}p{10cm}@{}}
+\toprule
+\texttt{memcpy(to, from, n)} &  Kopieert vanaf \texttt{from} naar \texttt{to} met precies \texttt{n} karakters.\\
+\texttt{memmove(to, from, n)} &  Kopieert vanaf \texttt{from} naar \texttt{to} met precies \texttt{n} karakters, maar kan ook gebruikt worden als \texttt{to} en \texttt{from} elkaar overlappen.\\
+\texttt{memcmp(s1, s2)} &  Vergelijkt \texttt{s1} met \texttt{s2}, returnwaarde als met \texttt{strcmp}.\\
+\texttt{memset(s, c, n)} & Zet karakter \texttt{c} op de eerste \texttt{n} karakters vanaf \texttt{s}.\\
+\bottomrule
+\end{tabular} 
+\end{table}
+
+
 \advanced
 \section{Pointers naar vaste adressen}
 \index{pointer!naar vast adres}
@@ -1205,45 +1241,39 @@ zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40
 
 Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal system}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
 
-We geven in listing~\ref{cod:poiatmega} een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel. Overigens bevat de toolchain\index{toolchain} header-bestanden waarin deze definities al staan.
-
-%%%We kunnen ook gebruik maken van een ``tijdelijke'' pointer:
+%%%We geven in listing~\ref{cod:poiatmega} een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel. Overigens bevat de toolchain\index{toolchain} header-bestanden waarin deze definities al staan.
 %%%
-%%%\hspace*{1em}\texttt{\#define DDRB (*(volatile uint8\_t*)0x37)}
+%%%\begin{figure}[!p]
+%%%\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.,label=cod:poiatmega]
+%%%typedef unsigned char uint8_t;
 %%%
-%%%We kunnen nu \texttt{DDRB} gebruiken alsof het een gewone C-variabele is.
-
-\begin{figure}[!p]
-\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.,label=cod:poiatmega]
-typedef unsigned char uint8_t;
-
-int main(void) {
-
-    uint8_t c1, c2, i;
-    volatile int i;
-
-    // Pointers to addresses
-    volatile uint8_t* ddrb = (uint8_t*) 0x37;   // DDRB address
-    volatile uint8_t* portb = (uint8_t*) 0x38;  // PORTB address
-
-    *ddrb = 0xFF; // Set PORTB to all outputs
-
-    while (1) {
-        c1 = 0x80;
-        c2 = 0x01;
-
-        for (i = 0; i < 4; i++) {
-            for (i = 0; i < 30000; ++i); // wait a bit
-            *portb = ~(c1 | c2);  // Leds on Port B are active low
-            c1 >>= 1;
-            c2 <<= 1;
-        }
-    }
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
+%%%int main(void) {
+%%%
+%%%    uint8_t c1, c2, i;
+%%%    volatile int i;
+%%%
+%%%    // Pointers to addresses
+%%%    volatile uint8_t *ddrb = (uint8_t*) 0x37;   // DDRB address
+%%%    volatile uint8_t *portb = (uint8_t*) 0x38;  // PORTB address
+%%%
+%%%    *ddrb = 0xFF; // Set PORTB to all outputs
+%%%
+%%%    while (1) {
+%%%        c1 = 0x80;
+%%%        c2 = 0x01;
+%%%
+%%%        for (i = 0; i < 4; i++) {
+%%%            for (i = 0; i < 30000; ++i); // wait a bit
+%%%            *portb = ~(c1 | c2);  // Leds on Port B are active low
+%%%            c1 >>= 1;
+%%%            c2 <<= 1;
+%%%        }
+%%%    }
+%%%
+%%%    return 0;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
 
 \section{Subtiele verschillen en complexe declaraties}
@@ -1254,7 +1284,7 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 % Bereken de breedte van de eerste kolom
 \setbox0\hbox{\texttt{char (*(*x[3])())[5]}}
 \newdimen\delengte\delengte=\textwidth\advance\delengte by -\wd0\advance\delengte by -2\tabcolsep
-\begin{table}[!p]
+\begin{table}[!ht]
 \begin{tabular}{@{}lp{\delengte}@{}}
 \texttt{int *p} & \texttt{p}: pointer to int\\
 \texttt{int **pp} & \texttt{pp}: pointer to pointer to int \\
