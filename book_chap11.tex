@@ -12,7 +12,7 @@ De meeste kleine C-programma's worden in één bestand georganiseerd. We compile
 
 \hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
 
-Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
+Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en Maxc OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
 
 
 \section{Een C-programma in meerdere bestanden}
@@ -23,7 +23,7 @@ Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk e
 \hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
 
 Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
-Als er in een van de C-programma's een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
+Als er in een van de C-bestanden een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
 
 Merk op dat eventuele header-bestanden niet aan de C-compiler opgegeven worden. De header-bestanden worden tijdens compilatie van een C-bestand ingelezen door de compiler.
 
@@ -104,8 +104,12 @@ Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standar
 
 \hspace*{1em}\texttt{gcc file1.c -l m -o programma.exe}
 
+Merk op dat de standard library niet expliciet moet worden opgegeven. De C-compiler regelt dat automatisch.
+
 Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
 
+
+\section{Bibliotheek maken}
 Het is ook mogelijk om een bibliotheek te maken. Daarvoor moet een C-bestand gecompileerd worden naar een object-bestand:
 
 \hspace*{1em}\texttt{gcc -c file1.c -o file1.o}\\
@@ -120,3 +124,23 @@ De bibliotheek is nu te linken met:
 
 \hspace*{1em}\texttt{gcc file.c -l my -o programma.exe}
 
+
+%\section{Optimalisatie}
+%Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige C-compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing
+%
+%\begin{lstlisting}[caption=Een C-programma.]
+%#include <stdio.h>
+%
+%int main(void) {
+%
+%    int i;
+%    
+%    for (i = 0; i < 30000; i++) {
+%        // do nothing
+%    }
+%    
+%    return 0;
+%}
+%\end{lstlisting}
+%
+%Als we naar de \texttt{for}-lus kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen.
