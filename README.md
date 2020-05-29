@@ -19,5 +19,9 @@ Open = nog niet af.
 10. Preprocessor (review)
 11. Het compilatieproces (review)
 
+## Compileren
+
+Gebruik een volledige Latex-distributie, zoals TexLive of MikTex. Gebruik een Latex-editor. Open het bestand book.tex. Start het liefst latexmk via de editor.
+
 Meewerken aan dit boek? Mail [J.E.J.opdenBrouw@hhs.nl](mailto:J.E.J.opdenBrouw@hhs.nl).
 
