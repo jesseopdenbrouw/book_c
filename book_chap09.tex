@@ -61,13 +61,13 @@ Technisch gezien is de format string het eerste argument maar we zullen \texttt{
 \centering
 \caption{\texttt{printf}-conversies.}
 \label{tab:invprintf}
-\begin{tabular}{cl}
+\begin{tabular}{@{}cl@{}}
 \toprule
 Karakter & Argumenttype \\
 \midrule 
 \texttt{d}, \texttt{i} & afdrukken van een \texttt{int}, decimale notatie\\
 \texttt{o} & afdrukken van een \texttt{int}, octale notatie\\
-\texttt{x}, \texttt{X} & afdrukken van een \texttt{int}, hexadecimale notatie, \texttt{x} levert \texttt{abcdef}, \texttt{X} levert \texttt{ABCDEF}\\
+\texttt{x}, \texttt{X} & afdrukken van een \texttt{int}, hexadecimale notatie, \texttt{x} levert \texttt{a$\ldots$f}, \texttt{X} levert \texttt{A$\ldots$F}\\
 \texttt{u} & afdrukken van een \texttt{unsigned int}, decimale notatie\\
 \texttt{c} & afdrukken van een \texttt{char} als karakter\\
 \texttt{s} & afdrukken van een string, argument is een pointer naar een string\\
@@ -83,7 +83,7 @@ De karakters \texttt{d}, \texttt{i}, \texttt{o}, \texttt{x}, \texttt{X} en \text
 
 De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers moeten worden afgdrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 cijfers (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
 
-Het karakter \texttt{s} geeft aan dat het argument een \textsl{string}\index{string} is. Het argument is dus een pointer naar een string. Het karakter mag worden voorafgegaan door een minteken (\texttt{i}) (links uitgelijnd) en een getal dat de breedte aangeeft.
+Het karakter \texttt{s} geeft aan dat het argument een \textsl{string}\index{string} is. Het argument is dus een pointer naar een string. Het karakter mag worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd) en een getal dat de breedte aangeeft.
 
 Het karakter \texttt{p} geeft aan dat het argument een \textsl{pointer}\index{pointer!afdrukken van} is. De representatie op het scherm is afhankelijk van de implementatie. Een 32-bits pointer wordt afgedrukt als 8 hexadecimale cijfers, een 64-bits pointer wordt afgedrukt als 16 hexadecimale cijfers.
 
