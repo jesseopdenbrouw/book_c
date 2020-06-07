@@ -26,6 +26,6 @@ void print_rechthoek(int breedte, int hoogte) {
 
 int main(void) {
 
-    print_rechthoek(20, 8);
+    print_rechthoek(20, 6);
     return 0;
 }
