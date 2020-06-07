@@ -13,7 +13,7 @@ int main(void)
     while (getal <= bovengrens)
     {
         kwadraat = getal * getal;
-        printf("Het kwadraad van %3d is %3d\n", getal, kwadraat);
+        printf("Het kwadraat van %3d is %3d\n", getal, kwadraat);
         getal = getal + stap;
     }
 
