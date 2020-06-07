@@ -16,11 +16,12 @@ of
 
 \hspace*{1em}\texttt{\#include <}\textsl{bestandsnaam}\texttt{>}
 
-Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include directive zelf wordt verwijderd. Een bestandsnaam kan tussen aanhalingstekens staan. Dan wordt in de map gezocht waar ook het C-programma geplaatst is. Een bestandsnaam kan ook tussen \texttt{<} en~\texttt{>} staan. Dan wordt gezocht in zogenoemde \textsl{systeemmappen}. Welke dat zijn, hangt van de toolchain af. De include directive wordt typisch gebruikt om een \textsl{header-bestand}\index{header-bestand} aan het begin van een C-programma in te lezen. We hebben er al een aantal gebruikt:
+Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include directive zelf wordt verwijderd. Een bestandsnaam kan tussen aanhalingstekens staan. Dan wordt in de map gezocht waarin ook het C-programma geplaatst is. Een bestandsnaam kan ook tussen \texttt{<} en~\texttt{>} staan. Dan wordt gezocht in zogenoemde \textsl{systeemmappen}. Welke dat zijn, hangt van de toolchain af. De include directive wordt typisch gebruikt om een \textsl{header-bestand}\index{header-bestand} aan het begin van een C-programma in te lezen. We hebben er al een aantal gebruikt:
 
 \hspace*{1em}\texttt{\#include <stdio.h>}\\
 \hspace*{1em}\texttt{\#include <stdint.h>}\\
 \hspace*{1em}\texttt{\#include <string.h>}\\
+\hspace*{1em}\texttt{\#include <math.h>}
 
 De extensie \texttt{.h} geeft aan dat het om een header-bestand gaat. Dit is niet verplicht maar wel \textsl{good practice}. Het is \textsl{niet} de bedoeling om andere C-bestanden via de include directive in te lezen. Dat kan wel, maar is \textsl{bad practice}.
 
@@ -33,7 +34,7 @@ Een \textsl{macro}\index{macro} in de eenvoudigste vorm, ziet eruit als:
 
 \hspace*{1em}\texttt{\#define }\textsl{macronaam vervangende-tekst}
 
-Overal waar \textsl{macronaam} voorkomt wordt dit vervangen door \textsl{vervangende-tekst} behalve in C-strings. De \textsl{macronaam} moet exact overeenkomen, dus als \texttt{MAX} gedefinieerd is, dan wordt er geen vervanging gedaan in \texttt{printf("{}MAX")} en \texttt{MAX\_GETAL}. Macro's mogen zelf ook weer macro's bevatten en het vervangen gaat net zolang door totdat er geen vervangingen meer worden gedaan. We noemen dit \textsl{macro-expansie}.
+Overal waar \textsl{macronaam} voorkomt wordt dit vervangen door \textsl{vervangende-tekst} behalve in C-strings. De \textsl{macronaam} moet exact overeenkomen, dus als \texttt{MAX} gedefinieerd is, dan wordt er geen vervanging gedaan in \texttt{printf("{}MAX")} en \texttt{MAX\_GETAL}. Macro's mogen zelf ook weer macro's bevatten en het vervangen gaat net zolang door totdat er geen vervangingen meer worden gedaan. We noemen dit \textsl{macro-expansie}\index{macro-expansie}.
 
 Een macro kan argumenten bevatten zodat de vervangende tekst voor verschillende doeleinden gebruikt kan worden. Een klassiek voorbeeld is:
 
@@ -72,7 +73,6 @@ We kunnen de preprocessor ook een macro laten vergeten:
 \section{Conditionele compilatie}
 Het gebruik van macro's is bijzonder handig als we delen van een C-bestand wel of niet willen laten compileren. Een veel gebruikt voorbeeld is het afdrukken van debug-informatie:
 
-%\begin{lstlisting}[style=lstempty,caption=,keywordstyle=\ttfamily,keywordstyle=\ttfamily,xleftmargin=1em]
 \begin{lstlisting}[caption=Conditionele compilatie.]
 #include <stdio.h>
 
@@ -87,8 +87,9 @@ int main(void) {
 }
 \end{lstlisting}
 \indextwo{\#if}{preprocessor directive}
+\indextwo{\#endif}{preprocessor directive}
 
-In plaats van \texttt{defined} mogen we ook \texttt{\#ifdef} gebruiken. We kunnen ook header-bestanden aan de hand van macro's laten invoegen. De diverse C-compilers definiëren bepaalde macro's zodat deze in een C-bestand te gebruiken zijn, de zogenoemde \textsl{predefined macros}. Een voorbeeld is te zien in listing~\ref{cod:precondinc}.
+In plaats van \texttt{defined} mogen we ook \texttt{\#ifdef} gebruiken. We kunnen ook header-bestanden aan de hand van macro's laten invoegen. De diverse C-compilers definiëren bepaalde macro's zodat deze in een C-bestand te gebruiken zijn, de zogenoemde \textsl{predefined macros}\index{predefined macros}. Een voorbeeld is te zien in listing~\ref{cod:precondinc}.
 
 \begin{lstlisting}[caption=Conditioneel inlezen van header-bestanden.,label=cod:precondinc]
 #include <stdio.h>
@@ -137,7 +138,7 @@ Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande rege
 
 \hspace*{1em}\texttt{\#if defined(\_\_linux\_\_) \&\& !defined(\_\_ANDROID\_\_)}
 
-In principe mag de expressie willekeurig complex zijn, als het maar resulteert in een constante integer. Typische C-constructies kunnen niet gebruikt worden, zoals (C-)variabelen, \texttt{sizeof} en expliciete type casts.
+In principe mag de expressie willekeurig complex zijn, als het maar resulteert in een constante integer. Typische C-constructies kunnen niet gebruikt worden, zoals (C-)variabelen, \texttt{sizeof} en expliciete type casts want de preprocessor is geen C-compiler.
 
 
 \section{Conditioneel inlezen van een bestand}

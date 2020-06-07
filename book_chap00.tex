@@ -76,9 +76,9 @@ van dit boek is beschikbaar op \url{https://github.com/jesseopdenbrouw/book_c}.
 
 
 \subsubsection*{Leeswijzer}
-Hoofdstuk~\ref{cha:tour} geeft in vogelvlucht enkele belangrijke concepten van  C weer. Er wordt gesproken over wat een computer en een compiler is en hoe een uitvoerbaar bestand wordt gegenereerd. We beginnen met het geven van voorbeelden die de lezer in ontwikkelsoftware kan invoeren om zo de uitvoer te bekijken. We beschrijven kort hoe uitvoer naar beeldscherm en invoer van het toetsenbord wordt gerealiseerd. We bespreken het concept van variabelen datatypes. Verder wordt even stilgestaan bij beslissen en herhalen en functies. In dit hoofdstuk worden geen array's, pointers en structures behandeld.
+Hoofdstuk~\ref{cha:tour} geeft in vogelvlucht enkele belangrijke concepten van  C weer. Er wordt gesproken over wat een computer en een compiler is en hoe een uitvoerbaar bestand wordt gegenereerd. We beginnen met het geven van voorbeelden die de lezer in ontwikkelsoftware kan invoeren om zo de uitvoer te bekijken. We beschrijven kort hoe uitvoer naar beeldscherm en invoer van het toetsenbord wordt gerealiseerd. We bespreken het concept van variabelen en datatypes. Verder wordt even stilgestaan bij beslissen en herhalen en functies. In dit hoofdstuk worden geen pointers, structures en bestandsbewerkingen behandeld.
 
-Hoofdstuk~\ref{cha:vardatexp} gaat dieper in op variabelen, constanten en expressies. Alle beschikbare datatypen worden behandeld alsmede enkele vaste-lengte datatypes. Er wordt uitgelegd wat een expressie is en hoe expressies kunnen worden gebruikt bij berekeningen en beslissingen. C kent een aantal eigenaardige taalconstructies zoals de increment en decrement operatoren, de conditionele expressie en de komma-operator. Een aantal operatoren wordt in dit hoofdstuk niet besproken zoals de adres- en dereferentie-operatoren, de element-operator en de member-operatoren. Die volgen in de verdere hoofdstukken.
+Hoofdstuk~\ref{cha:vardatexp} gaat dieper in op variabelen, constanten en expressies. Alle beschikbare datatypes worden behandeld alsmede enkele vaste-lengte datatypes. Er wordt uitgelegd wat een expressie is en hoe expressies kunnen worden gebruikt bij berekeningen en beslissingen. C kent een aantal eigenaardige taalconstructies zoals de increment en decrement operatoren, de conditionele expressie en de komma-operator. Een aantal operatoren wordt in dit hoofdstuk niet besproken zoals de adres- en dereferentie-operatoren, de element-operator en de member-operatoren. Die volgen in de verdere hoofdstukken.
 
 Hoofdstuk~\ref{cha:programmabesturing} laat zien hoe de executie van een programma kan worden beïnvloed met beslissingen en herhalingen. We bespreken het gebruik van beslissingen aan de hand van een bepaalde voorwaarde (ook wel conditie genoemd). Een beslissing kan uitgebreid worden met een programmadeel dat uitgevoerd moet worden als een conditie waar of onwaar is. Herhalingen komen zeer vaak voor in een programma. We bespreken drie voorkomende taalconstructies hiervoor.
 
@@ -87,43 +87,35 @@ getoond wordt hoe bepaalde taalconstructies op grafische wijze kunnen worden bes
 
 Hoofdstuk~\ref{cha:functies} beschrijft het gebruik van functies om een programma op te delen in kleine eenheden die uitgevoerd kunnen worden. We laten zien hoe een functie gegevens meekrijgt en hoe gegevens worden teruggegeven. Verder laten we zien hoe functies zichzelf kunnen aanroepen: de recursieve functie. We hebben een paragraaf opgenomen over de \textsl{computational complexity} van een recursieve variant van de reeks van Fibonacci. We bespreken verder het gebruik van lokale en globale variabelen en hoe de zichtbaarheid (scope) geregeld is.
 
-Hoofdstuk~\ref{cha:arrays} gaat over array's. We tonen hoe een array wordt gedeclareerd en kan worden gebruikt. We laten zien hoe array's als argument aan functies kan worden meegegeven.
+Hoofdstuk~\ref{cha:arrays} gaat over array's. We tonen hoe een array wordt gedeclareerd en kan worden gebruikt. We laten zien hoe array's als argument aan functies kan worden meegegeven. We bespreken strings, een array van karakters en laten zien dat voor het bewerken van strings diverse functies beschikbaar zijn.
 
 Hoofdstuk~\ref{cha:pointers} gaat over pointers. Er wordt uitgelegd wat een pointer is en wat de relatie met array's is. Verder wordt beschreven hoe pointers een rol spelen in het doorgeven van veel informatie aan functies. Pointerstructuren kunnen bijzonder complex zijn en we schuwen dan ook niet om pointers-naar-pointers te behandelen. Het gebruik van command line argumenten wordt uitgelegd zodat een uitvoerbaar programma kan worden gestart met optionele argumenten. We besluiten het hoofdstuk maar een inleiding in het gebruik van dynamische geheugenallocatie.
 
-Hoofdstuk~\ref{cha:structures} gaat over structures en union die handig zijn bij het gebruikt van complexe datastructuren. We leggen uit wat een structure is en hoe de gegevens binnen een stucture kunnen worden benaderd. Structuren kunnen als argumenten en returnwaarde van functies dienen maar als de structures erg groot zijn is het handiger om pointers te gebruiken. We beschrijven kort de union als een probaat middel om de hoeveelheid gebruikte geheugen in te dammen (alhoewel dat bij moderne PC's eigenlijk geen rol speelt). Bitfields worden niet besproken. Ook het gebruik van self-referential structures wordt niet besproken. Dit is meer voor een een boek over datastructuren.
+Hoofdstuk~\ref{cha:structures} gaat over structures en unions die handig zijn bij het gebruik van complexe datastructuren. We leggen uit wat een structure is en hoe de gegevens binnen een structure kunnen worden benaderd. Structuren kunnen als argumenten en returnwaarde van functies dienen maar als de structures erg groot zijn is het handiger om pointers te gebruiken. We beschrijven kort de union als een probaat middel om de hoeveelheid gebruikte geheugen in te dammen (alhoewel dat bij moderne PC's eigenlijk geen rol speelt). Bitfields worden niet besproken. Ook het gebruik van self-referential structures wordt niet besproken. Dit is meer voor een een boek over datastructuren.
 
 Hoofdstuk~\ref{cha:io} gaat over invoer en uitvoer. We kijken wat dieper naar het afdrukken op het scherm en het inlezen van het toetsenbord. Natuurlijk bespreken we ook hoe we informatie in bestanden kunnen bewerken: hoe worden bestanden geopend, geschreven, gelezen en gesloten en waar moeten we op letten als we met bestanden werken.
 
 Hoofdstuk~\ref{cha:preprocessor} gaat over de preprocessor. De preprocessor is een faciliteit die vóór de ``echte'' C-compiler wordt gebruikt. We laten zien hoe we header-bestanden kunnen inlezen, hoe we macro's kunnen definiëren en hoe we macro's kunnen gebruiken voor conditionele compilatie.
 
-Hoofdstuk~\ref{cha:compilatieproces} gaat over het compilatieproces. We bespreken hoe het compileerproces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren.
+Hoofdstuk~\ref{cha:compilatieproces} gaat over het compilatieproces. We bespreken hoe het proces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren.
 
-In bijlage~\ref{cha:asciitabel} worden de eerste 128 karakters van de ASCII-code besproken. Een aantal karakters zijn niet afdrukbaar, maar worden gebruikt om besturingscommando's tussen systemen te realiseren. In bijlage~\ref{cha:visualstudio} is een korte tutorial beschreven voor het ontwikkelen van C-programma's met Visual Studio. In bijlage~\ref{cha:voorrang} is de complete lijst te zien met voorrangsregels in C.
+In bijlage~\ref{cha:asciitabel} worden de eerste 128 karakters van de ASCII-code besproken. Een aantal karakters zijn niet afdrukbaar, maar worden gebruikt om besturingscommando's tussen systemen te realiseren. In bijlage~\ref{cha:visualstudio} is een korte tutorial beschreven voor het ontwikkelen van C-programma's met Visual Studio. In bijlage~\ref{cha:voorrang} is de complete lijst te zien met voorrangsregels van operatoren in C.
 
 \subsubsection*{Studiewijzer}
 Om de taal te leren zouden eigenlijk alle hoofdstukken aan bod moeten komen. We hebben er naar gestreefd om alleen de taal te bespreken en geen onnodige informatie te verschaffen. 
 
 \subsubsection*{Verantwoording inhoud}
-Dit boek voldoet alleen aan aandachtspunt 4,01 van
-de basis Basic of Knowledge and Skills (BoKS) Elektrotechniek. De
+Dit boek voldoet alleen aan aandachtspunt 4,01 van de basis Basic of Knowledge and Skills (BoKS) Elektrotechniek. De
 BoKS is te vinden via~\cite{hboengineering2016boks}. 
 
 \subsubsection*{Website}
-Op de website \url{http://ds.opdenbrouw.nl} zijn slides, practicumopdrachten
-en aanvullende informatie te vinden. De laatste versie van dit boek wordt
-hierop gepubliceerd. Er zijn ook voorbeeldprojecten voor Visual Studio en
-Code::Blocks te vinden.
+Op de website \url{http://ds.opdenbrouw.nl} zijn slides, practicumopdrachten en aanvullende informatie te vinden. De laatste versie van dit boek wordt hierop gepubliceerd. Er zijn ook voorbeeldprojecten voor Visual Studio en Code::Blocks te vinden.
 
 \subsubsection*{Dankbetuigingen}
-Dit boek had niet tot stand kunnen komen zonder hulp van een aantal mensen.
-Ik wil collega Harry Broeders van Hogeschool Rotterdam en collega Kees de Joode
-bedanken voor hun bijdrage aan de totstandkoming van dit boek.
+Dit boek had niet tot stand kunnen komen zonder hulp van een aantal mensen. Ik wil collega Harry Broeders van Hogeschool Rotterdam en collega Kees de Joode bedanken voor hun bijdrage aan de totstandkoming van dit boek.
 
-De ASCII-tabel op pagina~\pageref{tab:talascii-code} is ontwikkeld door Victor
-Eijkhout. Deze tabel kan gevonden worden op
-\url{http://www.ctan.org/tex-archive/info/ascii-chart}.
+De ASCII-tabel op pagina~\pageref{tab:talascii-code} is ontwikkeld door Victor Eijkhout. Deze tabel kan gevonden worden op \url{http://www.ctan.org/tex-archive/info/ascii-chart}.
 
 
-%\bigskip%
+\bigskip
 \hfill \author, \the\year.

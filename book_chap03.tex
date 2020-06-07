@@ -4,17 +4,17 @@
 
 De statements in een C-programma staan onder elkaar geschreven. Na vertaling door de C-compiler worden de statement na elkaar uitgevoerd zoals ze in het C-programma voorkomen. We noemen dat \textsl{sequentiële verwerking}. Soms willen we echter dat een reeks van statements wordt uitgevoerd aan de hand van een bepaalde voorwaarde. C biedt een aantal mogelijkheden om dat te beschrijven.
 
-Het is ook mogelijk om een aantal statements herhaaldelijk uit te voeren aan de hand van een bepaalde voorwaarde. C biedt een drietal herhalingsstatements, elk met zijn eigen opzet. Het herhalen zorgt ervoor dat de sequentiële verwerking wordt onderbroken om de serie van statements opnieuw uit te voeren. Binnen een herhaling worden de statement sequentieel uitgevoerd, maar het is natuurlijk mogelijk binnen een herhaling te beslissen of weer te herhalen. Het herhalen van statements wordt een \textsl{lus}\index{lus} genoemd (Engels: loop)\index{loop}.
+Het is ook mogelijk om een aantal statements herhaaldelijk uit te voeren aan de hand van een bepaalde voorwaarde. C biedt een drietal herhalingsstatements, elk met zijn eigen opzet. Het herhalen zorgt ervoor dat de sequentiële verwerking wordt onderbroken om de serie van statements opnieuw uit te voeren. Binnen een herhaling worden de statements sequentieel uitgevoerd, maar het is natuurlijk mogelijk binnen een herhaling te beslissen of weer te herhalen. Het herhalen van statements wordt een \textsl{lus}\index{lus} genoemd (Engels: loop)\index{loop}.
 
 
 \section{Blok}
-Een \textsl{blok}\index{blok} of \textsl{blokstructuur}\index{blokstructuur}, in C-terminologie ook wel een \textsl{compound statement}\index{compound statement} genoemd, is een reeks van statements tussen accolades. Voor de C-compiler wordt een blok als één statement gezien. In listing~\ref{cod:besblok} is te zien dat binnen het blok een lokale variabele \texttt{i} wordt gedeclareerd. Alleen binnen het blok is deze variabele te gebruiken. Buiten het blok bestaat de variabele niet, tenzij de variabele nog op andere plaatsen is gedeclareerd.
+Een \textsl{blok}\index{blok} of \textsl{blokstructuur}\index{blokstructuur}, in C-terminologie ook wel een \textsl{compound statement}\index{compound statement} genoemd, is een reeks van statements tussen accolades. Voor de C-compiler wordt een blok syntactisch als één statement gezien. In listing~\ref{cod:besblok} is te zien dat binnen het blok een lokale variabele \texttt{i} wordt gedeclareerd. Alleen binnen het blok is deze variabele te gebruiken. Buiten het blok bestaat de variabele niet.
 
 
 \begin{lstlisting}[caption=Een blok met een lokale variabele.,label=cod:besblok]
 // i does not exist
 {
-    int i=0;
+    int i = 0;
     
     i = i + 1;
     i = i << 2;
@@ -102,7 +102,7 @@ Een voorbeeld van het gebruik van \texttt{if else} is te zien in listing~\ref{co
 
 
 \section{Beslissen met het \texttt{switch}-statement}
-Het \texttt{switch}-statement\indexkeyword{switch} wordt gebruikt om een expressie te testen op meerdere constante waarden. De \textsl{expressie} na \texttt{switch} is meestal een variabele maar er mag ook een expressie staan. Binnen de \texttt{switch} wordt de expressie vergeleken met één of meerdere constante expressies met behulp van het \texttt{case}-statement\indexkeyword{case}. Is de expressie gelijk aan een constante expressie, dan wordt het statement dat bij de \texttt{case} hoort uitgevoerd. Als geen van de constante expressies gelijk is aan de expressie na de \texttt{switch}, wordt het statement dat bij \texttt{default}\indexkeyword{default} hoort uitgevoerd. Het \texttt{default}-statement mag achterwege blijven. De algemene opzet van het \texttt{switch}-statement is te zien in listing~\ref{cod:switch1}. Het statement achter \texttt{case} hoeft niet tussen accolades gezet te worden.
+Het \texttt{switch}-statement\indexkeyword{switch} wordt gebruikt om een expressie te testen op meerdere constante waarden. De expressie na \texttt{switch} is meestal een variabele maar er mag ook een expressie staan. Binnen de \texttt{switch} wordt de expressie vergeleken met een of meerdere constante expressies met behulp van het \texttt{case}-statement\indexkeyword{case}. Is de expressie gelijk aan een constante expressie, dan wordt het statement dat bij de \texttt{case} hoort uitgevoerd. Als geen van de constante expressies gelijk is aan de expressie na de \texttt{switch}, wordt het statement dat bij \texttt{default}\indexkeyword{default} hoort uitgevoerd. Het \texttt{default}-statement mag achterwege blijven. De algemene opzet van het \texttt{switch}-statement is te zien in listing~\ref{cod:switch1}. Het statement achter \texttt{case} hoeft niet tussen accolades gezet te worden.
 
 \begin{lstlisting}[caption=Opzet van het \texttt{switch}-statment.,label=cod:switch1]
 switch ((*\normalfont\textsl{expressie}*))
@@ -115,7 +115,7 @@ switch ((*\normalfont\textsl{expressie}*))
 }
 \end{lstlisting}
 
-De waarden bij meerdere \texttt{case}-statement kunnen worden samengevoegd, zodat dezelfde statements worden uitgevoerd bij meerdere mogelijkheden. We noemen dit een \textsl{fall through}. Een voorbeeld is te zien in listing~\ref{cod:switch2}. In het \texttt{switch}-statement wordt \texttt{getal} vergeleken met verschillende waarden. Als \texttt{getal} de waarde 1, 2  of 3 heeft, wordt variabele \texttt{letter} op \texttt{'a'} gezet. Het \texttt{break}-statement\indexkeyword{break} in regel 6 zorgt ervoor dat het \texttt{switch}-statement direct wordt verlaten. Als we die zouden weglaten, worden de statements die horen bij de volgende \texttt{case} uitgevoerd. In regel 9 worden de statements uitgevoerd als geen van de constante expressies achter de \texttt{case}-statement gelijk is aan \texttt{getal}. Het \texttt{break}-statement in regel 10 is logisch gezien overbodig, maar het is \textsl{good practice} om deze wel op te nemen. De volgorde van \texttt{case}s en \texttt{default} is namelijk willekeurig, dus na \texttt{default} zou nog een \texttt{case} mogen komen. Het is wederom \textsl{good practice} om alle \texttt{case}s voor de \texttt{default} te plaatsen.
+De waarden bij meerdere \texttt{case}-statement kunnen worden samengevoegd, zodat dezelfde statements worden uitgevoerd bij meerdere mogelijkheden. We noemen dit een \textsl{fall through}. Een voorbeeld is te zien in listing~\ref{cod:switch2}. In het \texttt{switch}-statement wordt \texttt{getal} vergeleken met verschillende waarden. Als \texttt{getal} de waarde 1, 2  of 3 heeft, wordt variabele \texttt{letter} op \texttt{\textquotesingle a\textquotesingle} gezet. Het \texttt{break}-statement\indexkeyword{break} in regel 6 zorgt ervoor dat het \texttt{switch}-statement direct wordt verlaten. Als we die zouden weglaten, worden de statements die horen bij de volgende \texttt{case} uitgevoerd. In regel 9 worden de statements uitgevoerd als geen van de constante expressies achter de \texttt{case}-statement gelijk is aan \texttt{getal}. Het \texttt{break}-statement in regel 10 is logisch gezien overbodig, maar het is \textsl{good practice} om deze wel op te nemen. De volgorde van \texttt{case}s en \texttt{default} is namelijk willekeurig, dus na \texttt{default} zou nog een \texttt{case} mogen komen. Het is wederom \textsl{good practice} om alle \texttt{case}s voor de \texttt{default} te plaatsen.
 
 \begin{lstlisting}[caption=Opzet van het \texttt{switch}-statment.,label=cod:switch2]
 switch (getal)
@@ -169,7 +169,7 @@ We leggen de werking van het \texttt{while}-statement uit aan de hand van een vo
 
 \section{Herhalen met het \texttt{for} statement}
 Het \texttt{for}-statement\indexkeyword{for} gebruiken we als het aantal herhalingen bekend en \textsl{eindig} is. Het \texttt{for}-statement heeft de gedaante zoals te zien in in listing~\ref{cod:besfor1}.
-Vóór de lus wordt \textsl{statement}$_1$ uitgevoerd. Bij het herhalen van de lus wordt \textsl{expressie} uitgevoerd. Als dat waar is worden de statements in \textsl{statements$_3$} uitgevoerd. Voor het einde van de lus, net voor de accolade-sluiten, wordt \textsl{statement$_2$} uitgevoerd. Let erop dat  \textsl{statement$_2$} ná \textsl{statement$_3$} wordt uitgevoerd. Verder mag vanaf C99 \textsl{statement$_1$} een declaratie van een variabele bevatten. De variabele is dan alleen te gebruiken binnen het \texttt{for}-statement. Let erop dat  \textsl{statement$_1$}, \textsl{expressie} en \textsl{statement$_2$} van elkaar gescheiden zijn met een punt-komma.
+Vóór de lus wordt \textsl{statement}$_1$ uitgevoerd. Bij het herhalen van de lus wordt \textsl{expressie} uitgevoerd. Als de expressie waar is worden de statements in \textsl{statements$_3$} uitgevoerd. Voor het einde van de lus, net voor de accolade-sluiten, wordt \textsl{statement$_2$} uitgevoerd. Let erop dat  \textsl{statement$_2$} ná \textsl{statement$_3$} wordt uitgevoerd. Verder mag vanaf C99 \textsl{statement$_1$} een declaratie van een variabele bevatten. De variabele is dan alleen te gebruiken binnen het \texttt{for}-statement. Let erop dat  \textsl{statement$_1$}, \textsl{expressie} en \textsl{statement$_2$} van elkaar gescheiden zijn met een punt-komma.
 
 \begin{lstlisting}[caption=Opzet van het \texttt{for}-statement.,label=cod:besfor1]
 for ((*\normalfont\textsl{statement$_1$}*); (*\normalfont\textsl{expressie}*); (*\normalfont\textsl{statement$_2$}*))
@@ -178,13 +178,13 @@ for ((*\normalfont\textsl{statement$_1$}*); (*\normalfont\textsl{expressie}*); (
 }
 \end{lstlisting}
 
-Normaal gesproken wordt in \textsl{statement$_1$} een variabele op een beginwaarde gezet. De \textsl{expressie} wordt berekend zoals dat in het \texttt{while}-statement ook gebeurt, en \textsl{statement$_2$} wordt normaal gesproken gebruikt om een variabele aan te passen voor de volgende lusdoorgang. Meestal betekent dit dat de variabele wordt verhoogd of verlaagd.
+Normaal gesproken wordt in \textsl{statement$_1$} een variabele op een beginwaarde gezet. De \textsl{expressie} wordt berekend zoals dat in het \texttt{while}-statement ook gebeurt, en \textsl{statement$_2$} wordt normaal gesproken gebruikt om een variabele aan te passen voor de volgende iteratie\index{iteratie}. Meestal betekent dit dat de variabele wordt verhoogd of verlaagd.
 
 Stel dat we de tafels van 1 t/m 10 willen afdrukken. We maken dan gebruikt van twee, in elkaar verweven, \texttt{for}-statements. Dit is te zien in listing~\ref{cod:tables_with_for_loops}. We concentreren ons op de opzet van beide \texttt{for}-statements. Er zijn diverse \texttt{printf}-statements te zien die de gegevens op een nette manier afdrukken.
 
-\booklisting[]{C}{Een for-list}{tables_with_for_loops}{c}{!ht}
+\booklisting[]{C}{Programma voor het afdrukken van de tafels}{tables_with_for_loops}{c}{!ht}
 
-De buitenste \texttt{for}-statement begint op regel 9, eindigt op regel 17 en declareert variabele \texttt{i}. De variabele loopt van 1 tot 11, dus 11 zelf doet \textsl{niet} mee. Binnen deze lus gebruiken we een tweede \texttt{for}-statement die begint op regel 12 en eindigt op regel 15. Dit keer gebruiken we variabele \texttt{j} die in regel 12 wordt gedeclareerd. Ook deze variabele loopt van 1 tot 11 (dus 11 doet niet mee). In regel 14 drukken we het product af van \texttt{i} en \texttt{j}. De uitvoer van dit programma is te zien in figuur~\ref{fig:tables_with_for_loops}.
+De buitenste \texttt{for}-statement begint op regel 8, eindigt op regel 16 en declareert variabele \texttt{i}. De variabele loopt van 1 tot 11, dus 11 zelf doet \textsl{niet} mee. Binnen deze lus gebruiken we een tweede \texttt{for}-statement die begint op regel 11 en eindigt op regel 14. Dit keer gebruiken we variabele \texttt{j} die in regel 11 wordt gedeclareerd. Ook deze variabele loopt van 1 tot 11 (dus 11 doet niet mee). In regel 13 drukken we het product af van \texttt{i} en \texttt{j}. De uitvoer van dit programma is te zien in figuur~\ref{fig:tables_with_for_loops}.
 
 \begin{dosbox}[title=Uitvoer van het programma in listing~\ref{cod:tables_with_for_loops}.,label=fig:tables_with_for_loops]
   |   1   2   3   4   5   6   7   8   9  10
@@ -201,7 +201,7 @@ De buitenste \texttt{for}-statement begint op regel 9, eindigt op regel 17 en de
 10|  10  20  30  40  50  60  70  80  90 100
 \end{dosbox}
 
-Het \texttt{for}-statement uit listing~\ref{cod:besfor1} is \textsl{semantisch equivalent}\footnote{Semantisch equivalent wil zeggen dat de betekenis werkingen gelijk zijn aan elkaar. De twee opzetten zijn \textsl{niet} syntactisch equivalent. Ze hebben immers een andere \textsl{syntax}.} aan:
+Het \texttt{for}-statement uit listing~\ref{cod:besfor1} is \textsl{semantisch equivalent}\footnote{Semantisch equivalent wil zeggen dat de werkingen gelijk zijn aan elkaar. De twee opzetten zijn \textsl{niet} syntactisch equivalent. Ze hebben immers een andere \textsl{syntax}.} aan:
 
 \begin{lstlisting}[caption=\texttt{while}-statement als \texttt{for}-statement.,label=cod:besforaswhile]
 (*\normalfont\textsl{statement$_1$}*)
@@ -212,9 +212,9 @@ while ((*\normalfont\textsl{expressie}*))
 }
 \end{lstlisting}
 
-We kunnen in het \texttt{for}-statement de \textsl{expressie} achterwege laten. Dan wordt de lus eeuwigdurend uitgevoerd.
+We kunnen in het \texttt{for}-statement de \textsl{statement}$_1$, \textsl{expressie} of \textsl{statement}$_2$ achterwege laten. Hieronder is de opzet te zien van en eeuwigdurende lus.
 
-\hspace*{1em}\texttt{for (;;) \{ ... \}\ \ \    // do forever}
+\hspace*{1em}\texttt{for (;;) \{ ... \}\ \ \    /* do forever */}
 
 
 \section{Herhalen met het \texttt{do while} statement}
@@ -225,7 +225,7 @@ do
 {
     (*\normalfont\textsl{statement}*)
 }
-while ((*\normalfont\textsl{expressie}*))
+while ((*\normalfont\textsl{expressie}*));
 \end{lstlisting}
 
 We kunnen het programma in listing~~\ref{cod:while} ook schrijven met behulp van een \texttt{do while}-statement. Zie listing~\ref{cod:dowhile}. De lus wordt minstens één keer uitgevoerd. Als na invoer van getal blijkt dat de expressie \texttt{getal <= 0} waar is, wordt de lus nog een keer uitgevoerd, net zolang totdat de expressie niet waar is.
@@ -236,7 +236,7 @@ We kunnen het programma in listing~~\ref{cod:while} ook schrijven met behulp van
 \section{Extra lusbewerkingen: de \texttt{break} en \texttt{continue}-statements}
 We kunnen een lus voortijdig verlaten met een \texttt{break}-statement. Dit is te zien in listing~\ref{cod:while_break_continue}. De lus wordt vormgegeven door een eeuwig durend \texttt{while}-statement (regel 10). We vragen de gebruiker om een positief getal of 0 in te voeren. Als het getal gelijk is aan 0, wordt de lus verlaten met het \texttt{break}-statement in regel 16. Alleen de lus waar het \texttt{break}-statement bijhoort kan worden verlaten. Als we een lus binnen een lus gebruiken kan dus alleen de binnenste lus worden verlaten.
 
-Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een lus springen naar de volgende doorloop van de lus. Bij het \texttt{while}-statement wordt dus gesprongen naar het begin van de lus, bij het \texttt{do while}-statement wordt gesprongen naar het einde van de lus. In beide gevallen wordt de expressie die bij de lus hoort opnieuw uitgerekend.
+Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een lus springen naar de volgende iteratie van de lus. Bij het \texttt{while}-statement wordt dus gesprongen naar het begin van de lus, bij het \texttt{do while}-statement wordt gesprongen naar het einde van de lus. In beide gevallen wordt de expressie die bij de lus hoort opnieuw uitgerekend.
 
 Bij het \texttt{for}-statement werkt het iets anders. Daarvoor moeten we listing~\ref{cod:besfor1} nog eens bekijken. Aan het einde van het \texttt{for}-statement wordt \textsl{statement$_2$} uitgevoerd, waarin normaal gesproken een variabele wordt aangepast (verhogen of verlagen). Een \texttt{continue} zorgt ervoor dat naar dit statement wordt gesprongen. Overigens kunnen we de code in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
 

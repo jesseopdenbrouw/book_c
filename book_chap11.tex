@@ -4,7 +4,7 @@
 
 De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functies aan vast en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
 
-In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, zullen we ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
+In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
 
 \section{Een C-programma in één bestand}
@@ -12,7 +12,7 @@ De meeste kleine C-programma's worden in één bestand georganiseerd. We compile
 
 \hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
 
-Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en Maxc OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
+Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
 
 
 \section{Een C-programma in meerdere bestanden}
@@ -124,23 +124,79 @@ De bibliotheek is nu te linken met:
 
 \hspace*{1em}\texttt{gcc file.c -l my -o programma.exe}
 
+Er bestaat op veel besturingssystemen zoiets als \textsl{shared libraries}. Dit zijn bibliotheken die eenmalig in het geheugen van de computer worden geladen waarna ze gebruikt kunnen worden door programma's. Pas op het moment dat een programma wordt gestart, worden de referenties naar functies en externe variabelen ingevuld. Dit wordt \textsl{dynamic linking} genoemd. Een voorbeeld zijn \textsl{dynamic link libraries} (DLL) op Windows.
 
-%\section{Optimalisatie}
-%Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige C-compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing
-%
-%\begin{lstlisting}[caption=Een C-programma.]
-%#include <stdio.h>
-%
-%int main(void) {
-%
-%    int i;
-%    
-%    for (i = 0; i < 30000; i++) {
-%        // do nothing
-%    }
-%    
-%    return 0;
-%}
-%\end{lstlisting}
-%
-%Als we naar de \texttt{for}-lus kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen.
+
+\section{Optimalisatie}
+Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige C-compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing~\ref{cod:comclearary}.
+
+\begin{lstlisting}[caption=Een C-programma.,label=cod:comclearary]
+#include <stdio.h>
+
+int main(void) {
+
+    int ary[1000], i;
+    
+    for (i = 0; i < 1000; i++) {
+        ary[i] = 0;
+    }
+    // ...
+    
+    return 0;
+}
+\end{lstlisting}
+
+In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een integer voor \texttt{i}. Maar de compiler heeft door dat \texttt{i} gebruikt wordt als lusvariabele. Het is dan beter om deze variabele niet in het geheugen van de computer op te slaan maar vast te houden in een \textsl{register}. Een register is een speciale geheugenplaats in de processor. Alle processoren hebben een aantal van deze registers. Als variabele \texttt{i} nu in een register wordt opgeslagen dan hoeft de processor \texttt{i} niet steeds uit het geheugen te halen. Daardoor wordt de executie van het \texttt{for}-statement sneller. Het gevolg is dat voor variabele \texttt{i} helemaal geen geheugenplaats wordt gereserveerd. We kunnen aan de C-compiler opgeven dat een bepaalde variabele beter in een register kan worden opgeslagen met het keyword \texttt{register}\indexkeyword{register}:
+
+\hspace*{1em}\texttt{register int i;}
+
+Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter welke variabelen in registers moeten worden gehouden. Het gebruik van register wordt daarom niet aanbevolen.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Een C-programma.,label=cod:comnothing]
+#include <stdio.h>
+
+int main(void) {
+
+    int i;
+    
+    for (i = 0; i < 30000; i++) {
+        // do nothing, just waste processor time
+    }
+    
+    return 0;
+}
+\end{lstlisting}
+\end{figure}
+
+Een ander voorbeeld is een \texttt{for}-statement waarin ogenschijnlijk niets gebeurt. Dit is te zien in listing~\ref{cod:comnothing}.
+Dit soort herhalingen worden nog wel eens gebruikt als er in een programma een tijdje moet worden gewacht. Als we naar het \texttt{for}-statement kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen want, zo is de gedachte, er gebeurt toch niets. Willen we ervoor zorgen dat het \texttt{for}-statement toch wordt gebruikt dan kunnen we een variabele voorzien van het keyword \texttt{volatile}\indexkeyword{volatile}:
+
+\newpage
+\hspace*{1em}\texttt{volatile int i};
+
+Het keyword \texttt{volatile} betekent zoiets als: gebruik variabele \texttt{i} ook al lijkt er niets zinnigs mee te gebeuren. De C-compiler zal hierdoor over het algemeen wel een geheugenplaats voor \texttt{i} realiseren; \texttt{i} wordt dan niet in een register vastgehouden.
+
+De compiler kent nog vele optimalisatiemogelijkheden. We beschrijven er nog één: loop unrolling. Zie listing~\ref{cod:comloopunroll}.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Een C-programma.,label=cod:comloopunroll]
+#include <stdio.h>
+
+int main(void) {
+
+    int ary[4], i;
+    
+    for (i = 0; i < 4; i++) {
+        ary[i] = 0;
+    }
+    
+    return 0;
+}
+\end{lstlisting}
+\end{figure}
+
+De compiler kan beslissen of het wenselijk is om het \texttt{for}-statement om te zetten naar vier toekenningen. Dat is sneller dan een lus op te zetten:
+
+\hspace*{1em}\texttt{ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;}
+
