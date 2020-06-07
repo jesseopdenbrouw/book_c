@@ -634,4 +634,7 @@
 \newcommand{\indextwo}[2]{\index{#1@{\texttt{#1}}, #2}}
 \makeatother
 
+\AtBeginDocument{%
+  \addtocontents{toc}{\protect\thispagestyle{empty}}%
+}
 %%% No package loading from here
