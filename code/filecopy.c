@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
 
-    /* The input and output file handlers */
+    /* The input and output file handles */
     FILE* infile, * outfile;
 
     /* Character to read and character count */
