@@ -7,7 +7,7 @@ De C-compiler is uitgerust met een \textsl{preprocessor}\index{preprocessor}. Di
 De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Tegenwoordig wordt dit ook wel een hashtag genoemd.} (\texttt{\#}). Dit worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
 
 \section{Invoegen van bestanden}
-\indextwo{\#include}{preprocessor directive}
+\index{include@{\texttt{\#include}}, preprocessor directive}
 Een bestand kan in een C-programma worden ingevoegd door de \textsl{include directive}. Deze heeft de vorm:
 
 \hspace*{1em}\texttt{\#include "{}}\textsl{bestandsnaam}\texttt{"}
@@ -29,7 +29,7 @@ Header-bestanden kunnen zelf ook weer include directives bevatten, dat ook vaak 
 
 
 \section{Macrovervanging}
-\indextwo{\#define}{preprocessor directive}
+\index{define@{\texttt{\#define}}, preprocessor directive}
 Een \textsl{macro}\index{macro} in de eenvoudigste vorm, ziet eruit als:
 
 \hspace*{1em}\texttt{\#define }\textsl{macronaam vervangende-tekst}
@@ -66,7 +66,7 @@ Een voordeel van een macro is dat de argumenten onafhankelijk zijn van het datat
 
 We kunnen de preprocessor ook een macro laten vergeten:
 
-\indextwo{\#undef}{preprocessor directive}
+\index{undef@{\texttt{\#undef}}, preprocessor directive}
 \hspace*{1em}\texttt{\#undef }\textsl{macronaam}
 
 
@@ -86,8 +86,9 @@ int main(void) {
     // ...
 }
 \end{lstlisting}
-\indextwo{\#if}{preprocessor directive}
-\indextwo{\#endif}{preprocessor directive}
+\index{if@{\texttt{\#if}}, preprocessor directive}
+\index{endif@{\texttt{\#endif}}, preprocessor directive}
+\index{defined@{\texttt{defined}}, preprocessor directive}
 
 In plaats van \texttt{defined} mogen we ook \texttt{\#ifdef} gebruiken. We kunnen ook header-bestanden aan de hand van macro's laten invoegen. De diverse C-compilers definiëren bepaalde macro's zodat deze in een C-bestand te gebruiken zijn, de zogenoemde \textsl{predefined macros}\index{predefined macros}. Een voorbeeld is te zien in listing~\ref{cod:precondinc}.
 
@@ -114,8 +115,8 @@ int main(void) {
 }
 
 \end{lstlisting}
-\indextwo{\#ifdef}{preprocessor directive}
-\indextwo{\#endif}{preprocessor directive}
+\index{ifdef@{\texttt{\#ifdef}}, preprocessor directive}
+\index{endif@{\texttt{\#endif}}, preprocessor directive}
 
 Welke predefines macros gedefinieerd zijn, is afhankelijk van de C-compiler. De documentatie moet hiervoor geraadpleegd worden. Sommige macro's hebben ook nuttige waarden zoals te zien is in listing~\ref{cod:premscver}.
 
@@ -132,7 +133,8 @@ Welke predefines macros gedefinieerd zijn, is afhankelijk van de C-compiler. De 
 #endif
 #endif
 \end{lstlisting}
-\indextwo{\#elif}{preprocessor directive}
+\index{elif@{\texttt{\#elif}}, preprocessor directive}
+\index{else@{\texttt{\#else}}, preprocessor directive}
 
 Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgt ervoor dat er conditioneel gecomplieerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
 
@@ -155,5 +157,5 @@ Om ervoor te zorgen dat tijdens een compilatie van een C-bestand een header-best
     
 #endif
 \end{lstlisting}
-\indextwo{\#ifndef}{preprocessor directive}
+\index{ifndef@{\texttt{\#ifndef}}, preprocessor directive}
 
