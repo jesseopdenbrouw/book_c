@@ -146,7 +146,7 @@ Omdat \texttt{scanf} voor problemen kan zorgen wordt het gebruik ervan afgeraden
 
 
 \section{Bestanden openen voor gebruik}
-Zoals al eerder is geschreven, kent C een aantal functies om met bestanden op de harddisk te werken. Voordat we met een bestand kunnen werken moeten we het \textsl{openen}. Openen wil zeggen dat we aan het besturingssysteem melden dat we het bestand willen gebruiken. In C is dat te realiseren met de functie \texttt{fopen}. De functie heeft het prototype
+Zoals al eerder is geschreven, kent C een aantal functies om met bestanden op de harddisk te werken. Voordat we met een bestand kunnen werken moeten we het \textsl{openen}. Openen wil zeggen dat we aan het besturingssysteem melden dat we het bestand willen gebruiken. In C is dat te realiseren met de functie \texttt{fopen}\indexfunc{fopen}. De functie heeft het prototype
 
 \hspace*{1em}\texttt{FILE *fopen(char *filename, char *filemode);}
 
@@ -192,7 +192,7 @@ Noot: Windows heeft de onhebbelijke eigenschap om spaties toe te staan in bestan
 
 
 \begin{infobox}[Microsof doet het anders ...]
-De functie \texttt{fopen} wordt door Microsoft gezien als onveilig. Compilatie met Visual Studio eindigt dan met een foutmelding. In plaats daarvan biedt Visual Studio de functie \texttt{fopen\_s}. De argumenten die meegegeven moeten worden zijn anders dan bij \texttt{fopen}. De functie heeft het prototype:
+De functie \texttt{fopen} wordt door Microsoft gezien als onveilig. Compilatie met Visual Studio eindigt dan met een foutmelding. In plaats daarvan biedt Visual Studio de functie \texttt{fopen\_s}\indexfunc{fopen\_s}. De argumenten die meegegeven moeten worden zijn anders dan bij \texttt{fopen}. De functie heeft het prototype:
 
 \hspace*{1em}\texttt{errno\_t fopen\_s(**pfp, char *name, char *mode);}
 
@@ -207,15 +207,15 @@ aan het begin van de C-programma zorgt ervoor dat \texttt{fopen} gebruikt kan wo
 
 
 \section{Bestand sluiten na gebruik}
-Nadat de acties op een bestand zijn uitgevoerd, moet een bestand gesloten worden. Dit geeft aan het besturingssysteem aan dat verdere acties op het bestand niet zullen worden gedaan. Sluiten van een bestand kan met
+Nadat de acties op een bestand zijn uitgevoerd, moet een bestand gesloten worden. Dit geeft aan het besturingssysteem aan dat verdere acties op het bestand niet zullen worden gedaan. Sluiten van een bestand kan met\indexfunc{fclose}
 
-\hspace*{1em}\texttt{close(fp);}
+\hspace*{1em}\texttt{fclose(fp);}
 
 waarbij \texttt{fp} een file handle is van een eerder geopend bestand. Let erop dat \texttt{fp} naar een bestaande file handle moet wijzen anders volgt een foutmelding (of in het ergste geval een crash van het programma).
 
 
 \section{Schrijven naar een bestand}
-Schrijven naar een bestand kan met de functie \texttt{fprintf}. De functie heeft het prototype:
+Schrijven naar een bestand kan met de functie \texttt{fprintf}\indexfunc{fprintf}. De functie heeft het prototype:
 
 \hspace*{1em}\texttt{int fprintf(FILE *fp, char *format, arg1, arg2, arg3, ... );}
 
@@ -232,13 +232,14 @@ Nu we een bestand hebben geschreven, kunnen we het ook openen voor lezen. Dit is
 
 \booklisting[]{C}{Een bestand openen voor lezen}{file_open_read}{c}{!ht}
 
-Het inlezen en afdrukken van afzonderlijke karakters gebeurt in regels 16 t/m 18. Met behulp van de functie \texttt{fscanf} lezen we steeds één karakter in de variabele \texttt{ch} in, en drukken dat vervolgens af op het scherm. Aan het einde sluiten we het bestand weer.
+Het inlezen en afdrukken van afzonderlijke karakters gebeurt in regels 16 t/m 18. Met behulp van de functie \texttt{fscanf}\indexfunc{fscanf} lezen we steeds één karakter in de variabele \texttt{ch} in, en drukken dat vervolgens af op het scherm. Aan het einde sluiten we het bestand weer.
 
 De functie \texttt{fscanf} werkt hetzelfde als de functie \texttt{scanf} maar ook hier moet weer een pointer naar een \texttt{FILE}-structure worden meegegeven. De return-waarde van \texttt{fscanf} geeft aan hoeveel gegevens correct zijn geconverteerd. In het geval van het programma is dat de waarde 1. Een ander getal geeft aan dat het niet gelukt is om een karakter in te lezen en wordt de lus afgebroken. Daarna sluit het programma het bestand.
 
 
 \section{Standaard invoer en uitvoer}
 Elk uitvoerbaar (C-)programma krijgt per definitie drie geopende bestanden mee:
+\index{stdin}\index{stdout}\index{stderr}
 
 \begin{itemize}
 \item \texttt{stdin}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard invoer}, in de regel het toetsenbord;
@@ -257,16 +258,16 @@ Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een ui
 De standard library kent een groot aantal functies met betrekking tot het afhandelen van bestanden. We zullen hier een aantal van bespreken:
 
 \begin{itemize}[]
-\item \texttt{int fflush(FILE *fp)}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar de harddisk (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
-\item \texttt{int fgetc(FILE *fp)}: leest één karakter in van het bestand dat gekoppeld is aan \texttt{fp}, of een \texttt{EOF}\index{EOF} als het einde van een bestand is bereikt.
-\item \texttt{char *fgets(char *str, int n, FILE *fp)}: leest vanuit het bestand dat gekoppeld is aan \texttt{fp} ten hoogste \texttt{n} karakters en plaatst dat in de string \texttt{str}. Het inlezen stopt als een newline\index{newline} is gevonden (de newline komt in de string terecht), en de string wordt afgesloten met een nul-karakter\index{nul-karakter} (\texttt{\textquotesingle\textbackslash0\textquotesingle)}. Geeft een NULL-pointer terug als een fout is opgetreden.
-\item \texttt{int fputc(int ch, FILE *fp)}: schrijft één karakter naar het bestand dat gekoppeld is aan \texttt{fp}, geeft \texttt{EOF} terug als er een fout is opgetreden.
-\item \texttt{int fputs(char *str, FILE *fp)}: schrijft naar het bestand dat gekoppeld is aan \texttt{fp} de string \texttt{str}. Geeft \texttt{EOF}\index{EOF} terug als er een fout is opgetreden.
-\item \texttt{int puts(char *str)}: is equivalent aan \texttt{fputs(str, stdout)}.
-\item \texttt{int getchar(void)}: is equivalent aan \texttt{fgetc(stdin)}.
-\item \texttt{int putchar(int ch)}: is equivalent aan \texttt{fputc(ch, stdout)}.
-\item \texttt{int fseek(FILE *fp, long offset, int origin)}: zet voor het lezen of schrijven de positie binnen een bestand. De \texttt{origin} mag een van de drie waarden hebben: \texttt{SEEK\_SET} (begin van het bestand), \texttt{SEEK\_CUR} (huidige positie binnen het bestand) of \texttt{SEEK\_END} (einde van het bestand). Geeft een getal anders dan 0 terug bij een fout.
-\item \texttt{void rewind(FILE *fp)}: equivalent aan \texttt{fseek(fp, 0L, SEEK\_SET)} maar heeft geen return-waarde. Zet de positie op het begin van een bestand.
+\item \texttt{int fflush(FILE *fp)}\indexfunc{fflush}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar de harddisk (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
+\item \texttt{int fgetc(FILE *fp)}\indexfunc{fgetc}: leest één karakter in van het bestand dat gekoppeld is aan \texttt{fp}, of een \texttt{EOF}\index{EOF} als het einde van een bestand is bereikt.
+\item \texttt{char *fgets(char *str, int n, FILE *fp)}\indexfunc{fgets}: leest vanuit het bestand dat gekoppeld is aan \texttt{fp} ten hoogste \texttt{n} karakters en plaatst dat in de string \texttt{str}. Het inlezen stopt als een newline\index{newline} is gevonden (de newline komt in de string terecht), en de string wordt afgesloten met een nul-karakter\index{nul-karakter} (\texttt{\textquotesingle\textbackslash0\textquotesingle)}. Geeft een NULL-pointer terug als een fout is opgetreden.
+\item \texttt{int fputc(int ch, FILE *fp)}\indexfunc{fputc}: schrijft één karakter naar het bestand dat gekoppeld is aan \texttt{fp}, geeft \texttt{EOF} terug als er een fout is opgetreden.
+\item \texttt{int fputs(char *str, FILE *fp)}\indexfunc{fputs}: schrijft naar het bestand dat gekoppeld is aan \texttt{fp} de string \texttt{str}. Geeft \texttt{EOF}\index{EOF} terug als er een fout is opgetreden.
+\item \texttt{int puts(char *str)}\indexfunc{puts}: is equivalent aan \texttt{fputs(str, stdout)}.
+\item \texttt{int getchar(void)}\indexfunc{getchar}: is equivalent aan \texttt{fgetc(stdin)}.
+\item \texttt{int putchar(int ch)}\indexfunc{putchar}: is equivalent aan \texttt{fputc(ch, stdout)}.
+\item \texttt{int fseek(FILE *fp, long offset, int origin)}\indexfunc{fseek}: zet voor het lezen of schrijven de positie binnen een bestand. De \texttt{origin} mag een van de drie waarden hebben: \texttt{SEEK\_SET} (begin van het bestand), \texttt{SEEK\_CUR} (huidige positie binnen het bestand) of \texttt{SEEK\_END} (einde van het bestand). Geeft een getal anders dan 0 terug bij een fout.
+\item \texttt{void rewind(FILE *fp)}\indexfunc{rewind}: equivalent aan \texttt{fseek(fp, 0L, SEEK\_SET)} maar heeft geen return-waarde. Zet de positie op het begin van een bestand.
 \end{itemize}
 
 Veel van deze functies krijgen een karakter mee als een \texttt{int}. Deze \texttt{int} wordt voor gebruik eerst nog geconverteerd naar een \texttt{unsigned char}. Diverse functies geven een \texttt{int} terug als karakter. De reden daarvoor is dat de functie ook een \textsl{end-of-file}\index{end of file} (\texttt{EOF})\index{EOF} kunnen teruggeven. De \texttt{EOF}\index{EOF} is meestal gedefinieerd als het getal $-1$.
