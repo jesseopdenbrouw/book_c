@@ -167,7 +167,7 @@ Een bekend voorbeeld is zijn de oplossingen van een kwadratische vergelijking me
 x_{1,2} = \dfrac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
 %
-De expressie onder het wortelteken heeft de \textsl{discriminant} en heeft alleen een geldige waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet 0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:wortels1}.
+De expressie onder het wortelteken heet de \textsl{discriminant} en heeft alleen een geldige waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet 0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:wortels1}.
 
 We definiëren een structure met de drie gegevens zoals te zien is in regels 4 t/m 8. In de functie \texttt{bereken\_wortels} berekenen we de wortels als dat mogelijk is en we vullen de status van de wortels in. Kunnen ze niet berekend worden dan zetten we variabele \texttt{geldig} op 0, anders zetten we die variabele op 1. Aan het einde van de functie geven we een nieuw aangemaakte variabele terug. In de functie \texttt{print\_wortels} drukken we de wortels af of dat de wortels niet geldig zijn (kunnen niet berekend worden).
 
@@ -176,7 +176,7 @@ We definiëren een structure met de drie gegevens zoals te zien is in regels 4 t
 
 \advanced
 \section{Unions}
-Stel dat we onze eigen C-compiler willen ontwerpen (begin er trouwens niet aan, dat is heel complex). Dan moeten een lijst bijhouden van gedeclareerde variabelen. Van de variabele moet dan ook het type worden opgeslagen en mogelijk een initiële waarde\footnote{Natuurlijk kan de waarde van een variabele tijdens runtime veranderen, maar het zou kunnen dat de compiler erachter komt dat een variabelen op een bepaald moment een bekende waarde heeft. Deze waarde kan dan gebruikt worden bij een expressie.}. We kunnen dan een structure definiëren die alle mogelijke datatypes bevat, maar dat is verkwisten van geheugenruimte; een variabele kan immers maar één datatype hebben. We kunnen dan gebruik maken van een \textsl{union}\indexkeyword{union}.
+Stel dat we onze eigen C-compiler willen ontwerpen (begin er trouwens niet aan, dat is heel complex). Dan moeten we een lijst bijhouden van gedeclareerde variabelen. Van de variabele moet dan ook het type worden opgeslagen en mogelijk een initiële waarde\footnote{Natuurlijk kan de waarde van een variabele tijdens runtime veranderen, maar het zou kunnen dat de compiler erachter komt dat een variabele op een bepaald moment een bekende waarde heeft. Deze waarde kan dan gebruikt worden bij een expressie.}. We kunnen dan een structure definiëren die alle mogelijke datatypes bevat, maar dat is verkwisten van geheugenruimte; een variabele kan immers maar één datatype hebben. We kunnen dan gebruik maken van een \textsl{union}\indexkeyword{union}.
 
 Binnen een union wordt ruimte gereserveerd voor het grootste datatype (in het aantal bits). In listing~\ref{cod:union1} is een union variabele gedeclareerd met de naam \texttt{value}.
 
