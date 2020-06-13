@@ -151,13 +151,13 @@ Zoals al eerder is geschreven, kent C een aantal functies om met bestanden op de
 \hspace*{1em}\texttt{FILE *fopen(char *filename, char *filemode);}
 
 De functie krijgt een bestandsnaam en een open-modus mee en geeft een pointer naar een \textsl{file handle} terug.
-De \texttt{filename}\index{filename}\index{bestandsnaam}\index{naam, bestand} is de naam van het bestand in een string. Een voorbeeld van een \textsl{absoluut} bestandsnaam is:
+De \texttt{filename}\index{filename}\index{bestandsnaam}\index{naam, bestand} is de naam van het bestand in een string. Een voorbeeld van een \textsl{absolute} bestandsnaam is:
 
 \hspace*{1em}\texttt{C:\textbackslash Users\textbackslash Cbook\textbackslash bestand.txt}
 
 De karakters na de punt worden de \textsl{extensie}\index{bestandsextensie}\index{extensie, bestand} genoemd. C maakt geen onderscheid tussen verschillende extensies. Het is meer voor de gebruiker een indicatie wat voor bestand het betreft. De extensie \texttt{txt} geeft aan dat het (vermoedelijk) om een tekstbestand gaat.
 
-De \textsl{filemode}\index{filemode} geeft aan hoe en waarvoor het bestand moet worden geopend. Er zijn diversie opties mogelijk. Zie tabel~\ref{tab:invopenmodes}.
+De \textsl{filemode}\index{filemode} geeft aan hoe en waarvoor het bestand moet worden geopend. Let erop dat de filemode een string is. Er zijn diversie opties mogelijk. Zie tabel~\ref{tab:invopenmodes}.
 
 \begin{table}[!ht]
 \centering
