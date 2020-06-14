@@ -295,8 +295,8 @@ De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{c
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
-int main(void) {
-
+int main(void)
+{
     int a = 2, b = 3;
 
     if (a < b) {
@@ -327,12 +327,12 @@ De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
-int main{void} {
-
+int main{void}
+{
     int valid = a<5 || a>10;
 
-    if (!valid) {   /* if valid is 0 */
-        ...
+    if (!valid)   /* if valid is 0 */
+    {  /* do something ...
     }
 
     return 0;
@@ -442,9 +442,10 @@ De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van microcontrol
 \begin{lstlisting}[caption=Gebruik van bitsgewijze operatoren.]
 #include <avr/io.h>                /* PINA, PORTB, ... */
 
-int main(void) {
-
-    if ((PINA & 0x80) == 0x80) {   /* if key is pressed ... */
+int main(void)
+{
+    if ((PINA & 0x80) == 0x80)     /* if key is pressed ... */
+    {
         PORTB = PORTB ^ 0x01;      /* ... invert lower led */
     }
 
@@ -530,12 +531,12 @@ In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de
 /* Load new datatypes */
 #include <stdint.h>
 
-int main(void) {
-
+int main(void)
+{
     uint8_t byte = 0;
     //...
-    while (byte<128) {
-        //...
+    while (byte<128)
+    {
         byte = byte + 1;
     }
 }
@@ -563,10 +564,12 @@ De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden m
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
-int main(void) {
+int main(void)
+{
 	int i;
 
-    if (sizeof i == sizeof (long)) {
+    if (sizeof i == sizeof (long))
+    {
         printf("De grootte van i is gelijk aan een long\n");
     }
 
@@ -658,8 +661,8 @@ Een typisch voorbeeld is het afdrukken van de meervoudsvorm van een woord (of ni
 \begin{lstlisting}[caption=Het afdrukken van een meervoudsvorm.,label=cod:varnrdocs]
 #include <stdio.h>
 
-int main(void) {
-
+int main(void)
+{
     int nrdocs = 0;
 
     //...
@@ -700,7 +703,7 @@ Een in C-programma's gebruikelijke constructie voor het inlezen van een karakter
 
 \hspace*{1em}\texttt{while ((ch = getchar()) != '\textbackslash n') \{ ... \}}
 
-Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indexfunc{getchar} aangeroepen om een karakter van het toetsenbord te lezen. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter ongelijk is aan het newline-karakter.
+Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indexfunc{getchar} aangeroepen om een karakter van het toetsenbord te lezen, de haakjes \texttt{()} direct achter \texttt{getchar} hebben de hoogste prioriteit. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de geheeltallige waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter ongelijk is aan het newline-karakter.
 
 \begin{table}[!ht]
 \centering
@@ -733,10 +736,20 @@ Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{get
 Uit deze tabel zijn de operatoren voor array's (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
 
 Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het onleesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan.
-
 Donald Knuth schreef al eens~\cite{knuth1974}:
 
 \begin{displayquote}
 Premature optimization is the root of all evil.
 \end{displayquote}
 De lezer is gewaarschuwd.
+
+\section{Volgorde van uit\textsl{}rekenen van expressies}
+De volgorde van het uitrekenen van expressies ligt niet vast, behalve bij de operatoren \texttt{\&\&}, \texttt{||}, \texttt{?:} en \texttt{,}. Dit heeft voornamelijk consequenties bij het gebruik van parameters in functies, zoals te zien is in de onderstaande functie-aanroep:
+
+\hspace*{1em}\texttt{printf("{}\%d \%d\textbackslash n"{}, ++n, --n);}
+
+De volgorde van het uitrekenen van \texttt{++n} en \texttt{--n} ligt niet vast. Dit kan verschillende resultaten opleveren bij gebruik van verschillende compilers. De oplossing is het gebruik van extra variabelen:
+
+\hspace*{1em}\texttt{i = ++n;}\\
+\hspace*{1em}\texttt{j = --n;}\\
+\hspace*{1em}\texttt{printf("{}\%d \%d\textbackslash n"{}, i, j);}
