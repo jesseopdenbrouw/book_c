@@ -12,7 +12,7 @@
 \clubpenalty2000
 
 %% Use T1 output font encoding
-\usepackage[T1]{fontenc}
+\usepackage[LGR,T1]{fontenc}
 
 %% Copy credentials
 \renewcommand{\author}{\bookauthor}
@@ -145,7 +145,7 @@
 \setmainfont[Ligatures=TeX]{Calibri}
 \defaultfontfeatures{Scale=MatchUppercase}
 \setsansfont{Calibri}
-\setmonofont{Consolas}
+\setmonofont[Scale=0.95]{Consolas}
 \setmathfont[slash-delimiter=frac]{Cambria Math}
 \setmathfont[range=up]{Calibri}
 \setmathfont[range=it]{Calibri Italic}
@@ -166,6 +166,7 @@
         \kern-.06em%
         \TeX}
 \makeatother
+\newcommand{\textgreek}[1]{#1}
 \else
 %% Use the Charter and Nimbus Mono fonts
 \usepackage[scale=0.95]{nimbusmono}
@@ -189,6 +190,7 @@
         \kern-.05em%
         \TeX}
 \makeatother
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 \fi
 
 %%
