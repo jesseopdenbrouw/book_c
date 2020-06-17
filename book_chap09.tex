@@ -520,61 +520,68 @@ int main(void) {
 
 
 
-%%%\advanced
-%%%\section{Invoer en uitvoer met een microcontroller}
-%%%\label{sec:invoeruitvoermcu}
-%%%Een microcontroller heeft over het algemeen geen besturingssysteem en geen toetsenbord en beeldscherm. Zo'n beetje alle bestandsfuncties hebben dan ook geen zinnige betekenis. Twee functies kunnen wel gebruikt worden: \texttt{sscanf} en \texttt{sprintf}. We kunnen \texttt{sscanf} gebruiken om gegevens uit een string te halen. Het inlezen van een string moet dan specifiek voor de microcontroller gerealiseerd worden. Met \texttt{sprintf} kunnen we karakters in een string schrijven. De uitvoer moet met een specifiek voor de microcontroller geschreven uitvoerfunctie gerealiseerd worden.
+\advanced
+\section{Invoer en uitvoer met een microcontroller}
+\label{sec:invoeruitvoermcu}
+Een microcontroller heeft over het algemeen geen besturingssysteem en geen toetsenbord en beeldscherm. Zo'n beetje alle bestandsfuncties hebben dan ook geen zinnige betekenis. Twee functies kunnen wel gebruikt worden: \texttt{sscanf} en \texttt{sprintf}. We kunnen \texttt{sscanf} gebruiken om gegevens uit een string te halen. Het inlezen van een string moet dan specifiek voor de microcontroller gerealiseerd worden. Met \texttt{sprintf} kunnen we karakters in een string schrijven. De uitvoer moet met een specifiek voor de microcontroller geschreven uitvoerfunctie gerealiseerd worden.
+
+Kijken we naar het programma in listing~\ref{cod:sscanf_sprintf}, dan moet op twee plaatsen een specifieke functie voor de microcontroller worden geprogrammeerd. In regel 13 moet \texttt{fgets} vervangen worden door een functie die beschikbaar is op de microcontroller en in regel 33 moet \texttt{puts} vervangen worden. Overigens wordt het niet aangeraden om überhaupt de \texttt{scanf}- en \texttt{printf}-functies te gebruiken. De functies zijn groot, complex en log. Gebruik op een microcontroller zal zorgen voor een grote  hoeveelheid code en lange executietijden. Hoe het dan wel moet is afhankelijk van de microcontroller.
+
+Naast \texttt{sprintf} bestaat er ook nog een functie \texttt{snprintf} (nee, er bestaat geen functie \texttt{snscanf}). Deze functie werkt hetzelfde als \texttt{sprintf} maar er wordt een extra argument meegegeven met de lengte van de string. Op die manier kan er geen \textsl{buffer overflow} ontstaan.
+\basic
+
+
+%%%\section{UTF-8 karaktercodering}
+%%%Standaard C werkt met de ASCII-karaktercodering. Dit is een 7-bits codering waarmee 128 verschillende karakters zijn te definiëren. Van oorsprong zijn hier Westerse letter, cijfers en leestekens te vinden. Een aantal codes wordt gebruikt voor besturing, zoals het einde van een regel en de \textsl{backspace}. De volledige ASCII-code is te vinden in bijlage~\ref{cha:asciitabel}.
 %%%
-%%%Kijken we naar het programma in listing~\ref{cod:sscanf_sprintf}, dan moet op twee plaatsen een specifieke functie voor de microcontroller worden geprogrammeerd. In regel 13 moet \texttt{fgets} vervangen worden door een functie die beschikbaar is op de microcontroller en in regel 33 moet \texttt{puts} vervangen worden. Overigens wordt het niet aangeraden om überhaupt de \texttt{scanf}- en \texttt{printf}-functies te gebruiken. De functies zijn groot, complex en log. Gebruik op een microcontroller zal zorgen voor een grote  hoeveelheid code en lange executietijden. Hoe het dan wel moet is afhankelijk van de microcontroller.
+%%%Omdat er 8 bits in een byte gaan, hebben diverse fabrikanten het achtste bit gebruikt om 128 extra karakters te realiseren. Helaas zijn die nieuwe karakters tussen fabrikanten niet allemaal hetzelfde. Bij het afdrukken op het scherm moeten we dus weten welke karaktercodering gebruikt is (de zogenoemde \textsl{codepage}). Om dit probleem op te vangen is de Unicode bedacht. Er zijn diverse varianten waarvan UTF-8 de meest gebruikte is. €
 %%%
-%%%Naast \texttt{sprintf} bestaat er ook nog een functie \texttt{snprintf} (nee, er bestaat geen functie \texttt{snscanf}). Deze functie werkt hetzelfde als \texttt{sprintf} maar er wordt een extra argument meegegeven met de lengte van de string. Op die manier kan er geen \textsl{buffer overflow} ontstaan.
-%%%\basic
-
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Voorbeeld van het schrijven en lezen van een bestand in UTF-8-codering.]
-#include <fcntl.h>
-#include <io.h>
-#include <stdio.h>
-#include <wchar.h>
-
-int main(void) {
-
-    FILE* fp;
-
-    /* Wide-character string */
-    wchar_t str[100];
-
-    /* Set standard output to UTF-8 encoded text */
-    _setmode(_fileno(stdout), _O_U8TEXT);
-
-    /* Open file for writing UTF-8 encoded text */
-    if (fopen_s(&fp, "test.txt", "w,ccs=UTF-8")) {
-        wprintf(L"Cannot open file for writing\n");
-        return 0;
-    }
-
-    /* Write UTF-8 encoded text, in this case Greek */
-    fwprintf(fp, L"%s\n", L"(*\textgreek{ο Δικαιοπολις εν αγρω εστιν}*)");
-
-    /* Close file */
-    fclose(fp);
-
-    /* Open file for reading UTF-8 encoded text */
-    if (fopen_s(&fp, "test.txt", "r,ccs=UTF-8")) {
-        wprintf(L"Cannot open file for reading\n");
-    }
-
-    /* Read in full string of UTF-8 encoded text */
-    fwscanf_s(fp, L"%[^\n]", str, 100);
-
-    /* Write UTF-8 encoded text to standard output */
-    wprintf(L"%s", str);
-
-    /* Close file */
-    fclose(fp);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
+%%%\texttt{wchar\_t} \texttt{wchar.h}
+%%%
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Voorbeeld van het schrijven en lezen van een bestand in UTF-8-codering.]
+%%%#include <fcntl.h>
+%%%#include <io.h>
+%%%#include <stdio.h>
+%%%#include <wchar.h>
+%%%
+%%%int main(void) {
+%%%
+%%%    FILE* fp;
+%%%
+%%%    /* Wide-character string */
+%%%    wchar_t str[100];
+%%%
+%%%    /* Set standard output to UTF-8 encoded text */
+%%%    _setmode(_fileno(stdout), _O_U8TEXT);
+%%%
+%%%    /* Open file for writing UTF-8 encoded text */
+%%%    if (fopen_s(&fp, "test.txt", "w,ccs=UTF-8")) {
+%%%        wprintf(L"Cannot open file for writing\n");
+%%%        return 0;
+%%%    }
+%%%
+%%%    /* Write UTF-8 encoded text, in this case Greek */
+%%%    fwprintf(fp, L"%s\n", L"(*\textgreek{ο Δικαιοπολις εν αγρω εστιν}*)");
+%%%
+%%%    /* Close file */
+%%%    fclose(fp);
+%%%
+%%%    /* Open file for reading UTF-8 encoded text */
+%%%    if (fopen_s(&fp, "test.txt", "r,ccs=UTF-8")) {
+%%%        wprintf(L"Cannot open file for reading\n");
+%%%    }
+%%%
+%%%    /* Read in full string of UTF-8 encoded text */
+%%%    fwscanf_s(fp, L"%[^\n]", str, 100);
+%%%
+%%%    /* Write UTF-8 encoded text to standard output */
+%%%    wprintf(L"%s", str);
+%%%
+%%%    /* Close file */
+%%%    fclose(fp);
+%%%
+%%%    return 0;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
