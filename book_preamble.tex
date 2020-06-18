@@ -398,6 +398,29 @@
   escapeinside={(*}{*)},
 }
 
+\lstdefinelanguage{none}{
+  identifierstyle=
+}
+
+\lstdefinestyle{lstoneline} {
+  language=none,
+%  keywords={},
+  basicstyle=\ttfamily\normalsize,
+  numbers=none,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=none,
+  title={},
+  upquote=true,
+  aboveskip=0.5\baselineskip,
+  belowskip=-0\baselineskip,
+  xleftmargin=1em,
+  xrightmargin=0pt,
+  escapeinside={(*}{*)},
+  caption=
+}
 
 %% Define listing style for VHDL
 \lstset{%
