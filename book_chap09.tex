@@ -449,7 +449,9 @@ Natuurlijk willen we niet steeds dat bij elk karakter een melding op het scherm 
 
 Gelukkig zorgt het besturingssysteem ervoor dat ook het end-of-line-karakter (\texttt{\textbackslash n}, de enter-toets)\index{newline} in de invoerbuffer terecht komt. We kunnen dus hierop testen. Hoe dat moet, is te zien in de onderstaande code:
 
-\hspace*{1em}\texttt{do \{ ch = getchar(); \} while (ch != '\textbackslash n' \&\& ch != EOF);}
+\begin{lstlisting}[style=lstoneline]
+do { ch = getchar(); } while (ch != '\n' && ch != EOF);
+\end{lstlisting}
 
 We lezen een karakter van de invoerbuffer en dat doen we zolang dat karakter ongelijk is aan \texttt{\textbackslash n} (end-of-line-karakter) en ongelijk is aan \texttt{EOF}\index{EOF} (end-of-file).
 
@@ -482,7 +484,7 @@ int main(void) {
 }
 \end{lstlisting}
 
-Er is nog een andere manier om de invoerbuffer te legen. We kunnen de invoerbuffer legen met de functie \texttt{fflush} (file flush):
+Er is nog een andere manier om de invoerbuffer te legen. We kunnen de invoerbuffer legen met de functie \texttt{fflush}\indexfunc{fflush} (file flush):
 
 \hspace*{1em}\texttt{fflush(stdin);}
 
