@@ -238,12 +238,71 @@ We kunnen een lus voortijdig verlaten met een \texttt{break}-statement. Dit is t
 
 Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een lus springen naar de volgende iteratie van de lus. Bij het \texttt{while}-statement wordt dus gesprongen naar het begin van de lus, bij het \texttt{do while}-statement wordt gesprongen naar het einde van de lus. In beide gevallen wordt de expressie die bij de lus hoort opnieuw uitgerekend.
 
-Bij het \texttt{for}-statement werkt het iets anders. Daarvoor moeten we listing~\ref{cod:besfor1} nog eens bekijken. Aan het einde van het \texttt{for}-statement wordt \textsl{statement$_2$} uitgevoerd, waarin normaal gesproken een variabele wordt aangepast (verhogen of verlagen). Een \texttt{continue} zorgt ervoor dat naar dit statement wordt gesprongen. Overigens kunnen we de code in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
+Bij het \texttt{for}-statement werkt het iets anders. Daarvoor moeten we listing~\ref{cod:besfor1} nog eens bekijken. Aan het einde van het \texttt{for}-statement wordt \textsl{statement$_2$} uitgevoerd, waarin normaal gesproken een variabele wordt aangepast (verhogen of verlagen). Een \texttt{continue} zorgt ervoor dat naar dit statement wordt gesprongen.
 
 \booklisting[]{C}{Gebruik van het \texttt{break}-statement om een lus te verlaten}{while_break_continue}{c}{!ht}
+
+Overigens kunnen we de code in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
+
 \booklisting[]{C}{Sommeren van positieve getallen}{while_without_break_continue}{c}{!ht}
 
 We gebruiken \texttt{break} en \texttt{continue} als de code binnen de lus complex is met vele in elkaar verweven lussen en testen.
+
+
+\section{Increment- en decrement-operatoren}
+Bij het opzetten van een \texttt{for}-statement moet de lusvariabele vaak met één worden verlaagd of verhoogd worden. We kunnen dat doen middels:
+
+\hspace*{1em}\texttt{i = i + 1;}
+
+maar het is in C gebruikelijk om
+
+\hspace*{1em}\texttt{i++;}
+
+te gebruiken. In de context van het \texttt{for}-statement is er geen verschil in werking; beide mogelijkheden zijn correct. Stel dat we een aantal statements 10 keer willen uitvoeren. Dan kunnen we het \texttt{for}-statement als opzetten zoals te zien is in listing~\ref{cod:besforwithinc}.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Gebruik van de increment-operator in een \texttt{for}-statement.,label=cod:besforwithinc]
+    // ...
+    for (i = 0; i < 10; i++) {
+        // ...
+    }
+    // ...
+\end{lstlisting}
+\end{figure}
+
+
+\section{Komma-operator}
+\indexfunc{,}\index{komma-operator}
+De komma-operator scheidt meerdere expressies van elkaar waarbij de waarde van de meest rechter expressie als antwoord dient. Dus het statement
+
+\hspace*{1em}\texttt{a = ++b, --c, j;}
+
+zorgt ervoor dat \texttt{b} wordt verlaagd, \texttt{c} wordt verhoogd en dat \texttt{a} gelijk is an \texttt{j}. De komma-operator bewijst vooral zijn nut in het \texttt{for}-statement waar meerdere variabelen tegelijk moeten worden aangepast. Zie listing~\ref{cod:besgebruikkomma}.
+
+\begin{lstlisting}[caption=Gebruik van de komma-operator.,label=cod:besgebruikkomma]
+    // ...
+    for (i=0, j=9; i<10; i++, j--) {
+        // ...
+    }
+\end{lstlisting}
+
+Een bekende methode om de tafel 9 uit het hoofd te leren is dat eerst de getallen 0 t/m 9 van boven naar beneden worden geschreven en daarna de de getallen va 9 t/m 0 er achter worden geschreven. Een voorbeeld is gegeven is listing~\ref{cod:besafdruk9}.
+
+
+\begin{lstlisting}[caption=Afdrukken van de tafel van 9.,label=cod:besafdruk9]
+#include <stdio.h>
+
+int main(void) {
+
+	for (int i = 0, j = 9; i < 10; i++, j--) {
+		printf("%d%d\n", i, j);
+	}
+
+	return 0;
+}
+\end{lstlisting}
+
+Hier worden twee variabelen gebruikt, \texttt{i} en \texttt{j}, die alleen binnen de lus bekend zijn.
 
 \section{Het \texttt{goto}-statement}
 Eerst even een opmerking:
@@ -252,7 +311,7 @@ Eerst even een opmerking:
 Goto's are the root of all evil.
 \end{displayquote}
 
-Er is geen enkele reden om het \texttt{goto}-statement te gebruiken. Het is altijd mogelijk om code te schrijven zonder het \texttt{goto}-statement. In dit boek maken er ook geen gebruik van. Soms is het echter handig om er gebruik van te maken, bijvoorbeeld als een foutconditie op meerdere plekken in de code kan voorkomen of als we uit een, wat in het Engels \textsl{deeply nested structure} genoemd wordt, willen breken, bijvoorbeeld een lus binnen een lus. Een voorbeeld is te zien in listing~\ref{cod:besgoto}.
+Er is geen enkele reden om het \texttt{goto}-statement\indexkeyword{goto} te gebruiken. Het is altijd mogelijk om code te schrijven zonder het \texttt{goto}-statement. In dit boek maken we er ook geen gebruik van. Soms is het echter handig om er gebruik van te maken, bijvoorbeeld als een foutconditie op meerdere plekken in de code kan voorkomen of als we uit een, wat in het Engels \textsl{deeply nested structure} genoemd wordt, willen breken, bijvoorbeeld een lus binnen een lus. Een voorbeeld is te zien in listing~\ref{cod:besgoto}.
 
 
 \begin{figure}[!ht]
