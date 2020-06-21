@@ -43,7 +43,7 @@ Meestal wordt een assembler-bestand samen met C-bestanden gecompileerd:
 
 
 \section{Stappen in de compilatie}
-De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een schematisch overzicht in figuur~\ref{fig:comschematisch}.
+De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een schematisch overzicht in figuur~\ref{fig:comschematisch} te zien.
 
 \begin{sidewaysfigure}[!p]
 \centering
@@ -55,36 +55,41 @@ De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een 
 \draw (4,0) rectangle (7,2);\node at (5.5,1) {C};
 \draw (4,-3) rectangle (7,-1); \node at (5.5,-2) {C};
 
-\draw (4,-6) rectangle (7,-4);\node at (5.5,-5) {AS};
+\draw (8.5,0) rectangle (11.5,2);\node at (10,1) {AS};
+\draw (8.5,-3) rectangle (11.5,-1);\node at (10,-2) {AS};
+\draw (8.5,-6) rectangle (11.5,-4);\node at (10,-5) {AS};
 
-\draw (13,2) rectangle (16,-10);\node at (14.5,-3) {LINKER};
+\draw (15,2) rectangle (18,-10);\node at (16.5,-3) {LINKER};
 
-\node[right] at (-4,1) {file1.c}; 
-\node[right] at (-4,-2) {file2.c}; 
-\node[right] at (-4,-5) {file3.s}; 
-\node[right] at (-4,-8) {libc.a}; 
-\node[right] at (-4,-9) {libm.a}; 
+\draw[dashed] (22,0) rectangle (25,-8) node[midway] {POST};
+
+\node[left] at (-2,1) {file1.c}; 
+\node[left] at (-2,-2) {file2.c}; 
+\node[left] at (-2,-5) {file3.s}; 
+\node[left] at (-2,-8) {libc.a}; 
+\node[left] at (-2,-9) {libm.a}; 
 
 \draw[-latex] (-2,1) -- (0,1);
 \draw[-latex] (-2,-2) -- (0,-2);
 
 \draw[-latex] (2,1) -- (4,1);
 \draw[-latex] (2,-2) -- (4,-2);
-\draw[-latex] (-2,-5) -- (4,-5);
+\draw[-latex] (-2,-5) -- (8.5,-5);
+\draw[-latex] (7,1) -- (8.5,1);
+\draw[-latex] (7,-2) -- (8.5,-2);
 
-\draw[-latex] (-2,-8) -- (13,-8);
-\draw[-latex] (-2,-9) -- (13,-9);
 
-\draw[-latex] (16,-5) -- ++(2,0) -- ++(0,-2) node[below] {prog.exe};
-\draw[-latex] (16,-4) -- ++(4,0) node[midway,above] {prog.elf};
+\draw[-latex] (-2,-8) -- (15,-8);
+\draw[-latex] (-2,-9) -- (15,-9);
 
-\draw[-latex] (7,1) -- (13,1) node[midway,above] {file1.o};
-\draw[-latex] (7,-2) -- (13,-2) node[midway,above] {file2.o};
-\draw[-latex] (7,-5) -- (13,-5) node[midway,above] {file3.o};
+\draw[-latex] (18,-5) -- ++(2,0) -- ++(0,-2) node[below] {prog.exe};
+\draw[-latex] (18,-4) -- ++(4,0) node[midway,above] {prog.elf};
 
-\draw[dashed] (20,0) rectangle (23,-8) node[midway] {POST};
+\draw[-latex] (11.5,1) -- (15,1) node[midway,above] {file1.o};
+\draw[-latex] (11.5,-2) -- (15,-2) node[midway,above] {file2.o};
+\draw[-latex] (11.5,-5) -- (15,-5) node[midway,above] {file3.o};
 
-\draw[-latex] (23,-4) -- ++(2,0) node[right] {prog.hex};
+\draw[-latex] (25,-4) -- ++(2,0) node[right] {prog.hex};
 \end{tikzpicture}
 \caption{Schematisch overzicht van een compilatie.}
 \label{fig:comschematisch}
@@ -92,13 +97,12 @@ De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een 
 
 Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 
-Een C-bestand wordt in twee stappen gecompileerd. Eerst wordt het C-bestand aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer is een een tijdelijk bestand. Daarna wordt dit tijdelijke bestand aan de ``echte'' C-compiler doorgegeven. De C-compiler genereert een \textsl{object-bestand}\index{object-bestand}. In het object-bestand is de gecompileerde code opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen.
+Een C-bestand wordt in drie stappen gecompileerd. Eerst wordt het C-bestand aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer is een een tijdelijk bestand. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Daarna wordt dit tijdelijke bestand aan de ``echte'' C-compiler doorgegeven. De C-compiler genereert een \textsl{assembler-bestand} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert dit bestand en genereert een \textsl{object-bestand}\index{object-bestand}. In het object-bestand zijn de bitpatronen van de instucties opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. Een assembler-bestand wordt direct door de assembler geassembleerd.
 
 Alle gegenereerde object-bestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de object-bestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
 Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
 
-Een assembler-bestand wordt door de assembler gecompileerd. Dit kan in de C-compiler ingebakken zijn, maar vaak is dit een extern programma.
 
 Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
 
