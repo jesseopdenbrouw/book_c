@@ -4,7 +4,7 @@
 
 Een structuur (Engels: structure\footnote{We zullen vanaf nu de Engelse naam structure gebruiken.}) is een verzameling bij elkaar behorende gegevens beschikbaar onder één enkele naam. Dit is vooral handig bij complexe \textsl{datastructuren} want ze helpen om gerelateerde variabelen als een eenheid te bewerken in plaats van een aantal verschillende variabelen. Structures komen overeen met een \textsl{rij} in een relationele database. Een bekend voorbeeld is de loonlijst van werknemers. Een werknemer heeft een naam, een adres, een salaris en een functie.
 
-Structures kunnen gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven, we kunnen het adres van een structure opvragen met de adres-operatore \texttt{\&} en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
+Structures kunnen gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven, we kunnen het adres van een structure opvragen met de adres-operator \texttt{\&} en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
 
 \section{Definitie en declaratie}
 
@@ -117,7 +117,7 @@ zorgt ervoor dat we een array van tien artikelen kunnen gebruiken. Om een elemen
 
 \hspace*{1em}\texttt{art[6].aantal += 3;}
 
-zorgt ervoor dat het aantal van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array altijd via \textsl{Call by Reference}\index{Call by Reference} (dus via een pointer) wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
+zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array altijd via \textsl{Call by Reference}\index{Call by Reference} (dus via een pointer) wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
 
 In listing~\ref{cod:struct14} is een functie te zien die alle gegevens van de artikelen afdrukt. We gaan hier ervan uit dat als een artikel het nummer 0 heeft, dit artikel niet is ingevuld en drukken we de gegevens niet af. 
 
