@@ -8,8 +8,9 @@
 %%%%% Make title page
 %% The title page
 \def\maketitle{%
-\ifusebookasbook\fi%
+\ifusebookasbook
 \pagecolor{covercolor}%
+\fi%
 \null%
   \hbox{%
   \hspace*{0.05\textwidth}%
@@ -55,6 +56,8 @@
 \maketitle
 
 \hspace*{0em}
+\vfill
+\textsl{Voor mijn vader, een die-hard C-programmeur.}
 \vfill
 \textcopyright\the\year\ \ \bookauthor, Den Haag\\
 Versie: \bookversion\\
