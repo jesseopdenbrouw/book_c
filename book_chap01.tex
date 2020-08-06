@@ -16,26 +16,35 @@ Maar met enige discipline kan ook de minder ervaren programmeur de taal prima ge
 C is een algemeen bruikbare taal (\textsl{general purpose language}) en is dus niet voor een specifiek doeleind ontworpen (behalve voor het schrijven van besturingssystemen). Zo kunnen met C wiskundige berekeningen worden uitgevoerd maar de programmeur moet zelf alles schrijven. Er zijn wel \textsl{functies} beschikbaar voor bijvoorbeeld sinus, cosinus en tangens. Er zijn echter talen die dit veel beter ondersteunen. Ook het verwerken van bestanden en \textsl{strings} (een rij karakters) is mogelijk maar dat moet door de programmeur zelf worden uitgewerkt. Ook hier zijn diverse functies beschikbaar die het programmeerwerk enigszins verlichten.
 
 C is een \textsl{imperatieve} programmeertaal, een van de bekende programmeerparadigma's\footnote{Een programmeerparadigma is een manier van programmeren en een wijze waarop een programma wordt vormgegeven.}.
-C moet concurreren met vele andere talen zoals C++, C\# en Java. C++ is ontwikkeld door Bjarne Stroustrup als ``de betere C'' en ondersteunt \textsl{objectgeoriënteerd} programmeren. C\# is ontwikkeld door Microsoft en is de \textsl{de facto} programmeertaal op Windows-systemen.
+C moet concurreren met vele andere talen zoals C++, C\# en Java. C++ is ontwikkeld door Bjarne Stroustrup als ``de betere C'' en ondersteunt \textsl{objectgeoriënteerd} programmeren. Ook C\# ondersteunt objectgeoriënteerd, is ontwikkeld door Microsoft en is de \textsl{de facto} programmeertaal op Windows-systemen. Java is een taal die die onafhankelijk van een computersysteem gebruikt kan worden, ondersteunt objectgeoriënteerd programmeren maar kan alleen gebruikt worden als Java ondersteund wordt op het systeem.
 
 Standaard C staat ook wel bekend als ANSI C of C89~\cite{1989programming}. Momenteel is C18 de standaard voor de C programmeertaal.
 
 \section{De computer}
-Een \textsl{computer}\index{computer} is een elektronisch, digitaal systeem dat \textsl{data} verwerkt aan de hand van een lijst \textsl{instructies}\index{instructie}. Het Engelse woord voor verwerken is ``to process''. En daar komt de naam vandaan van een belangrijk onderdeel van de computer: de \textsl{processor}\index{processor}. 
+Een \textsl{computer}\index{computer} is een elektronisch, digitaal systeem dat \textsl{data} (gegevens) verwerkt aan de hand van een lijst \textsl{instructies}\index{instructie}. Het Engelse woord voor verwerken is ``to process''. En daar komt de naam vandaan van een belangrijk onderdeel van de computer: de \textsl{processor}\index{processor}. 
 
 De instructies die de processor kan uitvoeren zijn zeer eenvoudig. Voorbeelden zijn ``tel op'' en ``trek af'' en ``bepaal of het ene getal kleiner is dan het andere getal''. Een processor kan niet in één keer ``doe dit tien keer en bereken de wortel van diverse getallen en druk af op het scherm'' uitvoeren. Als we dat willen, dan moeten we dit opdelen in de eenvoudige instructies die de processor wel kan verwerken. Alle instructies bij elkaar wordt een \textsl{programma}\index{programma} genoemd en de verzamelnaam voor alle programma's wordt \textsl{software}\index{software} genoemd.
 
-Een computer heeft naast de processor \textsl{geheugen}\index{geheugen} om de data en instructies op te slaan. Er zijn twee soorten geheugens: ROM\index{ROM} (Read Only Memory) is een geheugen waarvan de inhoud niet gewijzigd kan worden; RAM\index{RAM} (Random Access Memory) is geheugen waarvan de inhoud wel gewijzigd kan worden. Over het algemeen wordt een programma in de ROM opgeslagen en wordt de data in de RAM opgeslagen.
+Een computer heeft naast de processor \textsl{geheugen}\index{geheugen} om de data en instructies op te slaan. Er zijn twee soorten geheugens: ROM\index{ROM} (Read Only Memory) is een geheugen waarvan de inhoud niet gewijzigd kan worden; RAM\index{RAM} (Random Access Memory) is geheugen waarvan de inhoud wel gewijzigd kan worden. We zullen zo meteen zien waarvoor ROM en RAM worden gebruikt.
 
-Naast ROM en RAM heeft de computer nog invoer- en uitvoermogelijkheden, anders is er geen communicatie met de buitenwereld mogelijk. De verzamelnaam is \textsl{I/O}\index{I/O} dat ``Input'' en ``Output'' betekent. Het is best lastig om de invoer en uitvoer te realiseren. Daarom wordt bij de gangbare computers een stuk software geladen (of het is al aanwezig in de ROM) om dat voor de gebruiker (en programmeur) te vereenvoudigen. Die software wordt een \textsl{besturingssysteem}\index{besturingssyteem} genoemd, maar gangbaar is om de Engelse naam operating system\index{operating system} te gebruiken. Bekende besturingssytemen zijn Windows, Linux en OS-X.
+\begin{infobox}[{Bits and bytes{,} size does matter...}]
+De meeste gangbare computersystemen slaan data op in \textsl{bytes}. Een byte is een eenheid van~8 \textsl{bits}. Het woord \textsl{bit} is een samentrekking van \textsl{binary digit}. Binary digit betekent \textsl{binair cijfer} en binair betekent \textsl{tweewaardig}. Dat betekent dat een bit twee verschillende waarden kan hebben. We noemen die waarden 0 of 1. Met behulp van bits en bytes kunnen we getallen representeren. Het kleinste getal in een byte is 00000000$_2$ waarbij het subscript 2 aangeeft dat het om een binair getal gaat, en het grootste getal is 11111111$_2$. Dit komt overeen met het decimale getal 0 respectievelijk het decimale getal 255. Om gotere getallen te representeren, zijn meerdere bytes nodig. Moderne systemen kunnen overweg met 64-bits eenheden, dus zijn er 8 bytes nodig voor zo'n eenheid. We spreken dan van een \textsl{64-bits systeem}.
+\end{infobox}
 
-Niet alle gegevens zijn in het geheugen van de computer aanwezig. Een computer heeft (vaak) \textsl{secundair geheugen}\index{secundair geheugen}. Voorbeelden van secundair geheugen zijn harddisk (harde schijf), USB-sticks en SD-cards. De informatie op deze geheugendragers blijft aanwezig ook al wordt de computer uitgezet en weer aangezet. Om de informatie beschikbaar te maken worden de gegevens in \textsl{bestanden}\index{bestand} (Engels: file) gezet. De manier waarop dat wordt gerealiseerd wordt een \textsl{bestandssysteem}\index{bestandssysteem} (Engels: file system) genoemd. Bekende bestandssystemen zijn NTFS op Windows en ext3 op Linux. Het besturingssysteem zorgt ervoor dat de bestanden op ordentelijke wijze kunnen worden benaderd.
+Naast ROM en RAM heeft de computer nog invoer- en uitvoermogelijkheden, anders is er geen communicatie met de buitenwereld mogelijk. De verzamelnaam is \textsl{I/O}\index{I/O} dat ``Input'' en ``Output'' betekent. Het is best lastig om de invoer en uitvoer te realiseren. Daarom wordt bij de gangbare computers een stuk software geladen (of het is al aanwezig in de ROM) om dat voor de gebruiker (en programmeur) te vereenvoudigen. Die software wordt een \textsl{besturingssysteem}\index{besturingssyteem} genoemd, maar gangbaar is om de Engelse naam operating system\index{operating system} te gebruiken. Bekende besturingssytemen zijn Windows, Linux en Apple' OS-X.
 
-In de praktijk komen twee soorten computers tegen: de algemeen bruikbare computers waarop een besturingssysteem draait (PC, laptops) en die een grote hoeveelheid aan verschillende programma's kan uitvoeren, en de zogenoemde \textsl{embedded systems}\index{embedded system}. Een embedded system in meestal geschikt om één taak uit te voeren en is voorzien van een kleine processor met geheugen en I/O-faciliteiten. Al deze componenten zijn op één ic (Integrated Circuit of chip genoemd)\index{chip} geplaatst. We noemen zo'n processorsysteem een \textsl{microcontroller}\index{microcontroller}. Voorbeelden van embedded systems zijn (de besturingen van) wasmachines, koelkasten, televisies, thermostaten, horloges en bloeddrukmeters. De markt voor embedded systems is trouwens vele malen groter dan de markt voor algemene bruikbare computers.
+Niet alle gegevens zijn in het geheugen van de computer aanwezig. Een computer heeft (vaak) \textsl{secundair geheugen}\index{secundair geheugen}. Voorbeelden van secundair geheugen zijn harddisk (harde schijf), USB-sticks en SD-cards. De informatie op deze geheugendragers blijft aanwezig ook al wordt de computer uitgezet en weer aangezet. Om de informatie beschikbaar te maken worden de gegevens in \textsl{bestanden}\index{bestand} (Engels: files) gezet. De manier waarop dat wordt gerealiseerd wordt een \textsl{bestandssysteem}\index{bestandssysteem} (Engels: file system) genoemd. Bekende bestandssystemen zijn NTFS op Windows en ext3 op Linux. Het besturingssysteem zorgt ervoor dat de bestanden op ordentelijke wijze kunnen worden benaderd.
 
-De microcontroller heeft meestal geen besturingssysteem. Dat noemen we \textsl{bare metal}\index{bare metal system} systemen. Dat betekent dat de programmeur alles zelf moet ontwikkelen. Gelukkig leveren fabrikanten kant-en-klare ontwikkelsystemen om programma's voor microcontrollers te produceren.
+In de praktijk komen we een drietal computersystemen tegen. Natuurlijk zijn er de algemeen bruikbare computers waarop een besturingssysteem draait (PC, laptops met Windows, Linux, Apple's OS-X) en die een grote hoeveelheid aan verschillende programma's kan uitvoeren.
+
+Daarnaast zijn er zogenoemde \textsl{embedded systems}\index{embedded system}. Een embedded system in meestal geschikt om één taak uit te voeren en is voorzien van een kleine processor met geheugen en I/O-faciliteiten. Al deze componenten zijn op één ic (Integrated Circuit of chip genoemd)\index{chip} geplaatst. We noemen zo'n processorsysteem een \textsl{microcontroller}\index{microcontroller}. Voorbeelden van embedded systems zijn (de besturingen van) wasmachines, koelkasten, televisies, thermostaten, horloges en bloeddrukmeters. De markt voor embedded systems is trouwens vele malen groter dan de markt voor algemene bruikbare computers.
+De microcontroller heeft meestal geen besturingssysteem. Dat noemen we \textsl{bare metal}\index{bare metal system} systemen. Dat betekent dat de programmeur alles zelf moet ontwikkelen. Gelukkig leveren fabrikanten kant-en-klare ontwikkelsystemen om programma's voor microcontrollers te produceren. Op deze systemen is C (en C++) de enige taal die gebruikt kan worden. We gaan in dit boek hier verder niet op in.
+ 
+We kunnen natuurlijk niet de \textsl{smartphones} vergeten. Zo'n beetje iedereen in Nederland heeft er een. We kunnen een smartphone vergelijken met een algemeen bruikbaar computersysteem, waarop de besturingssystemen Android of iOS draaien. Op deze systemen kunnen programma's worden geïnstalleerd, \textsl{apps} genaamd. Deze apps worden over het algemeen \textsl{niet} in C geprogrammeerd, en vallen verder buiten het bestek van dit boek.
+
+Bij PC's en laptops is een klein programma in ROM aanwezig. Dit zorgt ervoor dat de PC kan opstarten. Het heeft tot doel om het besturingssysteem te laden (Windows, Linux). Het besturingssysteem en de programma worden dus in RAM geladen, net als de data waarmee de programma's werken. Op smartphones is het besturingssysteem opgeslagen in ROM die herprogrammeerbaar is. Zo kunnen updates van het besturingssysteem geïnstalleerd worden. De apps en data worden geladen in de RAM. Bij microcontrollers is het complete programma geladen in ROM, die ook herprogrammeerbaar is. De data is geplaatst in RAM.
+
 % Dat worden \textsl{compiler suites} of \textsl{toolchains}\index{toolchain} genoemd.
-
 
 \section{De compiler}
 C is een zogenoemde derde-generatie-taal. De broncode van een C-programma is voor een mens gewoon te lezen. Deze broncode kan niet direct door de processor worden uitgevoerd. De \textsl{C-compiler}\index{compiler} vertaalt de broncode naar instructies die de processor wel kan uitvoeren. Dat vertalen wordt \textsl{compileren}\index{compileren} genoemd. De instructies worden in bitpatronen in het geheugen opgeslagen. De bitpatronen noemen we \textsl{machinecode}\index{machinecode}. Elk type processor heeft zijn eigen verzameling bitpatronen, dat wordt de \textsl{Instruction Set Architecture}\index{ISA} genoemd. De ISA van een Intel-processor is dus anders dan die van een ATmega-processor, maar we kunnen wel zeggen dat elke processor ongeveer dezelfde soort instructies bevat. De C-compiler moet weten voor welke processor een C-programma wordt vertaald.
@@ -87,8 +96,7 @@ We zullen in de overige paragrafen in sneltreinvaart enkele concepten van C besp
 \section{Een minimaal C-programma}
 We beginnen met het meest simpele C-programma dat mogelijk is. We willen hiermee uitleggen wat er gebeurt als dit programma gecompileerd en uitgevoerd wordt. Het programma is te zien in listing~\ref{cod:unminimaalcprogramma}. Het programma doet in feite helemaal niets, althans niet dat de gebruiker van het programma kan waarnemen. Toch gebeuren er wel degelijk dingen ``onder de motorkap''.
 
-
-\begin{figure}[!ht]
+\begin{figure}[H]
 \begin{lstlisting}[caption=Een minimaal C-programma.,label=cod:unminimaalcprogramma]
 int main(void)
 {
@@ -136,7 +144,7 @@ In regel 5 en 6 worden twee \textsl{variabelen}\index{variabele} gedeclareerd, d
 
 In regel 8 wordt de variabele \texttt{som} gedeclareerd zonder initialisatie. Dat betekent dat op dat moment de waarde (of inhoud) van de variabele \textsl{onbekend} is. Vervolgens wordt in regel 10 de som van \texttt{a} en \texttt{b} berekend middels de \textsl{optel-operator} \texttt{+}\indexop{+} en wordt het resultaat \textsl{toegekend}\index{toekenning}\indexop{=} aan variabele \texttt{som}. Vanaf regel 10 is de waarde van \texttt{som} dus 10. In regel 10 zien we zogenoemde \textsl{expressies}\index{expressie}. Zo is \texttt{a + b} een expressie en is de toekenning \mbox{\texttt{som = ...}} ook een expressie. De term expressie komt veel voor in C.
 
-In regel 12 wordt de functie \texttt{printf}\indexfunc{printf} aangeroepen. Deze functie is al geschreven is zit in de standard library. De functie krijgt vier \textsl{argumenten}\index{argument} mee, gegevens die in de functie verwerkt worden. Het eerste argument is een \textsl{string}\index{string}. Een string is een stukje tekst, maar we spreken ook wel van een rij karakters. Daarna volgen de (waarden) van de variabelen \texttt{a}, \texttt{b} en \texttt{som}.
+In regel 12 wordt de functie \texttt{printf}\indexfunc{printf} aangeroepen. Deze functie is al geschreven en zit in de standard library. De functie krijgt vier \textsl{argumenten}\index{argument} mee, gegevens die in de functie verwerkt worden. Het eerste argument is een \textsl{string}\index{string}. Een string is een stukje tekst, maar we spreken ook wel van een rij karakters. Daarna volgen de (waarden) van de variabelen \texttt{a}, \texttt{b} en \texttt{som}.
 
 Het eerste argument van \texttt{printf} wordt een \textsl{format string} genoemd. Dat ligt niet in C-taal vast maar wordt algemeen gebruikt. De format string bevat karakters, zogenoemde \textsl{format specifications} en een \textsl{escape sequence}. Een format specification begint met een procentteken gevolgd door een letter. De functie \texttt{printf} gebruikt deze format specifications om de gegevens af te drukken. De eerste \texttt{\%d} zorgt ervoor dat variabele \texttt{a} wordt afgedrukt als een decimaal geheel getal. Op overeenkomstige wijze worden ook \texttt{b} en \texttt{som} afgedrukt. Aan het einde van de format string is een \textsl{escape sequence} te zien, in dit geval \texttt{\textbackslash n}. Dit zorgt ervoor dat een volgende afdruk wordt begonnen aan het begin van de volgende regel (Engels: newline).
 
@@ -177,14 +185,14 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 
-In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader op pagina~\pageref{fig:unopmerkingscanf}.
+In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader.% op pagina~\pageref{fig:unopmerkingscanf}.
 
 \begin{infobox}[To \texttt{scanf} or not to \texttt{scanf}...]
 \label{fig:unopmerkingscanf}%
 De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilatie met \texttt{scanf} zal eindigen met een foutmelding. In plaats daarvan moet de functie \texttt{scanf\_s} worden gebruikt. Helaas ondersteunen andere compilers deze functie niet. Dat zal resulteren in een programma dat niet door iedere compiler kan worden vertaald. Om het probleem te omzeilen hebben we gebruik gemaakt van een \textsl{pragma}. In regel~4 geven we aan dat de C-compiler fout 4996 moet negeren. Op andere compilers, bijvoorbeeld de GNU-C compiler, wordt deze regel overgeslagen (er volgt wel een waarschuwing). Overigens wordt op vele fora gewaarschuwd voor de onveiligheid van \texttt{scanf} en worden alternatieven gegeven. Wij gebruiken \texttt{scanf} hier wel \textsl{for the sake of simplicity}. Het is beter om \texttt{scanf} te vermijden.
 \end{infobox}
 
-Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} declareren we drie variabelen. Daarna drukken we in regel 13 een stukje tekst of dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
+Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} declareren we drie variabelen. Daarna drukken we in regel 13 een stukje tekst af dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
 
 De format specification \texttt{\%d} hadden we al eerder gezien, maar de constructie \texttt{\&a} is nieuw. De ampersand (\texttt{\&}) zorgt ervoor dat aan de functie \texttt{scanf} het \textsl{adres} van variabele \texttt{a} meegegeven wordt. Het adres van de variabele is de plek waar de variabele in het geheugen ligt. Op deze manier kan \texttt{scanf} de informatie op je juiste plek zetten. In regel 17 wordt hetzelfde gedaan voor variabele \texttt{b}. We drukken voor het inlezen nog even netjes af hoe de gebruiker moet handelen. In regel 19 rekenen we de som uit van variabelen \texttt{a} en \texttt{b} en kennen dat toe aan variabele \texttt{som}. In regel 21 drukken we de drie variabelen af. Het programma wordt afgesloten in regel 23.
 
@@ -227,9 +235,10 @@ Dit geeft de compiler aanwijzingen over de grootte (het aantal bits) van variabe
 
 
 \section{Beslissingen}
-Met behulp van de keyswords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We declareren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden toe. In regel 8 is te zien dat getest wordt of \texttt{a} kleiner is dan \texttt{b}. We noemen het kleiner-dan-teken een \textsl{relationele operator}\index{relationele operator}. Als inderdaad blijkt dat \texttt{a} kleiner is dan \texttt{b}, dat betekent dat de conditie \texttt{a < b} waar is, worden de statements tussen de accolades in de regels 9 en 11 uitgevoerd. Is de conditie niet waar, dan worden de regels overgeslagen. Overigens mogen in dit geval de accolades weggelaten worden omdat maar één statement wordt uitgevoerd. Het is echter aan te bevelen om ze toch te gebruiken, omdat misschien later er nog statements toegevoegd worden. Een bekend voorbeeld van het niet-gebruiken van accolades is Apple's \textsl{gotofail SSL security bug}~\cite{barr2014}.
 
-\begin{figure}[!ht]
+Met behulp van de keyswords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen we in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We declareren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden 
+%
+\begin{figure}[!b]
 \begin{lstlisting}[caption=Afdrukken van tekst op basis van een beslissing.,label=cod:unif]
 #include <stdio.h>
 
@@ -247,6 +256,9 @@ int main(void)
 }
 \end{lstlisting}
 \end{figure}
+%
+toe. In regel 8 is te zien dat getest wordt of \texttt{a} kleiner is dan \texttt{b}. We noemen het kleiner-dan-teken een \textsl{relationele operator}\index{relationele operator}. Als inderdaad blijkt dat \texttt{a} kleiner is dan \texttt{b}, dat betekent dat de conditie \texttt{a < b} waar is, worden de statements tussen de accolades in de regels 9 en 11 uitgevoerd. Is de conditie niet waar, dan worden de regels overgeslagen. Overigens mogen in dit geval de accolades weggelaten worden omdat maar één statement wordt uitgevoerd. Het is echter aan te bevelen om ze toch te gebruiken, omdat misschien later er nog statements toegevoegd worden. Een bekend voorbeeld van het niet-gebruiken van accolades is Apple's \textsl{gotofail SSL security bug}~\cite{barr2014}.
+
 
 Een \texttt{if}-statement kan ook gevolgd worden door een \texttt{else}-keyword en een \texttt{else}-keyword kan ook weer gevolgd worden door een \texttt{if}-keyword. In het Engels wordt dit een \textsl{multy-way branch} (to branch = vertakken) genoemd. Zie listing~\ref{cod:unifelse}.
 
@@ -287,11 +299,11 @@ We beginnen het programma met de declaratie van een aantal variabelen. Vervolgen
 In regel 12 zetten we de lusvariabele op de ondergrens en gaan de lus uitvoeren. De lus wordt gekenmerkt door het keyword \texttt{while}\indexkeyword{while}. Achter het keyword \texttt{while} staat, tussen de haken, de conditie waarop de lus moet worden uitgevoerd.
 Zolang de conditie \mbox{\texttt{getal <= bovengrens}} waar is, worden de statements binnen de accolades uitgevoerd. We noemen dat een \textsl{iteratie}\index{iteratie}. Is de conditie niet waar dan wordt verder gegaan met het statement die volgt op het \texttt{while}-statement.
 
-\booklisting[]{C}{caption}{printkwadraten}{c}{!ht}
+\booklisting[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
 
 Binnen de accolades van het \texttt{while}-statement zien we drie statements. In regel 15 wordt het kwadraat berekend van de (huidige) waarde van de lusvariabele. Daarna worden de lusvariabele en het kwadraat afgedrukt. In regel 17 wordt de lusvariabele aangepast naar de nieuwe (volgende) waarde door de stapgrootte erbij op te tellen\footnote{Het is tegenwoordig in het Nederlands gebruikelijk om het Engelse woord updaten te gebruiken.}.
 
-In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement gebruiken: het \texttt{for}-statement. Het is een compacte schrijfwijze van het \texttt{while}-statement. We kunnen het berekenen van het kwadraat ook binnen de parameter van de functie plaatsen. Zo sparen we een variabele uit. Zie listing~\ref{cod:unfor}.
+In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement gebruiken: het \texttt{for}-statement. Het is een compacte schrijfwijze van het \texttt{while}-statement. We kunnen het berekenen van het kwadraat ook als parameter van de functie \text{printf} plaatsen. Zo sparen we een variabele uit. Zie listing~\ref{cod:unfor}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van een \texttt{for}-statement.,label=cod:unfor]
@@ -326,6 +338,20 @@ De array mag bij declaratie gelijk geïnitialiseerd worden zoals te zien is in r
 
 selecteert dus een element uit de array en telt dat op bij de som. In regel 13 drukken we het gemiddelde af door de som te delen door 5. We hoeven daarvoor niet een aparte variabele te declareren, we kunnen als argument gewoon \texttt{som / 5.0} gebruiken.
 
+Een veel gebruikte arraytype is de \textsl{string}. Dit is een array van karakters, afgesloten met een speciaal karakter dat het \textsl{null-karakter} of \textsl{null-byte} genoemd worden. C heeft geen ingebouwde taalconstructies die direct met strings werken, maar er zijn veel \textsl{functies} beschikbaar om strings te verwerken. Een voorbeeld van een string is:
+
+\begin{lstlisting}[caption=Voorbeeld van een string.]
+char str[] = "Ik ben een string";
+\end{lstlisting}
+
+We hoeven de lengte van de string in dit geval niet op te geven, dat wordt automatisch door de C-compiler uitgerekend. Strings worden behandeld in hoofdstuk~\ref{cha:arrays}. 
+
+% Past niet op pagina
+%We kunnen de string bijvoorbeeld door het programma laten afdrukken met \lstinline|printf|:
+%
+%\begin{lstlisting}[caption=Afdrukken van een string.]
+%    printf("%s", str);
+%\end{lstlisting}
 
 \section{Functies}
 C biedt een handige manier om een groep statement, bijvoorbeeld berekeningen, onder te brengen in een \textsl{functie}\index{functie}. Als de functie eenmaal geschreven is hoeven we ons niet druk te maken over hoe de de berekeningen worden gedaan, we moeten alleen maar weten hoe we de functie moeten gebruiken. We hebben al drie functies gezien: \texttt{printf}, \texttt{scanf} en \texttt{main}. De functies \texttt{printf} en \texttt{scanf} zijn al beschikbaar via de standard library. We hoeven niet te weten hoe de functies werken, alleen maar hoe ze moeten worden aangeroepen.
@@ -354,23 +380,27 @@ We testen in regels 8 t/m 10 of het argument 0 is en geven dan direct de waarde 
 
 In het \texttt{for}-statement worden tien iteraties van de middelste formule uit~\eqref{equ:sqrtbab} uitgevoerd. Bij elke iteratie wordt de waarde van de wortel steeds beter benaderd. Als het \texttt{for}-statement klaar is, wordt deze waarde via \texttt{return} teruggegeven aan de aanroeper. In \texttt{main} worden met behulp van een \texttt{for}-statement de wortels van 0 t/m 10 berekend en afgedrukt.
 
-Overigens bevat de \textsl{mathematical library} een implementatie van de wortel-functie. We hoeven dat niet zelf te schrijven.
+Overigens bevat de \textsl{mathematical library} een implementatie van de wortel-functie. We hoeven dat niet zelf te schrijven. Functies worden behandeld in hoofdstuk~\ref{cha:functies}.
 
 
-\section{Codeerstijlen}
-C is erg coulant in het vormgeven van een programma. Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend. We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen instructies achter elkaar op een regel plaatsen.
+\section{Programmeerstijlen}
+C is erg coulant in het vormgeven van een programma. Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend. We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen statements achter elkaar op een regel plaatsen.
+Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal. We kunnen één letter gebruiken of een compleet woord.
 
 Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
 
 \booklisting[]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
 
-Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{codeerstijl}\index{codeerstijl}. Er zijn behoorlijk wat stijlen maar we zullen er twee noemen.
+Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{programmeerstijl}\index{programmeerstijl}. Er zijn behoorlijk wat stijlen. We geven hieronder de meest gebruikte aan.
 
-In de K\&R-stijl (Kernighan en Ritchie)\index{K\&R-stijl} wordt de accolade-openen \textsl{achter} een functie, beslis-sings- of herhalingstatement geschreven. De statements hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statements verder of dieper ingesprongen.
-
+\subsubsection*{Layout van het programma}
+In de K\&R-stijl (Kernighan en Ritchie)\index{K\&R-stijl} wordt de accolade-openen \textsl{achter} een functie, beslis-sings- of herhalingstatement geschreven. De statements hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statements verder of dieper ingesprongen. 
 \begin{lstlisting}[caption=K\&R-stijl.]
-if (a < b) {
+while (a < b) {
     (*\normalfont\textsl{statements}*)
+    if (a < 0) {
+        (*\normalfont\textsl{statements}*)
+    }
 }
 \end{lstlisting}
 
@@ -379,9 +409,35 @@ In de Allman-stijl\index{Allman-stijl} wordt de accolade-openen \textsl{onder} e
 \begin{lstlisting}[caption=Allman-stijl.]
 if (a < b)
 {
-    (*\normalfont\textsl{statements}*)
+    if (a < 0)
+    {
+        (*\normalfont\textsl{statements}*)
+    }
 }
 \end{lstlisting}
 
+\subsubsection*{Naamgeving van variabelen}
+
+Ook voor naamgeving van variabelen zijn diverse gebruiken in omloop. We zullen er drie behandelen.
+
+In de K\&R-stijl zijn er eigenlijk geen regels. Variabelennamen mogen uit één letter bestaan, of natuurlijk uit meerdere letters. Als namen syntactisch uit meerdere woorden bestaan, worden de woorden gescheiden door een \textsl{underscore}.\index{underscore} Het is wel aan te raden dat namen zinvol zijn en dat ze de betekenis vertegenwoordigen. Overigens is het gebruik van eenletterige variabelennamen prima te verantwoorden, bijvoorbeeld binnen het gebruik van een kortduurdende herhaling én als het programma niet al te groot is\footnote{In dit boek gebruiken we vooral de K\&R-stijl. We gebruiken ook vaak eenletterige variabelen. Dat is te verklaren omdat veel voorbeelden kort zijn en we de lezer niet willen vermoeien met lange variabelennamen.}.
+
+In de camelCase-stijl worden variabelen weergegeven met kleine letters en hoofdletters en geven scheidingen aan tussen woorden die syntactisch gescheiden zijn. Er worden geen underscores gebruikt. Deze stijl is afkomsting uit Java.
+
+\begin{lstlisting}[caption=camelCase-stijl.]
+    int dayOfTheWeek;
+    int dayWithinMonth;
+    int dayOfTheYear;
+\end{lstlisting}
+
+Bij de Hungarian Notation worden variabelennamen vooraf gegaan door een omschrijving van het datatype en het semantiek van de variabele. Zo kunnen we integers vooraf laten kunnen gaan door een \lstinline|i|. Maar dat zien de meeste programmeurs ook wel. We kunnen van een integer ook het doel aangeven. Zo wordt bijvoorbeeld een variabele die dient als teller in een herhaling vooraf gegaan door \lstinline|c| (van ``count''):
+
+\begin{lstlisting}[caption=Voorbeel Hungarian Notation.]
+    int iDayOfTheWeek;
+    int cLoops;
+\end{lstlisting}
+
+Deze stijl wordt vooral gebruikt bij grote teams programmeurs zie gezamenlijk aan één programma werken. Het nadeel van deze stijl is dat de typering niet gestandaardiseerd is.
+
 \section{En verder...}
-We hebben nu enkele concepten van C uitgelegd. Maar de taal kan meer. Wat we niet behandeld hebben zijn \textsl{pointers}, \textsl{structures} en \textsl{bestandsverwerking}. Deze concepten zullen in de volgende hoofdstukken worden uitgelegd.
+We hebben nu enkele concepten van C uitgelegd. Maar de taal kan meer. Wat we niet behandeld hebben zijn \textsl{pointers} en \textsl{structures}, onderdelen van de taal. We hebben ook \textsl{bestandsverwerking} niet behandeld. Dit is technisch gezien geen onderdeel van de taal, maar wordt vaak gebruikt in programma's. Al deze concepten zullen in de volgende hoofdstukken worden uitgelegd.
