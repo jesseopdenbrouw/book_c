@@ -187,11 +187,6 @@ int main(void)
 
 In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader.% op pagina~\pageref{fig:unopmerkingscanf}.
 
-\begin{infobox}[To \texttt{scanf} or not to \texttt{scanf}...]
-\label{fig:unopmerkingscanf}%
-De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilatie met \texttt{scanf} zal eindigen met een foutmelding. In plaats daarvan moet de functie \texttt{scanf\_s} worden gebruikt. Helaas ondersteunen andere compilers deze functie niet. Dat zal resulteren in een programma dat niet door iedere compiler kan worden vertaald. Om het probleem te omzeilen hebben we gebruik gemaakt van een \textsl{pragma}. In regel~4 geven we aan dat de C-compiler fout 4996 moet negeren. Op andere compilers, bijvoorbeeld de GNU-C compiler, wordt deze regel overgeslagen (er volgt wel een waarschuwing). Overigens wordt op vele fora gewaarschuwd voor de onveiligheid van \texttt{scanf} en worden alternatieven gegeven. Wij gebruiken \texttt{scanf} hier wel \textsl{for the sake of simplicity}. Het is beter om \texttt{scanf} te vermijden.
-\end{infobox}
-
 Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} declareren we drie variabelen. Daarna drukken we in regel 13 een stukje tekst af dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
 
 De format specification \texttt{\%d} hadden we al eerder gezien, maar de constructie \texttt{\&a} is nieuw. De ampersand (\texttt{\&}) zorgt ervoor dat aan de functie \texttt{scanf} het \textsl{adres} van variabele \texttt{a} meegegeven wordt. Het adres van de variabele is de plek waar de variabele in het geheugen ligt. Op deze manier kan \texttt{scanf} de informatie op je juiste plek zetten. In regel 17 wordt hetzelfde gedaan voor variabele \texttt{b}. We drukken voor het inlezen nog even netjes af hoe de gebruiker moet handelen. In regel 19 rekenen we de som uit van variabelen \texttt{a} en \texttt{b} en kennen dat toe aan variabele \texttt{som}. In regel 21 drukken we de drie variabelen af. Het programma wordt afgesloten in regel 23.
@@ -204,6 +199,13 @@ Geef een getal: (*\textbf{7}*)
 Geef nog een getal: (*\textbf{4}*)
 De som van 7 en 4 is 11
 \end{dosbox}
+
+We hebben nu gezien hoe we invoer en uitvoer voor een programma kunnen gebruiken. In veel voorbeelden zullen we hiervan gebruik maken.
+
+\begin{infobox}[To \texttt{scanf} or not to \texttt{scanf}...]
+\label{fig:unopmerkingscanf}%
+De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilatie met \texttt{scanf} zal eindigen met een foutmelding. In plaats daarvan moet de functie \texttt{scanf\_s} worden gebruikt. Helaas ondersteunen andere compilers deze functie niet. Dat zal resulteren in een programma dat niet door iedere compiler kan worden vertaald. Om het probleem te omzeilen hebben we gebruik gemaakt van een \textsl{pragma}. In regel~4 geven we aan dat de C-compiler fout 4996 moet negeren. Op andere compilers, bijvoorbeeld de GNU-C compiler, wordt deze regel overgeslagen (er volgt wel een waarschuwing). Overigens wordt op vele fora gewaarschuwd voor de onveiligheid van \texttt{scanf} en worden alternatieven gegeven. Wij gebruiken \texttt{scanf} hier wel \textsl{for the sake of simplicity}. Het is beter om \texttt{scanf} te vermijden.
+\end{infobox}
 
 \section{Keywords}
 
@@ -294,12 +296,13 @@ Technisch gezien hoort de \texttt{else} in regel 16 bij de \texttt{if} in regel 
 \section{Herhalingen}
 Stel dat we de kwadraten van 1 t/m 10 willen afdrukken. We kunnen ervoor kiezen om tien \texttt{print}-functies aan te roepen. Maar we merken direct op dat we in feite tien keer hetzelfde moeten doen. We kunnen het afdrukken van de tien kwadraten vormgeven met een \textsl{herhaling}. Een andere, veel gebruikte term is \textsl{lus}\index{lus}. Dit is te zien in listing~\ref{cod:printkwadraten}.
 
+\booklisting[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
+
 We beginnen het programma met de declaratie van een aantal variabelen. Vervolgens stellen we de ondergrens, bovengrens en stapgrootte in in de regels 8 t/m 10. We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
 
 In regel 12 zetten we de lusvariabele op de ondergrens en gaan de lus uitvoeren. De lus wordt gekenmerkt door het keyword \texttt{while}\indexkeyword{while}. Achter het keyword \texttt{while} staat, tussen de haken, de conditie waarop de lus moet worden uitgevoerd.
 Zolang de conditie \mbox{\texttt{getal <= bovengrens}} waar is, worden de statements binnen de accolades uitgevoerd. We noemen dat een \textsl{iteratie}\index{iteratie}. Is de conditie niet waar dan wordt verder gegaan met het statement die volgt op het \texttt{while}-statement.
 
-\booklisting[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
 
 Binnen de accolades van het \texttt{while}-statement zien we drie statements. In regel 15 wordt het kwadraat berekend van de (huidige) waarde van de lusvariabele. Daarna worden de lusvariabele en het kwadraat afgedrukt. In regel 17 wordt de lusvariabele aangepast naar de nieuwe (volgende) waarde door de stapgrootte erbij op te tellen\footnote{Het is tegenwoordig in het Nederlands gebruikelijk om het Engelse woord updaten te gebruiken.}.
 
