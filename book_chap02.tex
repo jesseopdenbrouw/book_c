@@ -437,7 +437,7 @@ Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden e
 \label{fig:threeexamples}
 \end{figure}
 
-De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van microcontrollers. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit 0 van de (speciale) variabele \texttt{PORTB}.
+De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit 0 van de (speciale) variabele \texttt{PORTB}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van bitsgewijze operatoren.]
