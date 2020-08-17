@@ -218,7 +218,7 @@ In het \texttt{while}-statement wordt met behulp van een \texttt{do while}-state
 De uitvoer van het in listing~\ref{cod:lees_geheel_getal} gegeven programma is te zien in figuur~\ref{fig:lees_geheel_getal}.
 De door de gebruiker ingetypte invoer is vet weergegeven. 
 
-\begin{dosbox}[title={Invoer van het programma},label=fig:lees_geheel_getal]
+\begin{dosbox}[title={Invoer en uitvoer van het programma.},label=fig:lees_geheel_getal]
 Geef een geheel getal [1..10]: (*\textbf{0}*)
 Onjuiste invoer. Probeer het opnieuw!
 Geef een geheel getal [1..10]: (*\textbf{11}*)
@@ -511,7 +511,7 @@ Voor steeds groter wordende waarde van $n$ convergeren de verhoudingen naar de e
 
 
 \section{Pointers en functies als parameter}
-Een pointer is een variabele met als inhoud het \textsl{adres} van een (andere) variabelen. Met behulp van pointers kunnen we dus niet een kopie van een variabele als argument meegeven, maar een adres waarop de (originele) variabele ter vinden is. Ook een functie, of eigenlijk, het beginadres van een functie kan als argument en parameter dienen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
+Een pointer is een variabele met als inhoud het \textsl{adres} van een (andere) variabele. Met behulp van pointers kunnen we dus niet een kopie van een variabele als argument meegeven, maar een adres waarop de (originele) variabele te vinden is. Ook een functie, of eigenlijk, het \textsl{beginadres} van een functie kan als argument en parameter dienen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
 
 
 \section{Functies die meer dan één waarde teruggeven}
@@ -527,7 +527,7 @@ We kunnen:
 
 
 \section{Wiskundige functies}
-Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, kan met behulp van \textsl{mathematical library} toch wiskundige berekeningen gedaan worden. De functies zijn te zien in de onderstaande lijst.
+Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, kunnen met behulp van \textsl{mathematical library} toch wiskundige berekeningen uitgevoerd worden. Een aantal veel gebruikte functies is te zien in de onderstaande lijst.
 %% Bereken de breedte van de tweede colom
 %\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
 % Bereken de breedte van de eerste kolom
@@ -566,7 +566,7 @@ Als voorbeeld ontwikkelen we een programma om een numerieke benadering voor een 
 O = \int_{a}^{b}f(x)\,\mathrm{d}x = \lim\limits_{n\to\infty}\,\sum_{k=0}^{n-1}f\left(a+k\frac{b-a}{n}\right)\cdot\frac{b-a}{n}
 \end{equation}
 %
-waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integreren functie wordt verdeeld in een aantal rechthoeken zoals te zien is in figuur~\ref{fig:funriemannleftrule}. De punt linksboven van de rechthoek raakt de functie. Als we nu de oppervlakte van alle rechthoeken bij elkaar optellen dan vinden we een benadering van de oppervlakte. Dit wordt de Riemann-linkersom genoemd. Als we het aantal rechthoeken steeds groter maken (waarbij de breedte van de rechthoek steeds smaller wordt), dan benaderen we de exacte waarde steeds beter.
+waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integreren functie wordt verdeeld in een aantal rechthoeken zoals te zien is in figuur~\ref{fig:funriemannleftrule}. De punt linksboven van de rechthoek raakt de functie. Als we nu de oppervlaktes van alle rechthoeken bij elkaar optellen dan vinden we een benadering van de oppervlakte. Dit wordt de Riemann-linkersom genoemd. Als we het aantal rechthoeken steeds groter maken (waarbij de breedte van de rechthoek steeds smaller wordt), dan benaderen we de exacte waarde steeds beter.
 
 \begin{figure}[!t]
 \begin{subfigure}{0.5\textwidth}
