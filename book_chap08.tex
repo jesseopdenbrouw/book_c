@@ -198,4 +198,41 @@ Bij het afdrukken van de waarde van de variabele raadplegen we het type. Met beh
 
 \booklisting[linerange={18-36},label=cod:union5,escapeinside={{}{}}]{C}{Een functie om een variabele af te drukken}{union}{c}{H}
 
+\section{Bitvelden}
+Bitvelden maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
+
+Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interruptenable}.
+
+\begin{lstlisting}[caption=Voorbeeld van bitvelden.,label=cod:bitfields]
+struct {
+    unsigned int interruptenable : 1;  /* Bit 31 */
+    unsigned int padding : 0;          /* Bits 30 down to 21 */
+    unsigned int mode : 3;             /* Bits 20 down to 18 */
+    unsigned int enable : 1;           /* Bit 17 */
+    unsigned int overflow : 1;         /* Bit 16 */
+    unsigned int value : 16;           /* Bits 15 down to 0 */
+} counter;
+
+\end{lstlisting}
+
+Het veld \texttt{padding} heeft de speciale breedte 0 om ervoor te zorgen dat de velden worden \textsl{opgelijnd} naar de breedte die van nature door de computer worden verwerkt. Een veel gebruikte term hiervoor is \textsl{machinewoord}. De bit \texttt{interruptenable} komt daardoor op positie 31 terecht, de andere bits lopen van 0 t/m 20.
+
+
+Om te teller te starten gebruiken we:
+
+\hspace*{1em}\texttt{counter.enable = 1;}
+
+Om de tellerwaarde te kopiëren naar een variabele, gebruiken we:
+
+\hspace*{1em}\texttt{unsigned int value = counter.value;}
+
+Om te testen of een overflow heeft plaatsgevonden, gebruiken we:
+
+\hspace*{1em}\texttt{if (counter.overflow == 1) \{ ... \} }
+
+Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het programma draait en de C-compiler die gebruikt wordt. Dat betekent dat programma's met bitvelden moeilijk overdraagbaar zijn naar andere computers en C-compilers. Bij systemen die van nature met 32 bits werken worden de bits (hoogst waarschijnlijk) samengepakt in 32 bits eenheden.
+
+
+Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
+
 \basic
