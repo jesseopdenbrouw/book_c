@@ -483,41 +483,63 @@ De functie \texttt{strlen}\indexfunc{strlen} geeft het aantal karakter in de str
 
 De functie \texttt{strcmp}\indexfunc{strcmp} vergelijkt \texttt{s1} met \texttt{s2} op \textsl{alfabetische ordening}\index{alfabetische ordening} met inachtneming van de karakterset van de computer. Alfabetische ordening wil min of meer zeggen: zoals de woorden in een woordenboek. Dat betekent dat de string \texttt{"Jan"} voorgaat op \texttt{"Janus"}. De functie geeft een negatief getal terug als \texttt{s1} `kleiner' is dan \texttt{s2}, geeft \texttt{0} terug als de strings identiek zijn en geeft een positief getal terug als \texttt{s1} `groter' is dan \texttt{s2}. Let erop dat de karakterset van de computer gebruikt wordt dus \texttt{"123"} is kleiner dan \texttt{"Jan"} en \texttt{"Janus"} is kleiner dan \texttt{"janus"}. Zie bijlage~\ref{cha:asciitabel} over de ordening van de ASCII-karakterset.
 
-Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:aryimplstrfunc} waar we overigens gebruik hebben gemaakt van enkele juweeltjes van C-snelschrift. We dagen de lezer uit om de functies te analyseren.
+Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:array_stringfunctions} waar we overigens gebruik hebben gemaakt van enkele juweeltjes van C-snelschrift. We dagen de lezer uit om de functies te analyseren.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een implementatie van de stringfuncties.,label=cod:aryimplstrfunc]
-int stringlength(char str[]) {
-	int len;
+\booklisting[lineskip=-1.5pt]{C}{Een implementatie van de stringfuncties}{array_stringfunctions}{c}{H}
 
-	for (len = 0; str[len] != '\0'; len++);
 
-	return len;
-}
-
-void stringcopy(char to[], char from[]) {
-
-	int len;
-
-	for (len = 0; (to[len] = from[len]) != '\0'; len++);
-}
-
-int stringcompare(char str1[], char str2[]) {
-
-	int len;
-
-    for (len = 0; str1[len] == str2[len] && str1[len] != '\0';
-                                                           len++);
-    
-    return str1[len] - str2[len];
-}
-
-void stringconcat(char to[], char from[]) {
-	int i, j;
-
-	for (i = j = 0; to[i] != '\0'; i++);
-
-	while ((to[i++] = from[j++]) != '\0');
-}
-\end{lstlisting}
-\end{figure}
+%\begin{figure}[!ht]\begin{lstlisting}[caption=Een implementatie van de stringfuncties.,label=cod:aryimplstrfunc]
+%#include <stdio.h>
+%
+%int stringlength(char str[]) {
+%
+%	int len;
+%
+%	for (len = 0; str[len] != '\0'; len++);
+%
+%	return len;
+%}
+%
+%void stringcopy(char to[], char from[]) {
+%
+%	for (int len = 0; (to[len] = from[len]) != '\0'; len++);
+%}
+%
+%int stringcompare(char str1[], char str2[]) {
+%
+%	int len;
+%
+%	for (len = 0; str1[len] == str2[len] && str1[len] == '\0'; len++);
+%
+%	return str1[len] - str2[len];
+%}
+%
+%void stringconcat(char to[], char from[]) {
+%	int i, j;
+%
+%	for (i = j = 0; to[i] != '\0'; i++);
+%
+%	while ((to[i++] = from[j++]) != '\0');
+%}
+%
+%int main(void) {
+%
+%	char string[] = "Ik ben een string";
+%	char naar[100];
+%
+%	printf("Lengte is %d\n", stringlength(string));
+%	
+%	stringcopy(naar, string);
+%	
+%	printf("Kopie: %s\n", naar);
+%	
+%	printf("Strings zijn %sgelijk.\n", stringcompare(string, naar) ? "on" : "");
+%
+%	stringconcat(naar, " en ik ben langer");
+%
+%	printf("%s\n", naar);
+%
+%	return 0;
+%}
+%\end{lstlisting}
+%\end{figure}

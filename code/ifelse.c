@@ -6,7 +6,7 @@ int main(void)
     int maximum;
 
     printf("Geef twee gehele getallen: ");
-    scanf("%d%d", &getal1, &getal2);
+    scanf("%d %d", &getal1, &getal2);
 
     if (getal1 > getal2) 
     {

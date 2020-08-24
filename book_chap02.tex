@@ -81,7 +81,7 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
 \end{table}
 
 \indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
-Een \texttt{char} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarom het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
+Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarom het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = \textquotesingle A\textquotesingle; \ \ \ /* assign character A */}
@@ -102,7 +102,9 @@ De keywords \texttt{short} en \texttt{long} worden \textsl{qualifiers}\index{qua
 
 Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen we de qualifier \texttt{unsigned}\index{unsigned} bij definitie opgeven. Het (positieve) bereik is dan ongeveer twee keer zo groot als bij de signed variant:
 
-\hspace*{1em}\texttt{unsigned short int ush; \ \ \ /* range 0 to 65535 */}
+\hspace*{1em}\texttt{unsigned char uch; \ \ \ \ \ \ \ \ \ \ \ /* range 0 to 255, a.k.a byte */}\\
+\hspace*{1em}\texttt{unsigned short int usi; \ \ \ \ \ \ /* range 0 to 65535 */}\\
+\hspace*{1em}\texttt{unsigned long long int ulli; \ /* range 0 to 18446744073709551616 */}
 
 Naast gehele datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier ontstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt, zoals gebruikelijk is in Engelstalige literatuur. We schijven dus $3.14$ en niet $3,14$.
 
@@ -144,7 +146,7 @@ Een gehele constante zoals \texttt{123} is van het type \texttt{int}. Door er ee
 
 Een floating point-constante bestaat uit cijfers en een punt. Dus \texttt{1.23} is een floating point-constante. Om 10-machten aan te geven wordt de $E$-notatie gebruikt. Zo staat \texttt{125.0E-3} voor $0,125$. Een floating point-constante is automatisch van het type \texttt{double}, tenzij er een \texttt{F} of \texttt{f} aan het einde staat, dan is de constante van het type \texttt{float}.
 
-Gehele constanten kunnen op drie manieren worden ingevoerd: als decimaal getal, als octaal getal of als hexadecimaal getal. Een constante die begint met \texttt{0} wordt gezien als octaal getal. Een octaal getal bestaat alleen uit de cijfers 0 t/m 7. Een constante die begin met de \textsl{prefix}\index{prefix} \texttt{0x} of \texttt{0X} wordt gezien als een hexadecimaal getal. Een constante die begint met de cijfers \texttt{1} t/m \texttt{9} wordt gezien als een decimaal getal.
+Gehele constanten kunnen als getal op drie manieren worden ingevoerd: als decimaal getal, als octaal getal of als hexadecimaal getal. Een constante die begint met \texttt{0} wordt gezien als octaal getal. Een octaal getal bestaat alleen uit de cijfers 0 t/m 7. Een constante die begin met de \textsl{prefix}\index{prefix} \texttt{0x} of \texttt{0X} wordt gezien als een hexadecimaal getal. Een constante die begint met de cijfers \texttt{1} t/m \texttt{9} wordt gezien als een decimaal getal.
 
 \hspace*{1em}\texttt{int a = 0377; \ \ \ /* octal 377 is decimal 255 */}\\ 
 \hspace*{1em}\texttt{int b = 0xa9; \ \ \ /* hexadecimal A9 is decimal 169 */}\\ 
@@ -155,7 +157,7 @@ De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers
 Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofes. Zo is \texttt{\textquotesingle A\textquotesingle} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{\textquotesingle A\textquotesingle} overeen met de waarde 65.
 De standaard ASCII-tabel is te vinden in bijlage~\ref{cha:asciitabel}.
 
-Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \texttt{'} zelf. Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\texttt{\textbackslash}) en een karakter. We kunnen de apostrofe dus invoeren als \texttt{\textquotesingle\textbackslash\textquotesingle\textquotesingle}.
+Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \texttt{\textquotesingle} zelf. Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\texttt{\textbackslash}) en een karakter. We kunnen de apostrofe dus invoeren als \texttt{\textquotesingle\textbackslash\textquotesingle\textquotesingle}.
 
 De C-standaard kent een hele verzameling van dit soort escape sequences. Eén daarvan hebben we al meerdere malen gezien: de newline. Deze wordt aangegeven met \texttt{\textquotesingle\textbackslash n\textquotesingle}. Een aantal escape sequences is vermeld in tabel~\ref{tab:varescseq}.
 
@@ -193,11 +195,11 @@ Let erop dat een string \textsl{geen} enkelvoudig datatype is zoals \texttt{int}
 \centering
 \begin{tikzpicture}[pointerstyle]
 \foreach \ii [count=\i from 0] in {D, i, t, \ , i, s, \ ,e, e, n, \ , s, t, r, i, n, g, \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\strut\ii};
 	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
 }
 \foreach \ii [count=\i from 0] in {\textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize+7,-2) {\ii};
+	\node[memlocarray] (nod\i) at (\i*\unitsize+7,-2) {\strut\ii};
 	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
 }
 \end{tikzpicture}
@@ -207,7 +209,7 @@ Let erop dat een string \textsl{geen} enkelvoudig datatype is zoals \texttt{int}
 
 C kent geen ingebouwde operaties op strings, zoals inkorten, aan elkaar plakken, kopiëren of lengte bepalen. Dit moet allemaal door de programmeur zelf ontworpen worden. Gelukkig kent de standard library een groot aantal functies voor het bewerken van strings. We komen hierop terug in hoofdstuk~\ref{cha:arrays}.
 
-Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op voorspraak dat de waarden constant zijn en de waarden van gebruikte variabelen bekend zijn. De constante waarde mag ook berekend worden. Een aantal voorbeelden is hieronder te zien:
+Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op voorspraak dat de toegekende waarde op dat moment kan worden berekend. Dat betekent dat gebruikte variabelen bekend moeten zijn. Een aantal voorbeelden is hieronder te zien:
 
 \hspace*{1em}\texttt{int a = 2;}\\
 \hspace*{1em}\texttt{char z = \textquotesingle z\textquotesingle;}\\
@@ -250,7 +252,7 @@ Zelfs de regel
 
 \hspace*{1em}\texttt{a;}
 
-is een expressie die 4 oplevert als de waarde van \texttt{a} 4 is. Ook het vergelijken van twee variabelen is een expressie en mag toegekend worden aan een variabele:
+is een expressie die 4 oplevert als de waarde van \texttt{a} 4 is, alhoewel er met deze waarde niets wordt gedaan. Ook het vergelijken van twee variabelen is een expressie en mag toegekend worden aan een variabele:
 
 \hspace*{1em}\texttt{a = b == c; \ \ \  /* note the == */}
 
@@ -289,13 +291,41 @@ Verder moet worden opgelet bij deling van gehele getallen. Een deling rondt naar
 
 de waarde 0 oplevert. Eerst wordt 1/3 berekend en de gehele uitkomst hiervan is 0. Daarna wordt de uitkomst met 3 vermenigvuldigd. De uitkomst is nog steeds 0.
 
+Let overigens goed op bij het delen met negatieve getallen. Het quotiënt wordt afgerond naar 0 toe. Het programma in listing~\ref{cod:vardivproblem} verduidelijkt dat.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Delen van positieve en negatieve getallen.,label=cod:vardivproblem]
+#include <stdio.h>
+
+int main(void) {
+
+	printf(" 7/ 3 = %2d\n",  7/ 3);
+	printf(" 7/-3 = %2d\n",  7/-3);
+	printf("-7/ 3 = %2d\n", -7/ 3);
+	printf("-7/-3 = %2d\n", -7/-3);
+	return 0;
+}
+\end{lstlisting}
+\end{figure}
+
+De uitvoer van het programma is te zien in figuur~\ref{fig:vardivproblem}.
+
+\begin{dosbox}[title=Uitvoer van het deelprogramma.,label=fig:vardivproblem]
+ 7/ 3 =  2
+ 7/-3 = -2
+-7/ 3 = -2
+-7/-3 =  2
+\end{dosbox}
+
+Als het resultaat van de deling een positief getal oplevert, wordt het resultaat naar beneden (naar de 0 toe) afgerond. Is het resultaat negatief, dan wordt het resultaat naar boven afgerond (ook naar de 0 toe).
+
 \subsection{Relationele operatoren}
 De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 
 \hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{<=}
 
 \indexop{==}\indexop{"!=}\indexop{>}\indexop{>=}\indexop{<}\indexop{<=}
-Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \texttt{i < len-1} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op.
+Hierin zijn \texttt{==} gelijk aan (let op de dubbele \texttt{=}) en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op.
 De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
 
 \begin{figure}[H]
@@ -313,6 +343,14 @@ int main(void)
     {
         printf("a is kleiner dan b\n");
     }
+    else if (a == b)
+    {
+        printf("a is gelijk aan b\n");
+    }
+    else
+    {
+        printf("a is groter dan b\n");
+    }
     return 0;
 }
 \end{lstlisting}
@@ -322,19 +360,19 @@ int main(void)
 \index{logische operatoren}
 De \texttt{\&\&}-\indextwo{\&\&}{logische AND} en \texttt{||}-operatoren\indextwo{\textbar{}\textbar{}}{logische OR} zijn logische operatoren die expressies met elkaar verbinden. Ze hebben een relatie met de relationele operatoren. Zo wordt variabele \texttt{isdig} in de expressie
 
-\hspace*{1em}\texttt{isdig = ch>=\textquotesingle0\textquotesingle \&\& ch<=\textquotesingle9\textquotesingle;}
+\hspace*{1em}\texttt{isdig = ch>=\textquotesingle0\textquotesingle\ \&\& ch<=\textquotesingle9\textquotesingle;}
 
 gelijk aan 1 als \texttt{ch} een cijferkarakter is, anders wordt \texttt{isdig} 0. In de expressie
 
-\hspace*{1em}\texttt{isbit = ch==\textquotesingle0\textquotesingle || ch==\textquotesingle1\textquotesingle;}
+\hspace*{1em}\texttt{isbit = ch==\textquotesingle0\textquotesingle\ || ch==\textquotesingle1\textquotesingle;}
 
-wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een `0' of een `1' is, anders wordt \texttt{isbit} 0. Het berekenen van een dergelijke expressie wordt gestopt op het moment dat de uitkomst al duidelijk is. Dus de berekening van
+wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een `0' of een `1' is, anders wordt \texttt{isbit} gelijk aan 0. Het berekenen van een dergelijke expressie wordt gestopt op het moment dat de uitkomst al duidelijk is. Dus de berekening van
 
 \hspace*{1em}\texttt{i==5 \&\& j>3}
 
 wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd.
 
-De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
+De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}. Overigens kan in dit voorbeeld het gebruik van de variabele \texttt{valid} vermeden worden.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
@@ -475,7 +513,7 @@ int main(void)
     printf("Geef een geheel getal: ");
     scanf("%d", &getal);
     
-    if (getal & 2 == 0) {
+    if (getal & 1 == 0) {
         printf("Getal is even\n");
     } else {
         printf("Getal is oneven\n");
@@ -486,9 +524,9 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 
-De expressie \texttt{getal \% 2} zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
+De expressie \texttt{getal \& 1} zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
 
-De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit 0 van de (speciale) variabele \texttt{PORTB}.
+De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit~0 (laagste bit) van de (speciale) variabele \texttt{PORTB}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van bitsgewijze operatoren.]
@@ -527,7 +565,7 @@ In dit geval geeft dat geen problemen want een karakter past in een integer. Maa
 
 \hspace*{1em}\texttt{ch = (char) i; \ \ \  /* demote integer to character */}
 
-kan voor problemen zorgen als de waarde van \texttt{i} te groot is om in een karakter te plaatsen. Er gaan dan bits verloren. Een mooi voorbeeld van een type case is het omrekenen van een temperatuur in graden Celsius naar graden Fahrenheit. 
+kan voor problemen zorgen als de waarde van \texttt{i} te groot is om in een karakter te plaatsen. Er gaan dan bits verloren. Een mooi voorbeeld van een type cast is het omrekenen van een temperatuur in graden Celsius naar graden Fahrenheit. 
 
 Stel we hebben de temperatuur in graden Celsius opgeslagen in de \texttt{double} variabele \texttt{c} en de temperatuur in Fahrenheit willen berekenen (ook een \texttt{double}). Dat kan met het onderstaande statement:
 
@@ -734,7 +772,7 @@ int main(void)
 \end{lstlisting}
 \end{figure} 
 
-De eerste parameter (\texttt{\%d)} is het aantal documenten dat verwerkt is (\texttt{nrdocs}). De tweede parameter is een string (\texttt{\%s}). De conditionele expressie
+Het eerste argument (\texttt{\%d)} is het aantal documenten dat verwerkt is (\texttt{nrdocs}). Het tweede argument is een string (\texttt{\%s}). De conditionele expressie
 
 \hspace*{1em}\lstinline[basicstyle=\ttfamily]|(nrdocs == 1) ? "" | \lstinline[basicstyle=\ttfamily]| : "en";|
 
