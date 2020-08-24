@@ -2,17 +2,18 @@
 \label{cha:io}
 \thispagestyle{empty}
 
-Invoer en uitvoer van gegevens is geen onderdeel van de taal C, maar C biedt wel faciliteiten hiervoor. Twee functies zijn we al eerder tegengekomen: \texttt{printf} voor het afdrukken van gegevens op het beeldscherm en \texttt{scanf} voor het inlezen van gegevens van het toetsenbord.
+Invoer en uitvoer van gegevens is geen onderdeel van de taal C, maar C biedt via de standard library wel faciliteiten hiervoor. Twee functies zijn we al eerder tegengekomen: \texttt{printf} voor het afdrukken van gegevens op het beeldscherm en \texttt{scanf} voor het inlezen van gegevens van het toetsenbord. We zullen deze functies in detail bekijken.
 
-In dit hoofdstuk kijken we verder dan het toetsenbord en beeldscherm. We zullen demonstreren hoe we \textsl{bestanden} op de harddisk kunnen benaderen. Een bestand is een logische eenheid van informatie op de harddisk. Zo kunnen we bestanden openen voor gebruik, we kunnen eruit lezen en we kunnen erin schrijven. Bestanden kunnen na gebruik gesloten worden.
+In dit hoofdstuk kijken we verder dan het toetsenbord en beeldscherm. We zullen demonstreren hoe we \textsl{bestanden} op het bestandssysteem kunnen benaderen. Een bestand is een logische eenheid van informatie in het bestandssysteem. Zo kunnen we bestanden openen voor gebruik, we kunnen eruit lezen en we kunnen erin schrijven. Bestanden kunnen na gebruik gesloten worden.
 
-Het gebruik van bestanden vergt veel interactie met het besturingssysteem. Dat wordt voor de gebruiker verhuld door het gebruik van een aantal functies. Die maken het mogelijk om een C-programma eenvoudig met bestanden op de disk te werken.
+Het gebruik van bestanden vergt veel interactie met het besturingssysteem. Dat wordt voor de gebruiker verhuld door het gebruik van een aantal functies. Die maken het mogelijk om een C-programma eenvoudig met bestanden te werken.
 
-Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{bestandsnaam} van het bestand te gebruiken. De bestanden zijn hiërarchisch georganiseerd door middel van \textsl{mappen}\index{map,bestand} (Engels: folder)\index{folder, bestand}. Deze naam is in gebruik geraakt op het Windows-besturingssysteem. Op Unix-achtige systemen, bijvoorbeeld Linux en OS-X, wordt gesproken van een \textsl{directory}\index{directory}. Elk bestand valt onder een map en een map kan ook weer onder een map vallen. Willen we een bestand openen, dan moeten we de volledige \textsl{padnaam}\index{padnaam} gebruiken. Dit worden \textsl{absolute bestandsnamen} genoemd.
+\section{Bestandsnamen en het bestandssysteem}
+Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{bestandsnaam} van het bestand te gebruiken. De bestanden zijn hiërarchisch georganiseerd door middel van \textsl{mappen}\index{map, bestand} (Engels: folder)\index{folder, bestand}. Deze term is in gebruik geraakt op het Windows-besturingssysteem. Op Unix-achtige systemen, bijvoorbeeld Linux en OS-X, wordt gesproken van een \textsl{directory}\index{directory}. Elk bestand valt onder een map en een map kan ook weer onder een map vallen. Willen we een bestand openen, dan moeten we de naam en eventuele mapnamen gebruiken. Het samenstel van een bestandsnaam en mapnamen wordt een \textsl{padnaam}\index{padnaam} genoemd. Een padnaam kan \textsl{absoluut} of \textsl{relatief} zijn.
 
-Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A en Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste harddisk heeft de naam C. Hoe Windows met bestanden werkt kunnen we zien in figuur~\ref{fig:invdosbox}.
+Het bestandssysteem van een computer wordt gevormd door alle \textsl{schijven} die beschikbaar zijn. Dat kunnen naast vaste schijven ook SSD's, USB-sticks, SD-card en externe schijven zijn. De term `schijf' komt nog uit de tijd dat een disk werd opgebouwd uit cirkelvormige platte schijven (\textsl{platters genaamd}) waarop met behulp van een magnetisch materiaal gegevens (nullen en enen) werden opgeslagen.
 
-In de figuur zien we dat de \textsl{command line interpreter} is gestart. Op windows is dat het programma \texttt{cmd.exe}. Dit programma is te starten door in de zoekbalk onder aan het scherm de naam van het programma in te typen. Na starten van het programma komen we in de \textsl{huidige map.} In dit geval is dat de map \texttt{C:\textbackslash Users\textbackslash Cbook}. De schijfnaam wordt afgesloten met een dubbele-punt en we bevinden ons in de map \texttt{Cbook} die valt onder de map \texttt{Users}. De namen van de mappen worden gescheiden door een \textsl{backslash}\index{backslash} (\texttt{\textbackslash}).
+Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A en Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste vaste schijf heeft de naam C. Hoe Windows met bestanden werkt kunnen we zien in figuur~\ref{fig:invdosbox}.
 
 \begin{dosbox}[title=Starten van een DOS-box.,label=fig:invdosbox]
 Microsoft Windows [Version 10.0.18363.778]
@@ -20,6 +21,8 @@ Microsoft Windows [Version 10.0.18363.778]
 
 C:\Users\Cbook>
 \end{dosbox}
+
+In de figuur zien we dat de \textsl{command line interpreter} is gestart. Op windows is dat het programma \texttt{cmd.exe}. Dit programma is te starten door in de zoekbalk onderaan het scherm de naam van het programma in te typen. Na starten van het programma komen we in de \textsl{huidige map.} In dit geval is dat de map \texttt{C:\textbackslash Users\textbackslash Cbook}. De schijfnaam wordt afgesloten met een dubbele-punt en we bevinden ons in de map \texttt{Cbook} die valt onder de map \texttt{Users}. De namen van de mappen worden gescheiden door een \textsl{backslash}\index{backslash} (\texttt{\textbackslash}). Dit is een voorbeeld van een \textsl{absolute padnaam}. Vanaf de schijf worden alle tussenliggende mappen en de bestandsnaam opgegeven.
 
 We kunnen de inhoud van de map zien (de bestanden die er onder vallen) door het commando \texttt{dir} uit te voeren. Een mogelijke uitvoer is te zien in figuur~\ref{fig:invdosbox2}.
 
@@ -43,15 +46,24 @@ C:\Users\Cbook>dir
 C:\Users\Cbook>
 \end{dosbox}
 
+Om de inhoud van het bestand \texttt{bestand.txt} op het scherm af te drukken, gebruiken we het commando \texttt{type} en de bestandsnaam. Dit is te zien in figuur~\ref{fig:invdosbox3}. We hebben nu niet de hele padnaam opgegeven, maar slechts een deel. Dit wordt een \textsl{relatieve padnaam} genoemd. De bestandsnaam wordt gevormd door de huidige map en de bestandsnaam.
+
+\begin{dosbox}[title=Afdrukken van een bestand.,label=fig:invdosbox3]
+C:\Users\Cbook>type bestand.txt
+Dit is wat tekst: 3
+
+C:\Users\Cbook>
+\end{dosbox}
+
+
 Unix-systemen maken geen gebruik van schijfnamen. In plaats daarvan kent Unix de \textsl{root directory} die wordt aangegeven met een \textsl{forward slash} (\texttt{/}) aan het begin van een bestandsnaam. Een bestandsnaam heeft dan het uiterlijk van
 
 \hspace*{1em}\texttt{/home/cbook/bestand.txt}
 
-De mappen worden dus gescheiden door de forward slash en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
-
+De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
 
 \section{Uitvoer naar het beeldscherm}
-We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de belangrijkste bespreken. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
+We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de meest gebruikte bespreken. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
 
 \hspace*{1em}\texttt{int printf(char *formatstring, arg1, arg2, arg3, ... );}
 
@@ -73,7 +85,7 @@ Karakter & Argumenttype \\
 \texttt{s} & afdrukken van een string, argument is een pointer naar een string\\
 \texttt{f} & afdrukken van een \texttt{double}\\
 \texttt{e}, \texttt{E} & afdrukken van een \texttt{double} in wetenschappelijke notatie ($10^x\!\rightarrow$\texttt{E}$x$)\\
-\texttt{p} & afdrukken van een \texttt{void}-pointer, weergave hangt af van de implementatie\\
+\texttt{p} & afdrukken van een pointer, weergave hangt af van de implementatie\\
 \texttt{\%} & het karakter \texttt{\%} wordt afgedrukt\\
 \bottomrule
 \end{tabular}
@@ -81,7 +93,7 @@ Karakter & Argumenttype \\
 
 De karakters \texttt{d}, \texttt{i}, \texttt{o}, \texttt{x}, \texttt{X} en \texttt{u} kunnen nog extra informatie meekrijgen die tussen \texttt{\%} en het karakter staan. Een minteken (\texttt{-}) zorgt ervoor dat het getal tegen de linkerkant wordt afgedrukt. Een nul (\texttt{0}) zorgt ervoor dat leidende nullen worden afgedrukt. Een getal anders dan 0 zorgt ervoor dat het argument met een minimum breedte wordt afgedrukt. Dus de specification \texttt{\%04d} zorgt ervoor dat het argument met een minimum breedte van 4 karakters, rechts uitgelijnd en met leidende nullen wordt afgedrukt. De karakters kunnen nog worden vooraf gegaan door \texttt{h} (\texttt{short int}), \texttt{l} of \texttt{L} (\texttt{long int}) of \texttt{ll} (\texttt{long long int}).
 
-De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers moeten worden afgdrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
+De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers moeten worden afgedrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
 
 Het karakter \texttt{s} geeft aan dat het argument een \textsl{string}\index{string} is. Het argument is dus een pointer naar een string. Het karakter mag worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd) en een getal dat de breedte aangeeft.
 
@@ -93,6 +105,7 @@ Let erop dat \texttt{printf} een complexe, grote functie is en niet geschikt is 
 
 \section{Inlezen van het toetsenbord}
 \label{sec:scanf}
+\indexfunc{scanf}
 De functie \texttt{scanf} is een veelzijdige functie voor het inlezen van variabelen. We zullen wat dieper ingaan op het gebruikt hiervan. Een bekend voorbeeld is het inlezen van een decimaal geheel getal met:
 
 \hspace*{1em}\texttt{scanf("\%d", \&getal);}
@@ -102,7 +115,7 @@ Het is ook mogelijk om meerdere getallen in te lezen:
 
 \hspace*{1em}\texttt{scanf("\%d \%d \%d", \&getala, \&getalb, \&getalc);}
 
-Bij het invoeren moeten de getallen gescheiden worden door \'e\'en of meerdere \textsl{whitespaces}\index{whitespace} (spaties, tabs of newlines (enter-toets)). Het aantal whitespaces maakt dus niet uit; deze worden overgeslagen. We kunnen ook andere datatypes inlezen zoals een \texttt{float} of een \texttt{char}:
+Bij het invoeren moeten de getallen gescheiden worden door één of meerdere \textsl{whitespaces}\index{whitespace} (spaties, tabs of newlines (enter-toets)). Het aantal whitespaces maakt dus niet uit; deze worden overgeslagen. De spaties in de format specifications mogen ook weggelaten worden. We kunnen ook andere datatypes inlezen zoals een \texttt{float} of een \texttt{char}:
 
 \hspace*{1em}\texttt{scanf("\%f \%c", \&fl, \&ch);}
 
@@ -131,9 +144,11 @@ Karakter & Argumenttype \\
 
 De karakters \texttt{d}, \texttt{o}, \texttt{u} en \texttt{x} mogen voorafgegaan worden door een \texttt{h} (\texttt{short int}) of een \texttt{l} (\texttt{long int}). De karakters \texttt{f} en \texttt{e} moeten voorafgegaan worden door een \texttt{l} als een \texttt{double} moet worden ingelezen. Zonder de \texttt{l} wordt een \texttt{float} ingelezen.
 
-Het inlezen van een string is problematisch. De specification \texttt{\%s} leest een string in tot aan de eerste whitespace, dus ook tot de eerste spatie. Willen we eens string inlezen met spaties dan gebruiken we de specification \texttt{[\textasciicircum\textbackslash n]}. Let erop dat de string waarin de karakters moeten komen groot genoeg is. Functie \texttt{scanf} houdt daar geen rekening mee en een \textsl{buffer overflow}\index{buffer overflow} kan het gevolg zijn.
+Het inlezen van een string is problematisch. De specification \texttt{\%s} leest een string in tot aan de eerste whitespace, dus ook tot de eerste spatie. Willen we eens string inlezen met spaties dan gebruiken we de specification \texttt{[\textasciicircum\textbackslash n]}. Let erop dat de string waarin de karakters moeten komen groot genoeg is. Functie \texttt{scanf} houdt daar geen rekening mee en een \textsl{buffer overflow}\index{buffer overflow} kan het gevolg zijn. Dit kan worden voorkomen door bij de format specification een maximale lengte op te geven:
 
-Stel dat we een datum willen inlezen en de onderdelen van de datum zijn gescheiden door een forward slash. Dat kunnen we doen met:
+\hspace*{1em}\texttt{scanf("\%99s", str);}
+
+We kunnen de gebruiker dwingen om bepaalde karakters is te voeren. Stel dat we een datum willen inlezen en de onderdelen van de datum zijn gescheiden door een forward slash. Dat kunnen we doen met:
 
 \hspace*{1em}\texttt{scanf("\%d/\%d/\%d", \&day, \&month, \&year);}
 
@@ -141,12 +156,13 @@ Dan moeten de getallen in de invoer ook gescheiden worden door forward slashes.
 
 De functie \texttt{scanf} geeft als return-waarde het aantal correct ingelezen argumenten terug. Daar kunnen we zinnig gebruik van maken zoals te zien is in paragraaf~\ref{sec:problemenmetscanf}.
 
-Omdat \texttt{scanf} voor problemen kan zorgen wordt het gebruik ervan afgeraden. Er is een andere functie beschikbaar, \texttt{fgets}, die veel beter gebruikt kan worden. Zie paragraaf~\ref{sec:lezenschrijvenstring}.
+De functie \texttt{scanf} kan voor problemen zorgen bij het inlezen van gegevens. We zullen hier nader op ingaan in paragraaf~\ref{sec:problemenmetscanf}.
 
-
+%Omdat \texttt{scanf} voor problemen kan zorgen wordt het gebruik ervan afgeraden. Er is een andere functie beschikbaar, \texttt{fgets}, die veel beter gebruikt kan worden. Zie paragraaf~\ref{sec:lezenschrijvenstring}.
 
 \section{Bestanden openen voor gebruik}
-Zoals al eerder is geschreven, kent C een aantal functies om met bestanden op de harddisk te werken. Voordat we met een bestand kunnen werken moeten we het \textsl{openen}. Openen wil zeggen dat we aan het besturingssysteem melden dat we het bestand willen gebruiken. In C is dat te realiseren met de functie \texttt{fopen}\indexfunc{fopen}. De functie heeft het prototype
+\index{openen van een bestand}\index{bestand!openen}
+Zoals al eerder is geschreven, kent C een aantal functies om met bestanden in het bestandssysteem te werken. Voordat we met een bestand kunnen werken moeten we het \textsl{openen}. Openen wil zeggen dat we aan het besturingssysteem melden dat we het bestand willen gebruiken. In C is dat te realiseren met de functie \texttt{fopen}\indexfunc{fopen}. De functie heeft het prototype
 
 \hspace*{1em}\texttt{FILE *fopen(char *filename, char *filemode);}
 
@@ -157,7 +173,7 @@ De \texttt{filename}\index{filename}\index{bestandsnaam}\index{naam, bestand} is
 
 De karakters na de punt worden de \textsl{extensie}\index{bestandsextensie}\index{extensie, bestand} genoemd. C maakt geen onderscheid tussen verschillende extensies. Het is meer voor de gebruiker een indicatie wat voor bestand het betreft. De extensie \texttt{txt} geeft aan dat het (vermoedelijk) om een tekstbestand gaat.
 
-De \textsl{filemode}\index{filemode} geeft aan hoe en waarvoor het bestand moet worden geopend. Let erop dat de filemode een string is. Er zijn diversie opties mogelijk. Zie tabel~\ref{tab:invopenmodes}.
+De \textsl{filemode}\index{filemode} geeft aan hoe en waarvoor het bestand moet worden geopend. Let erop dat de filemode een string is. Er zijn diverse opties mogelijk. Zie tabel~\ref{tab:invopenmodes}.
 
 \begin{table}[!ht]
 \centering
@@ -176,19 +192,19 @@ mode & betekenis \\
 \end{tabular}
 \end{table}
 
-Een filemode kan gevolgd worden door een \texttt{b} dat aangeeft dat het om een \textsl{binary} bestand gaat. Op Unix-systemen heeft dat eigenlijk geen effect maar op Windows-systemen wel. Windows slaat standaard het einde van de tekstregel op met twee karakters: een \textsl{carriage return}\index{carriage return} en een \textsl{linefeed}\index{linefeed}. Bij het openen van een bestand zonder de \texttt{b} worden deze twee karakters in C vertaald naar één karakter: de newline. Bij gebruik van \texttt{b} wordt er geen vertaling gedaan en worden dus twee karakters ingelezen bij het einde van een regel. De \texttt{b} heeft dus vooral zin als we geen tekstbestanden openen.
+Een filemode kan gevolgd worden door een \texttt{b} die aangeeft dat het om een \textsl{binary} bestand gaat. Op Unix-systemen heeft dat eigenlijk geen effect maar op Windows-systemen wel. Windows slaat standaard het einde van de tekstregel op met twee karakters: een \textsl{carriage return}\index{carriage return} en een \textsl{linefeed}\index{linefeed}. Bij het openen van een bestand zonder de \texttt{b} worden deze twee karakters in C vertaald naar één karakter: de newline\index{newline}. Bij gebruik van \texttt{b} wordt er geen vertaling gedaan en worden dus twee karakters ingelezen bij het einde van een regel. De \texttt{b} heeft dus vooral zin als we geen tekstbestanden openen.
 
 Als return-waarde geeft \texttt{fopen} een pointer naar een \textsl{file handle}\index{file handle} terug. Dit is een structure ergens in het geheugen van de computer waar de boekhouding van het bestand wordt bijgehouden. De structure is gedefinieerd in headerbestand \texttt{stdio.h}\indextwo{stdio.h}{header-bestand}. De precieze indeling en werking is voor ons niet van belang, maar we moeten de pointer wel gebruiken als we met het bestand willen werken. Als het niet lukt om een bestand te openen, krijgen we een NULL-pointer\index{NULL-pointer} terug. Redenen waarom het openen niet lukt zijn: 
 
 \begin{itemize}
 \item Bestandsnaam is onbekend (bestand bestaat niet);
 \item Geen rechten om bestand te openen voor lezen;
-\item Geen rechten om bestand te openen voor schrijven;
+\item Geen rechten om bestand te openen voor lezen of schrijven;
 \item Bestandsnaam bevat illegale karakters;
-\item Bestand kan niet aangemaakt worden (schrijven, bijvoorbeeld harddisk is vol).
+\item Bestand kan niet aangemaakt worden (schrijven, bijvoorbeeld vaste schijf is vol).
 \end{itemize}
 
-Noot: Windows heeft de onhebbelijke eigenschap om spaties toe te staan in bestandsnamen. \textbf{NIET DOEN!}. Programma's kunnen hierdoor in de war raken omdat spaties ook kunnen worden gezien als scheider tussen karakterreeksen.
+Noot: Windows en Linux heeft de onhebbelijke eigenschap om spaties toe te staan in bestandsnamen. Let daar goed op. Programma's kunnen hierdoor in de war raken omdat spaties ook kunnen worden gezien als scheider tussen karakterreeksen.
 
 
 \begin{infobox}[Microsof doet het anders ...]
@@ -207,6 +223,7 @@ aan het begin van de C-programma zorgt ervoor dat \texttt{fopen} gebruikt kan wo
 
 
 \section{Bestand sluiten na gebruik}
+\index{sluiten van een bestand}\index{bestand!sluiten}
 Nadat de acties op een bestand zijn uitgevoerd, moet een bestand gesloten worden. Dit geeft aan het besturingssysteem aan dat verdere acties op het bestand niet zullen worden gedaan. Sluiten van een bestand kan met\indexfunc{fclose}
 
 \hspace*{1em}\texttt{fclose(fp);}
@@ -215,6 +232,7 @@ waarbij \texttt{fp} een file handle is van een eerder geopend bestand. Let erop 
 
 
 \section{Schrijven naar een bestand}
+\index{schrijven naar een bestand}\index{bestand!schrijven}
 Schrijven naar een bestand kan met de functie \texttt{fprintf}\indexfunc{fprintf}. De functie heeft het prototype:
 
 \hspace*{1em}\texttt{int fprintf(FILE *fp, char *format, arg1, arg2, arg3, ... );}
@@ -223,12 +241,13 @@ Deze functie lijkt erg veel op  \texttt{printf} en heeft, naast de \texttt{FILE}
 
 \booklisting[]{C}{Een bestand openen voor schrijven}{file_open_write}{c}{!ht}
 
-In regel 8 wordt de pointer \texttt{fp} naar een \texttt{FILE}-structure gedeclareerd. Deze pointer wordt gebruikt in opvolgende bestandshandelingen. In regel 11 openen we het bestand voor schrijven. De return-waarde is een adres naar een \texttt{FILE}-structure en die kennen we toe aan de pointer \texttt{fp}. In regel 13 testen we of de pointer gelijk is aan \texttt{NULL}. Dat betekent namelijk dat het bestand niet kon worden geopend. We eindigen dan met een melding naar de gebruiker en sluiten het programma af met een \texttt{return}-statement. We geven als return-waarde \texttt{-1} mee, zodat het besturingssysteem hier iets mee kan doen (over het algemeen negeren we die waarde). In regel 18 schrijven we een stukje tekst en de waarde van een variabele naar het bestand. In principe geeft \texttt{fprintf} het aantal karakters dat geschreven is terug. We kunnen dan testen of het schrijven ook daadwerkelijk gelukt is. In dit geval negeren we de return-waarde. In regel 20 wordt het bestand vervolgens gesloten. Na deze regel is het niet meer mogelijk om het bestand via pointer \texttt{fp} te benaderen.
+In regel 8 wordt de pointer \texttt{fp} naar een \texttt{FILE}-structure gedefinieerd. Deze pointer wordt gebruikt in opvolgende bestandshandelingen. In regel 11 openen we het bestand voor schrijven. De return-waarde is een adres naar een \texttt{FILE}-structure en die kennen we toe aan de pointer \texttt{fp}. In regel 13 testen we of de pointer gelijk is aan \texttt{NULL}. Dat betekent namelijk dat het bestand niet kon worden geopend. We eindigen dan met een melding naar de gebruiker en sluiten het programma af met een \texttt{return}-statement. We geven als return-waarde \texttt{-1} mee, zodat het besturingssysteem hier iets mee kan doen (over het algemeen negeert het besturingssysteem die waarde). In regel 18 schrijven we een stukje tekst en de waarde van een variabele naar het bestand. In principe geeft \texttt{fprintf} het aantal karakters dat geschreven is terug. We kunnen dan testen of het schrijven ook daadwerkelijk gelukt is. In dit geval negeren we de return-waarde. In regel 20 wordt het bestand vervolgens gesloten. Na deze regel is het niet meer mogelijk om het bestand via pointer \texttt{fp} te benaderen.
 
-Let erop dat op Windows-systemen de namen van de mappen en het bestand gescheiden worden door een dubbele backslash \texttt{\textbackslash\textbackslash}. Een enkele backslash wordt gezien als het begin van escape sequence zoals \texttt{\textbackslash n}. Dat kan problemen opleveren bij het openen van een bestand.
+Let erop dat op Windows-systemen de namen van de mappen en het bestand gescheiden worden door een dubbele backslash \texttt{\textbackslash\textbackslash}. Een enkele backslash wordt gezien als het begin van escape sequence zoals \texttt{\textbackslash n}. Dat zal problemen opleveren bij het openen van een bestand.
 
 \section{Lezen uit een bestand}
-Nu we een bestand hebben geschreven, kunnen we het ook openen voor lezen. Dit is te zien in listing~\ref{cod:file_open_read}. Aan de functie \texttt{fopen} geven we weer de bestandsnaam mee en het argument \texttt{"{}r"}. In de regels 11 t/m 14 testen we of het openen is gelukt.
+\index{lezen uit een bestand}\index{bestand!lezen}
+Nu we een bestand hebben geschreven, kunnen we het ook openen voor lezen. Dit is te zien in listing~\ref{cod:file_open_read}. Aan de functie \texttt{fopen} geven we weer de bestandsnaam mee en het argument \texttt{"{}r"} om aan te geven dat we willen lezen. In de regels 11 t/m 14 testen we of het openen is gelukt.
 
 \booklisting[]{C}{Een bestand openen voor lezen}{file_open_read}{c}{!ht}
 
@@ -258,7 +277,7 @@ Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een ui
 De standard library kent een groot aantal functies met betrekking tot het afhandelen van bestanden. We zullen hier een aantal van bespreken:
 
 \begin{itemize}[]
-\item \texttt{int fflush(FILE *fp)}\indexfunc{fflush}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar de harddisk (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
+\item \texttt{int fflush(FILE *fp)}\indexfunc{fflush}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar het bestandssysteem (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
 \item \texttt{int fgetc(FILE *fp)}\indexfunc{fgetc}: leest één karakter in van het bestand dat gekoppeld is aan \texttt{fp}, of een \texttt{EOF}\index{EOF} als het einde van een bestand is bereikt.
 \item \texttt{char *fgets(char *str, int n, FILE *fp)}\indexfunc{fgets}: leest vanuit het bestand dat gekoppeld is aan \texttt{fp} ten hoogste \texttt{n} karakters en plaatst dat in de string \texttt{str}. Het inlezen stopt als een newline\index{newline} is gevonden (de newline komt in de string terecht), en de string wordt afgesloten met een nul-karakter\index{nul-karakter} (\texttt{\textquotesingle\textbackslash0\textquotesingle)}. Geeft een NULL-pointer terug als een fout is opgetreden.
 \item \texttt{int fputc(int ch, FILE *fp)}\indexfunc{fputc}: schrijft één karakter naar het bestand dat gekoppeld is aan \texttt{fp}, geeft \texttt{EOF} terug als er een fout is opgetreden.
@@ -287,7 +306,7 @@ Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf}
 
 
 \section{Gebruik van command line argumenten en bestanden}
-We kunnen command line argumenten (zie paragraaf~\ref{sec:argumentenmeegevenaaneencprogramma}) gebruiken om aan het programma bestandsnamen op te geven. Daarmee kunnen we, als voorbeeld, een programma ontwerpen een bestand kopieert naar een ander bestand. Het complete programma is te zien in listing~\ref{cod:filecopy}.
+We kunnen command line argumenten (zie paragraaf~\ref{sec:argumentenmeegevenaaneencprogramma}) gebruiken om aan het programma bestandsnamen op te geven. Daarmee kunnen we, als voorbeeld, een programma ontwerpen dat een bestand kopieert naar een ander bestand. Het complete programma is te zien in listing~\ref{cod:filecopy}.
 %
 \booklisting[lineskip=-1.5pt]{C}{Programma voor het kopiëren van een bestand}{filecopy}{c}{!p}
 %
@@ -347,11 +366,9 @@ int main(void) {
 }
 \end{lstlisting}
 \end{figure}
+Als we nu \texttt{Hallo} invoeren dan wordt de uitvoer zoals te zien in in figuur~\ref{dos:continuous}.
 
-
-Als we nu \texttt{Hallo} invoeren dan wordt de uitvoer:
-
-\begin{dosbox}[title=Uivoer van het programma na invoer van een string.]
+\begin{dosbox}[title=Uivoer van het programma na invoer van een string.,label=dos:continuous]
 Geef een geheel getal groter dan 0: Hallo
 Geef een geheel getal groter dan 0: Geef een geheel getal groter dan
 0: Geef een geheel getal groter dan 0: Geef een geheel getal groter 
@@ -428,9 +445,9 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
-De functie \texttt{getchar}\indexfunc{getchar} leest \'e\'en karakter uit de invoerbuffer. Daarna proberen we \texttt{scanf} opnieuw. Dat mislukt telkens als er een letter gevonden wordt. Als we nu \texttt{Hallo} invoeren, krijgen we de volgende uitvoer:
+De functie \texttt{getchar}\indexfunc{getchar} leest \'e\'en karakter uit de invoerbuffer. Daarna proberen we \texttt{scanf} opnieuw. Dat mislukt telkens als er een letter gevonden wordt. Als we nu \texttt{Hallo} invoeren, krijgen we de volgende uitvoer zoals te zien is in figuur~\ref{dos:scanf2}.
 
-\begin{dosbox}[title=Uitvoer van het programma.]
+\begin{dosbox}[title=Uitvoer van het programma.,label=dos:scanf2]
 Geef een geheel getal: Hallo
 Dat was geen getal!
 Maar het karakter H.

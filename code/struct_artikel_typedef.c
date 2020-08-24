@@ -17,8 +17,8 @@ void print_artikel(const artikel_t *a) {
 	printf("Prijs: %.2f\n", (*a).prijs);
 }
 
-void maak_artikel(artikel_t *a, int nummer, char naam[],
-	                            int aantal, double prijs) {
+void vul_artikel(artikel_t *a, int nummer, char naam[],
+	                           int aantal, double prijs) {
 
 	a->nummer = nummer;
 	strcpy(a->naam, naam);
@@ -54,7 +54,7 @@ int main(void) {
 
 	print_artikel(&usbstick);
 
-	maak_artikel(&art[2], 7, "Floppy", 5, 10.73);
+	vul_artikel(&art[2], 7, "Floppy", 5, 10.73);
 
 	print_artikelen(art, sizeof art / sizeof art[0]);
 

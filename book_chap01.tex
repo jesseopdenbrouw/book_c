@@ -5,18 +5,18 @@
 %% Calculate how old C is...
 \newcount\cdifference\cdifference=\the\year\advance\cdifference by -1970
 
-C is al een oude taal. De taal is rond 1970 ontworpen door Dennis Ritchie\footnote{Dennis MacAlister Ritchie (1941 -- 2011). Hij was de ontwerper van de programmeertaal C en was een van de ontwerpers van Unix. Bekende afgeleiden van Unix zijn Linux en FreeBSD.} en is dus al zo'n \the\cdifference\ jaar oud. Hij was bezig met het schrijven van een besturingssysteem (Engels: operating system)\footnote{Een besturingssysteem is een programma dat draait op een computer en zorgt voor het beschikbaar stellen van \textsl{resources} aan de gebruiker (lees: programma's). Zo zorgt een besturingssysteem ervoor dat de bestanden op de harde schijf netjes worden opgeslagen en beschikbaar zijn. Daarnaast zorgt een besturingssysteem ervoor dat programma's netjes naast elkaar kunnen draaien. Drie bekende besturingssystemen zijn Windows, Linux en OS-X.} en zocht naar een mogelijkheid om dit te schrijven op een hoger niveau dat gebruikelijker was voor die tijd. In die tijd werden besturingssystemen geschreven in assembly, een taal die dicht bij de hardware van de computer ligt. Programma's schrijven in assembly is tijdrovend en gevoelig voor fouten van de programmeur.
+C is al een oude taal. De taal is rond 1970 ontworpen door Dennis Ritchie\footnote{Dennis MacAlister Ritchie (1941 -- 2011). Hij was de ontwerper van de programmeertaal C en was een van de ontwerpers van Unix. Bekende afgeleiden van Unix zijn Linux en FreeBSD.} en is dus al zo'n \the\cdifference\ jaar oud. Hij was bezig met het schrijven van een besturingssysteem (Engels: operating system)\footnote{Een besturingssysteem is een programma dat draait op een computer en zorgt voor het beschikbaar stellen van \textsl{resources} aan de gebruiker (lees: programma's). Zo zorgt een besturingssysteem ervoor dat de bestanden op de harde schijf netjes worden opgeslagen en beschikbaar zijn. Daarnaast zorgt een besturingssysteem ervoor dat programma's netjes naast elkaar kunnen draaien. Drie bekende besturingssystemen zijn Windows, Linux en OS-X.} en zocht naar een mogelijkheid om dit te schrijven op een hoger niveau dan gebruikelijker was voor die tijd. In die tijd werden besturingssystemen geschreven in assembly, een taal die dicht bij de hardware van de computer ligt. Programma's schrijven in assembly is tijdrovend en gevoelig voor fouten van de programmeur.
 
 C is een zogenoemde derde-generatie-taal (3GL) en zorgt ervoor dat programma's gestructureerd kunnen worden geschreven zonder dat de programmeur kennis hoeft te hebben van de hardware waarop het programma draait. Toch biedt de taal constructies om die hardware in te stellen, een voorwaarde voor het schrijven van een besturingssysteem. Daarom is de taal geliefd bij programmeurs van kleine computersystemen waarop geen besturingssysteem draait, de zogenoemde \textsl{bare metal systems}\index{bare metal system}. Het is vaak ook de enige taal die gebruikt kan worden op dit soort systemen, naast assembly.
 
-C is geschreven voor ervaren programmeurs die behoefte hebben voor het schrijven van compacte programma's. Dat is te zien aan de vele, soms onduidelijke, taalconstructies. Het is eigenlijk niet geschikt voor beginnende programmeurs. 
+C is geschreven voor ervaren programmeurs die behoefte hebben aan het schrijven van compacte programma's. Dat is te zien aan de vele, soms onduidelijke, taalconstructies. Het is eigenlijk niet geschikt voor beginnende programmeurs. 
 %Het is zeker mogelijk om programma's te schrijven die niet correct werken, maar met enige discipline kan ook de minder ervaren programmeur de taal prima gebruiken.
 Maar met enige discipline kan ook de minder ervaren programmeur de taal prima gebruiken.
 
 C is een algemeen bruikbare taal (\textsl{general purpose language}) en is dus niet voor een specifiek doeleind ontworpen (behalve voor het schrijven van besturingssystemen). Zo kunnen met C wiskundige berekeningen worden uitgevoerd maar de programmeur moet zelf alles schrijven. Er zijn wel \textsl{functies} beschikbaar voor bijvoorbeeld sinus, cosinus en tangens. Er zijn echter talen die dit veel beter ondersteunen. Ook het verwerken van bestanden en \textsl{strings} (een rij karakters) is mogelijk maar dat moet door de programmeur zelf worden uitgewerkt. Ook hier zijn diverse functies beschikbaar die het programmeerwerk enigszins verlichten.
 
 C is een \textsl{imperatieve} programmeertaal, een van de bekende programmeerparadigma's\footnote{Een programmeerparadigma is een manier van programmeren en een wijze waarop een programma wordt vormgegeven.}.
-C moet concurreren met vele andere talen zoals C++, C\# en Java. C++ is ontwikkeld door Bjarne Stroustrup als ``de betere C'' en ondersteunt \textsl{objectgeoriënteerd} programmeren. Ook C\# ondersteunt objectgeoriënteerd, is ontwikkeld door Microsoft en is de \textsl{de facto} programmeertaal op Windows-systemen. Java is een taal die die onafhankelijk van een computersysteem gebruikt kan worden, ondersteunt objectgeoriënteerd programmeren maar kan alleen gebruikt worden als Java ondersteund wordt op het systeem.
+C moet concurreren met vele andere talen zoals C++, C\# en Java. C++ is ontwikkeld door Bjarne Stroustrup als ``de betere C'' en ondersteunt \textsl{objectgeoriënteerd} programmeren. Ook C\# ondersteunt objectgeoriënteerd, is ontwikkeld door Microsoft en is de \textsl{de facto} programmeertaal op Windows-systemen. Java is een taal die onafhankelijk van een computersysteem gebruikt kan worden, ondersteunt objectgeoriënteerd programmeren maar kan alleen gebruikt worden als Java ondersteund wordt op het systeem.
 
 Standaard C staat ook wel bekend als ANSI C of C89~\cite{1989programming}. Momenteel is C18 de standaard voor de C programmeertaal.
 
@@ -49,7 +49,7 @@ Bij PC's en laptops is een klein programma in ROM aanwezig. Dit zorgt ervoor dat
 \section{De compiler}
 C is een zogenoemde derde-generatie-taal. De broncode van een C-programma is voor een mens gewoon te lezen. Deze broncode kan niet direct door de processor worden uitgevoerd. De \textsl{C-compiler}\index{compiler} vertaalt de broncode naar instructies die de processor wel kan uitvoeren. Dat vertalen wordt \textsl{compileren}\index{compileren} genoemd. De instructies worden in bitpatronen in het geheugen opgeslagen. De bitpatronen noemen we \textsl{machinecode}\index{machinecode}. Elk type processor heeft zijn eigen verzameling bitpatronen, dat wordt de \textsl{Instruction Set Architecture}\index{ISA} genoemd. De ISA van een Intel-processor is dus anders dan die van een ATmega-processor, maar we kunnen wel zeggen dat elke processor ongeveer dezelfde soort instructies bevat. De C-compiler moet weten voor welke processor een C-programma wordt vertaald.
 
-Een C-programma kan niet worden uitgevoerd door de computer. We moeten eerst een programma compileren zodat instructies worden gegenereerd die de processor wel kan uitvoeren. De verzameling programma's om een C-programma te compileren wordt een \textsl{toolchain}\index{toolchain} genoemd. Het vertaalde programma wordt een \textsl{uitvoerbaar bestand}\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} genoemd. Een uitvoerbaar bestand wordt net als een C-programma opgeslagen op de harddisk. Bij het ontwikkelen van programma's voor microcontrollers wordt gebruik gemaakt van PC of laptop met een besturingssysteem en een C-compiler specifiek voor de microcontroller. We noemen zo'n compiler een \textsl{cross compiler}\index{cross compiler}. De uitvoerbare instructies worden via de PC in het geheugen van de microcontroller \textsl{geprogrammeerd}\index{programmeren}.
+Een C-programma kan niet worden uitgevoerd door de computer. We moeten eerst een programma compileren zodat instructies worden gegenereerd die de processor wel kan uitvoeren. De verzameling programma's om een C-programma te compileren wordt een \textsl{toolchain}\index{toolchain} genoemd. Het vertaalde programma wordt een \textsl{uitvoerbaar bestand}\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} genoemd. Een uitvoerbaar bestand wordt net als een C-programma opgeslagen op de vaste schrijf. Bij het ontwikkelen van programma's voor microcontrollers wordt gebruik gemaakt van PC of laptop met een besturingssysteem en een C-compiler specifiek voor de microcontroller. We noemen zo'n compiler een \textsl{cross compiler}\index{cross compiler}. De uitvoerbare instructies worden via de PC in het geheugen van de microcontroller \textsl{geprogrammeerd}\index{programmeren}.
 
 In het licht van het compilatieproces noemen we nog twee begrippen die we vaak zullen gebruiken: \textsl{compile-time}\index{compile-time} en \textsl{runtime}\index{runtime}. Met compile-time bedoelen we dat iets tijdens compileren van een C-programma bekend moet zijn. Een voorbeeld hiervan is het bepalen van de grootte van een variabele. Met runtime bedoelen we dat tijdens het uitvoeren van een programma iets wordt bepaald, bijvoorbeeld hoe vaak iets moet worden uitgerekend.
 
@@ -59,9 +59,10 @@ Hoewel een derde-generatie-taal suggereert dat we een C-programma door verschill
 \section{Bibliotheken en functies}
 Stel dat we een klein stukje C-programma hebben geschreven dat iets voor ons uitrekent, bijvoorbeeld het gemiddelde van een aantal getallen. We willen dit stukje programma vaker gebruiken in een groot C-programma. Dan plaatsen we de berekening in een \textsl{functie}\index{functie}. We kunnen nu in ons C-programma de functie meerdere malen \textsl{aanroepen}. De functie hoeft dus maar één keer geprogrammeerd te worden om meerdere keren gebruikt te worden.
 
-Er zijn ook functies die al geschreven zijn, zoals het afdrukken van tekst op het scherm. We hoeven dus niet zelf een functie te schrijven die dat voor ons doet. Al deze functies zijn ondergebracht in \textsl{bibliotheken}\index{bibliotheek} (Engels: library)\index{library}. Als tijdens het compileren zo'n functie nodig is, dan zoekt de compiler in de bibliotheek of de functie beschikbaar is. De compiler ``plakt'' dan de functie bij het programma. Dat plakken wordt \textsl{linken}\index{linken} genoemd.
+Er zijn ook functies die al geschreven zijn, zoals het afdrukken van tekst op het scherm. We hoeven dus niet zelf een functie te schrijven die dat voor ons doet. Al deze functies zijn ondergebracht in \textsl{bibliotheken}\index{bibliotheek} (Engels: library)\index{library}. Als tijdens het compileren zo'n functie nodig is, dan zoekt de compiler in de bibliotheek of de functie beschikbaar is. De compiler voegt dan de functie aan het programma toe. Dat toevoegen wordt \textsl{linken}\index{linken} genoemd.
 
-Bij de C-compiler wordt een zeer uitgebreide bibliotheek geleverd, de zogenoemde \textsl{standard library}\index{standard library}. De standard library bevat functies voor het afdrukken van tekst en gegevens, het bewerken van bestanden en het manipuleren van \textsl{strings}\index{string} (een stukje tekst opgeslagen in het geheugen). Daarnaast wordt ook de \textsl{mathematical library} meegeleverd waarin functies voor het berekenen van sinus, cosinus, logaritmen en e-machten zijn opgeslagen. Tijdens het compileren moet opgegeven worden dat moet worden gezocht in de bibliotheken.
+Bij de C-compiler wordt een vrij beperkte bibliotheek geleverd, de zogenoemde \textsl{standard library}\index{standard library}. De standard library bevat functies voor het afdrukken van tekst en gegevens, het bewerken van bestanden en het manipuleren van \textsl{strings}\index{string} (een stukje tekst opgeslagen in het geheugen). Daarnaast wordt ook de \textsl{mathematical library} meegeleverd waarin functies voor het berekenen van sinus, cosinus, logaritmen en e-machten zijn opgeslagen. Tijdens het compileren moet opgegeven worden dat moet worden gezocht in de bibliotheken.
+% (geldt niet voor de standard library).
 
 
 \section{Ontwikkelsystemen}
@@ -94,7 +95,7 @@ We zullen in de overige paragrafen in sneltreinvaart enkele concepten van C besp
 
 
 \section{Een minimaal C-programma}
-We beginnen met het meest simpele C-programma dat mogelijk is. We willen hiermee uitleggen wat er gebeurt als dit programma gecompileerd en uitgevoerd wordt. Het programma is te zien in listing~\ref{cod:unminimaalcprogramma}. Het programma doet in feite helemaal niets, althans niet dat de gebruiker van het programma kan waarnemen. Toch gebeuren er wel degelijk dingen ``onder de motorkap''.
+We beginnen met het meest simpele C-programma dat mogelijk is. We willen hiermee uitleggen wat er gebeurt als dit programma gecompileerd en uitgevoerd wordt. Het programma is te zien in listing~\ref{cod:unminimaalcprogramma}. Het programma doet in feite helemaal niets, althans niet dat de gebruiker van het programma kan waarnemen. Toch gebeuren er wel degelijk dingen `onder de motorkap'.
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Een minimaal C-programma.,label=cod:unminimaalcprogramma]
@@ -140,13 +141,19 @@ In regel 1 wordt een zogenoemd \textsl{header-bestand}\index{header-bestand} gel
 
 In regel 3 wordt kenbaar gemaakt dat het programma de functie \texttt{main}\indextwo{main}{functie} heeft. Een C-programma heeft \textsl{altijd} de functie \texttt{main}. Het (gecompileerde) programma wordt hier gestart.
 
-In regel 5 en 6 worden twee \textsl{variabelen}\index{variabele} gedeclareerd, de variabelen \texttt{a} en \texttt{b}. Technisch gezien is een variabele een plek in het geheugen van de computer. Een variabele kan door het programma gebruikt worden om gegevens te bewerken. Declaratie\index{declaratie} wil zeggen dat een variabele kenbaar wordt gemaakt. Bij de declaratie wordt opgegeven wat het type is van de variabele. Dit gebeurt middels het keyword \texttt{int}, dat betekent dat \texttt{a} en \texttt{b} alleen geheeltallige getallen kan opslaan (Engels: integer). Aan de variabelen worden gelijk waarden toegekend. We noemen dit \textsl{initialisatie}\index{initialisatie} van variabelen.
+In regel 5 en 6 worden twee \textsl{variabelen}\index{variabele} gedefinieerd, de variabelen \texttt{a} en \texttt{b}. Technisch gezien is een variabele een plek in het geheugen van de computer. Een variabele kan door het programma gebruikt worden om gegevens te bewerken. Definitie\index{definitie} wil zeggen dat een variabele kenbaar wordt gemaakt. Bij de defnitie wordt opgegeven wat het type is van de variabele. Dit gebeurt middels het keyword \texttt{int}, dat betekent dat \texttt{a} en \texttt{b} alleen gehele getallen kunnen opslaan (Engels: integer). Aan de variabelen worden gelijk waarden toegekend. We noemen dit \textsl{initialisatie}\index{initialisatie} van variabelen.
 
-In regel 8 wordt de variabele \texttt{som} gedeclareerd zonder initialisatie. Dat betekent dat op dat moment de waarde (of inhoud) van de variabele \textsl{onbekend} is. Vervolgens wordt in regel 10 de som van \texttt{a} en \texttt{b} berekend middels de \textsl{optel-operator} \texttt{+}\indexop{+} en wordt het resultaat \textsl{toegekend}\index{toekenning}\indexop{=} aan variabele \texttt{som}. Vanaf regel 10 is de waarde van \texttt{som} dus 10. In regel 10 zien we zogenoemde \textsl{expressies}\index{expressie}. Zo is \texttt{a + b} een expressie en is de toekenning \mbox{\texttt{som = ...}} ook een expressie. De term expressie komt veel voor in C.
+%%%\begin{infobox}[Definitie versus declaratie]
+%%%Bij programmeertalen wordt twee termen gebruikt: definitie en declaratie. Een definitie van een variabele is het kenbaar maken van een variabele en het reserveren van geheugenruimte op het moment van definiëren. Declaratie wil zeggen dat de variabele op een andere plek in het programma is gedefinieerd en dat het vanaf het punt van declaratie kan worden gebruikt.
+%\end{infobox}
+
+In regel 8 wordt de variabele \texttt{som} gedefinieerd zonder initialisatie. Dat betekent dat op dat moment de waarde (of inhoud) van de variabele \textsl{onbekend} is. Vervolgens wordt in regel 10 de som van \texttt{a} en \texttt{b} berekend middels de \textsl{optel-operator} \texttt{+}\indexop{+} en wordt het resultaat \textsl{toegekend}\index{toekenning}\indexop{=} aan variabele \texttt{som}. Vanaf regel 10 is de waarde van \texttt{som} dus 10. In regel 10 zien we zogenoemde \textsl{expressies}\index{expressie}. Zo is \texttt{a + b} een expressie en is de toekenning \mbox{\texttt{som = ...}} ook een expressie. De term expressie komt veel voor in C.
 
 In regel 12 wordt de functie \texttt{printf}\indexfunc{printf} aangeroepen. Deze functie is al geschreven en zit in de standard library. De functie krijgt vier \textsl{argumenten}\index{argument} mee, gegevens die in de functie verwerkt worden. Het eerste argument is een \textsl{string}\index{string}. Een string is een stukje tekst, maar we spreken ook wel van een rij karakters. Daarna volgen de (waarden) van de variabelen \texttt{a}, \texttt{b} en \texttt{som}.
 
-Het eerste argument van \texttt{printf} wordt een \textsl{format string} genoemd. Dat ligt niet in C-taal vast maar wordt algemeen gebruikt. De format string bevat karakters, zogenoemde \textsl{format specifications} en een \textsl{escape sequence}. Een format specification begint met een procentteken gevolgd door een letter. De functie \texttt{printf} gebruikt deze format specifications om de gegevens af te drukken. De eerste \texttt{\%d} zorgt ervoor dat variabele \texttt{a} wordt afgedrukt als een decimaal geheel getal. Op overeenkomstige wijze worden ook \texttt{b} en \texttt{som} afgedrukt. Aan het einde van de format string is een \textsl{escape sequence} te zien, in dit geval \texttt{\textbackslash n}. Dit zorgt ervoor dat een volgende afdruk wordt begonnen aan het begin van de volgende regel (Engels: newline).
+Het eerste argument van \texttt{printf} wordt een \textsl{format string} genoemd.
+%Dat ligt niet in C-taal vast maar wordt algemeen gebruikt. % Jawel!
+De format string bevat karakters, zogenoemde \textsl{format specifications} en een \textsl{escape sequence}. Een format specification begint met een procentteken gevolgd door een letter. De functie \texttt{printf} gebruikt deze format specifications om de gegevens af te drukken. De eerste \texttt{\%d} zorgt ervoor dat variabele \texttt{a} wordt afgedrukt als een decimaal geheel getal. Op overeenkomstige wijze worden ook \texttt{b} en \texttt{som} afgedrukt. Aan het einde van de format string is een \textsl{escape sequence} te zien, in dit geval \texttt{\textbackslash n}. Dit zorgt ervoor dat een volgende afdruk wordt begonnen aan het begin van de volgende regel (Engels: newline).
 
 In regel 14 wordt met het keyword \texttt{return} aangegeven dat het programma wordt afgesloten. 
 Dat de return-waarde een geheel getal moet zijn, kunnen we zien aan de definitie van de functie \texttt{main}. We zien in regel 3 dat \texttt{main} een geheel getal teruggeeft (keyword \texttt{int}) en geen argumenten meekrijgt (keyword \texttt{void}).
@@ -187,9 +194,9 @@ int main(void)
 
 In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader.% op pagina~\pageref{fig:unopmerkingscanf}.
 
-Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} declareren we drie variabelen. Daarna drukken we in regel 13 een stukje tekst af dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
+Het programma volgt verder de lijn van listing~\ref{cod:uneersteprogramma}. In de functie \texttt{main} definiëren we drie variabelen. Daarna drukken we in regel 13 een stukje tekst af dat aangeeft wat de gebruiker moet doen. In regel 14 wordt de functie \texttt{scanf} aangeroepen die ervoor zorgt dat een geheel getal wordt ingelezen van het toetsenbord en in variabele \texttt{a} wordt gezet.
 
-De format specification \texttt{\%d} hadden we al eerder gezien, maar de constructie \texttt{\&a} is nieuw. De ampersand (\texttt{\&}) zorgt ervoor dat aan de functie \texttt{scanf} het \textsl{adres} van variabele \texttt{a} meegegeven wordt. Het adres van de variabele is de plek waar de variabele in het geheugen ligt. Op deze manier kan \texttt{scanf} de informatie op je juiste plek zetten. In regel 17 wordt hetzelfde gedaan voor variabele \texttt{b}. We drukken voor het inlezen nog even netjes af hoe de gebruiker moet handelen. In regel 19 rekenen we de som uit van variabelen \texttt{a} en \texttt{b} en kennen dat toe aan variabele \texttt{som}. In regel 21 drukken we de drie variabelen af. Het programma wordt afgesloten in regel 23.
+De format specification \texttt{\%d} hadden we al eerder gezien, maar de constructie \texttt{\&a} is nieuw. De ampersand (\texttt{\&}) zorgt ervoor dat aan de functie \texttt{scanf} het \textsl{adres} van variabele \texttt{a} meegegeven wordt. Het adres van de variabele is de plek waar de variabele in het geheugen ligt. Op deze manier kan \texttt{scanf} de informatie op je juiste plek zetten. In regel 17 wordt hetzelfde gedaan voor variabele \texttt{b}. We drukken voor het inlezen nog even netjes af hoe de gebruiker moet handelen. In regel 19 rekenen we de som uit van variabelen \texttt{a} en \texttt{b} en kennen die toe aan variabele \texttt{som}. In regel 21 drukken we de drie variabelen af. Het programma wordt afgesloten in regel 23.
 
 Als we het programma starten dan moeten we twee gehele getallen invoeren. Een mogelijke uitvoer van het programma is te zien in figuur~\ref{fig:unuitvoerprog}. De invoer van de gebruiker is vet afgedrukt.
 Overigens zullen ontwikkelsystemen zoals Visual Studio aan het einde van het programma wachten tot de gebruiker op een toets drukt, anders is door de snelheid van het uitvoeren van het programma niet te zien wat is afgedrukt.
@@ -209,7 +216,7 @@ De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilat
 
 \section{Keywords}
 
-In tabel~\ref{tab:unkeywords} is een lijst te zien met gereserveerde woorden. Een aantal van deze woorden hebben we algezien zoals \texttt{int}, \texttt{void} en \texttt{return}. Deze woorden worden \textsl{keywords}\index{keyword} genoemd en geven de compiler aanwijzingen over wat er moet gebeuren.
+In tabel~\ref{tab:unkeywords} is een lijst te zien met gereserveerde woorden. Een aantal van deze woorden hebben we al gezien zoals \texttt{int}, \texttt{void} en \texttt{return}. Deze woorden worden \textsl{keywords}\index{keyword} genoemd en vormen de vocabulaire van de taal C.
 
 \begin{table}[!ht]
 \caption{Een lijst met keywords in de C-taal.}
@@ -229,16 +236,16 @@ do & if & static & while \\
 \end{tabular}
 \end{table}
 
-Een aantal van deze keywords dient als \textsl{qualifier}\index{qualifier} voor andere keywords. Zo kunnen we een variabele declareren als
+Een aantal van deze keywords dient als \textsl{qualifier}\index{qualifier} voor andere keywords. Zo kunnen we een variabele definiëren als
 
 \hspace*{1em}\texttt{unsigned long int a;}
 
-Dit geeft de compiler aanwijzingen over de grootte (het aantal bits) van variabele \texttt{a}.
+Dit bepaalt de grootte (het aantal bits) van variabele \texttt{a}.
 
 
 \section{Beslissingen}
 
-Met behulp van de keyswords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen we in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We declareren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden 
+Met behulp van de keyswords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen we in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We definiëren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden 
 %
 \begin{figure}[!b]
 \begin{lstlisting}[caption=Afdrukken van tekst op basis van een beslissing.,label=cod:unif]
@@ -259,10 +266,10 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 %
-toe. In regel 8 is te zien dat getest wordt of \texttt{a} kleiner is dan \texttt{b}. We noemen het kleiner-dan-teken een \textsl{relationele operator}\index{relationele operator}. Als inderdaad blijkt dat \texttt{a} kleiner is dan \texttt{b}, dat betekent dat de conditie \texttt{a < b} waar is, worden de statements tussen de accolades in de regels 9 en 11 uitgevoerd. Is de conditie niet waar, dan worden de regels overgeslagen. Overigens mogen in dit geval de accolades weggelaten worden omdat maar één statement wordt uitgevoerd. Het is echter aan te bevelen om ze toch te gebruiken, omdat misschien later er nog statements toegevoegd worden. Een bekend voorbeeld van het niet-gebruiken van accolades is Apple's \textsl{gotofail SSL security bug}~\cite{barr2014}.
+toe. In regel 8 is te zien dat getest wordt of \texttt{a} kleiner is dan \texttt{b}. We noemen het kleiner-dan-teken een \textsl{relationele operator}\index{relationele operator}. Als inderdaad blijkt dat \texttt{a} kleiner is dan \texttt{b}, dat betekent dat de conditie \texttt{a < b} waar is, worden de statements tussen de accolades in de regels 9 en 11 uitgevoerd. Is de conditie niet waar, dan worden deze regels overgeslagen. Overigens mogen in dit geval de accolades weggelaten worden omdat maar één statement wordt uitgevoerd. Het is echter aan te bevelen om ze toch te gebruiken, omdat misschien later er nog statements toegevoegd worden. Een bekend voorbeeld van het niet-gebruiken van accolades is Apple's \textsl{gotofail SSL security bug}~\cite{barr2014}.
 
 
-Een \texttt{if}-statement kan ook gevolgd worden door een \texttt{else}-keyword en een \texttt{else}-keyword kan ook weer gevolgd worden door een \texttt{if}-keyword. In het Engels wordt dit een \textsl{multy-way branch} (to branch = vertakken) genoemd. Zie listing~\ref{cod:unifelse}.
+Een \texttt{if}-statement kan ook gevolgd worden door een \texttt{else}-keyword en een \texttt{else}-keyword kan ook weer gevolgd worden door een \texttt{if}-keyword. In het Engels wordt dit een \textsl{multiway branch} (to branch = vertakken) genoemd. Zie listing~\ref{cod:unifelse}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Afdrukken van tekst op basis van een beslissing.,label=cod:unifelse]
@@ -298,15 +305,15 @@ Stel dat we de kwadraten van 1 t/m 10 willen afdrukken. We kunnen ervoor kiezen 
 
 \booklisting[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
 
-We beginnen het programma met de declaratie van een aantal variabelen. Vervolgens stellen we de ondergrens, bovengrens en stapgrootte in in de regels 8 t/m 10. We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
+We beginnen het programma met de definitie van een aantal variabelen. Vervolgens stellen we de ondergrens, bovengrens en stapgrootte in in de regels 8 t/m 10. We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
 
 In regel 12 zetten we de lusvariabele op de ondergrens en gaan de lus uitvoeren. De lus wordt gekenmerkt door het keyword \texttt{while}\indexkeyword{while}. Achter het keyword \texttt{while} staat, tussen de haken, de conditie waarop de lus moet worden uitgevoerd.
-Zolang de conditie \mbox{\texttt{getal <= bovengrens}} waar is, worden de statements binnen de accolades uitgevoerd. We noemen dat een \textsl{iteratie}\index{iteratie}. Is de conditie niet waar dan wordt verder gegaan met het statement die volgt op het \texttt{while}-statement.
+Zolang de conditie \mbox{\texttt{getal <= bovengrens}} waar is, worden de statements binnen de accolades uitgevoerd. We noemen dat een \textsl{iteratie}\index{iteratie}. Is de conditie niet waar dan wordt verder gegaan met het statement dat volgt op het \texttt{while}-statement.
 
 
 Binnen de accolades van het \texttt{while}-statement zien we drie statements. In regel 15 wordt het kwadraat berekend van de (huidige) waarde van de lusvariabele. Daarna worden de lusvariabele en het kwadraat afgedrukt. In regel 17 wordt de lusvariabele aangepast naar de nieuwe (volgende) waarde door de stapgrootte erbij op te tellen\footnote{Het is tegenwoordig in het Nederlands gebruikelijk om het Engelse woord updaten te gebruiken.}.
 
-In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement gebruiken: het \texttt{for}-statement. Het is een compacte schrijfwijze van het \texttt{while}-statement. We kunnen het berekenen van het kwadraat ook als parameter van de functie \text{printf} plaatsen. Zo sparen we een variabele uit. Zie listing~\ref{cod:unfor}.
+In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement gebruiken: het \texttt{for}-statement. Het is een compacte schrijfwijze van het \texttt{while}-statement. We kunnen het kwadraat ook uitrekenen in de aanroep van de functie \texttt{printf}. Als argument van een functie mogen we namelijk een expressie gebruiken. Zo sparen we een variabele uit. Zie listing~\ref{cod:unfor}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van een \texttt{for}-statement.,label=cod:unfor]
@@ -315,7 +322,7 @@ In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement 
                                              getal = getal + stap)
 	{
 		printf("Het kwadraat van %3d is %3d\n",
-                                             getal, getal*getal);
+                                           getal, getal * getal);
 	}
     //...
 \end{lstlisting}
@@ -323,7 +330,7 @@ In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement 
 
 
 \section{Array's}
-Een \textsl{array}\index{array} is een lijst variabelen onder een gemeenschappelijke noemer. Zo declareren we vijf floating point-getallen (getallen met een komma)\index{floating point} met
+Een \textsl{array}\index{array} is een lijst variabelen onder een gemeenschappelijke noemer. Zo definiëren we vijf floating point-getallen (getallen met een komma)\index{floating point} met
 
 \hspace*{1em}\texttt{double lijst[5];}\indexkeyword{double}
 
@@ -335,11 +342,11 @@ Tussen de blokhaken \texttt{[]}\indexop{[]} staat het \textsl{elementnummer} en 
 
 \booklisting[]{C}{Gemiddelde van vijf getallen}{arraygemiddelde}{c}{!ht}
 
-De array mag bij declaratie gelijk geïnitialiseerd worden zoals te zien is in regel 5\footnote{We hebben als getallen vijf wiskundige constanten genomen. De lezer wordt uitgedaagd uit te zoeken welke constanten dat zijn.}. We berekenen van deze vijf elementen de gemiddelde waarde. We doen dat door eerst de som van de vijf element te berekenen en vervolgens te delen door 5. Met behulp van een \texttt{for}-statement wordt ``langs de array gelopen''; bij elke iteratie selecteren we een element en tellen dat op bij de som van de tot dan toe gesommeerde elementen. De regel
+De array mag bij definitie gelijk geïnitialiseerd worden zoals te zien is in regel 5\footnote{We hebben als getallen vijf wiskundige constanten genomen. De lezer wordt uitgedaagd uit te zoeken welke constanten dat zijn.}. We berekenen van deze vijf elementen de gemiddelde waarde. We doen dat door eerst de som van de vijf element te berekenen en vervolgens te delen door 5. Met behulp van een \texttt{for}-statement wordt ``langs de array gelopen''; bij elke iteratie selecteren we een element en tellen dat op bij de som van de tot dan toe gesommeerde elementen. De regel
 
 \hspace*{1em}\texttt{som = som + lijst[index];}
 
-selecteert dus een element uit de array en telt dat op bij de som. In regel 13 drukken we het gemiddelde af door de som te delen door 5. We hoeven daarvoor niet een aparte variabele te declareren, we kunnen als argument gewoon \texttt{som / 5.0} gebruiken.
+selecteert dus een element uit de array en telt dat op bij de som. In regel 13 drukken we het gemiddelde af door de som te delen door 5. We hoeven daarvoor niet een aparte variabele te definiëren, we kunnen als argument gewoon \texttt{som / 5.0} gebruiken.
 
 Een veel gebruikte arraytype is de \textsl{string}. Dit is een array van karakters, afgesloten met een speciaal karakter dat het \textsl{null-karakter} of \textsl{null-byte} genoemd worden. C heeft geen ingebouwde taalconstructies die direct met strings werken, maar er zijn veel \textsl{functies} beschikbaar om strings te verwerken. Een voorbeeld van een string is:
 
@@ -357,7 +364,7 @@ We hoeven de lengte van de string in dit geval niet op te geven, dat wordt autom
 %\end{lstlisting}
 
 \section{Functies}
-C biedt een handige manier om een groep statement, bijvoorbeeld berekeningen, onder te brengen in een \textsl{functie}\index{functie}. Als de functie eenmaal geschreven is hoeven we ons niet druk te maken over hoe de de berekeningen worden gedaan, we moeten alleen maar weten hoe we de functie moeten gebruiken. We hebben al drie functies gezien: \texttt{printf}, \texttt{scanf} en \texttt{main}. De functies \texttt{printf} en \texttt{scanf} zijn al beschikbaar via de standard library. We hoeven niet te weten hoe de functies werken, alleen maar hoe ze moeten worden aangeroepen.
+C biedt een handige manier om een groep statement, bijvoorbeeld berekeningen, onder te brengen in een \textsl{functie}\index{functie}. Als de functie eenmaal geschreven is, hoeven we ons niet druk te maken over hoe de de berekeningen worden gedaan, we moeten alleen maar weten hoe we de functie moeten gebruiken. We hebben al drie functies gezien: \texttt{printf}, \texttt{scanf} en \texttt{main}. De functies \texttt{printf} en \texttt{scanf} zijn al beschikbaar via de standard library. We hoeven niet te weten hoe de functies werken, alleen maar hoe ze moeten worden aangeroepen.
 
 Laten we eens de wortels bepalen van de getallen 0 t/m 10. Daartoe schrijven we een functie \texttt{sqrt\_babylonian} die de wortel van een getal bepaalt volgens de Babylonische methode. Dit is een iteratieve methode om de wortel van een getal steeds nauwkeuriger te benaderen. De manier waarop dat gebeurt is te zien in vergelijking~\eqref{equ:sqrtbab}.
 %
@@ -370,7 +377,7 @@ x_{n+1} &= \dfrac{1}{2}\cdot\left(x_n + \dfrac{S}{x_n}\right) &&&& \text{nieuwe 
 \end{split}
 \end{equation}
 %
-We lezen dit als volgt. We beginnen met het getal $S$ waarvan we de wortel willen berekenen ($x_0= S$). De tweede, iteratieve stap, is het berekenen van de volgende benadering. We berekenen dat met de middelste vergelijking uit~\eqref{equ:sqrtbab}. De laatste stap geeft aan dat als we de wortel willen bepalen, de tweede stap oneindig vaak herhaald moet worden. Natuurlijk is dat niet realiseerbaar. We kunnen maar een eindig aantal stappen uitrekenen. Het blijkt dat voor de wortel slechts tien stappen nodig zijn om de wortel redelijk te benaderen.
+We lezen dit als volgt. We beginnen met het getal $S$ waarvan we de wortel willen berekenen ($x_0= S$). De tweede, iteratieve stap, is het berekenen van de volgende benadering. We berekenen dat met de middelste vergelijking uit~\eqref{equ:sqrtbab}. De laatste stap geeft aan dat, als we de wortel willen bepalen, de tweede stap oneindig vaak herhaald moet worden. Natuurlijk is dat niet realiseerbaar. We kunnen maar een eindig aantal stappen uitrekenen. Het blijkt dat voor de wortel slechts tien stappen nodig zijn om de wortel redelijk te benaderen.
 
 De functie is te zien in listing~\ref{cod:sqrt_babylonian}. We maken hier gebruik van het datatype \texttt{double}\indexkeyword{double}, een floating point-datatype met een nauwkeurigheid van ongeveer 16 decimale cijfers. Zowel het argument als het returnwaarde is van dit datatype. We beginnen met de functiedefinitie
 
@@ -387,7 +394,9 @@ Overigens bevat de \textsl{mathematical library} een implementatie van de wortel
 
 
 \section{Programmeerstijlen}
-C is erg coulant in het vormgeven van een programma. Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend. We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen statements achter elkaar op een regel plaatsen.
+C is erg coulant in het vormgeven van een programma.
+%Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend.
+We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen statements achter elkaar op een regel plaatsen.
 Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal. We kunnen één letter gebruiken of een compleet woord.
 
 Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
@@ -440,7 +449,7 @@ Bij de Hungarian Notation worden variabelennamen vooraf gegaan door een omschrij
     int cLoops;
 \end{lstlisting}
 
-Deze stijl wordt vooral gebruikt bij grote teams programmeurs zie gezamenlijk aan één programma werken. Het nadeel van deze stijl is dat de typering niet gestandaardiseerd is.
+Deze stijl wordt vooral gebruikt bij grote teams programmeurs die gezamenlijk aan één programma werken. Het nadeel van deze stijl is dat de typering niet gestandaardiseerd is. Overigens kan met ontwikkelomgevingen het type gevonden worden door op de variabele te klikken.
 
 \section{En verder...}
 We hebben nu enkele concepten van C uitgelegd. Maar de taal kan meer. Wat we niet behandeld hebben zijn \textsl{pointers} en \textsl{structures}, onderdelen van de taal. We hebben ook \textsl{bestandsverwerking} niet behandeld. Dit is technisch gezien geen onderdeel van de taal, maar wordt vaak gebruikt in programma's. Al deze concepten zullen in de volgende hoofdstukken worden uitgelegd.

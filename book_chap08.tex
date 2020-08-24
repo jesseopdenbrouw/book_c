@@ -6,8 +6,7 @@ Een structuur (Engels: structure\footnote{We zullen vanaf nu de Engelse naam str
 
 Structures kunnen gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven, we kunnen het adres van een structure opvragen met de adres-operator \texttt{\&} en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
 
-\section{Definitie en declaratie}
-
+\section{Definitie van structures en variabelen}
 Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We definiëren de structure \texttt{artikel} als volgt:
 
 % We gebruiken label=cod:struct1 om de standaard label te wijzigen
@@ -15,15 +14,15 @@ Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van d
 
 De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
 
-We kunnen nu de structure gebruiken in declaraties door gebruik te maken van
+We kunnen nu de structure gebruiken in definities door gebruik te maken van
 
 \hspace*{1em}\texttt{struct artikel} \textsl{variabele}\texttt{;}
 
-om variabelen te declareren. In listing~\ref{cod:struct2} is een aantal declaraties te zien:
+om variabelen te definiëren. In listing~\ref{cod:struct2} is een aantal definities te zien:
 
-\booklisting[linerange={40-43},label=cod:struct2]{C}{Declaratie van enkele variabelen}{struct_artikel}{c}{H}
+\booklisting[linerange={40-43},label=cod:struct2]{C}{Definitie van enkele variabelen}{struct_artikel}{c}{H}
 
-In regel 1 wordt de variabele \texttt{floppy} gedeclareerd zonder initialisatie. We kunnen bij declaratie gelijk de members initialiseren zoals te zien is in regels 3 en 4. In de initialisatielijst moeten natuurlijk wel de juiste datatypes gebruikt worden, tenzij automatische conversie mogelijk is. Structures mogen zowel globaal als lokaal worden gedeclareerd.
+In regel 1 wordt de variabele \texttt{floppy} gedefinieerd zonder initialisatie. We kunnen bij definitie gelijk de members initialiseren zoals te zien is in regels 3 en 4. In de initialisatielijst moeten natuurlijk wel de juiste datatypes gebruikt worden, tenzij automatische conversie mogelijk is. Structures mogen zowel globaal als lokaal worden gedefinieerd.
 
 \section{Toegang tot members}
 Om gebruik te maken van een member gebruiken we de \textsl{member operator} \texttt{.}\indexop{.} (punt). Om de prijs van het artikel \texttt{floppy} in te stellen kunnen we bijvoorbeeld gebruiken:
@@ -43,7 +42,7 @@ Let erop dat de naam van een artikel een \textsl{string} is. Om de naam aan te p
 \hspace*{1em}\texttt{strcpy(floppy.naam, "Floppy 3.5 in");}
 
 \section{Functies met structures}
-Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als parameter aan een functie worden weergegeven\index{structure!als argument}\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens netjes van elkaar te scheiden.
+Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens netjes van elkaar te scheiden.
 
 \booklisting[linerange={13-18},label=cod:struct3]{C}{Afdrukken van de gegevens van een  artikel}{struct_artikel}{c}{H}
 
@@ -51,7 +50,7 @@ Als we een nieuw artikel willen toevoegen, kunnen we alle members van de structu
 
 \booklisting[linerange={20-30},label=cod:struct4]{C}{Aanmaken van een nieuw artikel}{struct_artikel}{c}{H}
 
-De parameters krijgen de waarden mee die aan de members moeten worden toegekend. Om een nieuwe structure te maken waar de gegeven inkomen, declareren we in regel 3 een structure met de naam \texttt{nieuw}. We moeten daarna een voor een de waarden aan de members toekennen. Vervolgens geven we de gehele structure terug aan de aanroeper.
+De parameters krijgen de waarden mee die aan de members moeten worden toegekend. Om een nieuwe structure te maken waar de gegeven inkomen, definiëren we in regel 3 een structure met de naam \texttt{nieuw}. We moeten daarna een voor een de waarden aan de members toekennen. Vervolgens geven we de gehele structure terug aan de aanroeper.
 
 We kunnen de structure \texttt{floppy} bijvoorbeeld initialiseren met:
 
@@ -63,7 +62,7 @@ Met behulp van het keyword \texttt{typedef}\indexkeyword{typedef} kunnen we een 
 
 \booklisting[linerange={6-11},label=cod:struct11]{C}{De definitie van datatype \texttt{artikel\_t}}{struct_artikel_typedef}{c}{H}
 
-Vervolgens kunnen we variabelen declareren met de \texttt{typedef}:
+Vervolgens kunnen we variabelen definiëren met de \texttt{typedef}:
 
 \hspace*{1em}\texttt{artikel\_t floppy, sdcard, usbstick;}
 
@@ -75,11 +74,11 @@ We kunnen \texttt{typedef} ook gebruiken bij andere datatypes:
 
 \section{Pointers naar structures}
 \index{structure!pointer naar}\index{pointer!naar structure}
-Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameters. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdeclaratie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
+Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameters. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdefinitie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
 
 \booklisting[linerange={13-18},label=cod:struct12,escapeinside={{}{}}]{C}{Een functie om de gegevens van een artikel af te drukken}{struct_artikel_typedef}{c}{H}
 
-In regel 1 wordt een pointer naar een structure \texttt{artikel} gedeclareerd. Let op het keyword \texttt{const} dat aangeeft dat in de functie de members niet worden aangepast. In regel 2 is te zien hoe het artikelnummer wordt afgedrukt. Let hierbij op de haakjes om de pointervariabele. Die zijn nodig omdat de member operator \texttt{.} (punt) een hogere prioriteit heeft dan de dereferentie-operator \texttt{*}. Dus:
+In regel 1 wordt een pointer naar een structure \texttt{artikel} gedefinieerd. Let op het keyword \texttt{const} dat aangeeft dat in de functie de members niet worden aangepast. In regel 2 is te zien hoe het artikelnummer wordt afgedrukt. Let hierbij op de haakjes om de pointervariabele. Die zijn nodig omdat de member operator \texttt{.} (punt) een hogere prioriteit heeft dan de dereferentie-operator \texttt{*}. Dus:
 
 \hspace*{1em}\texttt{(*a).nummer}
 
@@ -87,7 +86,7 @@ selecteert member \texttt{nummer} van de structure die aangewezen wordt door poi
 
 \hspace*{1em}\texttt{*a.nummer}
 
-ervoor zorgt dat \texttt{a.nummer} een pointer is naar een \texttt{int} (en de variabele a is geen pointer).
+ervan uitgaat dat \texttt{a.nummer} een pointer is naar een \texttt{int} (en de variabele a is geen pointer).
 Omdat het gebruik van de haakjes zo vaak voorkomt, is er een speciale notatie mogelijk. We kunnen de member operator \texttt{->}\indexop{->} gebruiken om een member van een structure te gebruiken aangewezen door een pointer naar een structure. Dus:
 
 \hspace*{1em}\texttt{a->nummer}
@@ -97,7 +96,7 @@ selecteert member \texttt{nummer} van een structure aangewezen door pointer \tex
 \hspace*{1em}\texttt{(*a).nummer}\\
 \hspace*{1em}\texttt{a->nummer}
 
-Dus om een functie te gebruiken die de gegevens van een nieuwe artikel invult, kunnen de functie \texttt{maak\_artikel} in listing~\ref{cod:struct13} gebruiken.
+Dus om een functie te gebruiken die de gegevens van een nieuwe artikel invult, kunnen de functie \texttt{vul\_artikel} in listing~\ref{cod:struct13} gebruiken.
 
 \booklisting[linerange={20-27},label=cod:struct13,escapeinside={{}{}}]{C}{Een functie om de gegevens van een artikel in te stellen}{struct_artikel_typedef}{c}{H}
 
@@ -109,7 +108,7 @@ We hebben hier gebruik gemaakt van de \textsl{conditionele expressie}\index{cond
 
 \section{Array van structures}
 \index{array!van structures}\index{structure!array van}
-Natuurlijk is het niet handig om voor elk artikel een variabele te declareren. We kunnen dan veel beter gebruik maken van een array. De declaratie
+Natuurlijk is het niet handig om voor elk artikel een variabele te definiëren. We kunnen dan veel beter gebruik maken van een array. De definitie
 
 \hspace*{1em}\texttt{artikel\_t art[10];}
 
@@ -135,7 +134,7 @@ We kunnen ons programma uitbreiden met bestellingen. We definiëren daartoe drie
 
 \booklisting[linerange={6-23},label=cod:bestel1,escapeinside={{}{}}]{C}{De structures die horen bij een bestelling}{struct_bestelling}{c}{H}
 
-Om een bestelling aan te maken declareren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de rest wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
+Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de rest wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
 
 \hspace*{1em}\texttt{bestel.bestelnr = 123;}
 
@@ -159,34 +158,35 @@ Het gebruik van structures is nauw gekoppeld aan \textsl{relationele databases}.
 
 
 \section{Teruggeven van meerdere variabelen}
-In C kan een functie slechts één variabele teruggeven. Als we meerdere variabelen willen teruggeven, kunnen we gebruik maken van een structure. De structure ``verpakt'' dan de variabelen onder één noemer.
+In C kan een functie slechts één variabele teruggeven. Als we meerdere variabelen willen teruggeven, kunnen we gebruik maken van een structure. De structure `verpakt' dan de variabelen onder één noemer.
 
-Een bekend voorbeeld is zijn de oplossingen van een kwadratische vergelijking met de vorm $ax^2+bx+c=0$. We kunnen de \textsl{wortels} (getallen waarvoor de functie 0 oplevert) berekenen met de wortelformule\index{wortelformule}:
+Een bekend voorbeeld zijn het berekenen van de oplossingen van een kwadratische vergelijking met de vorm $ax^2+bx+c=0$. We kunnen de \textsl{wortels} (getallen waarvoor de functie~0 oplevert) berekenen met de wortelformule\index{wortelformule}:
 %
 \begin{equation}
 x_{1,2} = \dfrac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
 %
-De expressie onder het wortelteken heet de \textsl{discriminant} en heeft alleen een geldige waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet 0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:wortels1}.
+De expressie onder het wortelteken heet de \textsl{discriminant} en heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet 0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:wortels1}.
 
 We definiëren een structure met de drie gegevens zoals te zien is in regels 4 t/m 8. In de functie \texttt{bereken\_wortels} berekenen we de wortels als dat mogelijk is en we vullen de status van de wortels in. Kunnen ze niet berekend worden dan zetten we variabele \texttt{geldig} op 0, anders zetten we die variabele op 1. Aan het einde van de functie geven we een nieuw aangemaakte variabele terug. In de functie \texttt{print\_wortels} drukken we de wortels af of dat de wortels niet geldig zijn (kunnen niet berekend worden).
 
 \booklisting[label=cod:wortels1,escapeinside={{}{}}]{C}{Een programma om de wortels van een kwadratische vergelijking te berekenen}{struct_wortels}{c}{H}
 
+Merk overigens op dat als de discriminant 0 is, de wortels $x_1$ en $x_2$ dezelfde waarde hebben.
 
 \advanced
 \section{Unions}
-Stel dat we onze eigen C-compiler willen ontwerpen (begin er trouwens niet aan, dat is heel complex). Dan moeten we een lijst bijhouden van gedeclareerde variabelen. Van de variabele moet dan ook het type worden opgeslagen en mogelijk een initiële waarde\footnote{Natuurlijk kan de waarde van een variabele tijdens runtime veranderen, maar het zou kunnen dat de compiler erachter komt dat een variabele op een bepaald moment een bekende waarde heeft. Deze waarde kan dan gebruikt worden bij een expressie.}. We kunnen dan een structure definiëren die alle mogelijke datatypes bevat, maar dat is verkwisten van geheugenruimte; een variabele kan immers maar één datatype hebben. We kunnen dan gebruik maken van een \textsl{union}\indexkeyword{union}.
+Stel dat we onze eigen C-compiler willen ontwerpen (begin er trouwens niet aan, dat is heel complex). Dan moeten we een lijst bijhouden van gedefinieerde variabelen. Van de variabele moet dan ook het type worden opgeslagen en mogelijk een initiële waarde\footnote{Natuurlijk kan de waarde van een variabele tijdens runtime veranderen, maar het zou kunnen dat de compiler erachter komt dat een variabele op een bepaald moment een bekende waarde heeft. Deze waarde kan dan gebruikt worden bij een expressie of initialisatie.}. We kunnen dan een structure definiëren die alle mogelijke datatypes bevat, maar dat is verkwisten van geheugenruimte; een variabele kan immers maar één datatype hebben. We kunnen dan gebruik maken van een \textsl{union}\indexkeyword{union}.
 
-Binnen een union wordt ruimte gereserveerd voor het grootste datatype (in het aantal bits). In listing~\ref{cod:union1} is een union variabele gedeclareerd met de naam \texttt{value}.
+Binnen een union wordt ruimte gereserveerd voor het grootste datatype (in het aantal bits). In listing~\ref{cod:union1} is een union variabele gedefinieerd met de naam \texttt{value}.
 
 \booklisting[gobble=4,linerange={11-15},label=cod:union1]{C}{Een union om verschillende datatypes te gebruiken}{union}{c}{H}
 
-De gereserveerde geheugenruimte is gelijk aan de grootste variabele, in dit geval een \texttt{double}. We kunnen de union opnemen in een structure met daarin de naam en het type (en natuurlijk de union). Een voorbeeld is te zien in listing~\ref{cod:union2}. We hebben tevens gebruik gemaakt van een \textsl{enumeratie}\index{enumeratie} voor de verschillende datatypes.
+De gereserveerde geheugenruimte is gelijk aan de grootste variabele, in dit geval een \texttt{double}. We kunnen de union opnemen in een structure met daarin de naam en het type (en natuurlijk de union). Een voorbeeld is te zien in listing~\ref{cod:union2}. We hebben tevens gebruik gemaakt van een \textsl{enumeratie}\index{enumeratie} (zie paragraaf~\ref{sec:enumeraties}) voor de verschillende datatypes.
 
 \booklisting[linerange={6-16},label=cod:union2,escapeinside={{}{}}]{C}{Een structure om een variabele in een compiler te gebruiken}{union}{c}{H}
 
-We kunnen nu een variabele declareren en initialiseren met gegevens. Dit is te zien in listing~\ref{cod:union3}. Te zien is dat de variabele wordt ingesteld als \texttt{float} en dat de waarde 3,14 bedraagt.
+We kunnen nu een variabele definiëren en initialiseren met gegevens. Dit is te zien in listing~\ref{cod:union3}. Te zien is dat de variabele wordt ingesteld als \texttt{float} en dat de waarde 3,14 bedraagt.
 
 \booklisting[linerange={40-40,43-46},label=cod:union3,escapeinside={{}{}}]{C}{Initialiseren van een variabele}{union}{c}{H}
 

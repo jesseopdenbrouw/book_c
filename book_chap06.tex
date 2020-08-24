@@ -3,13 +3,13 @@
 \thispagestyle{empty}
 \index{array}
 
-De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een declaratie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
+De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een definitie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
 
-We bespreken array's op vele manieren, onder andere hoe een array wordt gedeclareerd en het wordt gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een herhaling. We kunnen tweedimensionale array's gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet bespreken, namelijk de relatie tussen array's en pointers. Dat wordt besproken in hoofdstuk~\ref{cha:pointers}.
+We bespreken array's op vele manieren, onder andere hoe een array wordt gedefinieerd en gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een herhaling. We kunnen tweedimensionale array's gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet bespreken, namelijk de relatie tussen array's en pointers. Die wordt besproken in hoofdstuk~\ref{cha:pointers}.
 
-\section{Declaratie en selectie}
+\section{Definitie en selectie}
 Een \textsl{array}\index{array}\index{array!declaratie van} is een manier om bij elkaar behorende gegevens onder één naam te groeperen en te bewerken. Een array is een \textsl{samengesteld datatype}\index{samengesteld datatype}, een datatype dat bestaat uit een aantal enkelvoudige datatypes.
-Zo zorgt de declaratie
+Zo zorgt de definitie
 
 \hspace*{1em}\texttt{int a[10];}
 
@@ -17,7 +17,7 @@ ervoor dat we gebruik kunnen maken van de tien \texttt{int}-variabelen:
 
 \hspace*{1em}\texttt{a[0]}\quad\texttt{a[1]}\quad\texttt{a[2]}\quad\texttt{a[3]}\quad\texttt{a[4]}\quad\texttt{a[5]}\quad\texttt{a[6]}\quad\texttt{a[7]}\quad\texttt{a[8]}\quad\texttt{a[9]}
 
-Bij de declaratie wordt het aantal \textsl{elementen}\index{array element}\index{element} opgegeven. In het voorbeeld zijn dat er 10. De nummering van de elementen begint bij 0 en loopt tot het aantal elementen minus 1. Tevens wordt bij de declaratie het datatype opgegeven. Dit mag elk gangbaar datatype zijn.
+Bij de definitie wordt het aantal \textsl{elementen}\index{array element}\index{element} opgegeven. In het voorbeeld zijn dat er 10. De nummering van de elementen begint bij 0 en loopt tot en met het aantal elementen minus 1. Tevens wordt bij de definitie het datatype opgegeven. Dit mag elk gangbaar datatype zijn.
 
 We kunnen een element selecteren door gebruik te maken van de blokhaken \texttt{[]}\indexop{[]} met daarin het elementnummer. Dit elementnummer mag ook berekend worden met een expressie als het resultaat van de expressie maar een integer is. Om het achtste element toe te kennen aan de variabele \texttt{i} gebruiken we de toekenning:
 
@@ -27,11 +27,11 @@ Om de variabele \texttt{i} toe te kennen aan het vijfde element gebruiken we de 
 
 \hspace*{1em}\texttt{a[4] = i;}
 
-We mogen alleen de elementen gebruiken die gedeclareerd zijn, dus de expressies
+We mogen alleen de elementen gebruiken die gedefinieerd zijn, dus de expressies
 
 \hspace*{1em}\texttt{i = a[-1];}\quad\texttt{j = a[99];}
 
-zijn niet geldig\footnote{Technisch gezien zijn de elementnummers wel geldig. De compiler berekent via het elementnummer de plaats in het geheugen waar het element zich bevindt. Door gebruik te maken van \textsl{pointers} kan op zinnige wijze gebruik gemaakt worden van negatieve elementnummers.}. Overigens voegen de meeste compilers geen extra programmatuur toe om deze grenzen te bewaken. De programmeur moet het zelf in de gaten houden.
+zijn niet geldig\footnote{Technisch gezien zijn de elementnummers wel geldig. De compiler berekent via het elementnummer de plaats in het geheugen waar het element zich bevindt. Door gebruik te maken van \textsl{pointers} kan op zinnige wijze gebruik gemaakt worden van negatieve elementnummers.}. Overigens voegen de meeste compilers geen extra programmacode toe om deze grenzen te bewaken. De programmeur moet het zelf in de gaten houden.
 
 Een prettige manier om een array voor te stellen is om de array als een rij vierkante hokjes te tekenen. Boven de hokjes schrijven we de elementnummers. In de hokjes schrijven we de waarden (of inhouden) van de elementen. Een voorbeeld is te zien in figuur~\ref{fig:arryinmem}.
 
@@ -52,16 +52,16 @@ Een prettige manier om een array voor te stellen is om de array als een rij vier
 Overigens zijn de blokhaken \texttt{[]} als geheel een \textsl{operator}\indexop{[]} met een hoge prioriteit.
 
 \section{Initialisatie}
-De array \texttt{a} met declaratie
+De array \texttt{a} met definitie
 
 \hspace*{1em}\texttt{int a[10];}
 
 wordt, als \textsl{globale} variabele, automatisch geïnitialiseerd met nullen. Als \textsl{lokale} variabele is de inhoud ongedefinieerd.
-We kunnen de array bij declaratie gelijk initialiseren. Om de array in figuur~\ref{fig:arryinmem} direct te initialiseren gebruiken we een rij getallen tussen accolades en gescheiden door komma's:
+We kunnen de array bij definitie gelijk initialiseren. Om de array in figuur~\ref{fig:arryinmem} direct te initialiseren gebruiken we een rij getallen tussen accolades en gescheiden door komma's:
 
 \hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
-Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal elementen bij de declaratie weglaten. We kunnen dus ook schrijven:
+Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal elementen bij de definitie weglaten. We kunnen dus ook schrijven:
 
 \hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
@@ -78,15 +78,15 @@ Een \textsl{constante array}\index{constante array} moet altijd geïnitialiseerd
 \hspace*{1em}\texttt{const int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
 \section{Eendimensionale array}
-De array \texttt{a} wordt na de declaratie
+De array \texttt{a} wordt na de definitie
 
 \hspace*{1em}\texttt{int a[10];}
 
 een \textsl{eendimenationale}\index{eendimensionaal} array genoemd.
-Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat het uitkomst een geheel getal is en binnen de grenzen van van array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
+Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat het uitkomst een geheel getal is en binnen de grenzen van de array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten kwadraten.,label=cod:arrberekenenkwadraten]
+\begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten.,label=cod:arrberekenenkwadraten]
 #include <stdio.h>
 
 int main(void) {
@@ -107,10 +107,10 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
-Een interessant geval is dat we de inhoud van een element van een array mogen gebruiken als een elementnummer van een andere array. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten}. We declareren een array \texttt{rij} en initialiseren de array met de getallen waarvan we de kwadraten willen optellen. Daarna vullen we de array \texttt{kwad} met de kwadraten zoals we dat al eerder deden. In de regels 13 t/m 15 worden een voor een de waarden uit array \texttt{rij} opgevraagd en gebruikt als elementnummer voor array \texttt{kwad}. Merk op dat \texttt{rij[i]} eerst wordt bepaald en de uitkomst daarvan wordt gebruikt om een element uit de array \texttt{kwad} te selecteren.
+Een interessant geval is dat we de inhoud van een element van een array mogen gebruiken als een elementnummer van een andere array. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten}. We definiëren een array \texttt{rij} en initialiseren de array met de getallen waarvan we de kwadraten willen optellen. Daarna vullen we de array \texttt{kwad} met de kwadraten zoals we dat al eerder deden. In de regels 13 t/m 15 worden een voor een de waarden uit array \texttt{rij} opgevraagd en gebruikt als elementnummer voor array \texttt{kwad}. Merk op dat \texttt{rij[i]} eerst wordt bepaald en de uitkomst daarvan wordt gebruikt om een element uit de array \texttt{kwad} te selecteren.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten kwadraten.,label=cod:arrberekenensomrijkwadraten]
+\begin{lstlisting}[caption=Afdrukken van de som van twee  kwadraten.,label=cod:arrberekenensomrijkwadraten]
 #include <stdio.h>
 
 int main(void) {
@@ -136,7 +136,7 @@ int main(void) {
 
 \section{Aantal elementen van een array bepalen}
 \index{bepalen aantal elementen}\index{aantal elementen bepalen}
-We kunnen bij de declaratie van een array het aantal elementen opgeven, maar dat hoeft niet als de array gelijk geïnitialiseerd wordt. De declaratie
+We kunnen bij de definitie van een array het aantal elementen opgeven, maar dat hoeft niet als de array gelijk geïnitialiseerd wordt. De definitie
 
 \hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
 
@@ -144,7 +144,7 @@ zorgt ervoor dat \texttt{a} uit 10 elementen bestaat. In een programma moeten we
 
 \hspace*{1em}\texttt{int siz = sizeof a / sizeof a[0];}
 
-Merk op dat \texttt{sizeof} een hogere priotiteit heeft dan \texttt{/} maar lager dan \texttt{[]}. We hoeven dus geen haakjes te zetten om \texttt{a[0]}. We kunnen het getal \texttt{5} regel 13 in listing~\ref{cod:arrberekenensomrijkwadraten} vervangen door een berekening van het aantal elementen. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten2}.
+Merk op dat \texttt{sizeof} een hogere prioriteit heeft dan \texttt{/} maar lager dan \texttt{[]}. We hoeven dus geen haakjes te zetten om \texttt{a[0]}. We kunnen het getal \texttt{5} in regel 13 in listing~\ref{cod:arrberekenensomrijkwadraten} vervangen door een berekening van het aantal elementen. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten2}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Bepalen van het aantal elementen in een array.,label=cod:arrberekenensomrijkwadraten2]
@@ -160,13 +160,13 @@ Merk op dat \texttt{sizeof} een hogere priotiteit heeft dan \texttt{/} maar lage
 
 
 \section{Tweedimensionale array}
-Een \textsl{tweedimensionale}\index{tweedimensionaal} array van $5\times3$ elementen wordt gedeclareerd met:
+Een \textsl{tweedimensionale}\index{tweedimensionaal} array van $5\times3$ elementen wordt gedefinieerd met:
 
 \hspace*{1em}\texttt{int matrix[5][3];}
 
 Het eerste elementnummer wordt het \textsl{rijnummer}\index{rijnummer} genoemd en het tweede elementnummer wordt het \textsl{kolomnummer}\index{kolomnummer} genoemd. Het aantal rijen en kolommen mag natuurlijk gelijk zijn.
 
-We kunnen de array tegelijk met de declaratie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we drie groepen die zijn afgebakend door accolades en gescheiden zijn door komma's.
+We kunnen de array tegelijk met de definitie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we drie groepen die zijn afgebakend door accolades en gescheiden zijn door komma's. Om een $3\times3$ matrix te definiëren en te initialiseren, gebruiken we:
 
 \hspace*{1em}\texttt{int matrix[3][3] = \{ \{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\} \};}
 
@@ -180,7 +180,7 @@ Een veelvoorkomende fout is om het rijnummer en kolomnummer te scheiden door een
 
 Let erop dat het verwisselen van het rijnummer en kolomnummer een ander element selecteert. Dus
 
-\hspace*{1em}\texttt{matrix[2,1]} \ \ en \ \ \texttt{matrix[1,2]}
+\hspace*{1em}\texttt{matrix[2][1]} \ \ en \ \ \texttt{matrix[1][2]}
 
 zijn twee verschillende elementen.
 
@@ -214,58 +214,83 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 \section{Afdrukken van array}
-Een array kan niet als één eenheid worden afgedrukt. We moeten dat doen met behulp van een herhaling. Dit is te zien in listing~\ref{cod:arrafdrukkenarray}. In regel 5 declareren en initialiseren we de array met in dit geval 12 elementen. Omdat de array kan wijzigen, berekenen we in regel 7 het aantal elementen waaruit de array bestaat en drukken dat af in regel 9. Daarna selecteren we een voor een de elementen uit de array. Dat doen we met een \texttt{for}-statement. Binnen de herhaling, in regel~12, drukken we de waarde van het element af.
-
-\begin{figure}[!ht]
+Een array kan niet als één eenheid worden afgedrukt. We moeten dat doen met behulp van een herhaling. Dit is te zien in listing~\ref{cod:arrafdrukkenarray}. In regel 5 %
+\begin{figure}[!b]
 \begin{lstlisting}[caption=Afdrukken van een array.,label=cod:arrafdrukkenarray]
 #include <stdio.h>
 
 int main(void) {
 
-    int rij[] = { 2, 5, 8, 1, 6, 7, 3, 9, 0, 4, 7 , 8}, i;
+    int rij[] = {2, 5, 8, 1, 6, 7, 3, 9, 0, 4, 7, 8};
 
     int len = sizeof rij / sizeof rij[0];
 
     printf("De array heeft %d elementen: ", len);
 
-    for (i = 0; i < len; i = i + 1) {
-        printf("%d%c", rij[i], i < len-1 ? ' ' : '\n');
+    for (int i = 0; i < len; i = i + 1) {
+        printf("%d ", rij[i]);
     }
 
+    printf("\n");
+    
     return 0;
 }
 \end{lstlisting}
 \end{figure}
+%
+definiëren en initialiseren we de array met in dit geval 12 elementen. Omdat de array kan wijzigen, berekenen we in regel 7 het aantal elementen waaruit de array bestaat en drukken dat af in regel 9. Daarna selecteren we een voor een de elementen uit de array. Dat doen we met een \texttt{for}-statement. Binnen de herhaling, in regel~12, drukken we de waarde van het element af.
 
-We zullen de aanroep van de \texttt{printf}-functie even uitleggen. Het eerste argument is de format string waarin twee format specifications staan: \texttt{\%d} en \texttt{\%c}. De eerste geeft aan dat een integer moet worden afgedrukt en de tweede geeft aan dat één karakter moet worden afgedrukt. Het tweede argument is \texttt{rij[i]}, het element uit de array. Het derde argument wordt gevormd door een de \textsl{conditionele expressie}\index{conditionele expressie}\indexop{?:}:
 
-\hspace*{1em}\texttt{i < len-1 ? \textquotesingle\ \textquotesingle\ : \textquotesingle\textbackslash n\textquotesingle}
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Afdrukken van een array.,label=cod:arrafdrukkenarray]
+%%%#include <stdio.h>
+%%%
+%%%int main(void) {
+%%%
+%%%    int rij[] = {2, 5, 8, 1, 6, 7, 3, 9, 0, 4, 7, 8}, i;
+%%%
+%%%    int len = sizeof rij / sizeof rij[0];
+%%%
+%%%    printf("De array heeft %d elementen: ", len);
+%%%
+%%%    for (i = 0; i < len; i = i + 1) {
+%%%        printf("%d%c", rij[i], i < len-1 ? ' ' : '\n');
+%%%    }
+%%%
+%%%    return 0;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
-Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
+%We zullen de aanroep van de \texttt{printf}-functie even uitleggen. Het eerste argument is de format string waarin twee format specifications staan: \texttt{\%d} en \texttt{\%c}. De eerste geeft aan dat een integer moet worden afgedrukt en de tweede geeft aan dat één karakter moet worden afgedrukt. Het tweede argument is \texttt{rij[i]}, het element uit de array. Het derde argument wordt gevormd door een de \textsl{conditionele expressie}\index{conditionele expressie}\indexop{?:}:
+%
+%\hspace*{1em}\texttt{i < len-1 ? \textquotesingle\ \textquotesingle\ : \textquotesingle\textbackslash n\textquotesingle}
+%
+%Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
 
 
 \section{Array's en functies}
 \index{array!als argument}\index{array!als parameter}
-Een array kan als argument van een functie dienen. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop array's overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën wordt doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; het kent immers de declaratie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
+Een array kan als argument van een functie dienen. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop array's overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën wordt doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; het kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
 
-In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Als het getal meerdere keren voorkomt, wordt de eerste positie teruggegeven. Om aan te geven dat de eerste parameter een array is, wordt de declaratie \texttt{int ary[]} gegeven. De tweede parameter is de grootte van de array in elementen en de derde parameters is het getal dat gezocht wordt.
+In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. Om aan te geven dat de eerste parameter een array is, wordt de definitie \texttt{int ary[]} gegeven. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Functie voor het vinden van een getal in een array.,label=cod:arrfindnumber]
 int findnumber(int ary[], int siz, int num) {
-    int pos;
 
-    for (pos = 0; pos < siz; pos = pos + 1) {
+    for (int pos = 0; pos < siz; pos = pos + 1) {
         if (ary[pos] == num) {
             return pos;
         }
     }
+    
     return -1;
 }
 \end{lstlisting}
 \end{figure}
 
-In listing~\ref{cod:arrfindnumber2} is te zien hoe de functie wordt aangeroepen. Zie regel 9. Als eerste argument wordt de \textsl{naam} van de array opgegeven. De compiler weet aan de hand van de functiedefinitie en de declaratie van de array dat het om een array gaat. Het tweede argument is het aantal elementen van de array dat berekend wordt met behulp van  \texttt{sizeof}\indexop{sizeof}. Het derde argument is het getal waarnaar gezocht wordt.
+In listing~\ref{cod:arrfindnumber2} is te zien hoe de functie wordt aangeroepen. Zie regel 9. Als eerste argument wordt de \textsl{naam} van de array opgegeven. De compiler weet aan de hand van de functiedefinitie en de definitie van de array dat het om een array gaat. Het tweede argument is het aantal elementen van de array dat berekend wordt met behulp van  \texttt{sizeof}\indexop{sizeof}. Het derde argument is het getal waarnaar gezocht wordt.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Aanroepen van de functie \texttt{findnumber}.,label=cod:arrfindnumber2]
@@ -275,11 +300,14 @@ int findnumber(int ary[], int siz, int num);
 
 int main(void) {
 
-    int rij[] = { 4, 8, 3, 8, 2, 3, 4, 5, 1, 2 };
+    int rij[] = { 4, 8, 3, 8, 2, 3, 4, 5, 1, 2 }, getal;
 
-    int plek = findnumber(rij, sizeof rij / sizeof rij[0], 5);
+    printf("Geef te zoeken getal: ");
+    scanf("%d", &getal);
+    
+    int plek = findnumber(rij, sizeof rij / sizeof rij[0], getal);
 
-    printf("Plek %d\n", plek);
+    printf("Getal %d staat op plek %d\n", getal, plek);
 
     return 0;
 }
@@ -292,34 +320,34 @@ Omdat de plaats van de array in het geheugen als argument wordt meegegeven, kunn
 \begin{lstlisting}[caption=Functie om een getal te vervangen door een ander getal.,label=cod:arrpatcharray]
 int patcharray(int ary[], int siz, int what, int with) {
 
-    int pos;
     int count = 0;
 
-    for (pos = 0; pos < siz; pos = pos + 1) {
+    for (int pos = 0; pos < siz; pos = pos + 1) {
         if (ary[pos] == what) {
             ary[pos] = with;
             count = count + 1;
         }
     }
+    
     return count;
 }
 \end{lstlisting}
 \end{figure}
 
-Doorgewinterde C-programmeurs zouden het trouwens zo willen oplossen (listing~\ref{cod:arrpatcharray2}):
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie om een getal te vervangen door een ander getal (onleesbaar).,label=cod:arrpatcharray2]
-int patcharrayunreadable(int ary[], int siz, int what, int with) {
-    int count = 0;
-
-    while (--siz >= 0) {
-        ary[siz] == what ? ary[siz] = with, count++ : 0;
-    }
-    return count;
-}
-\end{lstlisting}
-\end{figure}
+%%%Doorgewinterde C-programmeurs zouden het trouwens zo willen oplossen (listing~\ref{cod:arrpatcharray2}):
+%%%
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Functie om een getal te vervangen door een ander getal (onleesbaar).,label=cod:arrpatcharray2]
+%%%int patcharrayunreadable(int ary[], int siz, int what, int with) {
+%%%    int count = 0;
+%%%
+%%%    while (--siz >= 0) {
+%%%        ary[siz] == what ? ary[siz] = with, count++ : 0;
+%%%    }
+%%%    return count;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
 
 \section{Array's vergelijken}
@@ -343,34 +371,41 @@ De juiste manier om twee array's te vergelijken is om de elementen paarsgewijs t
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare2]
-int arraycompare(int ary1[], int ary2[], int siz) {
+int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
 
-	int i;
+    /* If sizes are not equal, return 0 */
+    if (siz1 != siz2) {
+        return 0;
+    }
 
-	for (i = 0; i < siz; i++) {
-		if (ary1[i] != ary2[i]) {
+	for (int pos = 0; pos < siz1; pos++) {
+		if (ary1[pos] != ary2[pos]) {
 			return 0;
 		}
 	}
+    
+    /* Array elements are equal, return 1 */
 	return 1;
 }
 \end{lstlisting}
 \end{figure}
 
-De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aantal elementen bestaan. Met een \texttt{for}-statement lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
+De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aantal elementen bestaan. Dat testen we in regel 3 en keren gelijk terug met een waarde 0 als de aantallen verschillend zijn. Met een \texttt{for}-statement lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare3]
 #include <stdio.h>
 
-int arraycompare(int ary1[], int ary2[], int siz);
+int arraycompare(int ary1[], int ary2[], int siz1, int siz2);
 	
 int main(void) {
 
 	int ary1[10] = { 0 }, ary2[10] = { 0 };
-
+    int siz1 = sizeof ary1 / sizeof ary1[0];
+    int siz2 = sizeof ary2 / sizeof ary2[0];
+    
 	printf("De array's zijn %sgelijk\n", arraycompare(ary1, ary2,
-                        sizeof ary1 / sizeof ary1[0]) ? "" : "on");
+                                          siz1, siz2) ? "" : "on");
 }
 \end{lstlisting}
 \end{figure}
@@ -380,18 +415,18 @@ De standard library bevat een aantal functies waarmee we gemakkelijk array's kun
 \section{Strings}
 Een \textsl{string}\index{string} is een eendimensionale array van karakters afgesloten met een nul-karakter. In tegenstelling tot veel andere talen is een string in C dus \textsl{geen} enkelvoudig datatype. Dat betekent dat we niet op eenvoudige wijze strings kunnen manipuleren zoals het bepalen van de lengte, inkorten en veranderen. Gelukkig zijn er functies beschikbaar die het programmeerwerk enigszins verlichten. 
 
-We definiëren een string door de rij karakters te beginnen en af te sluiten met aanhalingstekens. De declaratie
+We definiëren een string door de rij karakters te beginnen en af te sluiten met aanhalingstekens. De definitie
 
 \hspace*{1em}\texttt{char str[] = "Ik ben een string";}
 
 initialiseert een string van 18 karakters. Het aantal elementen van de array wordt automatisch bepaald.
-In figuur~\ref{fig:arrastring} is te zien hoe de string in het geheugen ligt. Het einde van de string wordt gekenmerkt door een \textsl{nul-karakter}\index{nul-karakter} (\texttt{\textbackslash 0})\indextwo{\textbackslash 0}{nul-karakter}. Een nul-karakter is een geheel getal, meestal een byte, waarvan alle bits 0 zijn. Er is dus altijd één karakter meer nodig dan de karakters die opgegeven zijn in de string.
+In figuur~\ref{fig:arrastring} is te zien hoe de string in het geheugen ligt. Het einde van de string wordt gekenmerkt door een \textsl{nul-karakter}\index{nul-karakter} (\texttt{\textbackslash 0})\indextwo{\textbackslash 0}{nul-karakter}. Het nul-karakter is het karakter waarvan alle bits 0 zijn, zie bijlage~\ref{cha:asciitabel}. Er is dus altijd één karakter meer nodig dan de karakters die opgegeven zijn in de string.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[pointerstyle]
 \foreach \ii [count=\i from 0] in {I,k,\ ,b,e,n,\ ,e,e,n,\ ,s,t,r,i,n,g,\textbackslash 0 } {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
+	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\strut \ii};
 	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
 }
 \node at (-0.5,0) [left] {str};
@@ -403,7 +438,7 @@ In figuur~\ref{fig:arrastring} is te zien hoe de string in het geheugen ligt. He
 \label{fig:arrastring}
 \end{figure}
 
-Door middel van dit nul-karakter kan een programma het einde van de string vinden in het geheugen. Het berekenen van het aantal karakters kan heel eenvoudig met een herhaling uitgevoerd worden. Dit is te zien in listing~\ref{cod:arrstrlen1}. In regel 3 declareren en initialiseren we de \texttt{str} met een string constante. In het \texttt{while}-statement lopen we een voor een langs de elementen en zolang we het nul-karakter niet gevonden hebben, verhogen we een teller. Na het uitvoeren van de herhaling is het aantal karakters beschikbaar in variabele \texttt{len}.
+Door middel van dit nul-karakter kan een programma het einde van de string vinden in het geheugen. Het berekenen van het aantal karakters kan heel eenvoudig met een herhaling uitgevoerd worden. Dit is te zien in listing~\ref{cod:arrstrlen1}. In regel 3 definiëren en initialiseren we de \texttt{str} met een string constante. In het \texttt{while}-statement lopen we een voor een langs de elementen en zolang we het nul-karakter niet gevonden hebben, verhogen we een teller. Na het uitvoeren van de herhaling is het aantal karakters beschikbaar in variabele \texttt{len}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Berekenen van de lengte van een string.,label=cod:arrstrlen1]
@@ -446,7 +481,7 @@ De standard library kent een groot aantal functies waarmee strings kunnen worden
 
 De functie \texttt{strlen}\indexfunc{strlen} geeft het aantal karakter in de string terug exclusief het nul-karakter. De functie \texttt{stcpy}\indexfunc{strcpy} kopieert de string \texttt{from} naar de string \texttt{to}. Let erop dat de ruimte van \texttt{to} groot genoeg is. De functie test dat niet en een \textsl{buffer overflow}\index{buffer overflow} is dan het gevolg. De functie \texttt{strcat}\indexfunc{strcat} voegt de string \texttt{from} toe aan het einde van string \texttt{to}. In dit verband wordt vaak het Engelse woord \textsl{concatenation}\index{concatenation} gebruikt dat aaneenschakelen betekent. Ook hier moet erop gelet worden dat de ruimte in \texttt{to} groot genoeg is.
 
-De functie \texttt{strcmp}\indexfunc{strcmp} vergelijkt \texttt{s1} met \texttt{s2} op \textsl{alfabetische ordening}\index{alfabetische ordening} met inachtneming van de karakterset van de computer. Alfabetische ordening wil min of meer zeggen: zoals de woorden in een woordenboek. Dat betekent dat de string \texttt{"Jan"} voorgaat op \texttt{"Janus"}. De functie geeft een negatief getal terug (meestal \texttt{-1}) als \texttt{s1} ``kleiner'' is dan \texttt{s2}, geeft \texttt{0} terug als de strings identiek zijn en geeft een positief getal terug (meestal \texttt{1}) als \texttt{s1} ``groter'' is dan \texttt{s2}. Let erop dat de karakterset van de computer gebruikt wordt dus \texttt{"123"} is kleiner dan \texttt{"Jan"} en \texttt{"Janus"} is kleiner dan \texttt{"janus"}. Zie bijlage~\ref{cha:asciitabel} over de ordening van de ASCII-karakterset.
+De functie \texttt{strcmp}\indexfunc{strcmp} vergelijkt \texttt{s1} met \texttt{s2} op \textsl{alfabetische ordening}\index{alfabetische ordening} met inachtneming van de karakterset van de computer. Alfabetische ordening wil min of meer zeggen: zoals de woorden in een woordenboek. Dat betekent dat de string \texttt{"Jan"} voorgaat op \texttt{"Janus"}. De functie geeft een negatief getal terug als \texttt{s1} `kleiner' is dan \texttt{s2}, geeft \texttt{0} terug als de strings identiek zijn en geeft een positief getal terug als \texttt{s1} `groter' is dan \texttt{s2}. Let erop dat de karakterset van de computer gebruikt wordt dus \texttt{"123"} is kleiner dan \texttt{"Jan"} en \texttt{"Janus"} is kleiner dan \texttt{"janus"}. Zie bijlage~\ref{cha:asciitabel} over de ordening van de ASCII-karakterset.
 
 Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:aryimplstrfunc} waar we overigens gebruik hebben gemaakt van enkele juweeltjes van C-snelschrift. We dagen de lezer uit om de functies te analyseren.
 
@@ -471,12 +506,10 @@ int stringcompare(char str1[], char str2[]) {
 
 	int len;
 
-	for (len = 0; str1[len] == str2[len]; len++) {
-		if (str1[len] == '\0') {
-			return 0;
-		}
-	}
-	return str1[len] < str2[len] ? -1 : 1;
+    for (len = 0; str1[len] == str2[len] && str1[len] != '\0';
+                                                           len++);
+    
+    return str1[len] - str2[len];
 }
 
 void stringconcat(char to[], char from[]) {

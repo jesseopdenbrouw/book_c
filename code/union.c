@@ -3,7 +3,7 @@
 
 #pragma warning(disable : 4996)
 
-typedef enum {typeint = 1, typefloat = 2, typedouble = 3} vartype_t;
+typedef enum {typeint = 1, typefloat, typedouble} vartype_t;
 
 typedef struct {
 	char naam[20];

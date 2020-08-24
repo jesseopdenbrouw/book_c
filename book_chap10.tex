@@ -10,13 +10,13 @@ De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoe
 \index{include@{\texttt{\#include}}, preprocessor directive}
 Een bestand kan in een C-programma worden ingevoegd door de \textsl{include directive}. Deze heeft de vorm:
 
-\hspace*{1em}\texttt{\#include "{}}\textsl{bestandsnaam}\texttt{"}
+\hspace*{1em}\texttt{\#include <}\textsl{bestandsnaam}\texttt{>}
 
 of
 
-\hspace*{1em}\texttt{\#include <}\textsl{bestandsnaam}\texttt{>}
+\hspace*{1em}\texttt{\#include "{}}\textsl{bestandsnaam}\texttt{"}
 
-Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include directive zelf wordt verwijderd. Een bestandsnaam kan tussen aanhalingstekens staan. Dan wordt in de map gezocht waarin ook het C-programma geplaatst is. Een bestandsnaam kan ook tussen \texttt{<} en~\texttt{>} staan. Dan wordt gezocht in zogenoemde \textsl{systeemmappen}. Welke dat zijn, hangt van de toolchain af. De include directive wordt typisch gebruikt om een \textsl{header-bestand}\index{header-bestand} aan het begin van een C-programma in te lezen. We hebben er al een aantal gebruikt:
+Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include directive zelf wordt verwijderd. Een bestandsnaam kan tussen \texttt{<} en~\texttt{>} staan. Dan wordt gezocht in zogenoemde \textsl{systeemmappen}. Welke dat zijn, hangt van de toolchain af. Een bestandsnaam kan ook tussen aanhalingstekens staan. Dan wordt eerst in de map gezocht waarin ook het C-programma geplaatst is en, als het bestand niet gevonden is, in de systeemmappen. De include directive wordt typisch gebruikt om een \textsl{header-bestand}\index{header-bestand} aan het begin van een C-programma in te lezen. We hebben er al een aantal gebruikt:
 
 \hspace*{1em}\texttt{\#include <stdio.h>}\\
 \hspace*{1em}\texttt{\#include <stdint.h>}\\
@@ -40,7 +40,7 @@ Een macro kan argumenten bevatten zodat de vervangende tekst voor verschillende 
 
 \hspace*{1em}\texttt{\#define max(A, B) ((A) > (B) ? (A) : (B))}
 
-Dit ziet eruit als een functie-aanroep maar dat is het niet. Overal waar \texttt{max} voorkomt wordt het vervangen door de vervangende tekst. Merk op het gebruik van de vele haakjes. Dat is nodig om de argumenten correct uit te rekenen:
+De macro \texttt{max(A, B)} ziet eruit als een functie maar dat is het niet. Overal waar \texttt{max} voorkomt wordt het vervangen door de vervangende tekst. Merk op het gebruik van de vele haakjes. Dat is nodig om de argumenten correct uit te rekenen:
 
 \hspace*{1em}\texttt{x = max(p+q, r+s);}
 
@@ -48,7 +48,7 @@ wordt dan vervangen door
 
 \hspace*{1em}\texttt{x = ((p+q) > (r+s) ? (p+q) : (r+s));}
 
-Een veel gemaakte fout is het definiëren van een kwadraat:
+Een veel gemaakte fout is het als volgt definiëren van een kwadraat:
 
 \hspace*{1em}\texttt{\#define sqr(x) x * x \ \ \ \ /* WRONG */}
 

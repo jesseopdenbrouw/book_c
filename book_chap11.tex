@@ -2,13 +2,13 @@
 \label{cha:compilatieproces}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, ``plakt'' er bibliotheken met vooraf geprogrammeerde functies aan vast en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
+De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen,voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
 
 In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
 
 \section{Een C-programma in één bestand}
-De meeste kleine C-programma's worden in één bestand georganiseerd. We compileren het en daarna kan het op de computer worden uitgevoerd. Maar ``onder de motorkap`` gebeuren toch nog wel wat dingen. Laten we eens kijken hoe de C-compiler gestart wordt. We geven de opdracht (op de command line):
+De meeste kleine C-programma's worden in één bestand georganiseerd. We compileren het en daarna kan het op de computer worden uitgevoerd. Maar `onder de motorkap' gebeuren toch nog wel wat dingen. Laten we eens kijken hoe de C-compiler gestart wordt. We geven de opdracht (op de command line):
 
 \hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
 
@@ -154,7 +154,7 @@ In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een i
 
 \hspace*{1em}\texttt{register int i;}
 
-Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter welke variabelen in registers moeten worden gehouden. Het gebruik van register wordt daarom niet aanbevolen.
+Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter welke variabelen in registers moeten worden gehouden. Het gebruik van \texttt{register} wordt daarom niet aanbevolen.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comnothing]

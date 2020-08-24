@@ -3,7 +3,7 @@
 #pragma warning(disable : 4996)
 
 int main(void) {
-	FILE* fp;
+	FILE *fp;
 	char ch;
 
 	fp = fopen("C:\\Users\\Cbook\\bestand.txt", "r");

@@ -7,7 +7,7 @@
 int main(int argc, char* argv[]) {
 
     /* The input and output file handles */
-    FILE* infile, * outfile;
+    FILE *infile, *outfile;
 
     /* Character to read and character count */
     int ch, count = 0;

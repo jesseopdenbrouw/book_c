@@ -3,9 +3,8 @@
 \label{cha:flowcharts}
 
 Een \textsl{flowchart}\index{flowchart} (Nederlands: stroomschema)\index{stroomschema}
-is een grafische weergave van een (deel van een ) computerprogramma.
-Flowcharts gebruiken rechthoeken, ovalen, ruiten en mogelijk andere vormen om het type stap te
-definiëren om samen met verbindingspijlen de stroom en volgorde te definiëren. Ze
+is een grafische weergave van een (deel van een) computerprogramma te documenteren.
+Flowcharts gebruiken rechthoeken, ovalen, ruiten en mogelijk andere vormen om het programma stap voor stap weer te gegeven, samen met verbindingspijlen die de stroom en volgorde te definiëren. Ze
 kunnen variëren van eenvoudige, met de hand getekende diagrammen tot uitgebreide
 computergegenereerde diagrammen die meerdere stappen en routes weergeven. Als we alle
 verschillende vormen van stroomdiagrammen beschouwen, zijn ze een van de meest
@@ -220,36 +219,36 @@ niet waar.
 \newpage
 \section{\texttt{for}-lus}
 
-Een for-lus van de gedaante:
+Een \texttt{for}-lus van de gedaante:
 \newpage
 \begin{lstlisting}[caption=\texttt{for}-lus in C.]
-for ((*\normalfont\textsl{statements\textsubscript{1}}*); (*\normalfont\textsl{expressie}*); (*\normalfont\textsl{statements\textsubscript{2}}*)) {
-    (*\normalfont\textsl{statements\textsubscript{3}}*)
+for ((*\normalfont\textsl{expressie\textsubscript{1}}*); (*\normalfont\textsl{expressie\textsubscript{2}}*); (*\normalfont\textsl{expressie\textsubscript{3}}*)) {
+    (*\normalfont\textsl{statements}*)
 }
 \end{lstlisting}
 
-is \textsl{semantisch identiek} aan:
+is \textsl{semantisch identiek} aan (let op de punt-komma's):
 
 \begin{lstlisting}[caption=\texttt{for}-lus herschreven als \texttt{while}-lus in C.]
-(*\normalfont\textsl{statements\textsubscript{1}}*)
-while ((*\normalfont\textsl{expressie}*)} {
-    (*\normalfont\textsl{statements\textsubscript{3}}*)
-    (*\normalfont\textsl{statements\textsubscript{2}}*)
+(*\normalfont\textsl{expressie\textsubscript{1}}*);
+while ((*\normalfont\textsl{expressie\textsubscript{2}}*)} {
+    (*\normalfont\textsl{statements}*)
+    (*\normalfont\textsl{expressie\textsubscript{3}}*);
 }
 \end{lstlisting}
 
-Let erop dat \textsl{statements\textsubscript{2}} n\'a \textsl{statements\textsubscript{3}} komt.
+Let erop dat \textsl{expressie\textsubscript{3}} n\'a \textsl{statements} komt.
 De flowchart is te vinden in figuur~\ref{fig:flowfor}.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
 \node [ghostnode] (start) {};
-\node [process, below =of start] (pro1) {\textsl{statements\textsubscript{1}}};
+\node [process, below =of start] (pro1) {\textsl{expressie\textsubscript{1}};};
 \node [ghostnode, below =of pro1] (start1) {};
-\node (dec1) [decision, below =of start1] {\textsl{expressie}};
-\node (pro2) [process, below =of dec1] {\textsl{statements\textsubscript{3}}};
-\node (pro3) [process, below =of pro2] {\textsl{statements\textsubscript{2}}};
+\node (dec1) [decision, below =of start1] {\textsl{expressie\textsubscript{2}}};
+\node (pro2) [process, below =of dec1] {\textsl{statements}};
+\node (pro3) [process, below =of pro2] {\textsl{expressie\textsubscript{3}};};
 \node [ghostnode] (stop) [below =of pro3] {};
 \node [ghostnode] (stop2) [below of= stop] {};
 \node [ghostnode] (stop3) [below of= stop2] {};
@@ -266,17 +265,18 @@ De flowchart is te vinden in figuur~\ref{fig:flowfor}.
 \label{fig:flowfor}
 \end{figure}
 
+We hebben hier overigens de statements \texttt{break} en \texttt{continue} niet opgenomen. Deze statements moeten apart worden ingepast.
 
 \section{\texttt{switch}-statement}
 Een \texttt{switch}-statement is een meervoudige \texttt{if}-statement met steeds dezelfde variabele.
 
 \begin{lstlisting}[caption=switch-statement in C.]
 switch ((*\normalfont\textsl{variabele}*)) {
-    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*)
-    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*)
+    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*); break;
+    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*); break;
     ...
-    case (*\normalfont\textsl{expressie\textsubscript{n}}*): (*\normalfont\textsl{statements\textsubscript{n}}*)
-    default : (*\normalfont\textsl{statements\textsubscript{d}}*)
+    case (*\normalfont\textsl{expressie\textsubscript{n}}*): (*\normalfont\textsl{statements\textsubscript{n}}*); break;
+    default : (*\normalfont\textsl{statements\textsubscript{d}}*); break;
 }
 \end{lstlisting}
 
@@ -317,43 +317,80 @@ een constante moeten opleveren. De flowchart is te zien in figuur~\ref{fig:switc
 %%%\draw [arrow] (dec1.east) -- node[anchor=south] {no} ++(1.6,0) |- (entrypoint1);
 %%%\draw [ghostarrow] (stop) -- (stop2);
 \end{tikzpicture}
-\caption{Flowchart van een switch-statement.}
+\caption{Flowchart van een \texttt{switch}-statement met \texttt{break}.}
 \label{fig:switch}
 \end{figure}
 
+Merk op dat we hier expliciet het \texttt{break}-statement hebben toegevoegd. Zonder dit statement wordt verder gegaan met het testen van de volgende expressie.
+
+\begin{lstlisting}[caption=switch-statement in C.]
+switch ((*\normalfont\textsl{variabele}*)) {
+    ...
+    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*); break;
+    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*); break;
+    ...
+}
+\end{lstlisting}
+
+De flowchart is te zien in figuur~\ref{fig:switch2}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node [ghostnode] (start) {};
+\node (dec1) [decision, below =of start] {\textsl{variabele = expressie\textsubscript{1}}};
+\node [ghostnode, below =of dec1] (ff) {};
+\node (dec2) [decision, below =of ff] {\textsl{variabele = expressie\textsubscript{2}}};
+\node (pro1) [process, right =of dec1] {\textsl{statements\textsubscript{1}}};
+\node (pro2) [ghostnode, right =of dec2] {};
+\node (entrypoint1) [ghostnode, right =of pro1] {};
+\node [ghostnode, below = of dec2] (end) {};
+
+\draw [ghostarrow] (start) -- (dec1);
+\draw [ghostarrow] (dec2) -- (pro2);
+\draw [ghostarrow] (dec2) -- (end);
+\draw [arrow] (dec1) -- node[anchor=east] {no} (dec2);
+\draw [arrow] (dec1) -- node[anchor=south] {yes} (pro1);
+\draw [arrow] (pro1) -- (entrypoint1) |- (ff);
+\end{tikzpicture}
+\caption{Flowchart van een \texttt{switch}-statement zonder \texttt{break}.}
+\label{fig:switch2}
+\end{figure}
+
+
 \section{Voorbeeld}
 We zullen een flowchart presenteren van een kort programma.
-Hieronder is een een eenvoudig C-programma gegeven dat een variabele $k$ inleest en
+Hieronder is de flowchart te zien van een eenvoudig C-programma gegeven dat een variabele $k$ inleest en
 vervolgens de som bepaalt van alle getallen tussen 1 en $k$ (inclusief), dus:
 %
 \begin{equation}
 j = 1 + 2 +3 + 4 +\cdots + k
 \end{equation}
 
-\begin{lstlisting}[caption=Codevoorbeeld in C.]
-#include <stdio.h>
+%\begin{figure}[!ht]
+%\begin{lstlisting}[caption=Codevoorbeeld in C.]
+%#include <stdio.h>
+%
+%int main(void) {
+%
+%    int k, i, j = 0;
+%    
+%    scanf("%d", &k);
+%
+%    for (i=1; i<=k; i=i+1) {
+%        j=j+i;
+%    }
+%    
+%    printf("%d\n", j);
+%        
+%    return 0;
+%}
+%\end{lstlisting}
+%\end{figure}
 
-int main(void) {
-
-    int k, i, j;
-    
-    scanf("%d", &k);
-
-    j=0;
-    
-    for (i=1; i<=k; i=i+1) {
-        j=j+i;
-    }
-    
-    printf("%d\n", j);
-        
-    return 0;
-}
-\end{lstlisting}
 We hebben hier te maken met het begin en einde van het programma, het inlezen en
 afdrukken van variabelen en het doorlopen van een for-lus waarbij variabelen worden
-aangepast. Uiteindelijk komen uit bij het einde van het programma.
-
+aangepast. Uiteindelijk komen we uit bij het einde van het programma.
 In figuur~\ref{fig:exampleflowchart} is de flowchart te zien.
 
 \begin{figure}[!ht]
