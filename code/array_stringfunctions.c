@@ -16,9 +16,9 @@ void stringcopy(char to[], char from[]) {
 
 int stringcompare(char str1[], char str2[]) {
 
-	int len;
+	int len = 0;
 
-	for (len = 0; str1[len] == str2[len] && str1[len++] == '\0';);
+	while (str1[len] == str2[len] && str1[len++] != '\0');
 
 	return str1[len] - str2[len];
 }
@@ -43,7 +43,7 @@ int main(void) {
 	printf("Kopie: %s\n", naar);
 
 	printf("Strings zijn %sgelijk.\n",
-					stringcompare(string, naar) ? "on" : "");
+						stringcompare(string, naar) ? "on" : "");
 
 	stringconcat(naar, " en ik ben langer");
 
