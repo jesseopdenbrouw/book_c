@@ -3,7 +3,6 @@
 Dit boek is in ontwikkeling.
 
 Review = hoofdstuk is af, graag van commentaar voorzien
-Open = nog niet af.
 
 ## Hoofdstukken
 
