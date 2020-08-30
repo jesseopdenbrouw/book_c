@@ -13,7 +13,7 @@ Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{
 
 Het bestandssysteem van een computer wordt gevormd door alle \textsl{schijven} die beschikbaar zijn. Dat kunnen naast vaste schijven ook SSD's, USB-sticks, SD-card en externe schijven zijn. De term `schijf' komt nog uit de tijd dat een disk werd opgebouwd uit cirkelvormige platte schijven (\textsl{platters genaamd}) waarop met behulp van een magnetisch materiaal gegevens (nullen en enen) werden opgeslagen.
 
-Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A en Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste vaste schijf heeft de naam C. Hoe Windows met bestanden werkt kunnen we zien in figuur~\ref{fig:invdosbox}.
+Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A t/m Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste vaste schijf heeft de naam C. Hoe Windows met bestanden werkt kunnen we zien in figuur~\ref{fig:invdosbox}.
 
 \begin{dosbox}[title=Starten van een DOS-box.,label=fig:invdosbox]
 Microsoft Windows [Version 10.0.18363.778]
@@ -63,7 +63,7 @@ Unix-systemen maken geen gebruik van schijfnamen. In plaats daarvan kent Unix de
 De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
 
 \section{Uitvoer naar het beeldscherm}
-We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de meest gebruikte bespreken. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
+We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de meest gebruikte behandelen. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
 
 \hspace*{1em}\texttt{int printf(char *formatstring, arg1, arg2, arg3, ... );}
 
@@ -274,7 +274,7 @@ Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een ui
 
 \section{Andere bestandsfuncties}
 \label{sec:anderebestandsfuncties}
-De standard library kent een groot aantal functies met betrekking tot het afhandelen van bestanden. We zullen hier een aantal van bespreken:
+De standard library kent een groot aantal functies met betrekking tot het afhandelen van bestanden. We zullen hier een aantal van behandelen:
 
 \begin{itemize}[]
 \item \texttt{int fflush(FILE *fp)}\indexfunc{fflush}: zorgt ervoor dat de \textsl{uitvoerbuffers} in het geheugen van de computer worden geschreven naar het bestandssysteem (to flush = doorspoelen). Geeft een \texttt{EOF}\index{EOF} terug als er een schrijffout optreedt. Op een bestand dat geopend is voor lezen is de werking van deze functie \textsl{ongedefinieerd}.
@@ -418,7 +418,7 @@ Geef een geheel getal groter dan 0: Hallo
 Geen getal ingevoerd!
 \end{dosbox}
 
-Er is nog \'e\'en probleem. De karakters van \texttt{Hallo} staan nog steeds in de invoerbuffer. Die zullen we er een voor een uit moeten halen. Dat kan met het programma in listing~\ref{cod:invinlezengeheelgetal}. Nog iets: als er iets misgegaan is met het inlezen anders dan conversieproblemen, dan geeft de functie de integer waarde \texttt{EOF} (\textsl{end of file})\index{EOF}\index{end of file} terug. We hebben \texttt{EOF} nader bespreken in paragraaf~\ref{sec:anderebestandsfuncties}.
+Er is nog \'e\'en probleem. De karakters van \texttt{Hallo} staan nog steeds in de invoerbuffer. Die zullen we er een voor een uit moeten halen. Dat kan met het programma in listing~\ref{cod:invinlezengeheelgetal}. Nog iets: als er iets misgegaan is met het inlezen anders dan conversieproblemen, dan geeft de functie de integer waarde \texttt{EOF} (\textsl{end of file})\index{EOF}\index{end of file} terug. We hebben \texttt{EOF} nader behandeld in paragraaf~\ref{sec:anderebestandsfuncties}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Inlezen van een geheel getal.,label=cod:invinlezengeheelgetal]

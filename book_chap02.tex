@@ -3,7 +3,7 @@
 \thispagestyle{empty}
 
 Een C-programma bestaat uit variabelen en functies. We gebruiken variabelen om data te bewerken, zoals berekenen van nieuwe waarden of testen of twee variabelen aan elkaar gelijk zijn. De compiler moet weten welke variabelen in een programma gebruikt worden en hoe groot de variabelen zijn. De meeste moderne computersystemen kunnen werken met 64-bits eenheden en dat betekent dat een variabele een bepaald bereik heeft; niet elk getal kunnen we in een variabele opslaan.
-We gebruiken functies om bewerkingen op de variabelen te beschrijven. We hebben al één functie gezien: \texttt{main}. Functies worden in detail besproken in hoofdstuk~\ref{cha:functies}.
+We gebruiken functies om bewerkingen op de variabelen te beschrijven. We hebben al twee functies gezien: \texttt{main} en \texttt{square\_root}. Functies worden in detail behandeld in hoofdstuk~\ref{cha:functies}.
 
 
 \section{Variabelen}
@@ -57,7 +57,7 @@ Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op vo
 \hspace*{1em}\texttt{int b = a + 3 + 5;}
 
 \section{Datatypes}
-Een variabele is van een bepaald \textsl{datatype}\index{datatype}. We hebben er al één gezien, de \texttt{int}. Een datatype heeft een bepaalde grootte. Zo bestaat een \texttt{int} \textsl{meestal} uit 32 bits. Er zijn echter ook systemen en C-compilers waar een \texttt{int} uit 16 bits bestaat. Dat een \texttt{int} uit 32 bits bestaat, betekent dat niet elk willekeurig getal aan de \texttt{int} kunnen worden toegekend. Er is een minimale en maximale waarde. Voor de \texttt{int} is de minimale waarde $-2147483648$ en de maximale waarde $+2147483647$. De \texttt{int} is een \textsl{signed} datatype: zowel positieve als negatieve getallen en 0 zijn mogelijk.
+Een variabele is van een bepaald \textsl{datatype}\index{datatype}. We hebben er al twee gezien, de \texttt{int} en de \texttt{double}. Een datatype heeft een bepaalde grootte. Zo bestaat een \texttt{int} \textsl{meestal} uit 32 bits. Er zijn echter ook systemen en C-compilers waar een \texttt{int} uit 16 bits bestaat. Dat een \texttt{int} uit 32 bits bestaat, betekent dat niet elk willekeurig getal aan de \texttt{int} kunnen worden toegekend. Er is een minimale en maximale waarde. Voor de \texttt{int} is de minimale waarde $-2147483648$ en de maximale waarde $+2147483647$. De \texttt{int} is een \textsl{signed} datatype: zowel positieve als negatieve getallen en 0 zijn mogelijk.
 
 Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in een bepaalde situatie. We kunnen dan kiezen voor een ander type. C kent een aantal gehele datatypes van diverse grootten. Deze zijn weergegeven in tabel~\ref{tab:varintdatatypes}.
 
@@ -136,7 +136,7 @@ Al deze datatypes worden \textsl{enkelvoudige datatypes}\index{enkelvoudige data
 
 Naast de genoemde datatypes bestaan er nog andere een datatypes: \texttt{bool}\index{bool} kan de waarde \texttt{true} of \texttt{false} bevatten en \texttt{complex}\index{complex} kan een complex getal bevatten.
 
-Een veel gebruikt datatype is de \textsl{pointer}\index{pointer}. Een pointer is een variabele die het \textsl{adres}\index{adres} bevat van een (andere) variabele. Pointers worden in detail besproken in hoofdstuk~\ref{cha:pointers}.
+Een veel gebruikt datatype is de \textsl{pointer}\index{pointer}. Een pointer is een variabele die het \textsl{adres}\index{adres} bevat van een (andere) variabele. Pointers worden in detail behandeld in hoofdstuk~\ref{cha:pointers}.
 
 
 \section{Constanten}
@@ -545,7 +545,7 @@ int main(void)
 
 
 \section{Datatypeconversie}
-Het omzetten of converteren\index{datatypeconversie} van het ene datatype naar het andere datatype kan op twee manieren worden gerealiseerd: automatisch door de C-compiler of expliciet door een \textsl{type cast} in het programma. We kunnen redelijkerwijs verwachten dat een ``kleiner'' type wordt omgezet naar een ``groter'' type. We noemen dat \textsl{promotie}\index{promotie}. De regels voor automatische conversie zijn complex; we geven hier slecht een korte opsomming:
+Het omzetten of converteren\index{datatypeconversie} van het ene enkelvoudige datatype naar het andere enkelvoudige datatype kan op twee manieren worden gerealiseerd: automatisch door de C-compiler of expliciet door een \textsl{type cast} in het programma. We kunnen redelijkerwijs verwachten dat een ``kleiner'' type wordt omgezet naar een ``groter'' type. We noemen dat \textsl{promotie}\index{promotie}. De regels voor automatische conversie zijn complex; we geven hier slecht een korte opsomming:
 
 \begin{itemize}
 \item Als een van de twee operanden een \texttt{long double} is, converteer de andere naar \texttt{long double};
@@ -655,7 +655,7 @@ In deze enumeratie krijgt \texttt{TUNKNOWN} de waarde~0 (impliciet), \texttt{TIN
 C kent veel operatoren. In deze paragraaf beschrijven we ze even kort. In de volgende hoofdstukken worden ze verder uitgelegd.
 
 \subsection{Grootte van een variabele}
-De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan alleen \textsl{tijdens het compileren} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader bespreken in hoofdstuk~\ref{cha:arrays}.
+De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan alleen \textsl{tijdens het compileren} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
@@ -783,12 +783,12 @@ De komma-operator\indexop{,}\index{komma-operator} \texttt{,} scheidt twee expre
 
 \hspace*{1em}\texttt{a = 3, b = 5;}
 
-Bij deze expressie wordt \texttt{a} gelijk aan \texttt{3} en \texttt{b} gelijk aan \texttt{5}. Het resultaat van de gehele expressie is de rechter expressie (\texttt{b = 5}). De komma-operator wordt nogal eens gebruikt in het \texttt{for}-statement. We bespreken de komma-operator nogmaals in hoofdstuk~\ref{cha:programmabesturing}.
+Bij deze expressie wordt \texttt{a} gelijk aan \texttt{3} en \texttt{b} gelijk aan \texttt{5}. Het resultaat van de gehele expressie is de rechter expressie (\texttt{b = 5}). De komma-operator wordt nogal eens gebruikt in het \texttt{for}-statement. We behandelen de komma-operator nogmaals in hoofdstuk~\ref{cha:programmabesturing}.
 
 Let erop dat de komma's die argumenten in functie-aanroepen en variabelen in definities scheiden \textsl{geen} komma-operatoren zijn.
 
 \subsection{Nog enkele operatoren}
-De volgende operatoren worden verderop in het boek besproken:
+De volgende operatoren worden verderop in het boek behandeld:
 
 \hspace*{1cm}\texttt{[]\ \ ->\ \ .\ \ *} (\textsl{dereference}) \texttt{\ \ \&} (\textsl{address})
 

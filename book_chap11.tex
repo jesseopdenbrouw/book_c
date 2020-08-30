@@ -4,7 +4,7 @@
 
 De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen,voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
 
-In dit hoofdstuk zullen we enige aspecten van het compilatieproces bespreken. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
+In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
 
 \section{Een C-programma in één bestand}
@@ -108,7 +108,7 @@ Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standar
 
 \hspace*{1em}\texttt{gcc file1.c -l m -o programma.exe}
 
-Merk op dat de standard library niet expliciet moet worden opgegeven. De C-compiler regelt dat automatisch.
+Alleen de \texttt{m} moet worden opgegeven, de rest wordt automatisch door de linker ingevuld. Merk op dat de standard library niet expliciet moet worden opgegeven. De C-compiler regelt dat automatisch.
 
 Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
 
@@ -176,7 +176,7 @@ int main(void) {
 Een ander voorbeeld is een \texttt{for}-statement waarin ogenschijnlijk niets gebeurt. Dit is te zien in listing~\ref{cod:comnothing}.
 Dit soort herhalingen worden nog wel eens gebruikt als er in een programma een tijdje moet worden gewacht. Als we naar het \texttt{for}-statement kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen want, zo is de gedachte, er gebeurt toch niets. Willen we ervoor zorgen dat het \texttt{for}-statement toch wordt gebruikt dan kunnen we een variabele voorzien van het keyword \texttt{volatile}\indexkeyword{volatile}:
 
-\newpage
+%\newpage
 \hspace*{1em}\texttt{volatile int i};
 
 Het keyword \texttt{volatile} betekent zoiets als: gebruik variabele \texttt{i} ook al lijkt er niets zinnigs mee te gebeuren. De C-compiler zal hierdoor over het algemeen wel een geheugenplaats voor \texttt{i} realiseren; \texttt{i} wordt dan niet in een register vastgehouden.

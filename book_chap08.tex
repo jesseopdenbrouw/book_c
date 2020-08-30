@@ -50,7 +50,7 @@ Als we een nieuw artikel willen toevoegen, kunnen we alle members van de structu
 
 \booklisting[linerange={20-30},label=cod:struct4]{C}{Aanmaken van een nieuw artikel}{struct_artikel}{c}{H}
 
-De parameters krijgen de waarden mee die aan de members moeten worden toegekend. Om een nieuwe structure te maken waar de gegeven inkomen, definiëren we in regel 3 een structure met de naam \texttt{nieuw}. We moeten daarna een voor een de waarden aan de members toekennen. Vervolgens geven we de gehele structure terug aan de aanroeper.
+De parameters krijgen de waarden mee die aan de members moeten worden toegekend. Om een nieuwe structure te maken waar de gegevens inkomen, definiëren we in regel 3 een structure met de naam \texttt{nieuw}. We moeten daarna een voor een de waarden aan de members toekennen. Vervolgens geven we de gehele structure terug aan de aanroeper.
 
 We kunnen de structure \texttt{floppy} bijvoorbeeld initialiseren met:
 
@@ -74,11 +74,11 @@ We kunnen \texttt{typedef} ook gebruiken bij andere datatypes:
 
 \section{Pointers naar structures}
 \index{structure!pointer naar}\index{pointer!naar structure}
-Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameters. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdefinitie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
+Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameter. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdefinitie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
 
 \booklisting[linerange={13-18},label=cod:struct12,escapeinside={{}{}}]{C}{Een functie om de gegevens van een artikel af te drukken}{struct_artikel_typedef}{c}{H}
 
-In regel 1 wordt een pointer naar een structure \texttt{artikel} gedefinieerd. Let op het keyword \texttt{const} dat aangeeft dat in de functie de members niet worden aangepast. In regel 2 is te zien hoe het artikelnummer wordt afgedrukt. Let hierbij op de haakjes om de pointervariabele. Die zijn nodig omdat de member operator \texttt{.} (punt) een hogere prioriteit heeft dan de dereferentie-operator \texttt{*}. Dus:
+In regel 1 wordt een pointer naar een structure \texttt{artikel\_t} gedefinieerd. Let op het keyword \texttt{const} dat aangeeft dat in de functie de members niet worden aangepast. In regel 2 is te zien hoe het artikelnummer wordt afgedrukt. Let hierbij op de haakjes om de pointervariabele. Die zijn nodig omdat de member operator \texttt{.} (punt) een hogere prioriteit heeft dan de dereferentie-operator \texttt{*}. Dus:
 
 \hspace*{1em}\texttt{(*a).nummer}
 
@@ -104,7 +104,7 @@ Een functie kan ook een pointer naar een structure teruggeven. We kunnen bijvoor
 
 \booklisting[linerange={38-40},label=cod:struct13a,escapeinside={{}{}}]{C}{Een functie om grootste aantal artikelen te bepalen}{struct_artikel_typedef}{c}{H}
 
-We hebben hier gebruik gemaakt van de \textsl{conditionele expressie}\index{condtionele expressie}. Deze wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
+We hebben hier gebruik gemaakt van de \textsl{conditionele expressie}\index{condtionele expressie}. Deze wordt behandeld in paragraaf~\ref{sec:conditioneleexpressie}.
 
 \section{Array van structures}
 \index{array!van structures}\index{structure!array van}

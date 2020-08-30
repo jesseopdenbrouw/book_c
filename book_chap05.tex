@@ -251,7 +251,7 @@ Variabelen die binnen een functie gedefinieerd zijn, zijn alleen zichtbaar in de
 
 Parameters van de functie gedragen zich als lokale variabelen. Er wordt een kopie gemaakt van het bijbehorende argument en die kopie is zichtbaar in de functie. Parameters mogen daarom ook in een functie aangepast worden; de originele variabelen (het argument) wordt dus niet aangepast. Ook de levensduur van parameters is identiek aan die van lokale variabelen.
 
-Omdat er een kopie van een variabele aan de parameters wordt meegegeven, kan de originele variabele niet worden aangepast. Een voorbeeld waarbij dit wel gewenst is, is een functie die twee variabelen verwisseld. Dit komt onder andere voor in sorteerprogramma's. We definiëren een functie \texttt{wissel} met twee parameters \texttt{a} en \texttt{b}. De functie en de aanroep zijn te zien in listing~\ref{cod:foute_wissel}. In de functie wordt een lokale variabele \texttt{hulpje} aangemaakt en met behulp ervan worden \texttt{a} en \texttt{b} verwisseld. De functie \texttt{wissel} wordt met twee argumenten \texttt{x} en \texttt{y} aangeroepen. Vooraf en daarna worden \texttt{x} en \texttt{y} op het scherm afgedrukt.
+Omdat er een kopie van een variabele aan de parameters wordt meegegeven, kan de originele variabele niet worden aangepast. Een voorbeeld waarbij dit wel gewenst is, is een functie die de inhoud van twee variabelen verwisseld. Dit komt voor in sorteerprogramma's. We definiëren een functie \texttt{wissel} met twee parameters \texttt{a} en \texttt{b}. De functie en de aanroep zijn te zien in listing~\ref{cod:foute_wissel}. In de functie wordt een lokale variabele \texttt{hulpje} aangemaakt en met behulp ervan worden \texttt{a} en \texttt{b} verwisseld. De functie \texttt{wissel} wordt met twee argumenten \texttt{x} en \texttt{y} aangeroepen. Vooraf en daarna worden \texttt{x} en \texttt{y} op het scherm afgedrukt.
 
 \booklisting[]{C}{Een functie om twee argumenten te verwisselen (foutief)}{foute_wissel}{c}{!ht}
 
@@ -294,13 +294,14 @@ Als we de lokale variabele \texttt{i} alleen maar binnen het \texttt{for}-statem
 Lokale variabelen worden aan het begin van het uitvoeren van een functie aangemaakt en aan het einde weer verwijderd. Soms is het nodig om een lokale variabele te gebruiken die niet steeds opnieuw wordt aangemaakt en verwijderd wordt, maar behouden blijft \textsl{over aanroepen heen}. Dat kan door bij de definitie van een lokale variabele de qualifier \texttt{static}\indextwo{static}{qualifier}\indextwo{static}{lokale variabele} te gebruiken. Zo'n lokale variabele wordt bij het starten van het programma geïnitialiseerd, expliciet door een constante expressie of impliciet met 0, en is beschikbaar zolang het programma draait, maar alleen binnen de functie waar de variabele gedefinieerd is.
 
 In listing~\ref{cod:static_local} is een functie te zien met een \texttt{static} lokale variabele. De variabele wordt bij het starten van het programma met 0 geïnitialiseerd (dit kunnen we ook achterwege laten).
-Elke keer dat we de functie aanroepen wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper.
+%Elke keer dat we de functie aanroepen wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper.
+Elke keer dat we de functie aanroepen, wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper, en wordt de variabele niet verwijderd als we terugkeren naar de aanroeper.
 
 \booklisting[]{C}{Een functie met een static variabele}{static_local}{c}{!ht}
 
 
 \section{Zichtbaarheid en levensduur van globale variabelen}
-Een globale variabele\index{globale variabele}\index{variabele!globaal} is beschikbaar en zichtbaar tijdens de gehele executie van het programma en binnen het gehele C-programma. Alle functies kunnen deze variabele gebruiken in statements. Het wordt aangemaakt als het programma start en wordt verwijderd als het programma is afgelopen. Een globale variabele kan eenmalig worden geïnitialiseerd, of wordt automatisch op 0 gezet als de initialisatie achterwege is gebleven.
+Een globale variabele\index{globale variabele}\index{variabele!globaal} is beschikbaar en zichtbaar tijdens de gehele executie van het programma en binnen het gehele C-programma. Alle functies kunnen deze variabele gebruiken in statements. Het wordt aangemaakt als het programma start en wordt verwijderd als het programma is afgelopen. Een globale variabele kan eenmalig worden geïnitialiseerd, of wordt automatisch op 0 gezet als de initialisatie achterwege is gebleven. Een globale variabele wordt buiten functies gedefinieerd.
 
 Lokale variabelen kunnen globale variabele verbergen. In listing~\ref{cod:funzichtglobaal} is een opzet van een C-programma te zien met een definitie van een globale variabele \texttt{i} (regel 1). In de functie \texttt{func1} wordt geen lokale variabele \texttt{i} gedefinieerd en is de globale variabele \texttt{i} zichtbaar. We kunnen in onze statements daar gebruik van maken. In functie \texttt{func2} wordt een lokale variabele \texttt{i} gedefinieerd. Deze definitie zorgt ervoor dat de globale variabele wordt verborgen. Binnen de functie wordt alleen gebruik gemaakt van de lokale variabele \texttt{i}. Er is in C geen mogelijkheid om toch de globale variabele te gebruikten (binnen deze functie natuurlijk).
 
@@ -323,9 +324,9 @@ De globale variabele is dan alleen zichtbaar voor de functies binnen het C-besta
 
 
 \begin{infobox}[Call by Value]
-De methode waarop een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
+De methode waarop de inhoud van een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
 
-Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofdstuk~\ref{cha:pointers} besproken.
+Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofdstuk~\ref{cha:pointers} behandeld.
 \end{infobox}
 
 \section{Zichtbaarheid en levensduur van functies}
@@ -471,7 +472,7 @@ We houden bij elke berekening bij hoe vaak de functie is aangeroepen en maken ge
 
 \booklisting[]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!ht}
 
-We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1200\footnote{De tijdschaal is niet zozeer van belang. Het gaat ons meer om de relatieve uitkomsten.}. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 20118.
+We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1200\footnote{De tijdschaal is niet zozeer van belang. Het gaat ons meer om de relatieve uitkomsten.}. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 20118 milliseconden.
 
 \begin{dosbox}[title=Uitvoer van een Fibonacci-programma.,label=fig:outputfib]
 Fib(37) = 24157817, Calls: 78176337, Time: 1200
@@ -510,7 +511,7 @@ Voor steeds groter wordende waarde van $n$ convergeren de verhoudingen naar de e
 
 
 \section{Pointers en functies als parameter}
-Een pointer is een variabele met als inhoud het \textsl{adres} van een (andere) variabele. Met behulp van pointers kunnen we dus niet een kopie van een variabele als argument meegeven, maar een adres waarop de (originele) variabele te vinden is. Ook een functie, of eigenlijk, het \textsl{beginadres} van een functie kan als argument en parameter dienen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
+Een pointer is een variabele met als inhoud het \textsl{adres} van een (andere) variabele. Met behulp van pointers kunnen we dus niet een kopie van een variabele als argument meegeven, maar een adres waarop de (originele) variabele te vinden is. Ook een functie, of eigenlijk, het \textsl{beginadres} van een functie kan als argument en parameter dienen. We behandelen dit in hoofdstuk~\ref{cha:pointers}.
 
 
 \section{Functies die meer dan één waarde teruggeven}
@@ -553,7 +554,7 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{ceil(x)} & kleinste gehele getal niet kleiner dan $x$\\
 \texttt{floor(x)} & grootste gehele getal niet groter dan $x$\\
 \texttt{fabs(x)} & berekent $|x|$\\
-\texttt{fmod(x)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$\\
+\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$\\
 \end{tabular}
 \end{table}
 
