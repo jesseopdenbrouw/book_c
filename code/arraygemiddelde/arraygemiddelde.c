@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	double lijst[5] = {3.14159, 2.78182, 0.57721, 1.41421, 1.61803};
+	double lijst[5] = {3.14159,2.71828,0.57721,1.41421,1.61803};
 	double som = 0.0;
 	int index;
 
