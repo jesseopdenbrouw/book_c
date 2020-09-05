@@ -303,7 +303,7 @@ Technisch gezien hoort de \texttt{else} in regel 16 bij de \texttt{if} in regel 
 \section{Herhalingen}
 Stel dat we de kwadraten van 1 t/m 10 willen afdrukken. We kunnen ervoor kiezen om tien \texttt{print}-functies aan te roepen. Maar we merken direct op dat we in feite tien keer hetzelfde moeten doen. We kunnen het afdrukken van de tien kwadraten vormgeven met een \textsl{herhaling}. Een andere, veel gebruikte term is \textsl{lus}\index{lus}. Dit is te zien in listing~\ref{cod:printkwadraten}.
 
-\booklisting[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
+\booklistingfromproject[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
 
 We beginnen het programma met de definitie van een aantal variabelen. Vervolgens stellen we de ondergrens, bovengrens en stapgrootte in in de regels 8 t/m 10. We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
 
@@ -340,7 +340,7 @@ en kunnen we gebruik maken van de variabelen
 
 Tussen de blokhaken \texttt{[]}\indexop{[]} staat het \textsl{elementnummer} en de variabelen worden de \textsl{elementen} van de array genoemd. In listing~\ref{cod:arraygemiddelde} is een programma te zien met een array.
 
-\booklisting[]{C}{Gemiddelde van vijf getallen}{arraygemiddelde}{c}{!ht}
+\booklistingfromproject[]{C}{Gemiddelde van vijf getallen}{arraygemiddelde}{c}{!ht}
 
 De array mag bij definitie gelijk geïnitialiseerd worden zoals te zien is in regel 5\footnote{We hebben als getallen vijf wiskundige constanten genomen. De lezer wordt uitgedaagd uit te zoeken welke constanten dat zijn.}. We berekenen van deze vijf elementen de gemiddelde waarde. We doen dat door eerst de som van de vijf element te berekenen en vervolgens te delen door 5. Met behulp van een \texttt{for}-statement wordt ``langs de array gelopen''; bij elke iteratie selecteren we een element en tellen dat op bij de som van de tot dan toe gesommeerde elementen. De regel
 
@@ -386,7 +386,7 @@ De functie is te zien in listing~\ref{cod:sqrt_babylonian}. We maken hier gebrui
 Binnen de functie maken we gebruik van de twee variabelen \texttt{xiter} en \texttt{i}. \texttt{xiter} wordt gebruikt om de nieuwe waarde van de wortel te berekenen en \texttt{i} wordt gebruik om het aantal iteraties bij te houden.
 We testen in regels 8 t/m 10 of het argument 0 is en geven dan direct de waarde 0 terug.
 
-\booklisting[]{C}{Programma om de wortels van 1 t/m 10 af te drukken}{sqrt_babylonian}{c}{!ht}
+\booklistingfromproject[]{C}{Programma om de wortels van 1 t/m 10 af te drukken}{sqrt_babylonian}{c}{!ht}
 
 In het \texttt{for}-statement worden tien iteraties van de middelste formule uit~\eqref{equ:sqrtbab} uitgevoerd. Bij elke iteratie wordt de waarde van de wortel steeds beter benaderd. Als het \texttt{for}-statement klaar is, wordt deze waarde via \texttt{return} teruggegeven aan de aanroeper. In \texttt{main} worden met behulp van een \texttt{for}-statement de wortels van 0 t/m 10 berekend en afgedrukt.
 
@@ -401,7 +401,7 @@ Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal.
 
 Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
 
-\booklisting[]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
+\booklistingfromproject[]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
 
 Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{programmeerstijl}\index{programmeerstijl}. Er zijn behoorlijk wat stijlen. We geven hieronder de meest gebruikte aan.
 

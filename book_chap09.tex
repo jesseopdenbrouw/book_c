@@ -239,7 +239,7 @@ Schrijven naar een bestand kan met de functie \texttt{fprintf}\indexfunc{fprintf
 
 Deze functie lijkt erg veel op  \texttt{printf} en heeft, naast de \texttt{FILE}-pointer, exact dezelfde opzet. Bij het schrijven moeten we dus een \texttt{FILE}-pointer meegeven en een format string, precies zoals ook gebruikt wordt in \texttt{printf}, en natuurlijk de argumenten. In listing~\ref{cod:file_open_write} is een compleet programma te zien voor het openen, schrijven en sluiten van een bestand.
 
-\booklisting[]{C}{Een bestand openen voor schrijven}{file_open_write}{c}{!ht}
+\booklistingfromproject[]{C}{Een bestand openen voor schrijven}{file_open_write}{c}{!ht}
 
 In regel 8 wordt de pointer \texttt{fp} naar een \texttt{FILE}-structure gedefinieerd. Deze pointer wordt gebruikt in opvolgende bestandshandelingen. In regel 11 openen we het bestand voor schrijven. De return-waarde is een adres naar een \texttt{FILE}-structure en die kennen we toe aan de pointer \texttt{fp}. In regel 13 testen we of de pointer gelijk is aan \texttt{NULL}. Dat betekent namelijk dat het bestand niet kon worden geopend. We eindigen dan met een melding naar de gebruiker en sluiten het programma af met een \texttt{return}-statement. We geven als return-waarde \texttt{-1} mee, zodat het besturingssysteem hier iets mee kan doen (over het algemeen negeert het besturingssysteem die waarde). In regel 18 schrijven we een stukje tekst en de waarde van een variabele naar het bestand. In principe geeft \texttt{fprintf} het aantal karakters dat geschreven is terug. We kunnen dan testen of het schrijven ook daadwerkelijk gelukt is. In dit geval negeren we de return-waarde. In regel 20 wordt het bestand vervolgens gesloten. Na deze regel is het niet meer mogelijk om het bestand via pointer \texttt{fp} te benaderen.
 
@@ -249,7 +249,7 @@ Let erop dat op Windows-systemen de namen van de mappen en het bestand gescheide
 \index{lezen uit een bestand}\index{bestand!lezen}
 Nu we een bestand hebben geschreven, kunnen we het ook openen voor lezen. Dit is te zien in listing~\ref{cod:file_open_read}. Aan de functie \texttt{fopen} geven we weer de bestandsnaam mee en het argument \texttt{"{}r"} om aan te geven dat we willen lezen. In de regels 11 t/m 14 testen we of het openen is gelukt.
 
-\booklisting[]{C}{Een bestand openen voor lezen}{file_open_read}{c}{!ht}
+\booklistingfromproject[]{C}{Een bestand openen voor lezen}{file_open_read}{c}{!ht}
 
 Het inlezen en afdrukken van afzonderlijke karakters gebeurt in regels 16 t/m 18. Met behulp van de functie \texttt{fscanf}\indexfunc{fscanf} lezen we steeds één karakter in de variabele \texttt{ch} in, en drukken dat vervolgens af op het scherm. Aan het einde sluiten we het bestand weer.
 
@@ -300,7 +300,7 @@ Naast de bekende \texttt{printf}- en \texttt{scanf}-functies kent de standard li
 
 In listing~\ref{cod:sscanf_sprintf} is een programma te zien dat een datum inleest. De datum moet bestaan uit een dag, een maand en een jaar, allemaal als decimaal getal ingegeven. De onderdelen van een datum mogen gescheiden zijn door spaties, slashes (\texttt{/}) of mintekens (\texttt{-}). In regel 13 lezen we een regel tekst met behulp van \texttt{fgets}. We gebruiken als invoerbestand \texttt{stdin}, een \texttt{FILE}-pointer die gekoppeld is aan het toetsenbord. We geven tevens de grootte van de string mee, zodat er niet teveel karakters worden ingelezen. Daarna wordt met behulp van \texttt{sscanf}-functies getest of aan een van de drie formaten wordt voldaan. Als aan een van de formaten wordt voldaan, dan worden de gegevens een in string geplaatst met behulp van \texttt{sprintf}. Daarna wordt de string met behulp van \texttt{puts} afgedrukt.
 
-\booklisting[]{C}{Inlezen van een geldige datum met behulp van \texttt{sscanf}}{sscanf_sprintf}{c}{!ht}
+\booklistingfromproject[]{C}{Inlezen van een geldige datum met behulp van \texttt{sscanf}}{sscanf_sprintf}{c}{!ht}
 
 Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf} te gebruiken in plaats van \texttt{sprintf}. \ifuseadvanced We zullen in paragraaf~\ref{sec:invoeruitvoermcu} laten zien waarom \texttt{sprintf} nodig is.\fi
 
@@ -308,7 +308,7 @@ Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf}
 \section{Gebruik van command line argumenten en bestanden}
 We kunnen command line argumenten (zie paragraaf~\ref{sec:argumentenmeegevenaaneencprogramma}) gebruiken om aan het programma bestandsnamen op te geven. Daarmee kunnen we, als voorbeeld, een programma ontwerpen dat een bestand kopieert naar een ander bestand. Het complete programma is te zien in listing~\ref{cod:filecopy}.
 %
-\booklisting[lineskip=-1.5pt]{C}{Programma voor het kopiëren van een bestand}{filecopy}{c}{!p}
+\booklistingfromproject[lineskip=-1.5pt]{C}{Programma voor het kopiëren van een bestand}{filecopy}{c}{!p}
 %
 Een groot gedeelte van het programma wordt gebruikt om te testen of de gebruiker wel correcte argumenten heeft meegegeven. Zo moeten er minstens twee (extra) argumenten worden meegegeven: het invoerbestandsnaam en het uitvoerbestandsnaam. De test hiervoor is te zien in regels 16 t/m 19. Als er geen argumenten zijn meegegeven dan sluiten we af met een korte beschrijving van het gebruik van het programma en geven we als return-waarde $-1$ terug.
 

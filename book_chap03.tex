@@ -198,7 +198,7 @@ We kunnen in het \texttt{for}-statement \textsl{expressie$_1$}, \textsl{expressi
 Stel dat we de tafels van 1 t/m 10 willen afdrukken. We maken dan gebruikt van twee, in elkaar verweven, \texttt{for}-statements. Dit is te zien in listing~\ref{cod:tables_with_for_loops}. We concentreren ons op de opzet van beide \texttt{for}-statements. Er zijn diverse \texttt{printf}-statements te zien die de gegevens op een nette manier afdrukken.
 Zo betekent de \texttt{4} in \texttt{printf("\%4d", i*j)} de veldbreedte van 4 cijfers van het af te drukken getal, zodat de kolommen netjes onder elkaar komen te staan.
 
-\booklisting[]{C}{Programma voor het afdrukken van de tafels}{tables_with_for_loops}{c}{!ht}
+\booklistingfromproject[]{C}{Programma voor het afdrukken van de tafels}{tables_with_for_loops}{c}{!ht}
 
 De buitenste \texttt{for}-statement begint op regel 8, eindigt op regel 16 en definieert variabele \texttt{i}. De variabele loopt van 1 tot 11, dus 11 zelf doet \textsl{niet} mee. Binnen deze lus gebruiken we een tweede \texttt{for}-statement die begint op regel 11 en eindigt op regel 14. Dit keer gebruiken we variabele \texttt{j} die in regel 11 wordt gedefinieerd. Ook deze variabele loopt van 1 tot 11 (dus 11 doet niet mee). In regel 13 drukken we het product af van \texttt{i} en \texttt{j}. De uitvoer van dit programma is te zien in figuur~\ref{fig:tables_with_for_loops}. Merk op dat op diverse punten in het programma gebruik wordt gemaakt om de gegevens netjes uitgelijnd af te drukken.
 
@@ -241,11 +241,11 @@ Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een 
 
 Bij het \texttt{for}-statement werkt het iets anders. Daarvoor moeten we listing~\ref{cod:besfor1} nog eens bekijken. Aan het einde van het \texttt{for}-statement wordt \textsl{expressie$_3$} (omgezet in een statement) uitgevoerd, waarin normaal gesproken een variabele wordt aangepast (verhogen of verlagen). Een \texttt{continue} zorgt ervoor dat naar dit statement wordt gesprongen.
 
-\booklisting[]{C}{Gebruik van het \texttt{break}-statement om een lus te verlaten}{while_break_continue}{c}{!ht}
+\booklistingfromproject[]{C}{Gebruik van het \texttt{break}-statement om een lus te verlaten}{while_break_continue}{c}{!ht}
 
 Overigens kunnen we de code in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
 
-\booklisting[]{C}{Sommeren van positieve getallen}{while_without_break_continue}{c}{!ht}
+\booklistingfromproject[]{C}{Sommeren van positieve getallen}{while_without_break_continue}{c}{!ht}
 
 We gebruiken \texttt{break} en \texttt{continue} als de code binnen de lus complex is met vele in elkaar verweven lussen en testen.
 

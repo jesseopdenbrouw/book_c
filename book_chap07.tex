@@ -1195,7 +1195,7 @@ Een van de meest voorkomende problemen is dat gealloceerd geheugen niet wordt vr
 
 Een eenvoudig gebruik van \texttt{malloc} en \texttt{free} is te zien in listing~\ref{cod:mem_alloc}. Regel 5 zorgt ervoor dat Visual Studio de functie \texttt{strcpy}\indexfunc{strcpy} accepteert. In regel 8 definiëren we de constante \texttt{SIZE} met de waarde van 1000. De constante is van het type \texttt{size\_t}. In regel 12 definiëren we een karakterpointer en initialiseren we die met \texttt{NULL}. Regel 14 roept de functie \texttt{malloc} aan om 1000 bytes te alloceren. De functie geeft een \texttt{void}-pointer terug, dus we moeten een type cast naar \texttt{char *} doen. We testen in de regels 16 t/m 19 of de allocatie gelukt is en zo niet, dan drukken we een foutmelding af en stoppen we het programma.
 
-\booklisting[]{C}{Gebruik van \texttt{malloc} en \texttt{free}}{mem_alloc}{c}{!b}
+\booklistingfromproject[]{C}{Gebruik van \texttt{malloc} en \texttt{free}}{mem_alloc}{c}{!b}
 
 In regel 21 t/m 23 kopiëren we een string naar het geheugen en drukken het af. In regel~25 geven we het geheugen weer vrij. De lezer wordt gevraagd om het programma te testen met verschillende waarden voor \texttt{SIZE}.
 
