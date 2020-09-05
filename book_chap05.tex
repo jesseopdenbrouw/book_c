@@ -16,7 +16,7 @@ Binnen een functie kunnen we lokale variabelen definiëren. Deze variabelen zijn
 \section{Een eenvoudige functie}
 Als sterk versimpeld voorbeeld beschouwen we het programma dat gegeven is in listing~\ref{cod:slaregelsover1}.
 
-\booklisting[]{C}{Een programma waar op twee plaatsen drie regels overgeslagen worden}{slaregelsover1}{c}{!ht}
+\booklistingfromproject[linerange={1-2,16-26,51-52},label=cod:slaregelsover1]{C}{Een programma waar op twee plaatsen drie regels overgeslagen worden}{slaregelsover}{c}{!ht}
 
 Op twee plaatsen in dit programma worden, in de uitvoer van het programma, drie regels overgeslagen.
 In plaats van deze code te dupliceren kunnen we deze code ook opnemen in een functie.
@@ -24,7 +24,7 @@ Het is belangrijk om de functie een duidelijke naam te geven die aangeeft wat de
 In dit geval is gekozen voor de naam \texttt{sla\_3\_regels\_over}.
 Het programma waarbij gebruikt gemaakt wordt van een functie is gegeven in listing~\ref{cod:slaregelsover2}.
 
-\booklisting[]{C}{Gebruik van de functie \texttt{sla\_3\_regels\_over}}{slaregelsover2}{c}{!ht}
+\booklistingfromproject[linerange={1-2,4-9,16-17,28-32,51-52},label=cod:slaregelsover2]{C}{Gebruik van de functie \texttt{sla\_3\_regels\_over}}{slaregelsover}{c}{!ht}
 
 Bovenin het programma wordt de functie \texttt{sla\_3\_regels\_over} gedefinieerd.
 Het keyword \texttt{void}\indexkeyword{void} betekent leeg.
@@ -50,13 +50,13 @@ Dit kan bijvoorbeeld na \texttt{main} maar kan ook in een apart bestand.
 In listing~\ref{cod:slaregelsover3} zien we hoe een functiedeclaratie kan worden gebruikt
 \footnote{Als we de functiedeclaratie vergeten, zal het programma wel compileren, al zal de compiler wel een waarschuwing geven. De compiler is in dit geval namelijk niet in staat om te controleren of de functie correct wordt aangeroepen.  Het is dus noodzakelijk om, als een functie niet boven \texttt{main} gedefinieerd is, een functiedeclaratie te gebruiken. Overigens geeft Visual Studio standaard een foutmelding.}.
 
-\booklisting[]{C}{Een programma waarin een functiedeclaratie gebruikt is}{slaregelsover3}{c}{!ht} 
+\booklistingfromproject[linerange={1-3,16-17,28-32,51-53,55-60},label=cod:slaregelsover3]{C}{Een programma waarin een functiedeclaratie gebruikt is}{slaregelsover}{c}{!ht}
 
 
 \section{Functies met parameters} 
 Als een nog steeds sterk versimpeld voorbeeld beschouwen we nu het programma dat gegeven is in listing~\ref{cod:slaregelsover4}
 
-\booklisting[]{C}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt}{slaregelsover4}{c}{!ht}
+\booklistingfromproject[linerange={1-2,16-17,34-43,51-52},label=cod:slaregelsover4]{C}{Een programma waar op twee plaatsen een aantal regels overgeslagen wordt}{slaregelsover}{c}{!ht}
 
 Op twee plaatsen in dit programma worden, in de uitvoer van het programma, regels overgeslagen.
 De eerste keer worden drie regels overgeslagen en de tweede keer worden vier regels overgeslagen.
@@ -82,7 +82,7 @@ Ook deze waarde wordt bij aanroep gekopieerd naar de parameter \texttt{aantal}.
 De code van de functie wordt vervolgens weer uitgevoerd.
 Doordat de parameter \texttt{aantal} nu is geïnitialiseerd met de waarde \texttt{4} wordt de code in het \texttt{for}-statement vier maal herhaald en daardoor worden in de uitvoer vier regels overgeslagen.
 
-\booklisting[]{C}{Een programma waar op twee plaatsen een aantal regels wordt overgeslagen}{slaregelsover5}{c}{!t}
+\booklistingfromproject[linerange={1-2,10-17,45-49,51-52},label=cod:slaregelsover5]{C}{Een programma waar op twee plaatsen een aantal regels wordt overgeslagen}{slaregelsover}{c}{!ht}
 
 Een functie kan meerdere parameters hebben. 
 De verschillende parameters worden van elkaar gescheiden door een komma.
@@ -187,7 +187,7 @@ In listing~\ref{cod:gemiddelde2} is een compactere versie van dit voorbeeld weer
 \booklisting[]{C}{Een compactere versie van het programma uit listing~\ref{cod:gemiddelde1}}{gemiddelde2}{c}{!ht}
 
 Een functie kan meerdere \texttt{return}-statements bevatten. 
-Zodra een \texttt{return}-statement wordt uitgevoerd wordt de functie beëindigd.
+Zodra een \texttt{return}-statement wordt uitgevoerd, wordt de functie beëindigd.
 Als eenvoudig voorbeeld is in listing~\ref{cod:max1} een functie gegeven die de maximale waarde van twee, als argumenten meegegeven, gehele getallen teruggeeft.
 Merk op dat we deze functie ook kunnen gebruiken om de maximale waarde van drie getallen te bepalen door de returnwaarde van de ene aanroep te gebruiken als argument van de volgende aanroep. 
 
@@ -256,7 +256,7 @@ Omdat er een kopie van een variabele aan de parameters wordt meegegeven, kan de 
 \booklistingfromproject[]{C}{Een functie om twee argumenten te verwisselen (foutief)}{foute_wissel}{c}{!ht}
 
 In figuur~\ref{fig:funwisselfout} is de uitvoer van het programma te zien. We merken op dat \texttt{x} en \texttt{y} niet verwisseld zijn. Dat kan ook niet, want er worden kopieën van \texttt{x} en \texttt{y} meegegeven. In functie \texttt{wissel} worden alleen de kopieën verwisseld, niet de originele variabelen.
-Toch is het mogelijk om \texttt{x} en \texttt{y} te verwisselen. Hoe dat moet, zien we in hoofdstuk~\ref{cha:pointers}.
+Toch is het mogelijk om de inhouden van \texttt{x} en \texttt{y} te verwisselen. Hoe dat moet, zien we in hoofdstuk~\ref{cha:pointers}.
 
 \begin{dosbox}[title=Uitvoer van de functie \texttt{wissel}.,label=fig:funwisselfout]
 x = 7 en y = 8
@@ -265,7 +265,7 @@ x = 7 en y = 8
 
 C is een blokgestructureerde taal dat betekent dat we in een \textsl{blok}\index{blokstructuur} lokale variabelen kunnen definiëren. Dit is te zien in listing~\ref{cod:funvarbinnenblok}. Variabele \texttt{i} is alleen te gebruiken binnen het \texttt{if}-statement\footnote{De lokale variabele \texttt{i} is alleen binnen het blok te gebruiken. Als buiten het blok nóg een variabele \texttt{i} is gedefinieerd dan is die variabele buiten het blok te gebruiken.}.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Variabele binnen een blok.,label=cod:funvarbinnenblok]
     if (n > 0) {
         int i;
