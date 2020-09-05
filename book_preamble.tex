@@ -524,6 +524,13 @@
 \end{figure}%
 }
 
+\newcommand{\booklistingfromproject}[6][]{%
+\begin{figure}[#6]%
+\lstinputlisting[language=#2,caption={#3.},label=cod:#4,#1]{code/#4/#4.#5}%
+%\vspace*{-\baselineskip}
+\end{figure}%
+}
+
 \newcommand{\lstmodelsim}[1]{\lstinline[language=modelsim]|#1|}   %[
 \newcommand{\lstvhdl}[1]{\lstinline[language=vhdl]|#1|}   %[
 \newcommand{\lstc}[1]{\lstinline[language=C]|#1|}   %[
