@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\file_open_read\Debug\file_open_read.exe
+C:\Users\jesse\source\repos\file_open_read\Debug\file_open_read.pdb

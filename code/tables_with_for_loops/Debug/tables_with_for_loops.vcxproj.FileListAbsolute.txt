@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\tables_with_for_loops\Debug\tables_with_for_loops.exe
+C:\Users\jesse\source\repos\tables_with_for_loops\Debug\tables_with_for_loops.pdb

@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\struct_artikel\Debug\struct_artikel.exe
+C:\Users\jesse\source\repos\struct_artikel\Debug\struct_artikel.pdb

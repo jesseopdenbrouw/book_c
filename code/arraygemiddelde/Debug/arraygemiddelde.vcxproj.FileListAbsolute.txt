@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\arraygemiddelde\Debug\arraygemiddelde.exe
+C:\Users\jesse\source\repos\arraygemiddelde\Debug\arraygemiddelde.pdb

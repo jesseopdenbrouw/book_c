@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\struct_wortels\Debug\struct_wortels.exe
+C:\Users\jesse\source\repos\struct_wortels\Debug\struct_wortels.pdb

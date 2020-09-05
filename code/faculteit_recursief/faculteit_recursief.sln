@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faculteit_recursief", "faculteit_recursief.vcxproj", "{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Debug|x64.ActiveCfg = Debug|x64
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Debug|x64.Build.0 = Debug|x64
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Debug|x86.ActiveCfg = Debug|Win32
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Debug|x86.Build.0 = Debug|Win32
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Release|x64.ActiveCfg = Release|x64
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Release|x64.Build.0 = Release|x64
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Release|x86.ActiveCfg = Release|Win32
+		{7BA57E15-2C89-44A0-82DE-BE9EC9970A3A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02AC57D2-BCC8-40A4-BDC0-F061B85BEAFA}
+	EndGlobalSection
+EndGlobal

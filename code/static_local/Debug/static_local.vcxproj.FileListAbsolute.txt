@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\static_local\Debug\static_local.exe
+C:\Users\jesse\source\repos\static_local\Debug\static_local.pdb

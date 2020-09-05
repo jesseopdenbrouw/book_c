@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\sqrt_babylonian\Debug\sqrt_babylonian.exe
+C:\Users\jesse\source\repos\sqrt_babylonian\Debug\sqrt_babylonian.pdb

@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\struct_bestelling\Debug\struct_bestelling.exe
+C:\Users\jesse\source\repos\struct_bestelling\Debug\struct_bestelling.pdb

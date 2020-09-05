@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\filecopy\Debug\filecopy.exe
+C:\Users\jesse\source\repos\filecopy\Debug\filecopy.pdb

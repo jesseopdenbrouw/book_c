@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\sscanf_sprintf\Debug\sscanf_sprintf.exe
+C:\Users\jesse\source\repos\sscanf_sprintf\Debug\sscanf_sprintf.pdb

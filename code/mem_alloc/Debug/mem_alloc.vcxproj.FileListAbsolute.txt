@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\mem_alloc\Debug\mem_alloc.exe
+C:\Users\jesse\source\repos\mem_alloc\Debug\mem_alloc.pdb

@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\riemann_left\Debug\riemann_left.exe
+C:\Users\jesse\source\repos\riemann_left\Debug\riemann_left.pdb

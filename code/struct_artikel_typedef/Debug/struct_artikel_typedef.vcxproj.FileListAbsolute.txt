@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\struct_artikel_typedef\Debug\struct_artikel_typedef.exe
+C:\Users\jesse\source\repos\struct_artikel_typedef\Debug\struct_artikel_typedef.pdb

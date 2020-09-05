@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\sqrt_babylonian_bad_style\Debug\sqrt_babylonian_bad_style.exe
+C:\Users\jesse\source\repos\sqrt_babylonian_bad_style\Debug\sqrt_babylonian_bad_style.pdb

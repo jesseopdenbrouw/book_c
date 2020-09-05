@@ -1,0 +1,2 @@
+C:\Users\jesse\source\repos\faculteit_recursief\Debug\faculteit_recursief.exe
+C:\Users\jesse\source\repos\faculteit_recursief\Debug\faculteit_recursief.pdb
