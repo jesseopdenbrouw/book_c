@@ -317,14 +317,12 @@ In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement 
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van een \texttt{for}-statement.,label=cod:unfor]
-    // ...
 	for (getal = ondergrens; getal <= bovengrens;
                                              getal = getal + stap)
 	{
 		printf("Het kwadraat van %3d is %3d\n",
                                            getal, getal * getal);
 	}
-    //...
 \end{lstlisting}
 \end{figure}
 
@@ -401,7 +399,7 @@ Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal.
 
 Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
 
-\booklistingfromproject[]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
+\booklistingfromproject[linerange={3-6}]{C}{Een functie om een wortel van een getal te bepalen}{sqrt_babylonian_bad_style}{c}{!ht}
 
 Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{programmeerstijl}\index{programmeerstijl}. Er zijn behoorlijk wat stijlen. We geven hieronder de meest gebruikte aan.
 
