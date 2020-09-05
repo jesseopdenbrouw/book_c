@@ -27,7 +27,7 @@ In de figuur zien we dat de \textsl{command line interpreter} is gestart. Op win
 We kunnen de inhoud van de map zien (de bestanden die er onder vallen) door het commando \texttt{dir} uit te voeren. Een mogelijke uitvoer is te zien in figuur~\ref{fig:invdosbox2}.
 
 \begin{dosbox}[title=Uitvoer van het \texttt{dir}-commando.,label=fig:invdosbox2]
-C:\Users\Cbook>dir
+C:\Users\Cbook>(*\textbf{dir}*)
  Volume in drive C is Windows
  Volume Serial Number is 7C7B-7257
 
@@ -49,8 +49,8 @@ C:\Users\Cbook>
 Om de inhoud van het bestand \texttt{bestand.txt} op het scherm af te drukken, gebruiken we het commando \texttt{type} en de bestandsnaam. Dit is te zien in figuur~\ref{fig:invdosbox3}. We hebben nu niet de hele padnaam opgegeven, maar slechts een deel. Dit wordt een \textsl{relatieve padnaam} genoemd. De bestandsnaam wordt gevormd door de huidige map en de bestandsnaam.
 
 \begin{dosbox}[title=Afdrukken van een bestand.,label=fig:invdosbox3]
-C:\Users\Cbook>type bestand.txt
-Dit is wat tekst: 3
+C:\Users\Cbook>(*\textbf{type bestand.txt}*)
+Dit is wat tekst.
 
 C:\Users\Cbook>
 \end{dosbox}
@@ -345,7 +345,7 @@ int main(void) {
 Als we dit programma uitvoeren en als invoer het woord \texttt{Hallo} intypen dan verschijnt de volgende uitvoer (zie figuur~\ref{fig:ioscanf}).
 
 \begin{dosbox}[title=Invoer van een heel getal.,label=fig:ioscanf]
-Geef een geheel getal: Hallo
+Geef een geheel getal: (*\textbf{Hallo}*)
 Het getal is -12345.
 \end{dosbox}
 
@@ -369,7 +369,7 @@ int main(void) {
 Als we nu \texttt{Hallo} invoeren dan wordt de uitvoer zoals te zien in in figuur~\ref{dos:continuous}.
 
 \begin{dosbox}[title=Uivoer van het programma na invoer van een string.,label=dos:continuous]
-Geef een geheel getal groter dan 0: Hallo
+Geef een geheel getal groter dan 0: (*\textbf{Hallo}*)
 Geef een geheel getal groter dan 0: Geef een geheel getal groter dan
 0: Geef een geheel getal groter dan 0: Geef een geheel getal groter 
 dan 0: Geef een geheel getal groter dan 0: Geef een geheel getal gro
@@ -414,7 +414,7 @@ int main(void) {
 De uitvoer wordt dan:
 
 \begin{dosbox}[title=Uitvoer van het programma.]
-Geef een geheel getal groter dan 0: Hallo
+Geef een geheel getal groter dan 0: (*\textbf{Hallo}*)
 Geen getal ingevoerd!
 \end{dosbox}
 
@@ -448,7 +448,7 @@ int main(void) {
 De functie \texttt{getchar}\indexfunc{getchar} leest \'e\'en karakter uit de invoerbuffer. Daarna proberen we \texttt{scanf} opnieuw. Dat mislukt telkens als er een letter gevonden wordt. Als we nu \texttt{Hallo} invoeren, krijgen we de volgende uitvoer zoals te zien is in figuur~\ref{dos:scanf2}.
 
 \begin{dosbox}[title=Uitvoer van het programma.,label=dos:scanf2]
-Geef een geheel getal: Hallo
+Geef een geheel getal: (*\textbf{Hallo}*)
 Dat was geen getal!
 Maar het karakter H.
 Geef een geheel getal: Dat was geen getal!
