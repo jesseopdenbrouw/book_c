@@ -1,22 +1,24 @@
 # Boek Programmeren in C
 
-Dit boek is in ontwikkeling.
-
-Review = hoofdstuk is af, graag van commentaar voorzien
+Dit boek is in ontwikkeling. De basis is gelegd, maar ik ontvang graag opmerkingen en correcties.
+Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 200 pagina's beslaan.
 
 ## Hoofdstukken
 
-1. Een introductie van de taal (review)
-2. Variabelen en expressies (review)
-3. Beslissen en herhalen (review)
-4. Flowcharts (review)
-5. Functies (review)
-6. Array's (review)
-7. Pointers (review)
-8. Structures (review)
-9. Invoer en uitvoer (review)
-10. Preprocessor (review)
-11. Het compilatieproces (review)
+1. Un tour de C
+2. Variabelen en expressies
+3. Beslissen en herhalen
+4. Flowcharts
+5. Functies
+6. Array's
+7. Pointers
+8. Structures
+9. Invoer en uitvoer
+10. Preprocessor
+11. Het compilatieproces
+A. De ASCII-code-tabel
+B. Korte tutorial Visual Studio
+C. Voorrangsregels van operatoren
 
 ## Compileren
 
