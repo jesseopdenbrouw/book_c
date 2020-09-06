@@ -1,6 +1,7 @@
 # Boek Programmeren in C
 
 Dit boek is in ontwikkeling. De basis is gelegd, maar ik ontvang graag opmerkingen en correcties.
+
 Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 200 pagina's beslaan.
 
 ## Hoofdstukken
