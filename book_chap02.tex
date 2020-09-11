@@ -655,7 +655,7 @@ In deze enumeratie krijgt \texttt{TUNKNOWN} de waarde~0 (impliciet), \texttt{TIN
 C kent veel operatoren. In deze paragraaf beschrijven we ze even kort. In de volgende hoofdstukken worden ze verder uitgelegd.
 
 \subsection{Grootte van een variabele}
-De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan alleen \textsl{tijdens het compileren} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
+De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan in principe alleen tijdens \textsl{compile-time} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend\footnote{Er is één uitzondering. Vanaf C99 kan \texttt{sizeof} ook gebruikt worden bij array's van variabele lengte, waarbij de lengte bij definitie nog niet bekend is, bijvoorbeeld bij \texttt{int a[b]} en \texttt{b} is niet bekend.}. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
