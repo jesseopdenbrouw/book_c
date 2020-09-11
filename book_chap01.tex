@@ -70,9 +70,9 @@ De meeste boeken gaan uit van een \textsl{command line interface} op een Unix-de
 Natuurlijk is het ook mogelijk om alles met behulp van de command line te doen. Deze werkwijze wordt veel gebruikt op Linux-systemen maar kan ook op Windows worden gebruikt. Een voorbeeld is te zien in figuur~\ref{fig:commandlineint}.
 
 \begin{dosbox}[title=Een voorbeeld van een command line interface.,label=fig:commandlineint]
-C:\Users\C> notepad mooi.c (*\hfill\textrm{(start Notepad)} *)
-C:\Users\C> gcc -o mooi.exe mooi.c (*\hfill\textrm{(start C-compiler)}*)
-C:\Users\C> .\mooi.exe (*\hfill\textrm{(start uitvoerbaar programma)}*)
+C:\Users\C> (*\textbf{notepad mooi.c}*) (*\hfill\textrm{(start Notepad)} *)
+C:\Users\C> (*\textbf{gcc -o mooi.exe mooi.c}*) (*\hfill\textrm{(start C-compiler)}*)
+C:\Users\C> (*\textbf{.\textbackslash mooi.exe}*) (*\hfill\textrm{(start uitvoerbaar programma)}*)
 C is een mooie taal (*\hfill\textrm{(de uitvoer op het scherm)}*)
 C:\Users\C>
 \end{dosbox}
@@ -161,36 +161,9 @@ Dat de return-waarde een geheel getal moet zijn, kunnen we zien aan de definitie
 Hoe weet de C-compiler nu hoe de functie \texttt{printf} moet worden aangeroepen? Dat wordt geregeld met een \textsl{function prototype}. We hoeven dat zelf niet op te geven want dat is al gedaan en is te vinden in het header-bestand \texttt{stdio.h}\indextwo{stdio.h}{header-bestand}. De eerste regel geeft dus aan dat dit bestand geladen moet worden. De tekens \texttt{<} en \texttt{>} geven aan dat gezocht moet worden op een bepaalde plek in het bestandssysteem. We hoeven dat verder niet te weten.
 
 \section{Invoer van het toetsenbord}
-We kunnen het vorige programma interessanter maken door aan de gebruiker te vragen om twee gehele getallen in te voeren. Naast het afdrukken van tekst met de functie \texttt{printf} maken we nu ook gebruik van de functie \texttt{scanf}\indextwo{scanf}{functie} om gehele getallen in te lezen. Het programma is te zien in listing~\ref{cod:unscanfprogramma}.
+We kunnen het vorige programma interessanter maken door aan de gebruiker te vragen om twee gehele getallen in te voeren. Naast het afdrukken van tekst met de functie \texttt{printf} maken we nu ook gebruik van de functie \texttt{scanf}\indextwo{scanf}{functie} om gehele getallen in te lezen. Het programma is te zien in listing~\ref{cod:sumoftwo}.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Invoer van de gebruiker opvragen.,label=cod:unscanfprogramma]
-#include <stdio.h>
-
-/* Make Visual Studio happy */
-#pragma warning(disable : 4996)
-
-int main(void) 
-{
-    int a;
-    int b;
-
-    int som;
-
-    printf("Geef een getal: ");
-    scanf("%d", &a);
-
-    printf("Geef nog een getal: ");
-    scanf("%d", &b);
-
-    som = a + b;
-
-    printf("De som van %d en %d is %d\n", a, b, som);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
+\booklistingfromproject[]{C}{Programma om de som van twee getallen te bepalen}{sumoftwo}{c}{!ht}
 
 In regel 1 laden we weer het header-bestand \texttt{stdio.h}. Dit header-bestand is nodig om de functie-prototypes van \texttt{printf} en \texttt{scanf} te laden. In regel 4 maken we gebruik van een \textsl{pragma}\index{pragma}. Dit is een aanwijzing voor de C-compiler om iets te doen of te laten. Waarom deze pragma nodig is, kunnen we lezen in het kader.% op pagina~\pageref{fig:unopmerkingscanf}.
 
@@ -201,7 +174,7 @@ De format specification \texttt{\%d} hadden we al eerder gezien, maar de constru
 Als we het programma starten dan moeten we twee gehele getallen invoeren. Een mogelijke uitvoer van het programma is te zien in figuur~\ref{fig:unuitvoerprog}. De invoer van de gebruiker is vet afgedrukt.
 Overigens zullen ontwikkelsystemen zoals Visual Studio aan het einde van het programma wachten tot de gebruiker op een toets drukt, anders is door de snelheid van het uitvoeren van het programma niet te zien wat is afgedrukt.
 
-\begin{dosbox}[title=Uitvoer van het programma in listing~\ref{cod:unscanfprogramma}.,label=fig:unuitvoerprog]
+\begin{dosbox}[title=Uitvoer van het programma in listing~\ref{cod:sumoftwo}.,label=fig:unuitvoerprog]
 Geef een getal: (*\textbf{7}*)
 Geef nog een getal: (*\textbf{4}*)
 De som van 7 en 4 is 11
