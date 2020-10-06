@@ -542,11 +542,25 @@ int main(void) {
 \advanced
 \section{Invoer en uitvoer met een microcontroller}
 \label{sec:invoeruitvoermcu}
-Een microcontroller heeft over het algemeen geen besturingssysteem en geen toetsenbord en beeldscherm. Zo'n beetje alle bestandsfuncties hebben dan ook geen zinnige betekenis. Twee functies kunnen wel gebruikt worden: \texttt{sscanf} en \texttt{sprintf}. We kunnen \texttt{sscanf} gebruiken om gegevens uit een string te halen. Het inlezen van een string moet dan specifiek voor de microcontroller gerealiseerd worden. Met \texttt{sprintf} kunnen we karakters in een string schrijven. De uitvoer moet met een specifiek voor de microcontroller geschreven uitvoerfunctie gerealiseerd worden.
+Een microcontroller heeft over het algemeen geen besturingssysteem en geen toetsenbord en beeldscherm. Zo'n beetje alle bestandsfuncties hebben dan ook geen zinnige betekenis. Twee functies kunnen wel gebruikt worden: \texttt{sscanf}\indexfunc{sscanf} en \texttt{sprintf}\indexfunc{sprintf}. We kunnen \texttt{sscanf} gebruiken om gegevens uit een string te halen. Het inlezen van een string moet dan specifiek voor de microcontroller gerealiseerd worden. Met \texttt{sprintf} kunnen we karakters in een string schrijven. De uitvoer moet met een specifiek voor de microcontroller geschreven uitvoerfunctie gerealiseerd worden.
 
 Kijken we naar het programma in listing~\ref{cod:sscanf_sprintf}, dan moet op twee plaatsen een specifieke functie voor de microcontroller worden geprogrammeerd. In regel 13 moet \texttt{fgets} vervangen worden door een functie die beschikbaar is op de microcontroller en in regel 33 moet \texttt{puts} vervangen worden. Overigens wordt het niet aangeraden om überhaupt de \texttt{scanf}- en \texttt{printf}-functies te gebruiken. De functies zijn groot, complex en log. Gebruik op een microcontroller zal zorgen voor een grote  hoeveelheid code en lange executietijden. Hoe het dan wel moet is afhankelijk van de microcontroller.
 
-Naast \texttt{sprintf} bestaat er ook nog een functie \texttt{snprintf} (nee, er bestaat geen functie \texttt{snscanf}). Deze functie werkt hetzelfde als \texttt{sprintf} maar er wordt een extra argument meegegeven met de lengte van de string. Op die manier kan er geen \textsl{buffer overflow} ontstaan.
+Naast \texttt{sprintf} bestaat er ook nog een functie \texttt{snprintf}\indexfunc{snprintf} (nee, er bestaat geen functie \texttt{snscanf}). Deze functie werkt hetzelfde als \texttt{sprintf} maar er wordt een extra argument meegegeven met de lengte van de string. Op die manier kan er geen \textsl{buffer overflow} ontstaan. Zie listing~\ref{cod:invsnprintf}.
+
+\begin{lstlisting}[caption=Gebruik van \texttt{snprintf} bij het afdrukken naar een string.,label=cod:invsnprintf]
+// ...
+
+char buffer[20];
+int i;
+
+// do something with i ...
+
+snprintf(buffer, sizeof buffer, "i = %d", i);
+
+// ...
+\end{lstlisting}
+
 \basic
 
 
