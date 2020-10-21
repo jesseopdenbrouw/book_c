@@ -1,8 +1,9 @@
 %% Use Tikz and friends
 \usepackage{tikz}
-\usetikzlibrary{shapes.misc,fit}
+\usetikzlibrary{shapes.misc,fit,chains}
 \usetikzlibrary{arrows,backgrounds}
-\usetikzlibrary{shapes.geometric, positioning, fit, automata}
+\usetikzlibrary{shapes.geometric, positioning, automata}
+\usetikzlibrary{shapes.multipart, arrows.meta }
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
@@ -78,3 +79,6 @@
 \tikzset{ghostnode/.style={minimum size=0pt, inner sep=0pt, outer sep=0pt}}
 \tikzset{ghostarrow/.style={arrow, dashed}}
 
+\tikzset{list/.style={rectangle split, rectangle split parts=3, draw, rectangle split horizontal, minimum height=\unitsize cm}}
+\tikzset{headtail/.style={rectangle, draw, minimum height=\unitsize cm}}
+\tikzset{dotarrow/.style={Circle-latex}}
