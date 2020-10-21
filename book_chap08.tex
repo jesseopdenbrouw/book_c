@@ -234,4 +234,356 @@ Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het pr
 
 Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
 
+
+\section{Gekoppelde lijsten}
+We kunnen structures en pointers gebruiken voor het ontwikkelen van \textsl{gekoppelde lijsten}\index{gekoppelde lijsten}. We zullen in het vervolg echter gebruik maken van de Engelse term \textsl{linked lists}\index{linked lists}. De basis van een linked list wordt gevormd door een structure met daarin een pointer member die kan wijzen naar een andere structure van hetzelfde type. Zo'n structure wordt doorgaans een \textsl{node}\index{node} genoemd. Laten we eens een lijst maken met leeftijden en namen. We definiëren een node met daarin de member \lstc{age} voor de leeftijd en een member \lstc{name} voor de naam. Daarnaast definiëren we een \textsl{pointer} naar zo'n zelfde node met de naam \lstc{next}. De definitie van de node is hieronder te zien.
+
+\begin{lstlisting}[style=lstoneline]
+struct node {
+	int age;
+	char name[20];
+	struct list *next;
+};
+\end{lstlisting}
+
+Naast de twee eerder opgegeven members is nu ook een member \lstc{next} te zien die een pointer is naar zo'n zelfde node. In het boek van K\&R wordt dit ook wel een \textsl{self-referential structure}\index{self-referential structure} genoemd. Het is met deze node mogelijk om te wijzen naar een \textsl{andere} node van hetzelfde type (maar in principe ook naar zichzelf).
+
+We kunnen nu een node van dit type initialiseren:
+
+\begin{lstlisting}[style=lstoneline]
+struct node a = { 43, "Inge", NULL };
+\end{lstlisting}
+
+De member \lstc{next} wordt geïnitialiseerd met NULL, dat betekent dat \lstc{next} naar niets wijst. Een uitbeelding van de node is te zien in figuur~\ref{fig:strstr1}. Het kruis geeft aan dat de member \lstc{next} naar niets wijst.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+\node[list,on chain] (A) {43 \nodepart{two} \strut Inge}; 
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.north east) -- (A.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.south east) -- (A.two split north);
+\end{tikzpicture}
+\caption{Uitbeelding van de node.}
+\label{fig:strstr1}
+\end{figure}
+
+We kunnen meerdere variabelen (nodes) aanmaken, zie hieronder:
+
+\begin{lstlisting}[style=lstoneline]
+struct node a = { 43, "Inge", NULL };
+struct node b = { 18, "Jesscia", NULL };
+struct node c = { 37, "Karin", NULL };
+struct node d = { 14, "Janet", NULL };
+\end{lstlisting}
+
+We kunnen dit voorstellen met de afbeelding in figuur~\ref{fig:strstr2}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+\node[list,on chain] (A) {43 \nodepart{two} Inge}; 
+\node[list,on chain] (B) {18 \nodepart{two} Jessica};
+\node[list,on chain] (C) {37 \nodepart{two} Karin};
+\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.north east) -- (A.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.south east) -- (A.two split north);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.north east) -- (B.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.south east) -- (B.two split north);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.north east) -- (C.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.south east) -- (C.two split north);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.south east) -- (D.two split north);
+\end{tikzpicture}
+\caption{Uitbeelding van de vier nodes.}
+\label{fig:strstr2}
+\end{figure}
+
+Door middel van het statement
+
+\begin{lstlisting}[style=lstoneline]
+a.next = &b;
+\end{lstlisting}
+
+kunnen we de member \lstc{next} (de pointer) laten wijzen naar node \lstc{b}. De uitbeelding van dit statement is te zien in figuur~\ref{fig:strstr3}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+\node[list,on chain] (A) {43 \nodepart{two} Inge}; 
+\node[list,on chain] (B) {18 \nodepart{two} Jessica};
+\node[list,on chain] (C) {37 \nodepart{two} Karin};
+\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.north east) -- (B.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.south east) -- (B.two split north);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.north east) -- (C.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.south east) -- (C.two split north);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.south east) -- (D.two split north);
+\draw[dotarrow] (A.three |- A.center) -- (B);
+\end{tikzpicture}
+\caption{Uitbeelding van de vier nodes, \lstc{a} wijst naar \lstc{b}.}
+\label{fig:strstr3}
+\end{figure}
+
+Natuurlijk kunnen we op dezelfde wijze de andere nodes ook naar de volgende in de lijst laten wijzen. Dit is te zien in de onderstaande listing. De uitbeelding is te zien in figuur~\ref{fig:strstr4}.
+
+\begin{lstlisting}[style=lstoneline]
+a.next = &b;
+b.next = &c;
+c.next = &d;
+\end{lstlisting}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+\node[list,on chain] (A) {43 \nodepart{two} Inge}; 
+\node[list,on chain] (B) {18 \nodepart{two} Jessica};
+\node[list,on chain] (C) {37 \nodepart{two} Karin};
+\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.south east) -- (D.two split north);
+\draw[dotarrow] (A.three |- A.center) -- (B);
+\draw[dotarrow] (B.three |- B.center) -- (C);
+\draw[dotarrow] (C.three |- C.center) -- (D);
+\end{tikzpicture}
+\caption{Uitbeelding van de vier nodes, \lstc{a} wijst naar \lstc{b}, \lstc{b} wijst naar \lstc{c} en \lstc{c} wijst naar \lstc{d}.}
+\label{fig:strstr4}
+\end{figure}
+
+We hebben nu een \textsl{gekoppelde lijst} gemaakt waarbij we van een node naar een andere node kunnen ``springen''.
+
+Laten we de lijst nu eens afdrukken. Daarvoor hebben we een pointer variabele nodig die we \lstc{current} noemen. Natuurlijk moet \lstc{current} in het begin wijzen naar het adres van \lstc{a}. We definiëren én initialiseren deze variabele als
+
+\begin{lstlisting}[style=lstoneline]
+struct node *current = &a;
+\end{lstlisting}
+
+Nu kunnen we de inhoud van \lstc{a} ook afdrukken met
+
+\begin{lstlisting}[style=lstoneline]
+current->age (* \textrm{en} *) current->name
+\end{lstlisting}
+
+Om naar de volgende node te wijzen (node \lstc{b}) gebruiken we het statement
+
+\begin{lstlisting}[style=lstoneline]
+current = current->next;
+\end{lstlisting}
+
+Maar dat mag natuurlijk alleen als \lstc{current} ongelijk aan \lstc{NULL} is want dan is er geen volgende in de lijst. Om de hele lijst nu af te drukken gebruiken we een \lstc{while}-statement. Dit is te zien in de onderstaande listing.
+
+\begin{lstlisting}[style=lstoneline]
+/* While we're not at the end of the list */
+while (current != NULL) {
+    /* Print the data */
+	printf("Age: %2d, name: %s\n", current->age, current->name);
+    /* Point to the next in the list */
+	current = current->next;
+}
+\end{lstlisting}
+
+Met dit \lstc{while}-statement lopen we van het begin tot aan het einde van de lijst. Dit wordt in het Engels \textsl{traversal} (to traverse: langslopen) genoemd. In figuur~\ref{fig:strstrtranversal} is de traversal van de pointer \lstc{current} te zien. Pointer \lstc{current} begint bij node \lstc{a}, gaat daarna naar \lstc{b} en daarna naar \lstc{c} en eindigt vervolgens bij \lstc{d}. Dat is het einde van de lijst, want \lstc{d} heeft geen opvolger, en dus stopt de \lstc{while}-lus.
+Het complete programma is te zien in listing~\ref{cod:linked_list_simple}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+% The nodes on the chain except for tail
+\node[on chain] (dummy) {};
+\node[list,on chain] (A) {43 \nodepart{two} Inge}; 
+\node[list,on chain] (B) {18 \nodepart{two} Jessica};
+\node[list,on chain] (C) {37 \nodepart{two} Karin};
+\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[headtail,below=of dummy,yshift=-0.5cm] (current) {\phantom{current}};
+
+% The null-pointer cross
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt]  (D.south east) -- (D.two split north);
+
+% The connecting arrows
+\draw[dotarrow] (A.three |- A.center) -- (B);
+\draw[dotarrow] (B.three |- B.center) -- (C);
+\draw[dotarrow] (C.three |- C.center) -- (D);
+\draw[fill=black] (current.center) circle (0.08);
+\draw[-latex] (current.center) to[bend right] (A.one south);
+\draw[dashed] (current.center) -- (current.center -| A.three);
+\draw[-latex,dashed,out=0] (current.center -| A.three) to[bend right] (B.one south);
+\draw[dashed] (current.center -| A.three) -- (current.center -| B.three);
+\draw[-latex,dashed,out=0] (current.center -| B.three) to[bend right] (C.one south);
+\draw[dashed] (current.center -| B.three) -- (current.center -| C.three);
+\draw[-latex,dashed] (current.center -| C.three) to[bend right] (D.one south);
+
+\node[yshift=\unitsize cm] at (current.center) {current};   
+\end{tikzpicture}
+\caption{Traversal van de pointer \lstc{current}.}
+\label{fig:strstrtranversal}
+\end{figure}
+
+\booklistingfromproject[]{C}{Aanmaken van enkele nodes en de traversal van de nodes}{linked_list_simple}{c}{!ht}
+
+% Needed to trigger latex to create a new page */
+\clearpage
+\subsection{Dynamisch gekoppelde lijsten}
+Nu biedt het opzetten van een linked list op deze manier niet veel meerwaarde. We hadden de nodes ook in een array kunnen plaatsen. Het aantal nodes staat namelijk vast.
+
+Het wordt echter interessant wanneer we van te voren niet weten hoeveel nodes er gebruikt gaan worden. Met \textsl{dynamische geheugenallocatie} (zie paragraaf~\ref{sec:dynamischegeheugenallocatie}) is het mogelijk om tijdens de executie van een programma nieuwe nodes aan te maken en in de linked list op te nemen.
+
+We gaan nu een programma ontwerpen dat de leeftijd en naam van personen inleest en deze gegevens in een linked list plaatst. Daarbij onderscheiden we de volgende functionaliteiten:
+
+\begin{itemize}
+\item Inlezen van leeftijd en naam;
+\item Aanmaken van een nieuwe node en vullen met de gegevens. Tevens wordt de nieuwe node opgenomen aan het einde van de lijst;
+\item Afdrukken van de complete lijst;
+\item Verwijderen van de lijst.
+\end{itemize}
+
+Voor het aanmaken van een nieuwe node ontwerpen we de functie \lstc{create_node}, het afdrukken van de lijst doen we met de functie \lstc{print_all_nodes} en voor het verwijderen van de lijst gebruiken we de functie \lstc{remove_all_nodes}. Het inlezen van de gegevens en het aanmaken van een nieuwe node gebeurt in een \lstc{do while}-lus. Als we klaar zijn met inlezen, drukken we de lijst af en verwijderen we de lijst.
+
+Omdat we enkele functies uit de standard library gebruiken, laden we eerst de benodigde header-bestanden. Dit is te zien in het onderstaande programmafragment.
+
+\booklistingfromproject[linerange={1-4},style=lstoneline,label=dummy10]{C}{}{linked_list_malloc}{c}{!ht}
+
+De node die we gebruiken is hieronder gedefinieerd.
+
+\booklistingfromproject[linerange={9-14},style=lstoneline,label=dummy20]{C}{}{linked_list_malloc}{c}{!ht}
+
+De lijst wordt dynamisch opgebouwd en om het begin van de lijst aan te geven, moeten we bijhouden waar het begin is. Dit wordt doorgaans de \textsl{head} van de lijst genoemd. We gebruiken hiervoor een pointer \lstc{head}. Deze pointer wijst dus altijd naar het begin van de lijst. In eerste instantie wijst de pointer naar niets, vandaar de initialisatie met \lstc{NULL}. Merk op dat \lstc{head} globaal gedefinieerd is zodat de functies de pointer kunnen gebruiken.
+
+\booklistingfromproject[linerange={16-17},style=lstoneline,label=dummy22]{C}{}{linked_list_malloc}{c}{!ht}
+
+Omdat we drie functies gebruiken, declareren we de prototypes. Dit is te zien in onderstaande programmafragment.
+
+\booklistingfromproject[linerange={19-24},style=lstoneline,label=dummy30]{C}{}{linked_list_malloc}{c}{!ht}
+
+Laten we nu eens kijken naar de opzet van het programma. We bekijken eerst de functie \lstc{main}. Dit is te zien in listing~\ref{cod:linked_list_malloc}. Het inlezen van de gegevens wordt gedaan met behulp van een \lstc{do while}-lus
+%
+\booklistingfromproject[linerange={26-53}]{C}{De body van het programma}{linked_list_malloc}{c}{!b}
+%
+die loopt van regel 8 t/m 20. Het stopcriterium is een leeftijd kleiner dan of gelijk aan 0. Het inlezen wordt gedaan in de regels 8 t/m 12 middels de bekende \lstc{scanf}-functie. In regel 14 wordt de functie \lstc{create_node} aangeroepen met de leeftijd en naam als argumenten. Als het aanmaken \textsl{niet} lukt, dan wordt het programma met een foutmelding verlaten. Nadat de lus is verlaten, wordt de lijst afgedrukt met de functie \lstc{print_all_nodes}. Als laatste wordt de lijst verwijderd met \lstc{remove_all_nodes}.
+
+De functie \lstc{create_node} is te zien in listing~\ref{cod:strcreatenode}. De functie moet drie zaken afhandelen: dynamisch alloceren van geheugen om een nieuwe node aan te maken, het plaatsen van de node aan het einde van de lijst en het vullen van de gegevens in de nieuwe structure.
+
+\booklistingfromproject[linerange={54-90},label=cod:strcreatenode]{C}{De functie \lstc{create_node}}{linked_list_malloc}{c}{!ht}
+
+In regel 7 wordt via de functie \lstc{malloc} een stuk geheugen gealloceerd. De grootte wordt bepaald met behulp van de operator \lstc{sizeof} zodat er precies genoeg geheugen wordt opgevraagd om de node te plaatsen. In regels 10 t/m 12 wordt getest of het alloceren gelukt is. Dat kan mislukken als er al teveel geheugen is opgevraagd. Dan geven we als returnwaarde \lstc{NULL} terug ten teken van het mislukken van de allocatie.
+
+Als het alloceren van het geheugen gelukt is, bevat de pointer \lstc{created} het adres van de node. We moeten nu alleen nog bepalen of dit de eerste node in de lijst is. Zo ja, dan moet \lstc{head} gaan wijzen naar de nieuwe node. Dit wordt gerealiseerd in regels 16 t/m 18. Als er al één of meerdere nodes zijn aangemaakt, dan moeten we het einde van de lijst zien te vinden. Dit wordt gerealiseerd in regels 20 t/m 28.
+
+Om goed te begrijpen hoe het vinden van het einde van de lijst werkt, hebben we een uitbeelding gemaakt van vier nodes. Dit is te zien in figuur~\ref{fig:strstrfindingendoflist}. Hierbij hebben we de nodes de namen $A$, $B$, $C$ en $D$ gegeven. Node $A$ ligt aan het begin van de lijst en node $D$ ligt aan het einde van de lijst. In de figuur is te zien dat \lstc{head} wijst naar node $A$, de eerste in de lijst. De pointer \lstc{current} gebruiken we om langs de lijst te lopen. Uiteindelijk wordt het einde van de lijst gevonden. Dit is aangegeven met de (pseudo)-pointer \lstc{current@end}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[line width=1pt, font=\small\ttfamily, start chain]
+% The nodes on the chain except for tail
+\node[on chain] (dummy) {};
+\node[list,on chain] (A) {43 \nodepart{two} Inge}; 
+\node[list,on chain] (B) {18 \nodepart{two} Jessica};
+\node[list,on chain] (C) {37 \nodepart{two} Karin};
+\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[headtail,below=of dummy,yshift=-0.5cm] (head) {\phantom{head}};
+\node[headtail,below=of B.two,yshift=-0.5cm] (current) {\phantom{current}};
+\node[headtail,below=of C.three,yshift=-0.5cm] (tail) {\phantom{current}};
+
+% The null-pointer cross
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
+\draw[line cap=round, shorten >=.6pt, shorten <=.99pt]  (D.south east) -- (D.two split north);
+
+% The connecting arrows
+\draw[dotarrow] (A.three |- A.center) -- (B);
+\draw[dotarrow] (B.three |- B.center) -- (C);
+\draw[dotarrow] (C.three |- C.center) -- (D);
+\draw[fill=black] (head.center) circle (0.08);
+\draw[-latex] (head.center) to[bend right] (A.one south);
+\draw[fill=black] (current.center) circle (0.08);
+\draw[-latex,dashed] (current.center) to[bend right] (C.one south);
+\draw[fill=black] (tail.center) circle (0.08);
+\draw[-latex,dashed] (tail.center) to[bend right] (D.one south);
+
+\node[yshift=\unitsize cm] at (head.center) {head};
+\node[yshift=\unitsize cm] at (current.center) {current};
+\node[yshift=\unitsize cm] at (tail.center) {current@end};
+
+\node[yshift=.3cm] at (A.two north) {$A$};
+\node[yshift=.3cm] at (B.two north) {$B$};
+\node[yshift=.3cm] at (C.two north) {$C$};
+\node[yshift=.3cm] at (D.two north) {$D$};
+   
+\end{tikzpicture}
+\caption{Het vinden van het einde van de lijst.}
+\label{fig:strstrfindingendoflist}
+\end{figure}
+
+In eerste instantie wordt pointer \lstc{current} gelijk gesteld aan \lstc{head}. Dat is namelijk het begin van de lijst. We schrijven dus:
+
+\begin{lstlisting}[style=lstoneline]
+current = head;
+\end{lstlisting}
+
+%\booklistingfromproject[linerange={71-71},style=lstoneline,label=dummy40,gobble=8]{C}{}{linked_list_malloc}{c}{H}
+
+Zowel \lstc{head} als \lstc{current} wijzen dus naar node $A$. In de conditie van de \lstc{while}-lus kijken we of er een opvolger is. Om te bepalen of er een opvolger is, testen we de member \lstc{next} van de pointer \lstc{current}. Dus we schrijven:
+
+\begin{lstlisting}[style=lstoneline]
+while (current->next != NULL) {
+    ...
+}
+\end{lstlisting}
+
+Als er een opvolger is dan springen we naar de opvolger. Dit doen we door gebruik te maken van member \lstc{next}:
+
+\begin{lstlisting}[style=lstoneline]
+current = current->next;
+\end{lstlisting}
+
+Dus als \lstc{current} wijst naar $A$ wordt de nieuwe waarde $A$\lstc{->next} oftwel $B$.
+De pointer \lstc{current} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de lijst gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
+
+\begin{lstlisting}[style=lstoneline]
+current->next = created;
+\end{lstlisting}
+
+Vervolgens moeten we de nieuwe node vullen met gegevens. We kopiëren de leeftijd en de naam naar de nieuwe node en zetten gelijk de member \lstc{next} op \lstc{NULL} want de nieuwe node heeft geen opvolger.
+
+\begin{lstlisting}[style=lstoneline]
+created->age = age;
+strcpy(created->name, name);
+created->next = NULL;
+\end{lstlisting}
+
+Als laatste statement geven we als returnwaarde het adres van \lstc{created} terug. Op zich is dat niet zo belangrijk maar we moeten onderscheid maken tussen \lstc{NULL} en een geldig adres, want in \lstc{main} wordt getest of de returnwaarde \lstc{NULL} is of niet.
+
+\begin{lstlisting}[style=lstoneline]
+return created;
+\end{lstlisting}
+
+De functie \lstc{print_all_nodes} is kort en krachtig. De functie is te zien in listing~\ref{cod:strprintallnodes}. De functie heeft geen parameters en geeft niets terug.  We gebruiken hier een \lstc{while}-lus om langs alle nodes te gaan totdat we het einde van de lijst hebben bereikt. We beginnen met het initialiseren van de pointer \lstc{current} met \lstc{head}. Daar moeten we tenslotte beginnen. In de \lstc{while}-lus wordt getest of \lstc{current} niet naar \lstc{NULL} wijst. Dan is er nog een node waarvan de gegevens moeten worden afgedrukt. In de lus laten we \lstc{current} naar de volgende node wijzen. 
+
+\booklistingfromproject[linerange={93-104},label=cod:strprintallnodes]{C}{De functie \lstc{print_all_nodes}}{linked_list_malloc}{c}{!ht}
+
+Voordat het programma wordt afgesloten, moeten de gealloceerde nodes eerst weer worden vrijgegeven. Dat kan met de functie \lstc{remove_all_nodes}. De functie is te zien in listing~\ref{cod:strremoveallnodes}. We beginnen met het verwijderen bij het begin van de lijst, dus waar de pointer \lstc{head} naar wijst. We verwijderen de node met de functie \lstc{free} en laten \lstc{head} naar de volgende in de lijst wijzen. We doen dit totdat de laatste node is verwijderd.
+
+Er zit nog wel een bepaalde volgorde in het verwijderen van een node en het laten wijzen van \lstc{head} naar de volgende in de lijst. We moeten \lstc{head} eerst laten wijzen naar de volgende node en dan pas de (eerdere) node verwijderen. Dat kan natuurlijk niet met \lstc{head} want die wijst al naar de volgende node. Daarom gebruiken we een extra variabele \lstc{remnode} die naar de te verwijderen node wijst.
+
+\booklistingfromproject[linerange={106-119},label=cod:strremoveallnodes]{C}{De functie \lstc{remove_all_nodes}}{linked_list_malloc}{c}{!ht}
+
+Overigens kunnen we het verwijderen van de nodes in dit programma achterwege laten. Als het programma is afgesloten, wordt al het gealloceerde geheugen automatisch door het besturingssysteem vrijgegeven.
+
+We kunnen nog wat zeggen over de efficiëntie van enkele acties op de lijst. Als we een node toevoegen moeten we eerst het einde van de lijst bepalen. We moeten dus alle nodes aflopen. We noemen deze \textsl{tijdcomplexiteit} ``van de orde $n$'' en wordt geschreven $O(n)$. Als we een node net een specifieke inhoud moeten verwijderen (overigens niet in het voorbeeld gegeven) dan moeten we ten hoogste alle nodes aflopen. Ook deze actie is van de orde $O(n)$. Om dezelfde reden is opzoeken of wijzigen van een node ook van de orde $O(n)$.
+
+\begin{table}[!ht]
+\begin{tabular}{lp{1em}l}
+Actie && Orde \\
+\midrule
+Toevoegen && $O(n)$ \\
+Verwijderen && $O(n)$ \\
+Opzoeken && $O(n)$ \\
+Wijzigen && $O(n)$
+\end{tabular}
+\end{table}
 \basic
+
+We kunnen het toevoegen ook anders realiseren. In plaats van het einde van de lijst steeds opnieuw op te zoeken, kunnen een nieuwe node ook aan het \textsl{begin} van de lijst toevoegen. Dat begin is direct te vinden want daarvoor gebruiken we de pointer \lstc{head}. We maken een nieuwe node aan, laten de member \lstc{next} wijzen naar \lstc{head} en laten daarna \lstc{head} wijzen naar de nieuwe node. Nu is deze functie van de orde $O(1)$.
+
+Overigens is de lijst niet gesorteerd. Dat heeft ook alleen maar zin als we de lijst gesorteerd willen afdrukken. Voor het opzoeken en verwijderen van een node maakt het niet veel uit.
+
+Als we gebruik willen maken van een gesorteerde lijst, bijvoorbeeld van woorden, dan kunnen we beter gebruik maken van een \textsl{binaire boom} (Engels: binary tree). Tijdens het toevoegen van een node kan de sortering dan efficiënt worden gerealiseerd. De eerder gegeven acties zijn dan \textsl{gemiddeld} van de orde $O(\log n)$ en in het slechtste geval $O(n)$. Het valt echter buiten de scope van dit boek. Er is veel literatuur te vinden over binaire bomen. 
