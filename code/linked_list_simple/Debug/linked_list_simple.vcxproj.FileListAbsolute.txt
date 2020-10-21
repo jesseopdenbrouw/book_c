@@ -1,0 +1,2 @@
+D:\PROJECTS\Tex\book_c\code\linked_list_simple\Debug\linked_list_simple.exe
+D:\PROJECTS\Tex\book_c\code\linked_list_simple\Debug\linked_list_simple.pdb
