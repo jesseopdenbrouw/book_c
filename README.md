@@ -17,9 +17,14 @@ Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 200 pagina's
 9. Invoer en uitvoer
 10. Preprocessor
 11. Het compilatieproces
+
 A. De ASCII-code-tabel
 B. Korte tutorial Visual Studio
 C. Voorrangsregels van operatoren
+
+## Opgaven voor een practicum
+
+Opgaven voor een practicum kunnen gevonden worden op [https://ds.opdenbrouw.nl/gesprg/GESPRG_practicumdocument.pdf](https://ds.opdenbrouw.nl/gesprg/GESPRG_practicumdocument.pdf).
 
 ## Compileren
 
