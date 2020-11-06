@@ -48,6 +48,7 @@ int main(void) {
 	print_all_nodes();
 
 	/* Remove all nodes */
+	remove_all_nodes();
 	return 0;
 }
 
