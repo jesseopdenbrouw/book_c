@@ -567,6 +567,24 @@ Er zit nog wel een bepaalde volgorde in het verwijderen van een node en het late
 
 Overigens kunnen we het verwijderen van de nodes in dit programma achterwege laten. Als het programma is afgesloten, wordt al het gealloceerde geheugen automatisch door het besturingssysteem vrijgegeven.
 
+Een mogelijke invoer en uitvoer is hieronder gegeven.
+
+\begin{dosbox}[title=Mogelijke invoer en uitvoer van het programma.]
+Give age (> 0): (*\textbf{54}*)
+Give name: (*\textbf{Harry}*)
+Give age (> 0): (*\textbf{23}*)
+Give name: (*\textbf{Klara}*)
+Give age (> 0): (*\textbf{45}*)
+Give name: (*\textbf{Gerard}*)
+Give age (> 0): (*\textbf{28}*)
+Give name: (*\textbf{Joyce}*)
+Give age (> 0): (*\textbf{0}*)
+Age: 54, name: Harry
+Age: 23, name: Klara
+Age: 45, name: Gerard
+Age: 28, name: Joyce
+\end{dosbox}
+
 We kunnen nog wat zeggen over de efficiëntie van enkele acties op de linked list. Als we een node toevoegen moeten we eerst het einde van de linked list bepalen. We moeten dus alle nodes aflopen. We noemen deze \textsl{tijdcomplexiteit} ``van de orde $n$'' en wordt geschreven $O(n)$. Als we een node net een specifieke inhoud moeten verwijderen (overigens niet in het voorbeeld gegeven) dan moeten we ten hoogste alle nodes aflopen. Ook deze actie is van de orde $O(n)$. Om dezelfde reden is opzoeken of wijzigen van een node ook van de orde $O(n)$.
 
 \begin{table}[!ht]
