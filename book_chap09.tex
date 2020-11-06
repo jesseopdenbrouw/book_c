@@ -6,14 +6,14 @@ Invoer en uitvoer van gegevens is geen onderdeel van de taal C, maar C biedt via
 
 In dit hoofdstuk kijken we verder dan het toetsenbord en beeldscherm. We zullen demonstreren hoe we \textsl{bestanden} op het bestandssysteem kunnen benaderen. Een bestand is een logische eenheid van informatie in het bestandssysteem. Zo kunnen we bestanden openen voor gebruik, we kunnen eruit lezen en we kunnen erin schrijven. Bestanden kunnen na gebruik gesloten worden.
 
-Het gebruik van bestanden vergt veel interactie met het besturingssysteem. Dat wordt voor de gebruiker verhuld door het gebruik van een aantal functies. Die maken het mogelijk om een C-programma eenvoudig met bestanden te werken.
+Het gebruik van bestanden vergt veel interactie met het besturingssysteem. Dat wordt voor de gebruiker verhuld door het gebruik van een aantal functies. Die maken het mogelijk om in een C-programma eenvoudig met bestanden te werken.
 
 \section{Bestandsnamen en het bestandssysteem}
-Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{bestandsnaam} van het bestand te gebruiken. De bestanden zijn hiërarchisch georganiseerd door middel van \textsl{mappen}\index{map, bestand} (Engels: folder)\index{folder, bestand}. Deze term is in gebruik geraakt op het Windows-besturingssysteem. Op Unix-achtige systemen, bijvoorbeeld Linux en OS-X, wordt gesproken van een \textsl{directory}\index{directory}. Elk bestand valt onder een map en een map kan ook weer onder een map vallen. Willen we een bestand openen, dan moeten we de naam en eventuele mapnamen gebruiken. Het samenstel van een bestandsnaam en mapnamen wordt een \textsl{padnaam}\index{padnaam} genoemd. Een padnaam kan \textsl{absoluut} of \textsl{relatief} zijn.
+Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{bestandsnaam} van het bestand te gebruiken. De bestanden zijn hiërarchisch georganiseerd door middel van \textsl{mappen}\index{map, bestand} (Engels: folder)\index{folder, bestand}. Deze term is in gebruik geraakt op het Windows-besturingssysteem. Op Unix-achtige systemen, bijvoorbeeld Linux en OS-X, wordt gesproken van \textsl{directories}\index{directory}. Elk bestand valt onder een map en een map kan ook weer onder een map vallen. Willen we een bestand openen, dan moeten we de naam en eventuele mapnamen gebruiken. Het samenstel van een bestandsnaam en mapnamen wordt een \textsl{padnaam}\index{padnaam} genoemd. Een padnaam kan \textsl{absoluut} of \textsl{relatief} zijn.
 
-Het bestandssysteem van een computer wordt gevormd door alle \textsl{schijven} die beschikbaar zijn. Dat kunnen naast vaste schijven ook SSD's, USB-sticks, SD-card en externe schijven zijn. De term `schijf' komt nog uit de tijd dat een disk werd opgebouwd uit cirkelvormige platte schijven (\textsl{platters genaamd}) waarop met behulp van een magnetisch materiaal gegevens (nullen en enen) werden opgeslagen.
+Het bestandssysteem van een computer wordt gevormd door alle \textsl{schijven} die beschikbaar zijn. Dat kunnen naast vaste schijven ook SSD's, USB-sticks, SD-cards en externe schijven zijn. De term `schijf' komt nog uit de tijd dat een disk werd opgebouwd uit cirkelvormige platte schijven (\textsl{platters genaamd}) waarop met behulp van een magnetisch materiaal gegevens (nullen en enen) werden opgeslagen.
 
-Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A t/m Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste vaste schijf heeft de naam C. Hoe Windows met bestanden werkt kunnen we zien in figuur~\ref{fig:invdosbox}.
+Een padnaam is op Windows anders dan op Unix. Windows maakt gebruik van zogenoemde \textsl{schijven}. Een schijf wordt aangegeven met een letter tussen A t/m Z. Historisch gezien werden A en B gebruikt voor \textsl{floppy disks}. De eerste vaste schijf heeft de naam C. Een voorbeeld van een padnaam naar een map is te zien in figuur~\ref{fig:invdosbox}.
 
 \begin{dosbox}[title=Starten van een DOS-box.,label=fig:invdosbox]
 Microsoft Windows [Version 10.0.18363.778]
@@ -22,7 +22,7 @@ Microsoft Windows [Version 10.0.18363.778]
 C:\Users\Cbook>
 \end{dosbox}
 
-In de figuur zien we dat de \textsl{command line interpreter} is gestart. Op windows is dat het programma \texttt{cmd.exe}. Dit programma is te starten door in de zoekbalk onderaan het scherm de naam van het programma in te typen. Na starten van het programma komen we in de \textsl{huidige map.} In dit geval is dat de map \texttt{C:\textbackslash Users\textbackslash Cbook}. De schijfnaam wordt afgesloten met een dubbele-punt en we bevinden ons in de map \texttt{Cbook} die valt onder de map \texttt{Users}. De namen van de mappen worden gescheiden door een \textsl{backslash}\index{backslash} (\texttt{\textbackslash}). Dit is een voorbeeld van een \textsl{absolute padnaam}. Vanaf de schijf worden alle tussenliggende mappen en de bestandsnaam opgegeven.
+In de figuur zien we dat de \textsl{command line interpreter} is gestart. Op windows is dat het programma \texttt{cmd.exe}. Dit programma is te starten door in de zoekbalk onderaan het scherm de naam van het programma in te typen. Na starten van het programma komen we in de \textsl{huidige map.} In dit geval is dat de map \texttt{C:\textbackslash Users\textbackslash Cbook}. De schijfletter wordt afgesloten met een dubbele-punt en we bevinden ons in de map \texttt{Cbook} die valt onder de map \texttt{Users}. De namen van de mappen worden gescheiden door een \textsl{backslash}\index{backslash} (\texttt{\textbackslash}). Dit is een voorbeeld van een \textsl{absolute padnaam}. Vanaf de schijf worden alle tussenliggende mappen en de bestandsnaam opgegeven.
 
 We kunnen de inhoud van de map zien (de bestanden die er onder vallen) door het commando \texttt{dir} uit te voeren. Een mogelijke uitvoer is te zien in figuur~\ref{fig:invdosbox2}.
 
@@ -56,7 +56,7 @@ C:\Users\Cbook>
 \end{dosbox}
 
 
-Unix-systemen maken geen gebruik van schijfnamen. In plaats daarvan kent Unix de \textsl{root directory} die wordt aangegeven met een \textsl{forward slash} (\texttt{/}) aan het begin van een bestandsnaam. Een bestandsnaam heeft dan het uiterlijk van
+Unix-systemen maken geen gebruik van schijfletters. In plaats daarvan kent Unix de \textsl{root directory} die wordt aangegeven met een \textsl{forward slash} (\texttt{/}) aan het begin van een bestandsnaam. Een bestandsnaam heeft dan het uiterlijk van
 
 \hspace*{1em}\texttt{/home/cbook/bestand.txt}
 
@@ -91,9 +91,9 @@ Karakter & Argumenttype \\
 \end{tabular}
 \end{table}
 
-De karakters \texttt{d}, \texttt{i}, \texttt{o}, \texttt{x}, \texttt{X} en \texttt{u} kunnen nog extra informatie meekrijgen die tussen \texttt{\%} en het karakter staan. Een minteken (\texttt{-}) zorgt ervoor dat het getal tegen de linkerkant wordt afgedrukt. Een nul (\texttt{0}) zorgt ervoor dat leidende nullen worden afgedrukt. Een getal anders dan 0 zorgt ervoor dat het argument met een minimum breedte wordt afgedrukt. Dus de specification \texttt{\%04d} zorgt ervoor dat het argument met een minimum breedte van 4 karakters, rechts uitgelijnd en met leidende nullen wordt afgedrukt. De karakters kunnen nog worden vooraf gegaan door \texttt{h} (\texttt{short int}), \texttt{l} of \texttt{L} (\texttt{long int}) of \texttt{ll} (\texttt{long long int}).
+De karakters \texttt{d}, \texttt{i}, \texttt{o}, \texttt{x}, \texttt{X} en \texttt{u} kunnen nog extra informatie meekrijgen die tussen \texttt{\%} en het karakter staan. Een minteken (\texttt{-}) zorgt ervoor dat het getal tegen de linkerkant wordt afgedrukt. Een nul (\texttt{0}) zorgt ervoor dat voorloopnullen worden afgedrukt. Een getal anders dan 0 zorgt ervoor dat het argument met een minimum breedte wordt afgedrukt. Dus de specification \texttt{\%04d} zorgt ervoor dat het argument met een minimum breedte van 4 karakters, rechts uitgelijnd en met voorloopnullen wordt afgedrukt. De karakters kunnen nog worden vooraf gegaan door \texttt{h} (\texttt{short int}), \texttt{l} of \texttt{L} (\texttt{long int}) of \texttt{ll} (\texttt{long long int}).
 
-De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers moeten worden afgedrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
+De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers er moeten worden afgedrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
 
 Het karakter \texttt{s} geeft aan dat het argument een \textsl{string}\index{string} is. Het argument is dus een pointer naar een string. Het karakter mag worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd) en een getal dat de breedte aangeeft.
 
@@ -106,12 +106,11 @@ Let erop dat \texttt{printf} een complexe, grote functie is en niet geschikt is 
 \section{Inlezen van het toetsenbord}
 \label{sec:scanf}
 \indexfunc{scanf}
-De functie \texttt{scanf} is een veelzijdige functie voor het inlezen van variabelen. We zullen wat dieper ingaan op het gebruikt hiervan. Een bekend voorbeeld is het inlezen van een decimaal geheel getal met:
+De functie \texttt{scanf} is een veelzijdige functie voor het inlezen van variabelen. We zullen wat dieper ingaan op het gebruik hiervan. Een bekend voorbeeld is het inlezen van een decimaal geheel getal met:
 
 \hspace*{1em}\texttt{scanf("\%d", \&getal);}
 
-De format specification \texttt{\%d} vertelt \texttt{scanf} dat een geheel getal moet worden ingelezen. De variabele waarin het getal moet komen te staan, wordt voorzien van de adres-operator \texttt{\&}\indextwo{\&}{operator} zodat \texttt{scanf} de variabele kan vinden.
-Het is ook mogelijk om meerdere getallen in te lezen:
+De format specification \texttt{\%d} vertelt \texttt{scanf} dat een geheel getal moet worden ingelezen. De variabele waarin het getal moet komen te staan, wordt voorzien van de adres-operator \texttt{\&}\indextwo{\&}{operator} zodat \texttt{scanf} de variabele kan vinden. Het is ook mogelijk om meerdere getallen in te lezen:
 
 \hspace*{1em}\texttt{scanf("\%d \%d \%d", \&getala, \&getalb, \&getalc);}
 
@@ -302,7 +301,7 @@ In listing~\ref{cod:sscanf_sprintf} is een programma te zien dat een datum inlee
 
 \booklistingfromproject[]{C}{Inlezen van een geldige datum met behulp van \texttt{sscanf}}{sscanf_sprintf}{c}{!ht}
 
-Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf} te gebruiken in plaats van \texttt{sprintf}. \ifuseadvanced We zullen in paragraaf~\ref{sec:invoeruitvoermcu} laten zien waarom \texttt{sprintf} nodig is.\fi
+Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf} te gebruiken in plaats van \texttt{sprintf}. \iffalse\ifuseadvanced We zullen in paragraaf~\ref{sec:invoeruitvoermcu} laten zien waarom \texttt{sprintf} nodig is.\fi\fi
 
 
 \section{Gebruik van command line argumenten en bestanden}
@@ -382,7 +381,7 @@ Het programma gaat nu als een razende te werk en de enige manier om het te stopp
 %\subsubsection*{Buffering}
 Als \texttt{scanf} voor de eerste keer iets inleest dan zijn er nog geen karakters vanaf het toetsenbord ingevoerd. Daarom vraagt \texttt{scanf} aan het besturingssysteem (Windows, Linux, OS-X) om een karakter. Het besturingssysteem weet dat er geen karakters beschikbaar zijn en gaat via interne routines karakters opvragen. Er wordt echter niet \'e\'en karakter opgevraagd maar een hele reeks die afgesloten moet worden met een \texttt{enter}-toets. We moeten als gebruiker dus de invoer altijd afsluiten met een \texttt{enter}-toets, ook als we via \texttt{scanf} maar \'e\'en karakter inlezen. De ingelezen karakters worden ergens in het geheugen opgeslagen. Dit wordt \textsl{buffering}\index{buffering} genoemd en de geheugenruimte wordt \textsl{invoerbuffer}\index{invoerbuffer} genoemd. Er zijn nu karakters beschikbaar en het eerste ingevoerde karakter wordt aan \texttt{scanf} gegeven.
 
-Het eerste karakter is de letter \texttt{H} en dat is geen cijfers. Dus stopt \texttt{scanf} direct met het inlezen van karakters (die dus alleen cijfers mogen zijn). Het karakter \texttt{H} blijft hierbij in de invoerbuffer staan. De \texttt{H} wordt dus niet verwijderd.
+Het eerste karakter is de letter \texttt{H} en dat is geen cijfer. Dus stopt \texttt{scanf} direct met het inlezen van karakters (die dus alleen cijfers mogen zijn). Het karakter \texttt{H} blijft hierbij in de invoerbuffer staan. De \texttt{H} wordt dus niet verwijderd.
 
 Omdat \texttt{scanf} geen cijfers heeft kunnen inlezen, wordt de opgegeven variabele niet veranderd en blijft zijn originele waarde behouden. Daarom drukt het programma in listing~\ref{cod:invinlezengroterdan} het getal $-12345$ af. Het programma blijft in een \texttt{do-while}-statement steeds een getal inlezen als het getal kleiner is dan~$-1$. Aangezien \texttt{scanf} geen cijfers inleest en de opgegeven variabele niet aanpast, blijft de waarde $-12345$ behouden en dat is kleiner dan $-1$. Dus wordt de lus nog een keer uitgevoerd. De \texttt{H} staat nog steeds in de invoerbuffer en lukt het \texttt{scanf} niet om een getal in te lezen.
 
@@ -539,6 +538,7 @@ int main(void) {
 
 
 
+\iffalse
 \advanced
 \section{Invoer en uitvoer met een microcontroller}
 \label{sec:invoeruitvoermcu}
@@ -562,7 +562,7 @@ snprintf(buffer, sizeof buffer, "i = %d", i);
 \end{lstlisting}
 
 \basic
-
+\fi
 
 %%%\section{UTF-8 karaktercodering}
 %%%Standaard C werkt met de ASCII-karaktercodering. Dit is een 7-bits codering waarmee 128 verschillende karakters zijn te definiëren. Van oorsprong zijn hier Westerse letter, cijfers en leestekens te vinden. Een aantal codes wordt gebruikt voor besturing, zoals het einde van een regel en de \textsl{backspace}. De volledige ASCII-code is te vinden in bijlage~\ref{cha:asciitabel}.

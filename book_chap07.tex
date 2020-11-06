@@ -6,14 +6,15 @@
 Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer bij de variabele te komen.
 
 Pointers zijn een krachtig middel om efficiënt gegevens te beheren en argumenten over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
-%We zullen zien dat pointers en array's nauw met elkaar verbonden zijn.
+%We zullen zien dat pointers en arrays nauw met elkaar verbonden zijn.
 
 %Pointers worden samen met het \texttt{goto}-statement in verband gebracht met het schrijven van ondoorzichtige programma's. En zeker, onzorgvuldig gebruik van pointers komt de leesbaarheid en aantonen van correctheid van programma's niet ten goede. Maar met discipline kunnen programma's zeer efficiënt geschreven worden.
 
 Pointers geven de programmeur een krachtig instrument in handen waar verantwoord mee omgegaan moet worden.
-En zeker, onzorgvuldig gebruik van pointers komt de leesbaarheid en aantonen van correctheid van programma's niet ten goede. Maar met discipline kunnen programma's zeer efficiënt geschreven worden.
+Onzorgvuldig gebruik kan ervoor zorgen dat een programma voortijdig crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen
+programma’s zeer efficiënt geschreven worden.
 
-Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan hier gemakshalve vanuit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
+Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan er gemakshalve van uit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
 
 %picture is a bit to high...
 \vspace*{-0.5\baselineskip}
@@ -30,7 +31,7 @@ Een handige manier om pointers weer te geven, is door het geheugen van een compu
 \draw (nod10.center) node [yshift=-\unitsize cm] {i};
 \draw (nod13.center) node [yshift=-\unitsize cm] {j};
 \end{tikzpicture}
-\caption{Uitbeelding van twee pointers naar variabelen in het geheugen wijzen.}
+\caption{Uitbeelding van twee pointers die naar variabelen in het geheugen wijzen.}
 \label{fig:poiinmem}
 \end{figure}
 
@@ -68,7 +69,7 @@ We kunnen pointers uitbeelden door middel van vakjes, zoals te zien is in figuur
 \label{fig:poivoorstelling1}
 \end{figure}
 
-Aan een pointer is het adres van een variabele van hetzelfde type toe te kennen. Hiervoor gebruiken we de \textsl{adres-operator} \texttt{\&} (ampersand)\indextwo{\&}{adres}. In listing~\ref{cod:poiassign} is een aantal toekenningen van adressen te zien.
+Aan een pointer is het adres van een variabele van hetzelfde type toe te kennen. Hiervoor gebruiken we de \textsl{adresoperator} \texttt{\&} (ampersand)\indextwo{\&}{adres}. In listing~\ref{cod:poiassign} is een aantal toekenningen van adressen te zien.
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Enkele toekenningen van adressen aan pointers.,label=cod:poiassign]
@@ -152,7 +153,7 @@ int *pint = &i;     /* define and initialize pint */
 \section{De NULL-pointer}
 \label{sec:nullpointer}
 \index{NULL-pointer}\index{pointer!NULL}
-In principe wijst een pointer naar een variabele (of beter: naar een geheugenadres). Om aan te geven dat een pointer niet naar een variabele wijst, kunnen we de \textsl{NULL-pointer} gebruiken. Let erop dat de NULL-pointer niet hetzelfde is als een niet-geïnitialiseerde pointer. Een NULL-pointer is een pointer waarin alle bits 0 zijn\footnote{In het algemeen is de inhoud van een NULL-pointer het getal 0, maar dat is niet in alle gevallen zo. De C-standaard definieert de NULL-pointer als een pointer die niet naar een bekende variabele wijst.}. Een niet-geïnitialiseerde pointer heeft een willekeurige waarde\footnote{In geval een pointer als globale variabele wordt gedefinieerd, zorgt de compiler ervoor dat de inhoud op \texttt{NULL} gezet wordt.}. In C is een preprocessor-macro (zie hoofdstuk~\ref{cha:preprocessor}) genaamd \texttt{NULL} te gebruiken om een pointer als NULL-pointer te initialiseren. De C-standaard schrijft voor voor dat \texttt{NULL} wordt gedefinieerd in \texttt{locale.h}, \texttt{stddef.h}, \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{string.h}, \texttt{time.h}, en \texttt{wchar.h}. Slechts een van deze header-bestanden is noodzakelijk om \texttt{NULL} te definiëren.
+In principe wijst een pointer naar een variabele (of anders: bevat het geheugenadres van een variabele). Om aan te geven dat een pointer niet naar een variabele wijst, kunnen we de \textsl{NULL-pointer} gebruiken. Let erop dat de NULL-pointer niet hetzelfde is als een niet-geïnitialiseerde pointer. Een NULL-pointer is een pointer waarin alle bits 0 zijn\footnote{In het algemeen is de inhoud van een NULL-pointer het getal 0, maar dat is niet in alle gevallen zo. De C-standaard definieert de NULL-pointer als een pointer die niet naar een bekende variabele wijst.}. Een niet-geïnitialiseerde pointer heeft een willekeurige waarde\footnote{In geval een pointer als globale variabele wordt gedefinieerd, zorgt de compiler ervoor dat de inhoud op \texttt{NULL} gezet wordt.}. In C is een preprocessor-macro (zie hoofdstuk~\ref{cha:preprocessor}) genaamd \texttt{NULL} te gebruiken om een pointer als NULL-pointer te initialiseren. De C-standaard schrijft voor voor dat \texttt{NULL} wordt gedefinieerd in \texttt{locale.h}, \texttt{stddef.h}, \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{string.h}, \texttt{time.h}, en \texttt{wchar.h}. Slechts een van deze header-bestanden is noodzakelijk om \texttt{NULL} te definiëren.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Definitie en initialisatie van een NULL-pointer.]
@@ -186,7 +187,7 @@ if (p == q) { /* true */ }
 
 De NULL-pointer wordt door diverse standaard functies gebruikt om aan te geven dat er een fout is geconstateerd. Zo geeft de functie \texttt{fopen} de waarde \texttt{NULL} terug als het niet gelukt is om een bestand te openen. De functie \texttt{malloc} geeft de waarde \texttt{NULL} terug als het niet gelukt is om een stuk geheugen te alloceren.
 
-Bij het voorstellen van NULL-pointers zijn diverse mogelijkheden die gebruikt worden (zie figuur~\ref{fig:poinullpointers}). Bij de linker voorstelling wordt het woord \texttt{NULL} in een vakje gezet, bij de middelste voorstelling wordt een kruis in het vakje gezet en bij de rechter voorstelling wordt een pijl getrokken naar een vakje met een kruis erin.
+Bij het voorstellen van NULL-pointers zijn diverse mogelijkheden die gebruikt worden (zie figuur~\ref{fig:poinullpointers}). Bij de linker voorstelling wordt er het woord \texttt{NULL} in een vakje gezet, bij de middelste voorstelling wordt een kruis in het vakje gezet en bij de rechter voorstelling wordt een pijl getrokken naar een vakje met een kruis erin.
 
 \begin{figure}[!ht]
 \centering
@@ -265,7 +266,7 @@ int main() {
 Noot: Bij 32-bits compilers is de grootte van een pointer 32 bits (4 bytes). Zo'n pointer kan maximaal 4 GB adresseren. Bij 64-bits compilers is de grootte van een pointer 64 bits (8 bytes). Zo'n pointer kan maximaal 16 EB (exa-bytes) adresseren.
 
 
-\section{Pointers naar array's}
+\section{Pointers naar arrays}
 \label{sec:pointersnaararrays}
 \index{pointer!naar array}
 We kunnen een pointer ook laten wijzen naar het eerste element van een array. Dit is te zien in listing~\ref{cod:poifirstarray}. De array bestaat uit negen elementen van het type \texttt{int}. De pointer \texttt{p} laten we wijzen naar het eerste element van de array. We gebruiken hiervoor de adres-operator \texttt{\&} en elementnummer 0.
@@ -306,7 +307,7 @@ int *p = ary; /* p points to first element of array */
 \end{lstlisting}
 \end{figure}
 
-Omdat de naam van een array een synoniem is, mag het dus niet gebruikt worden aan de linkerkant van een toekenning. Zie listing~\ref{cod:poifirstarray3}.
+Omdat de naam van een array een synoniem is, mag de naam niet gebruikt worden aan de linkerkant van een toekenning. Zie listing~\ref{cod:poifirstarray3}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray3]
@@ -389,13 +390,13 @@ Merk op dat \texttt{str} niet aangepast mag worden, want dit is de naam van een 
 
 Ook hier merken we op dat we de lengte van \texttt{str} kunnen berekenen met de \texttt{sizeof}-operator. De compiler heeft genoeg informatie beschikbaar. We kunnen de lengte van de tweede string \textsl{niet} door de compiler laten uitrekenen, want \texttt{pstr} in een pointer naar een \texttt{char}. Pointer \texttt{pstr} ``weet'' dus niet dat er naar een string gewezen wordt.
 
-Toch is het mogelijk om tijdens het draaien van een programma de lengte van de string te vinden. We kunnen namelijk uitgaan van het feit dat een string in C wordt afgesloten met een nul-karakter. Dit wordt uitgelegd in de volgende paragraaf.
+Toch is het mogelijk om tijdens het executie van een programma de lengte van de string te vinden. We kunnen namelijk uitgaan van het feit dat een string in C wordt afgesloten met een nul-karakter. Dit wordt uitgelegd in de volgende paragraaf.
 
 
 \section{Rekenen met pointers}
 \label{sec:rekenenmetpointers}
 \index{pointer!rekenen met}
-Pointers kunnen rekenkundig worden aangepast dat vooral nuttig is bij het gebruik van array's.
+Pointers kunnen rekenkundig worden aangepast, wat vooral nuttig is bij het gebruik van arrays.
 In het onderstaande programma wijst pointer \texttt{p} in eerste instantie naar het begin van de array \texttt{ary} (dus \texttt{ary[0]}). Daarna wordt \texttt{p} twee maal met 1 verhoogd en daarna met 3 verhoogd. Bij rekenkundige operaties op pointers wordt rekening gehouden met de grootte van de datatypes. Door de pointer met 1 te verhogen wordt dus naar het volgende element gewezen.
 
 \begin{figure}[!ht]
@@ -458,9 +459,9 @@ Uiteraard moeten de twee pointers naar hetzelfde datatype wijzen en heeft de ver
 \end{figure}
 
 
-\section{Relatie tussen pointers en array's}
+\section{Relatie tussen pointers en arrays}
 \label{sec:relatietussenpointersenarrays}
-De relatie tussen pointers en array's zijn zo sterk in C verankerd, dat we er een aparte paragraaf aan wijden. In listing~\ref{cod:poiarrayandpointer} zijn de definitie en initialisatie van een array en een pointer te zien. De pointer \texttt{p} wijst na initialisatie naar het eerste element van de array.
+De relatie tussen pointers en arrays is zo sterk in C, dat we er een aparte paragraaf aan wijden. In listing~\ref{cod:poiarrayandpointer} zijn de definitie en initialisatie van een array en een pointer te zien. De pointer \texttt{p} wijst na initialisatie naar het eerste element van de array.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Definitie en initialisatie van een array en een pointer.,label=cod:poiarrayandpointer]
@@ -469,7 +470,7 @@ int *p = ary;
 \end{lstlisting}
 \end{figure}
 
-Om toegang te krijgen tot eerste element uit de array kunnen we natuurlijk \texttt{ary[0]} gebruiken. Maar we kunnen via \texttt{p} ook bij het eerste element komen. Hiervoor gebruiken we \texttt{*p}. We mogen echter \texttt{p} ook lezen als de naam van een array. Om het eerste element te komen, mogen we dus ook \texttt{p[0]} gebruiken. Om alle elementen van de array bij elkaar op te tellen, kunnen we dus schrijven:
+Om toegang te krijgen tot het eerste element uit de array kunnen we natuurlijk \texttt{ary[0]} gebruiken. Maar we kunnen via \texttt{p} ook bij het eerste element komen. Hiervoor gebruiken we \texttt{*p}. We mogen echter \texttt{p} ook lezen als de naam van een array. Om bij het eerste element te komen, mogen we dus ook \texttt{p[0]} gebruiken. Om alle elementen van de array bij elkaar op te tellen, kunnen we dus schrijven:
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Bepalen van de som van elementen in een array.,label=cod:poiarrayandpointersym]
@@ -523,12 +524,12 @@ int b = ary[-1];   /* ILLEGAL: points outside array */
 \section{Pointers als functie-argumenten}
 \label{sec:pointersalsfunctieargumenten}
 \index{pointer!als functie-argument}
-Net als `gewone' variabelen, kunnen ook pointers als argumenten bij het aanroepen van een functie gebruikt worden. Let erop dat een kopie van de pointers worden meegegeven. Via die kopie kunnen we bij de variabelen komen waar de pointers naartoe wijzen. We kunnen dus niet de pointers zelf aanpassen.
+Pointers zijn gewone variabelen en kunnen dus als argumenten bij het aanroepen van een functie gebruikt worden. Let erop dat een kopie van de pointers worden meegegeven. Via die kopie kunnen we bij de variabelen komen waar de pointers naartoe wijzen. We kunnen dus niet de pointers zelf aanpassen.
 
-In listing~\ref{cod:poiswaptwo} is te zien hoe we een functie \texttt{swap} definiëren die de inhouden van twee variabelen verwisseld. Bij het aanroepen van de functie geven we de adressen mee van de te verwisselen variabelen. In de functie gebruiken we pointers om de inhouden van de variabelen te verwisselen.
+In listing~\ref{cod:poiswaptwo} is te zien hoe we een functie \texttt{swap} definiëren die de inhouden van twee variabelen verwisselt. Bij het aanroepen van de functie geven we de adressen mee van de te verwisselen variabelen. In de functie gebruiken we pointers om de inhouden van de variabelen te verwisselen.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Het verwisselen van twee variabelen met behulp van pointers.,label=cod:poiswaptwo]
+\begin{lstlisting}[caption=Het verwisselen van de inhouden van twee variabelen met behulp van pointers.,label=cod:poiswaptwo]
 void swap(int *pa, int *pb) {
 	int temp;
 
@@ -542,7 +543,7 @@ void swap(int *pa, int *pb) {
 Bij het aanroepen van de functie geven we de adressen van de variabelen mee. Dit is te zien in listing~\ref{cod:poiswaptwocalll}. Deze manier van argumentenoverdracht wordt \textsl{Call by Reference}\index{Call by Reference} genoemd.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Aanroep van de functie.,label=cod:poiswaptwocalll]
+\begin{lstlisting}[caption=Aanroepen van de eerder gegeven functie \texttt{swap}.,label=cod:poiswaptwocalll]
 void swap(int *pa, int *pb);   /* prototype of function swap */
 
 int main(void) {
@@ -556,7 +557,7 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
-Een typisch voorbeeld is een functie die een string kopieert naar een andere string. De functie krijgt twee pointers naar strings als argumenten mee. Bij het aanroepen van de functie worden de namen van de twee strings als argumenten meegegeven. De naam van een string is immers een pointer naar het eerste karakter van de string. Het programma is te zien in listing~\ref{cod:poicopystrings1}.
+Een voorbeeld is een functie die een string kopieert naar een andere string. De functie krijgt twee pointers naar strings als argumenten mee. Bij het aanroepen van de functie worden de variabelenamen van de twee strings als argumenten meegegeven. De variabelenaam van een string is immers een pointer naar het eerste karakter van de string. Het programma is te zien in listing~\ref{cod:poicopystrings1}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Functie voor het kopieren van een string met behulp van pointers.,label=cod:poicopystrings1,escapeinside={}{}]
@@ -588,12 +589,12 @@ int main() {
 \end{lstlisting}
 \end{figure}
 
-Merk op dat de geheugenruimte voor de kopie groot genoeg moet zijn om de kopie op te slaan en dat de twee string elkaar in het geheugen niet mogen overlappen. De standard library heeft een functie \texttt{strcpy} die een efficiënte implementatie is van het kopiëren van strings.
+Merk op dat de geheugenruimte voor de kopie groot genoeg moet zijn om de kopie op te slaan en dat de twee strings elkaar in het geheugen niet mogen overlappen. De standard library heeft een functie \texttt{strcpy} die een efficiënte implementatie is van het kopiëren van strings.
 
-Noot: een array kan alleen maar via een pointer als argument aan een functie worden doorgegeven. Dit is veel efficiënter dan de hele array mee te geven. In listing~\ref{cod:poicopystrings1} wordt dus \textsl{niet} de hele array meegegeven, maar alleen de pointers naar de eerste elementen. We mogen daarom de pointers \texttt{to} en \texttt{from} ook als namen van array's beschouwen.  Zie listing~\ref{cod:poicopystrings2}. Merk op dat we dus de lengte van de meegegeven array \textsl{niet} kunnen uitrekenen met de \texttt{sizeof}-operator. Er wordt immers een pointer meegegeven. Dat we toch het einde van een string kunnen bepalen, komt doordat een string wordt afgesloten met een nul-karakter. %Overigens testen we niet of \texttt{to} of \texttt{from} NULL zijn.
+Noot: een array kan alleen maar via een pointer als argument aan een functie worden doorgegeven. Dit is veel efficiënter dan de hele array mee te geven. In listing~\ref{cod:poicopystrings1} wordt dus \textsl{niet} de hele array meegegeven, maar alleen de pointers naar de eerste elementen. We mogen daarom de pointers \texttt{to} en \texttt{from} ook als namen van arrays beschouwen.  Zie listing~\ref{cod:poicopystrings2}. Merk op dat we dus de lengte van de meegegeven array \textsl{niet} kunnen uitrekenen met de \texttt{sizeof}-operator. Er wordt immers een pointer meegegeven. Dat we toch het einde van een string kunnen bepalen, komt doordat een string wordt afgesloten met een nul-karakter. %Overigens testen we niet of \texttt{to} of \texttt{from} NULL zijn.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie voor het kopieren van een string met behulp van array's.,label=cod:poicopystrings2]
+\begin{lstlisting}[caption=Functie voor het kopieren van een string met behulp van arrays.,label=cod:poicopystrings2]
 void string_copy(char to[], char from[]) {
 
     int i=0;
@@ -936,7 +937,7 @@ Een mogelijke uitvoer is te zien in de figuur~\ref{fig:poienkelepointers}. We ze
 i: 3, *p[0]: 3, **pp: 3
 \end{dosbox}
 
-%Er zijn nog wel meer subtiele verschillen tussen pointers en array's mogelijk. Zo is \texttt{int *pa[13]} een array van 13 pointers naar ints.
+%Er zijn nog wel meer subtiele verschillen tussen pointers en arrays mogelijk. Zo is \texttt{int *pa[13]} een array van 13 pointers naar ints.
 
 
 \section{Argumenten meegeven aan een C-programma}

@@ -81,7 +81,7 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
 \end{table}
 
 \indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
-Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarom het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
+Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = \textquotesingle A\textquotesingle; \ \ \ /* assign character A */}
@@ -134,7 +134,7 @@ Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \
 
 Al deze datatypes worden \textsl{enkelvoudige datatypes}\index{enkelvoudige datatypes} genoemd. Dat betekent dat de compiler ze ziet als één eenheid. Het is niet mogelijk om enkelvoudige datatypes te splitsen over meerdere andere datatypes.
 
-Naast de genoemde datatypes bestaan er nog andere een datatypes: \texttt{bool}\index{bool} kan de waarde \texttt{true} of \texttt{false} bevatten en \texttt{complex}\index{complex} kan een complex getal bevatten.
+Naast de genoemde datatypes bestaan er nog twee andere datatypes: \texttt{bool}\index{bool} kan de waarde \texttt{true} of \texttt{false} bevatten en \texttt{complex}\index{complex} kan een complex getal bevatten.
 
 Een veel gebruikt datatype is de \textsl{pointer}\index{pointer}. Een pointer is een variabele die het \textsl{adres}\index{adres} bevat van een (andere) variabele. Pointers worden in detail behandeld in hoofdstuk~\ref{cha:pointers}.
 

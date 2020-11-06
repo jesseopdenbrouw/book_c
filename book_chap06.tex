@@ -1,11 +1,11 @@
-\chapter{Array's}
+\chapter{Arrays}
 \label{cha:arrays}
 \thispagestyle{empty}
 \index{array}
 
-De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een definitie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
+De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een definitie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen we nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
 
-We behandelen array's op vele manieren, onder andere hoe een array wordt gedefinieerd en gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een herhaling. We kunnen tweedimensionale array's gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet behandelen, namelijk de relatie tussen array's en pointers. Die wordt behandeld in hoofdstuk~\ref{cha:pointers}.
+We behandelen arrays op vele manieren, onder andere hoe een array wordt gedefinieerd en gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een herhaling. We kunnen tweedimensionale arrays gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet behandelen, namelijk de relatie tussen arrays en pointers. Die wordt behandeld in hoofdstuk~\ref{cha:pointers}.
 
 \section{Definitie en selectie}
 Een \textsl{array}\index{array}\index{array!declaratie van} is een manier om bij elkaar behorende gegevens onder één naam te groeperen en te bewerken. Een array is een \textsl{samengesteld datatype}\index{samengesteld datatype}, een datatype dat bestaat uit een aantal enkelvoudige datatypes.
@@ -56,18 +56,17 @@ De array \texttt{a} met definitie
 
 \hspace*{1em}\texttt{int a[10];}
 
-wordt, als \textsl{globale} variabele, automatisch geïnitialiseerd met nullen. Als \textsl{lokale} variabele is de inhoud ongedefinieerd.
-We kunnen de array bij definitie gelijk initialiseren. Om de array in figuur~\ref{fig:arryinmem} direct te initialiseren gebruiken we een rij getallen tussen accolades en gescheiden door komma's:
+wordt, als \textsl{globale} variabele, automatisch geïnitialiseerd met nullen. Als \textsl{lokale} variabele is de inhoud ongedefinieerd. We kunnen de array bij de definitie direct initialiseren. Om de array in figuur~\ref{fig:arryinmem} direct te initialiseren gebruiken we een rij getallen tussen accolades en gescheiden door komma's:
 
-\hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
+\hspace*{1em}\texttt{int a[10] = \{2, 5, 3, 9, 8, 2, 6, -1, 10, 0\};}
 
 Omdat de compiler de lengte van de lijst kan uitrekenen, mogen we het aantal elementen bij de definitie weglaten. We kunnen dus ook schrijven:
 
-\hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
+\hspace*{1em}\texttt{int a[] = \{2, 5, 3, 9, 8, 2, 6, -1, 10, 0\};}
 
 Als de lijst korter is dan het aantal opgegeven elementen, dan worden de overige elementen met nullen geïnitialiseerd:
 
-\hspace*{1em}\texttt{int a[10] = \{2, 5 ,3 ,9, 8\}; \ \ /* the rest are zero */} 
+\hspace*{1em}\texttt{int a[10] = \{2, 5, 3, 9, 8\}; \ \ /* the rest are zero */} 
 
 Willen we een lokale array met nullen initialiseren, dan kunnen we volstaan met één nul:
 
@@ -75,7 +74,7 @@ Willen we een lokale array met nullen initialiseren, dan kunnen we volstaan met 
 
 Een \textsl{constante array}\index{constante array} moet altijd geïnitialiseerd worden en de elementen mogen niet gewijzigd worden:
 
-\hspace*{1em}\texttt{const int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
+\hspace*{1em}\texttt{const int a[] = \{2, 5, 3, 9, 8, 2, 6, -1, 10, 0\};}
 
 \section{Eendimensionale array}
 De array \texttt{a} wordt na de definitie
@@ -83,7 +82,7 @@ De array \texttt{a} wordt na de definitie
 \hspace*{1em}\texttt{int a[10];}
 
 een \textsl{eendimenationale}\index{eendimensionaal} array genoemd.
-Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat het uitkomst een geheel getal is en binnen de grenzen van de array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
+Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat de uitkomst een geheel getal is en binnen de grenzen van de array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Afdrukken van de som van twee kwadraten.,label=cod:arrberekenenkwadraten]
@@ -138,11 +137,11 @@ int main(void) {
 \index{bepalen aantal elementen}\index{aantal elementen bepalen}
 We kunnen bij de definitie van een array het aantal elementen opgeven, maar dat hoeft niet als de array gelijk geïnitialiseerd wordt. De definitie
 
-\hspace*{1em}\texttt{int a[] = \{2, 5 ,3 ,9, 8, 2, 6, -1, 10, 0\};}
+\hspace*{1em}\texttt{int a[] = \{2, 5, 3, 9, 8, 2, 6, -1, 10, 0\};}
 
 zorgt ervoor dat \texttt{a} uit 10 elementen bestaat. In een programma moeten we erop toezien dat we niet buiten de array komen. Als we de initialisatie groter of kleiner maken, dan verandert het aantal elementen en moet het programma hierop aangepast worden. Met behulp van de operator \texttt{sizeof}\indexop{sizeof} kunnen we het aantal elementen \textsl{tijdens compile-time}\index{compile-time} uitrekenen. Let erop dat \texttt{sizeof} de grootte \textsl{in bytes} uitrekent. We moeten dus de grootte van de array delen door de grootte van één element. Het aantal elementen van een array wordt berekend met:
 
-\hspace*{1em}\texttt{int siz = sizeof a / sizeof a[0];}
+\hspace*{1em}\texttt{int grootte = sizeof a / sizeof a[0];}
 
 Merk op dat \texttt{sizeof} een hogere prioriteit heeft dan \texttt{/} maar lager dan \texttt{[]}. We hoeven dus geen haakjes te zetten om \texttt{a[0]}. We kunnen het getal \texttt{5} in regel 13 in listing~\ref{cod:arrberekenensomrijkwadraten} vervangen door een berekening van het aantal elementen. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten2}.
 
@@ -164,7 +163,7 @@ Een \textsl{tweedimensionale}\index{tweedimensionaal} array van $5\times3$ eleme
 
 \hspace*{1em}\texttt{int matrix[5][3];}
 
-Het eerste elementnummer wordt het \textsl{rijnummer}\index{rijnummer} genoemd en het tweede elementnummer wordt het \textsl{kolomnummer}\index{kolomnummer} genoemd. Het aantal rijen en kolommen mag natuurlijk gelijk zijn.
+Het eerste elementnummer wordt het \textsl{rijnummer}\index{rijnummer} genoemd en het tweede elementnummer wordt het \textsl{kolomnummer}\index{kolomnummer} genoemd. Het aantal rijen en kolommen mag natuurlijk aan elkaar gelijk zijn.
 
 We kunnen de array tegelijk met de definitie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we drie groepen die zijn afgebakend door accolades en gescheiden zijn door komma's. Om een $3\times3$ matrix te definiëren en te initialiseren, gebruiken we:
 
@@ -193,7 +192,7 @@ kent het aantal rijen toe aan \texttt{rows}. In regel 8 bepalen we het aantal ko
 
 \hspace*{1em}\texttt{int cols = sizeof twodim[0] / sizeof twodim[0][0];}
 
-kent het aantal kolommen toe aan \texttt{cols}. Daarna drukken we de twee variabele af.
+kent het aantal kolommen toe aan \texttt{cols}. Daarna drukken we de twee variabelen af.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Bepalen van het aantal rijen en kolommen.,label=cod:arrsizetwodim]
@@ -269,9 +268,9 @@ definiëren en initialiseren we de array met in dit geval 12 elementen. Omdat de
 %Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
 
 
-\section{Array's en functies}
+\section{Arrays en functies}
 \index{array!als argument}\index{array!als parameter}
-Een array kan als argument van een functie dienen. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop array's overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën wordt doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; het kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
+Een array kan als argument van een functie worden gebruikt. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop arrays overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën worden doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; de functie kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
 
 In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. Om aan te geven dat de eerste parameter een array is, wordt de definitie \texttt{int ary[]} gegeven. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
 
@@ -350,27 +349,27 @@ int patcharray(int ary[], int siz, int what, int with) {
 %%%\end{figure}
 
 
-\section{Array's vergelijken}
+\section{Arrays vergelijken}
 \index{array!vergelijken van}
-Een array is een samengesteld datatype en kan niet zonder meer met een andere array vergeleken worden. Het is verleidelijk om de twee namen van de array's te vergelijken zoals te zien is in listing~\ref{cod:arrcompare}. Door de manier waarop C met de namen omgaat zorgt ervoor dat niet de inhouden van de array's vergeleken worden, maar de adressen van het eerste element. Dit is vergelijkbaar met de array als argument van een functie.
+Een array is een samengesteld datatype en kan niet zonder meer met een andere array vergeleken worden. Het is verleidelijk om de twee arrays te vergelijken alsof het enkelvoudige variabelen zijn zoals te zien is in listing~\ref{cod:arrcompare}. Door de manier waarop C met de namen omgaat zorgt ervoor dat niet de inhouden van de arrays vergeleken worden, maar de adressen van het eerste element. Dit is vergelijkbaar met de array als argument van een functie.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee array's (foutief).,label=cod:arrcompare]
+\begin{lstlisting}[caption=Vergelijken van twee arrays (foutief).,label=cod:arrcompare]
 #include <stdio.h>
 
 int main(void) {
 
 	int ary1[10] = { 0 }, ary2[10] = { 0 };
 
-	printf("De array's zijn %sgelijk\n", ary1 == ary2 ? "" : "on");
+	printf("De arrays zijn %sgelijk\n", ary1 == ary2 ? "" : "on");
 }
 \end{lstlisting}
 \end{figure}
 
-De juiste manier om twee array's te vergelijken is om de elementen paarsgewijs te vergelijken. We doen dit met behulp van de functie \texttt{arraycompare}, te zien in listing~\ref{cod:arrcompare2}.
+De juiste manier om twee arrays te vergelijken is om de elementen uit de arrays met identiek elementnummer een voor een te vergelijken. We doen dit met behulp van de functie \texttt{arraycompare}, te zien in listing~\ref{cod:arrcompare2}.
 
 \begin{figure}[H]
-\begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare2]
+\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare2]
 int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
 
     /* If sizes are not equal, return 0 */
@@ -390,10 +389,10 @@ int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
 \end{lstlisting}
 \end{figure}
 
-De twee array's en het aantal elementen worden als argumenten meegegeven. De array's moeten natuurlijk uit een gelijk aantal elementen bestaan. Dat testen we in regel 3 en keren gelijk terug met een waarde 0 als de aantallen verschillend zijn. Met een \texttt{for}-statement lopen we langs alle elementen van de array's. We vergelijken telkens twee elementen op dezelfde positie. Als twee elementen ongelijk zijn dan weten we dat de array's niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een 1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
+De twee arrays en het aantal elementen worden als argumenten meegegeven. De arrays moeten natuurlijk uit een gelijk aantal elementen bestaan. Dat testen we in regel 3 en we keren gelijk terug met een waarde 0 als de aantallen verschillend zijn. Met een \texttt{for}-statement lopen we langs alle elementen van de arrays. We vergelijken telkens twee elementen op dezelfde positie. Zodra twee elementen ongelijk aan elkaar zijn, weten we dat de arrays niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een~1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee array's.,label=cod:arrcompare3]
+\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare3]
 #include <stdio.h>
 
 int arraycompare(int ary1[], int ary2[], int siz1, int siz2);
@@ -404,18 +403,18 @@ int main(void) {
     int siz1 = sizeof ary1 / sizeof ary1[0];
     int siz2 = sizeof ary2 / sizeof ary2[0];
     
-	printf("De array's zijn %sgelijk\n", arraycompare(ary1, ary2,
+	printf("De arrays zijn %sgelijk\n", arraycompare(ary1, ary2,
                                           siz1, siz2) ? "" : "on");
 }
 \end{lstlisting}
 \end{figure}
 
-De standard library bevat een aantal functies waarmee we gemakkelijk array's kunnen vergelijken, onafhankelijk van het datatype. Dit wordt behandeld in hoofdstuk~\ref{cha:pointers}.
+De standard library bevat een aantal functies waarmee we gemakkelijk arrays kunnen vergelijken, onafhankelijk van het datatype. Dit wordt behandeld in hoofdstuk~\ref{cha:pointers}.
 
 \section{Strings}
 Een \textsl{string}\index{string} is een eendimensionale array van karakters afgesloten met een nul-karakter. In tegenstelling tot veel andere talen is een string in C dus \textsl{geen} enkelvoudig datatype. Dat betekent dat we niet op eenvoudige wijze strings kunnen manipuleren zoals het bepalen van de lengte, inkorten en veranderen. Gelukkig zijn er functies beschikbaar die het programmeerwerk enigszins verlichten. 
 
-We definiëren een string door de rij karakters te beginnen en af te sluiten met aanhalingstekens. De definitie
+We definiëren een string door de rij karakters te beginnen en af te sluiten met dubbele aanhalingstekens. De definitie
 
 \hspace*{1em}\texttt{char str[] = "Ik ben een string";}
 
@@ -479,7 +478,7 @@ De standard library kent een groot aantal functies waarmee strings kunnen worden
 \end{tabular} 
 \end{table}
 
-De functie \texttt{strlen}\indexfunc{strlen} geeft het aantal karakters in de string terug exclusief het nul-karakter. De functie \texttt{stcpy}\indexfunc{strcpy} kopieert de string \texttt{from} naar de string \texttt{to}. Let erop dat de ruimte van \texttt{to} groot genoeg is. De functie test dat niet en een \textsl{buffer overflow}\index{buffer overflow} is dan het gevolg. De functie \texttt{strcat}\indexfunc{strcat} voegt de string \texttt{from} toe aan het einde van string \texttt{to}. In dit verband wordt vaak het Engelse woord \textsl{concatenation}\index{concatenation} gebruikt dat aaneenschakelen betekent. Ook hier moet erop gelet worden dat de ruimte in \texttt{to} groot genoeg is.
+De functie \texttt{strlen}\indexfunc{strlen} geeft het aantal karakters in de string terug exclusief het nul-karakter. De functie \texttt{stcpy}\indexfunc{strcpy} kopieert de string \texttt{from} naar de string \texttt{to}. Let erop dat de ruimte van \texttt{to} groot genoeg moet zijn. De functie test dat niet en een \textsl{buffer overflow}\index{buffer overflow} is dan het gevolg. De functie \texttt{strcat}\indexfunc{strcat} voegt de string \texttt{from} toe aan het einde van string \texttt{to}. In dit verband wordt vaak het Engelse woord \textsl{concatenation}\index{concatenation} gebruikt dat aaneenschakelen betekent. Ook hier moet erop gelet worden dat de ruimte in \texttt{to} groot genoeg moet zijn.
 
 De functie \texttt{strcmp}\indexfunc{strcmp} vergelijkt \texttt{s1} met \texttt{s2} op \textsl{alfabetische ordening}\index{alfabetische ordening} met inachtneming van de karakterset van de computer. Alfabetische ordening wil min of meer zeggen: zoals de woorden in een woordenboek. Dat betekent dat de string \texttt{"Jan"} voorgaat op \texttt{"Janus"}. De functie geeft een negatief getal terug als \texttt{s1} `kleiner' is dan \texttt{s2}, geeft \texttt{0} terug als de strings identiek zijn en geeft een positief getal terug als \texttt{s1} `groter' is dan \texttt{s2}. Let erop dat de karakterset van de computer gebruikt wordt dus \texttt{"123"} is kleiner dan \texttt{"Jan"} en \texttt{"Janus"} is kleiner dan \texttt{"janus"}. Zie bijlage~\ref{cha:asciitabel} over de ordening van de ASCII-karakterset.
 

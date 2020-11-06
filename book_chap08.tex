@@ -2,9 +2,9 @@
 \label{cha:structures}
 \thispagestyle{empty}
 
-Een structuur (Engels: structure\footnote{We zullen vanaf nu de Engelse naam structure gebruiken.}) is een verzameling bij elkaar behorende gegevens beschikbaar onder één enkele naam. Dit is vooral handig bij complexe \textsl{datastructuren} want ze helpen om gerelateerde variabelen als een eenheid te bewerken in plaats van een aantal verschillende variabelen. Structures komen overeen met een \textsl{rij} in een relationele database. Een bekend voorbeeld is de loonlijst van werknemers. Een werknemer heeft een naam, een adres, een salaris en een functie.
+Een structuur (Engels: structure\footnote{We zullen vanaf nu de Engelse naam structure gebruiken.}) is een verzameling bij elkaar behorende gegevens beschikbaar onder één enkele naam. Dit is vooral handig bij complexe \textsl{datastructuren} want ze helpen om gerelateerde variabelen als een eenheid te bewerken in plaats van een aantal verschillende variabelen. Structures komen overeen met \textsl{rijen} in een relationele database. Een bekend voorbeeld is de loonlijst van werknemers. Een werknemer heeft een naam, een adres, een salaris en een functie.
 
-Structures kunnen gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven, we kunnen het adres van een structure opvragen met de adres-operator \texttt{\&} en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
+Een structure kan gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven, we kunnen het adres van een structure opvragen met de adres-operator \texttt{\&} en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
 
 \section{Definitie van structures en variabelen}
 Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We definiëren de structure \texttt{artikel} als volgt:
@@ -42,7 +42,7 @@ Let erop dat de naam van een artikel een \textsl{string} is. Om de naam aan te p
 \hspace*{1em}\texttt{strcpy(floppy.naam, "Floppy 3.5 in");}
 
 \section{Functies met structures}
-Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens netjes van elkaar te scheiden.
+Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens van elkaar te scheiden.
 
 \booklistingfromproject[linerange={13-18},label=cod:struct3]{C}{Afdrukken van de gegevens van een  artikel}{struct_artikel}{c}{H}
 
@@ -74,7 +74,7 @@ We kunnen \texttt{typedef} ook gebruiken bij andere datatypes:
 
 \section{Pointers naar structures}
 \index{structure!pointer naar}\index{pointer!naar structure}
-Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameter. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdefinitie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
+Als een structure een groot aantal members bevat, is het niet handig om een hele structure aan een functie mee te geven als parameter. Een argument dat wordt meegegeven wordt namelijk gekopieerd naar de parameters. Het is dan beter om een pointer naar een structure mee te geven. Bijkomend voordeel (of is het een probleem?) is dat ook gelijk de members van de structure kunnen worden aangepast. Als we willen dat een argument niet kan worden aangepast, gebruiken we het keyword \texttt{const}\indexkeyword{const} bij de parameterdefinitie. De compiler ziet er dan op toe dat in de functie geen members worden aangepast en als dat toch gebeurt, volgt een foutmelding. Zie listing~\ref{cod:struct12} voor de functie voor het afdrukken van gegevens van een artikel.
 
 \booklistingfromproject[linerange={13-18},label=cod:struct12,escapeinside={{}{}}]{C}{Een functie om de gegevens van een artikel af te drukken}{struct_artikel_typedef}{c}{H}
 
@@ -87,7 +87,7 @@ selecteert member \texttt{nummer} van de structure die aangewezen wordt door poi
 \hspace*{1em}\texttt{*a.nummer}
 
 ervan uitgaat dat \texttt{a.nummer} een pointer is naar een \texttt{int} (en de variabele a is geen pointer).
-Omdat het gebruik van de haakjes zo vaak voorkomt, is er een speciale notatie mogelijk. We kunnen de member operator \texttt{->}\indexop{->} gebruiken om een member van een structure te gebruiken aangewezen door een pointer naar een structure. Dus:
+Omdat het gebruik van de haakjes niet zo duidelijk overkomt, is er een andere notatie mogelijk. We kunnen de member operator \texttt{->}\indexop{->} gebruiken om een member van een structure te gebruiken aangewezen door een pointer naar een structure. Dus:
 
 \hspace*{1em}\texttt{a->nummer}
 
@@ -96,7 +96,7 @@ selecteert member \texttt{nummer} van een structure aangewezen door pointer \tex
 \hspace*{1em}\texttt{(*a).nummer}\\
 \hspace*{1em}\texttt{a->nummer}
 
-Dus om een functie te gebruiken die de gegevens van een nieuwe artikel invult, kunnen de functie \texttt{vul\_artikel} in listing~\ref{cod:struct13} gebruiken.
+Dus om een functie te gebruiken die de gegevens van een nieuwe artikel invult, kunnen we de functie \texttt{vul\_artikel} in listing~\ref{cod:struct13} gebruiken.
 
 \booklistingfromproject[linerange={20-27},label=cod:struct13,escapeinside={{}{}}]{C}{Een functie om de gegevens van een artikel in te stellen}{struct_artikel_typedef}{c}{H}
 
@@ -116,7 +116,7 @@ zorgt ervoor dat we een array van tien artikelen kunnen gebruiken. Om een elemen
 
 \hspace*{1em}\texttt{art[6].aantal += 3;}
 
-zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array altijd via \textsl{Call by Reference}\index{Call by Reference} (dus via een pointer) wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
+zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array middels een pointer naar het eerste element wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
 
 In listing~\ref{cod:struct14} is een functie te zien die alle gegevens van de artikelen afdrukt. We gaan hier ervan uit dat als een artikel het nummer 0 heeft, dit artikel niet is ingevuld en drukken we de gegevens niet af. 
 
@@ -134,7 +134,7 @@ We kunnen ons programma uitbreiden met bestellingen. We definiëren daartoe drie
 
 \booklistingfromproject[linerange={6-23},label=cod:bestel1,escapeinside={{}{}}]{C}{De structures die horen bij een bestelling}{struct_bestelling}{c}{H}
 
-Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de rest wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
+Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de andere members wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
 
 \hspace*{1em}\texttt{bestel.bestelnr = 123;}
 
@@ -146,7 +146,7 @@ We kunnen een artikel bij de bestelling voegen door een artikel in zijn geheel t
 
 \hspace*{1em}\texttt{bestel.artbestel[0] = art[2];}
 
-We moeten dan nog alleen het aantal en de prijs berekenen. Dit is te zien in listing~\ref{cod:bestel2}.
+We moeten dan alleen nog het aantal en de prijs berekenen. Dit is te zien in listing~\ref{cod:bestel2}.
 
 \booklistingfromproject[linerange={46-53},label=cod:bestel2,escapeinside={{}{}}]{C}{Een functie om alle gegevens van artikelen af te drukken}{struct_bestelling}{c}{H}
 
@@ -160,13 +160,13 @@ Het gebruik van structures is nauw gekoppeld aan \textsl{relationele databases}.
 \section{Teruggeven van meerdere variabelen}
 In C kan een functie slechts één variabele teruggeven. Als we meerdere variabelen willen teruggeven, kunnen we gebruik maken van een structure. De structure `verpakt' dan de variabelen onder één noemer.
 
-Een bekend voorbeeld zijn het berekenen van de oplossingen van een kwadratische vergelijking met de vorm $ax^2+bx+c=0$. We kunnen de \textsl{wortels} (getallen waarvoor de functie~0 oplevert) berekenen met de wortelformule\index{wortelformule}:
+Een bekend voorbeeld is het berekenen van de oplossingen van een kwadratische vergelijking met de vorm $ax^2+bx+c=0$. We kunnen de \textsl{wortels} (getallen waarvoor de functie~0 oplevert) berekenen met de wortelformule\index{wortelformule}:
 %
 \begin{equation}
 x_{1,2} = \dfrac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
 %
-De expressie onder het wortelteken heet de \textsl{discriminant} en heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet 0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:struct_wortels}.
+De expressie onder het wortelteken heet de \textsl{discriminant} en de wortel van de discriminant heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet~0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:struct_wortels}.
 
 We definiëren een structure met de drie gegevens zoals te zien is in regels 4 t/m 8. In de functie \texttt{bereken\_wortels} berekenen we de wortels als dat mogelijk is en we vullen de status van de wortels in. Kunnen ze niet berekend worden dan zetten we variabele \texttt{geldig} op 0, anders zetten we die variabele op 1. Aan het einde van de functie geven we een nieuw aangemaakte variabele terug. In de functie \texttt{print\_wortels} drukken we de wortels af of dat de wortels niet geldig zijn (kunnen niet berekend worden).
 
@@ -182,7 +182,7 @@ Binnen een union wordt ruimte gereserveerd voor het grootste datatype (in het aa
 
 \booklistingfromproject[gobble=4,linerange={11-15},label=cod:union1]{C}{Een union om verschillende datatypes te gebruiken}{union}{c}{H}
 
-De gereserveerde geheugenruimte is gelijk aan de grootste variabele, in dit geval een \texttt{double}. We kunnen de union opnemen in een structure met daarin de naam en het type (en natuurlijk de union). Een voorbeeld is te zien in listing~\ref{cod:union2}. We hebben tevens gebruik gemaakt van een \textsl{enumeratie}\index{enumeratie} (zie paragraaf~\ref{sec:enumeraties}) voor de verschillende datatypes.
+De gereserveerde geheugenruimte is gelijk aan de geheugenruimte van de grootste variabele, in dit geval een \texttt{double}. We kunnen de union opnemen in een structure met daarin de naam en het type (en natuurlijk de union). Een voorbeeld is te zien in listing~\ref{cod:union2}. We hebben tevens gebruik gemaakt van een \textsl{enumeratie}\index{enumeratie} (zie paragraaf~\ref{sec:enumeraties}) voor de verschillende datatypes.
 
 \booklistingfromproject[linerange={6-16},label=cod:union2,escapeinside={{}{}}]{C}{Een structure om een variabele in een compiler te gebruiken}{union}{c}{H}
 
@@ -201,11 +201,11 @@ Bij het afdrukken van de waarde van de variabele raadplegen we het type. Met beh
 \section{Bitvelden}
 Bitvelden maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
 
-Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interruptenable}.
+Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interrupt\_enable}.
 
 \begin{lstlisting}[caption=Voorbeeld van bitvelden.,label=cod:bitfields]
 struct {
-    unsigned int interruptenable : 1;  /* Bit 31 */
+    unsigned int interrupt_enable : 1; /* Bit 31 */
     unsigned int padding : 0;          /* Bits 30 down to 21 */
     unsigned int mode : 3;             /* Bits 20 down to 18 */
     unsigned int enable : 1;           /* Bit 17 */
@@ -215,14 +215,14 @@ struct {
 
 \end{lstlisting}
 
-Het veld \texttt{padding} heeft de speciale breedte 0 om ervoor te zorgen dat de velden worden \textsl{opgelijnd} naar de breedte die van nature door de computer worden verwerkt. Een veel gebruikte term hiervoor is \textsl{machinewoord}. De bit \texttt{interruptenable} komt daardoor op positie 31 terecht, de andere bits lopen van 0 t/m 20.
+Het veld \texttt{padding} heeft de speciale breedte 0 om ervoor te zorgen dat de velden worden \textsl{opgelijnd} naar de breedte die van nature door de computer worden verwerkt. Een veel gebruikte term hiervoor is \textsl{machinewoord}. De bit \texttt{interrupt\_enable} komt daardoor op positie 31 terecht, de andere bits lopen van 0 t/m 20.
 
 
 Om te teller te starten gebruiken we:
 
 \hspace*{1em}\texttt{counter.enable = 1;}
 
-Om de tellerwaarde te kopiëren naar een variabele, gebruiken we:
+Om de tellerwaarde te kopiëren naar een variabele gebruiken we:
 
 \hspace*{1em}\texttt{unsigned int value = counter.value;}
 
@@ -230,7 +230,7 @@ Om te testen of een overflow heeft plaatsgevonden, gebruiken we:
 
 \hspace*{1em}\texttt{if (counter.overflow == 1) \{ ... \} }
 
-Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het programma draait en de C-compiler die gebruikt wordt. Dat betekent dat programma's met bitvelden moeilijk overdraagbaar zijn naar andere computers en C-compilers. Bij systemen die van nature met 32 bits werken worden de bits (hoogst waarschijnlijk) samengepakt in 32 bits eenheden.
+Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het programma draait en de C-compiler die gebruikt wordt. Dat betekent dat programma's met bitvelden moeilijk overdraagbaar zijn naar andere computers en andere C-compilers. Bij systemen die van nature met 32 bits werken worden de bits (hoogst waarschijnlijk) samengepakt in 32 bits eenheden.
 
 Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
 
@@ -325,7 +325,7 @@ kunnen we de member \lstc{next} (de pointer) laten wijzen naar node \lstc{b}. De
 \label{fig:strstr3}
 \end{figure}
 
-Natuurlijk kunnen we op dezelfde wijze de andere nodes ook naar de volgende in de lijst laten wijzen. Dit is te zien in de onderstaande listing. De uitbeelding is te zien in figuur~\ref{fig:strstr4}.
+Natuurlijk kunnen we op dezelfde wijze de andere nodes ook naar de volgende in de linked list laten wijzen. Dit is te zien in de onderstaande listing. De uitbeelding is te zien in figuur~\ref{fig:strstr4}.
 
 \begin{lstlisting}[style=lstoneline]
 a.next = &b;
@@ -350,15 +350,15 @@ c.next = &d;
 \label{fig:strstr4}
 \end{figure}
 
-We hebben nu een \textsl{gekoppelde lijst} gemaakt waarbij we van een node naar een andere node kunnen ``springen''.
+We hebben nu een \textsl{linked list} gemaakt waarbij we van een node naar een andere node kunnen ``springen''.
 
-Laten we de lijst nu eens afdrukken. Daarvoor hebben we een pointer variabele nodig die we \lstc{current} noemen. Natuurlijk moet \lstc{current} in het begin wijzen naar het adres van \lstc{a}. We definiëren én initialiseren deze variabele als
+Laten we de linked list nu eens afdrukken. Daarvoor hebben we een pointer variabele nodig die we \lstc{current} noemen. Natuurlijk moet \lstc{current} in het begin wijzen naar het adres van \lstc{a}. We definiëren én initialiseren deze variabele als
 
 \begin{lstlisting}[style=lstoneline]
 struct node *current = &a;
 \end{lstlisting}
 
-Nu kunnen we de inhoud van \lstc{a} ook afdrukken met
+Nu kunnen we de leeftijd en naam in \lstc{a} ook afdrukken met
 
 \begin{lstlisting}[style=lstoneline]
 current->age (* \textrm{en} *) current->name
@@ -370,7 +370,7 @@ Om naar de volgende node te wijzen (node \lstc{b}) gebruiken we het statement
 current = current->next;
 \end{lstlisting}
 
-Maar dat mag natuurlijk alleen als \lstc{current} ongelijk aan \lstc{NULL} is want dan is er geen volgende in de lijst. Om de hele lijst nu af te drukken gebruiken we een \lstc{while}-statement. Dit is te zien in de onderstaande listing.
+Maar dat mag natuurlijk alleen als \lstc{current} ongelijk aan \lstc{NULL} is want dan is er geen volgende in de lijst. Om de hele linked list nu af te drukken gebruiken we een \lstc{while}-statement. Dit is te zien in de onderstaande listing.
 
 \begin{lstlisting}[style=lstoneline]
 /* While we're not at the end of the list */
@@ -382,7 +382,7 @@ while (current != NULL) {
 }
 \end{lstlisting}
 
-Met dit \lstc{while}-statement lopen we van het begin tot aan het einde van de lijst. Dit wordt in het Engels \textsl{traversal} (to traverse: langslopen) genoemd. In figuur~\ref{fig:strstrtranversal} is de traversal van de pointer \lstc{current} te zien. Pointer \lstc{current} begint bij node \lstc{a}, gaat daarna naar \lstc{b} en daarna naar \lstc{c} en eindigt vervolgens bij \lstc{d}. Dat is het einde van de lijst, want \lstc{d} heeft geen opvolger, en dus stopt de \lstc{while}-lus.
+Met dit \lstc{while}-statement lopen we van het begin tot aan het einde van de linked list. Dit wordt in het Engels \textsl{traversal} (to traverse: langslopen) genoemd. In figuur~\ref{fig:strstrtranversal} is de traversal van de pointer \lstc{current} te zien. Pointer \lstc{current} begint bij node \lstc{a}, gaat daarna naar \lstc{b} en daarna naar \lstc{c} en eindigt vervolgens bij \lstc{d}. Dat is het einde van de linked list, want \lstc{d} heeft geen opvolger, en dus stopt de \lstc{while}-lus.
 Het complete programma is te zien in listing~\ref{cod:linked_list_simple}.
 
 \begin{figure}[!ht]
@@ -419,10 +419,9 @@ Het complete programma is te zien in listing~\ref{cod:linked_list_simple}.
 \label{fig:strstrtranversal}
 \end{figure}
 
-\booklistingfromproject[]{C}{Aanmaken van enkele nodes en de traversal van de nodes}{linked_list_simple}{c}{!ht}
+\booklistingfromproject[lineskip=-1.1pt]{C}{Aanmaken van enkele nodes en de traversal van de nodes}{linked_list_simple}{c}{H}
 
 % Needed to trigger latex to create a new page */
-\clearpage
 \subsection{Dynamisch gekoppelde lijsten}
 Nu biedt het opzetten van een linked list op deze manier niet veel meerwaarde. We hadden de nodes ook in een array kunnen plaatsen. Het aantal nodes staat namelijk vast.
 
@@ -432,12 +431,12 @@ We gaan nu een programma ontwerpen dat de leeftijd en naam van personen inleest 
 
 \begin{itemize}
 \item Inlezen van leeftijd en naam;
-\item Aanmaken van een nieuwe node en vullen met de gegevens. Tevens wordt de nieuwe node opgenomen aan het einde van de lijst;
-\item Afdrukken van de complete lijst;
-\item Verwijderen van de lijst.
+\item Aanmaken van een nieuwe node en vullen met de gegevens. Tevens wordt de nieuwe node opgenomen aan het einde van de linked list;
+\item Afdrukken van de complete linked list;
+\item Verwijderen van de complete linked list.
 \end{itemize}
 
-Voor het aanmaken van een nieuwe node ontwerpen we de functie \lstc{create_node}, het afdrukken van de lijst doen we met de functie \lstc{print_all_nodes} en voor het verwijderen van de lijst gebruiken we de functie \lstc{remove_all_nodes}. Het inlezen van de gegevens en het aanmaken van een nieuwe node gebeurt in een \lstc{do while}-lus. Als we klaar zijn met inlezen, drukken we de lijst af en verwijderen we de lijst.
+Voor het aanmaken van een nieuwe node ontwerpen we de functie \lstc{create_node}, het afdrukken van de linked list doen we met de functie \lstc{print_all_nodes} en voor het verwijderen van de linked list gebruiken we de functie \lstc{remove_all_nodes}. Het inlezen van de gegevens en het aanmaken van een nieuwe node gebeurt in een \lstc{do while}-lus. Als we klaar zijn met inlezen, drukken we de linked list af en verwijderen we de linked list.
 
 Omdat we enkele functies uit de standard library gebruiken, laden we eerst de benodigde header-bestanden. Dit is te zien in het onderstaande programmafragment.
 
@@ -447,7 +446,7 @@ De node die we gebruiken is hieronder gedefinieerd.
 
 \booklistingfromproject[linerange={9-14},style=lstoneline,label=dummy20]{C}{}{linked_list_malloc}{c}{!ht}
 
-De lijst wordt dynamisch opgebouwd en om het begin van de lijst aan te geven, moeten we bijhouden waar het begin is. Dit wordt doorgaans de \textsl{head} van de lijst genoemd. We gebruiken hiervoor een pointer \lstc{head}. Deze pointer wijst dus altijd naar het begin van de lijst. In eerste instantie wijst de pointer naar niets, vandaar de initialisatie met \lstc{NULL}. Merk op dat \lstc{head} globaal gedefinieerd is zodat de functies de pointer kunnen gebruiken.
+De linked list wordt dynamisch opgebouwd en om het begin van de linked list aan te geven, moeten we bijhouden waar het begin is. Dit wordt doorgaans de \textsl{head} van de linked list genoemd. We gebruiken hiervoor een pointer \lstc{head}. Deze pointer wijst dus altijd naar het begin van de linked list. In eerste instantie wijst de pointer naar niets, vandaar de initialisatie met \lstc{NULL}. Merk op dat \lstc{head} globaal gedefinieerd is zodat de functies de pointer kunnen gebruiken.
 
 \booklistingfromproject[linerange={16-17},style=lstoneline,label=dummy22]{C}{}{linked_list_malloc}{c}{!ht}
 
@@ -455,21 +454,21 @@ Omdat we drie functies gebruiken, declareren we de prototypes. Dit is te zien in
 
 \booklistingfromproject[linerange={19-24},style=lstoneline,label=dummy30]{C}{}{linked_list_malloc}{c}{!ht}
 
-Laten we nu eens kijken naar de opzet van het programma. We bekijken eerst de functie \lstc{main}. Dit is te zien in listing~\ref{cod:linked_list_malloc}. Het inlezen van de gegevens wordt gedaan met behulp van een \lstc{do while}-lus
+Laten we nu eens kijken naar de opzet van het programma. We bekijken eerst de functie \lstc{main}. Dit is te zien in listing~\ref{cod:linked_list_malloc}.
 %
-\booklistingfromproject[linerange={26-53}]{C}{De body van het programma}{linked_list_malloc}{c}{!b}
+\booklistingfromproject[linerange={26-54}]{C}{De body van het programma}{linked_list_malloc}{c}{!b}
 %
-die loopt van regel 8 t/m 20. Het stopcriterium is een leeftijd kleiner dan of gelijk aan 0. Het inlezen wordt gedaan in de regels 8 t/m 12 middels de bekende \lstc{scanf}-functie. In regel 14 wordt de functie \lstc{create_node} aangeroepen met de leeftijd en naam als argumenten. Als het aanmaken \textsl{niet} lukt, dan wordt het programma met een foutmelding verlaten. Nadat de lus is verlaten, wordt de lijst afgedrukt met de functie \lstc{print_all_nodes}. Als laatste wordt de lijst verwijderd met \lstc{remove_all_nodes}.
+Het inlezen van de gegevens wordt gedaan met behulp van een \lstc{do while}-lus die loopt van regel 8 t/m 20. Het stopcriterium is een leeftijd kleiner dan of gelijk aan 0. Het inlezen wordt gedaan in de regels 8 t/m 12 middels de bekende \lstc{scanf}-functie. In regel 14 wordt de functie \lstc{create_node} aangeroepen met de leeftijd en naam als argumenten. Als het aanmaken \textsl{niet} lukt, dan wordt het programma met een foutmelding verlaten. Nadat de lus is verlaten, wordt de linked list afgedrukt met de functie \lstc{print_all_nodes}. Als laatste wordt de linked list verwijderd met \lstc{remove_all_nodes}.
 
-De functie \lstc{create_node} is te zien in listing~\ref{cod:strcreatenode}. De functie moet drie zaken afhandelen: dynamisch alloceren van geheugen om een nieuwe node aan te maken, het plaatsen van de node aan het einde van de lijst en het vullen van de gegevens in de nieuwe structure.
+De functie \lstc{create_node} is te zien in listing~\ref{cod:strcreatenode}. De functie moet drie zaken afhandelen: dynamisch alloceren van geheugen om een nieuwe node aan te maken, het plaatsen van de node aan het einde van de linked list en het vullen van de gegevens in de nieuwe structure.
 
-\booklistingfromproject[linerange={54-90},label=cod:strcreatenode]{C}{De functie \lstc{create_node}}{linked_list_malloc}{c}{!ht}
+\booklistingfromproject[linerange={55-91},label=cod:strcreatenode]{C}{De functie \lstc{create_node}}{linked_list_malloc}{c}{!ht}
 
 In regel 7 wordt via de functie \lstc{malloc} een stuk geheugen gealloceerd. De grootte wordt bepaald met behulp van de operator \lstc{sizeof} zodat er precies genoeg geheugen wordt opgevraagd om de node te plaatsen. In regels 10 t/m 12 wordt getest of het alloceren gelukt is. Dat kan mislukken als er al teveel geheugen is opgevraagd. Dan geven we als returnwaarde \lstc{NULL} terug ten teken van het mislukken van de allocatie.
 
-Als het alloceren van het geheugen gelukt is, bevat de pointer \lstc{created} het adres van de node. We moeten nu alleen nog bepalen of dit de eerste node in de lijst is. Zo ja, dan moet \lstc{head} gaan wijzen naar de nieuwe node. Dit wordt gerealiseerd in regels 16 t/m 18. Als er al één of meerdere nodes zijn aangemaakt, dan moeten we het einde van de lijst zien te vinden. Dit wordt gerealiseerd in regels 20 t/m 28.
+Als het alloceren van het geheugen gelukt is, bevat de pointer \lstc{created} het adres van de node. We moeten nu alleen nog bepalen of dit de eerste node in de linked list is. Zo ja, dan moet \lstc{head} gaan wijzen naar de nieuwe node. Dit wordt gerealiseerd in regels 16 t/m 18. Als er al één of meerdere nodes zijn aangemaakt, dan moeten we het einde van de linked list zien te vinden. Dit wordt gerealiseerd in regels 20 t/m 28.
 
-Om goed te begrijpen hoe het vinden van het einde van de lijst werkt, hebben we een uitbeelding gemaakt van vier nodes. Dit is te zien in figuur~\ref{fig:strstrfindingendoflist}. Hierbij hebben we de nodes de namen $A$, $B$, $C$ en $D$ gegeven. Node $A$ ligt aan het begin van de lijst en node $D$ ligt aan het einde van de lijst. In de figuur is te zien dat \lstc{head} wijst naar node $A$, de eerste in de lijst. De pointer \lstc{current} gebruiken we om langs de lijst te lopen. Uiteindelijk wordt het einde van de lijst gevonden. Dit is aangegeven met de (pseudo)-pointer \lstc{current@end}.
+Om goed te begrijpen hoe het vinden van het einde van de linked list werkt, hebben we een uitbeelding gemaakt van vier nodes. Dit is te zien in figuur~\ref{fig:strstrfindingendoflist}. Hierbij hebben we de nodes de namen $A$, $B$, $C$ en $D$ gegeven. Node $A$ ligt aan het begin van de linked list en node $D$ ligt aan het einde van de linked list. In de figuur is te zien dat \lstc{head} wijst naar node $A$, de eerste in de linked list. De pointer \lstc{current} gebruiken we om langs de linked list te lopen. Uiteindelijk wordt het einde van de linked list gevonden. Dit is aangegeven met de (pseudo)-pointer \lstc{current@end}.
 
 \begin{figure}[!ht]
 \centering
@@ -509,11 +508,11 @@ Om goed te begrijpen hoe het vinden van het einde van de lijst werkt, hebben we 
 \node[yshift=.3cm] at (D.two north) {$D$};
    
 \end{tikzpicture}
-\caption{Het vinden van het einde van de lijst.}
+\caption{Het vinden van het einde van de linked list.}
 \label{fig:strstrfindingendoflist}
 \end{figure}
 
-In eerste instantie wordt pointer \lstc{current} gelijk gesteld aan \lstc{head}. Dat is namelijk het begin van de lijst. We schrijven dus:
+In eerste instantie wordt pointer \lstc{current} gelijk gesteld aan \lstc{head}. Dat is namelijk het begin van de linked list. We schrijven dus:
 
 \begin{lstlisting}[style=lstoneline]
 current = head;
@@ -536,7 +535,7 @@ current = current->next;
 \end{lstlisting}
 
 Dus als \lstc{current} wijst naar $A$ wordt de nieuwe waarde $A$\lstc{->next} oftwel $B$.
-De pointer \lstc{current} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de lijst gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
+De pointer \lstc{current} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de linked list gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
 
 \begin{lstlisting}[style=lstoneline]
 current->next = created;
@@ -556,19 +555,19 @@ Als laatste statement geven we als returnwaarde het adres van \lstc{created} ter
 return created;
 \end{lstlisting}
 
-De functie \lstc{print_all_nodes} is kort en krachtig. De functie is te zien in listing~\ref{cod:strprintallnodes}. De functie heeft geen parameters en geeft niets terug.  We gebruiken hier een \lstc{while}-lus om langs alle nodes te gaan totdat we het einde van de lijst hebben bereikt. We beginnen met het initialiseren van de pointer \lstc{current} met \lstc{head}. Daar moeten we tenslotte beginnen. In de \lstc{while}-lus wordt getest of \lstc{current} niet naar \lstc{NULL} wijst. Dan is er nog een node waarvan de gegevens moeten worden afgedrukt. In de lus laten we \lstc{current} naar de volgende node wijzen. 
+De functie \lstc{print_all_nodes} is kort en krachtig. De functie is te zien in listing~\ref{cod:strprintallnodes}. De functie heeft geen parameters en geeft niets terug.  We gebruiken hier een \lstc{while}-lus om langs alle nodes te gaan totdat we het einde van de linked list hebben bereikt. We beginnen met het initialiseren van de pointer \lstc{current} met \lstc{head}. Daar moeten we tenslotte beginnen. In de \lstc{while}-lus wordt getest of \lstc{current} niet naar \lstc{NULL} wijst. Dan is er nog een node waarvan de gegevens moeten worden afgedrukt. In de lus laten we \lstc{current} naar de volgende node wijzen. 
 
-\booklistingfromproject[linerange={93-104},label=cod:strprintallnodes]{C}{De functie \lstc{print_all_nodes}}{linked_list_malloc}{c}{!ht}
+\booklistingfromproject[linerange={93-105},label=cod:strprintallnodes]{C}{De functie \lstc{print_all_nodes}}{linked_list_malloc}{c}{!ht}
 
-Voordat het programma wordt afgesloten, moeten de gealloceerde nodes eerst weer worden vrijgegeven. Dat kan met de functie \lstc{remove_all_nodes}. De functie is te zien in listing~\ref{cod:strremoveallnodes}. We beginnen met het verwijderen bij het begin van de lijst, dus waar de pointer \lstc{head} naar wijst. We verwijderen de node met de functie \lstc{free} en laten \lstc{head} naar de volgende in de lijst wijzen. We doen dit totdat de laatste node is verwijderd.
+Voordat het programma wordt afgesloten, moeten de gealloceerde nodes eerst weer worden vrijgegeven. Dat kan met de functie \lstc{remove_all_nodes}. De functie is te zien in listing~\ref{cod:strremoveallnodes}. We beginnen met het verwijderen bij het begin van de linked list, dus waar de pointer \lstc{head} naar wijst. We verwijderen de node met de functie \lstc{free} en laten \lstc{head} naar de volgende in de linked list wijzen. We doen dit totdat de laatste node is verwijderd.
 
-Er zit nog wel een bepaalde volgorde in het verwijderen van een node en het laten wijzen van \lstc{head} naar de volgende in de lijst. We moeten \lstc{head} eerst laten wijzen naar de volgende node en dan pas de (eerdere) node verwijderen. Dat kan natuurlijk niet met \lstc{head} want die wijst al naar de volgende node. Daarom gebruiken we een extra variabele \lstc{remnode} die naar de te verwijderen node wijst.
+Er zit nog wel een bepaalde volgorde in het verwijderen van een node en het laten wijzen van \lstc{head} naar de volgende in de linked list. We moeten \lstc{head} eerst laten wijzen naar de volgende node en dan pas de (eerdere) node verwijderen. Dat kan natuurlijk niet met \lstc{head} want die wijst al naar de volgende node. Daarom gebruiken we een extra variabele \lstc{remnode} die naar de te verwijderen node wijst.
 
-\booklistingfromproject[linerange={106-119},label=cod:strremoveallnodes]{C}{De functie \lstc{remove_all_nodes}}{linked_list_malloc}{c}{!ht}
+\booklistingfromproject[linerange={107-120},label=cod:strremoveallnodes]{C}{De functie \lstc{remove_all_nodes}}{linked_list_malloc}{c}{!ht}
 
 Overigens kunnen we het verwijderen van de nodes in dit programma achterwege laten. Als het programma is afgesloten, wordt al het gealloceerde geheugen automatisch door het besturingssysteem vrijgegeven.
 
-We kunnen nog wat zeggen over de efficiëntie van enkele acties op de lijst. Als we een node toevoegen moeten we eerst het einde van de lijst bepalen. We moeten dus alle nodes aflopen. We noemen deze \textsl{tijdcomplexiteit} ``van de orde $n$'' en wordt geschreven $O(n)$. Als we een node net een specifieke inhoud moeten verwijderen (overigens niet in het voorbeeld gegeven) dan moeten we ten hoogste alle nodes aflopen. Ook deze actie is van de orde $O(n)$. Om dezelfde reden is opzoeken of wijzigen van een node ook van de orde $O(n)$.
+We kunnen nog wat zeggen over de efficiëntie van enkele acties op de linked list. Als we een node toevoegen moeten we eerst het einde van de linked list bepalen. We moeten dus alle nodes aflopen. We noemen deze \textsl{tijdcomplexiteit} ``van de orde $n$'' en wordt geschreven $O(n)$. Als we een node net een specifieke inhoud moeten verwijderen (overigens niet in het voorbeeld gegeven) dan moeten we ten hoogste alle nodes aflopen. Ook deze actie is van de orde $O(n)$. Om dezelfde reden is opzoeken of wijzigen van een node ook van de orde $O(n)$.
 
 \begin{table}[!ht]
 \begin{tabular}{lp{1em}l}
@@ -582,8 +581,8 @@ Wijzigen && $O(n)$
 \end{table}
 \basic
 
-We kunnen het toevoegen ook anders realiseren. In plaats van het einde van de lijst steeds opnieuw op te zoeken, kunnen een nieuwe node ook aan het \textsl{begin} van de lijst toevoegen. Dat begin is direct te vinden want daarvoor gebruiken we de pointer \lstc{head}. We maken een nieuwe node aan, laten de member \lstc{next} wijzen naar \lstc{head} en laten daarna \lstc{head} wijzen naar de nieuwe node. Nu is deze functie van de orde $O(1)$.
+We kunnen het toevoegen ook anders realiseren. In plaats van het einde van de linked list steeds opnieuw op te zoeken, kunnen een nieuwe node ook aan het \textsl{begin} van de linked list toevoegen. Dat begin is direct te vinden want daarvoor gebruiken we de pointer \lstc{head}. We maken een nieuwe node aan, laten de member \lstc{next} wijzen naar \lstc{head} en laten daarna \lstc{head} wijzen naar de nieuwe node. Nu is deze functie van de orde $O(1)$.
 
-Overigens is de lijst niet gesorteerd. Dat heeft ook alleen maar zin als we de lijst gesorteerd willen afdrukken. Voor het opzoeken en verwijderen van een node maakt het niet veel uit.
+Overigens is de linked list niet gesorteerd. Dat heeft ook alleen maar zin als we de linked list gesorteerd willen afdrukken. Voor het opzoeken en verwijderen van een node maakt het niet veel uit.
 
-Als we gebruik willen maken van een gesorteerde lijst, bijvoorbeeld van woorden, dan kunnen we beter gebruik maken van een \textsl{binaire boom} (Engels: binary tree). Tijdens het toevoegen van een node kan de sortering dan efficiënt worden gerealiseerd. De eerder gegeven acties zijn dan \textsl{gemiddeld} van de orde $O(\log n)$ en in het slechtste geval $O(n)$. Het valt echter buiten de scope van dit boek. Er is veel literatuur te vinden over binaire bomen. 
+Als we gebruik willen maken van een gesorteerde linked list, bijvoorbeeld van woorden, dan kunnen we beter gebruik maken van een \textsl{binaire boom} (Engels: binary tree). Tijdens het toevoegen van een node kan de sortering dan efficiënt worden gerealiseerd. De eerder gegeven acties zijn dan \textsl{gemiddeld} van de orde $O(\log n)$ en in het slechtste geval $O(n)$. Het valt echter buiten de scope van dit boek. Er is veel literatuur te vinden over binaire bomen. 
