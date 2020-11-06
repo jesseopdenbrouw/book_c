@@ -655,7 +655,7 @@ In deze enumeratie krijgt \texttt{TUNKNOWN} de waarde~0 (impliciet), \texttt{TIN
 C kent veel operatoren. In deze paragraaf beschrijven we ze even kort. In de volgende hoofdstukken worden ze verder uitgelegd.
 
 \subsection{Grootte van een variabele}
-De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan in principe alleen tijdens \textsl{compile-time} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend\footnote{Er is één uitzondering. Vanaf C99 kan \texttt{sizeof} ook gebruikt worden bij array's van variabele lengte, waarbij de lengte bij definitie nog niet bekend is, bijvoorbeeld bij \texttt{int a[b]} en \texttt{b} is niet bekend.}. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
+De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan in principe alleen tijdens \textsl{compile-time} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend\footnote{Er is één uitzondering. Vanaf C99 kan \texttt{sizeof} ook gebruikt worden bij arrays van variabele lengte, waarbij de lengte bij definitie nog niet bekend is, bijvoorbeeld bij \texttt{int a[b]} en \texttt{b} is niet bekend.}. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
@@ -829,7 +829,7 @@ Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{get
 \end{tabular}
 \end{table}
 
-Uit deze tabel zijn de operatoren voor array's (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
+Uit deze tabel zijn de operatoren voor arrays (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
 
 Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het voor de beginnende programmeur minder goed leesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan.
 Donald Knuth schreef al eens~\cite{knuth1974}:
