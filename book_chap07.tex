@@ -6,9 +6,6 @@
 Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer bij de variabele te komen.
 
 Pointers zijn een krachtig middel om efficiënt gegevens te beheren en argumenten over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
-%We zullen zien dat pointers en arrays nauw met elkaar verbonden zijn.
-
-%Pointers worden samen met het \texttt{goto}-statement in verband gebracht met het schrijven van ondoorzichtige programma's. En zeker, onzorgvuldig gebruik van pointers komt de leesbaarheid en aantonen van correctheid van programma's niet ten goede. Maar met discipline kunnen programma's zeer efficiënt geschreven worden.
 
 Pointers geven de programmeur een krachtig instrument in handen waar verantwoord mee omgegaan moet worden.
 Onzorgvuldig gebruik kan ervoor zorgen dat een programma voortijdig crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen
@@ -638,7 +635,9 @@ int main(void) {
 
 \begin{infobox}[Call by reference...]
 \index{Call by Reference}%
-In de programmeerwereld is het gebruikelijk om onderscheid te maken tussen twee manieren van argumentenoverdracht: \textsl{Call by Value} en \textsl{Call by Reference}. Bij Call by Value wordt een kopie van de waarde van een variabele aan de functie meegegeven. Alleen de kopie kan veranderd worden door de functie. De variabele waarvan de kopie is gemaakt kan dus niet op deze manier veranderd worden. Bij Call by Reference wordt het adres van de variabele aan de functie meegegeven. Via dit adres is het dus wel mogelijk om de originele variabele te veranderen.
+In de programmeerwereld is het gebruikelijk om onderscheid te maken tussen twee manieren van argumentenoverdracht: \textsl{Call by Value} en \textsl{Call by Reference}. Bij Call by Value wordt een kopie van de waarde van een variabele aan de functie meegegeven. Alleen de kopie kan veranderd worden door de functie. De variabele waarvan de kopie is gemaakt kan dus niet op deze manier veranderd worden.
+
+Bij Call by Reference wordt het \textsl{adres} van de variabele aan de functie meegegeven. Via dit adres is het dus wel mogelijk om de inhoud van de originele variabele te veranderen.
 
 Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En daar is wat voor te zeggen. Er wordt immers een waarde aan de functie meegegeven en dat is het adres van een variabele. Dit adres kan in de functie veranderd worden maar het originele adres waar de variabele in het geheugen staat wordt niet aangepast. Toch maken programmeurs onderscheid tussen deze twee manieren van argumentenoverdracht.
 \end{infobox}
