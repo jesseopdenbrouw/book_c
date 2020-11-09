@@ -2,7 +2,7 @@
 \label{cha:voorrang}\index{voorrangsregels}
 \thispagestyle{empty}
 
-In deze tabel zijn alle operatoren in C opgesomd. De voorrang of prioriteit is in aflopende volgorde van hoog naar laag. Twee opmerkelijke operatoren zijn (\textsl{type cast}) en \texttt{sizeof}. Bij (\textsl{type cast}) wordt het casten van een enkelvoudig datatype bedoeld, \texttt{sizeof} berekent de grootte in bytes van een datatype of variabele.
+In deze tabel zijn alle operatoren in C opgesomd. De voorrang of prioriteit is in aflopende volgorde van hoog naar laag. Twee opmerkelijke operatoren zijn (\textsl{type cast}) en \texttt{sizeof}. Bij (\textsl{type cast}) wordt het casten van een enkelvoudig datatype bedoeld en dat kan ook een pointer (naar een variabele) zijn, \texttt{sizeof} berekent de grootte in bytes van een datatype of variabele.
 
 \begin{table}[!ht]
 \centering
@@ -36,7 +36,7 @@ Let erop dat \texttt{sizeof} een compile-time\index{compile-time} operator is, m
 
 \hspace*{1em}\texttt{int a[b];}
 
-en \texttt{b} is niet bekend tijdens compile-time.
+en \texttt{b} is niet bekend tijdens compile-time maar wel tijdens run-time.
 
 %\begin{lstlisting}[caption=Gebruik van \texttt{sizeof} tijdens runtime.]
 %#include <stdio.h>
