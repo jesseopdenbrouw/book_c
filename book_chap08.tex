@@ -319,7 +319,7 @@ kunnen we de member \lstc{next} (de pointer) laten wijzen naar node \lstc{b}. De
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.south east) -- (C.two split north);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.south east) -- (D.two split north);
-\draw[dotarrow] (A.three |- A.center) -- (B);
+\draw[dotarrow] (A.three |- A.mid) -- (B);
 \end{tikzpicture}
 \caption{Uitbeelding van de vier nodes, \lstc{a} wijst naar \lstc{b}.}
 \label{fig:strstr3}
@@ -480,7 +480,7 @@ Om goed te begrijpen hoe het vinden van het einde van de linked list werkt, hebb
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
 \node[list,on chain] (D) {14 \nodepart{two} Janet};
 \node[headtail,below=of dummy,yshift=-0.5cm] (head) {\phantom{head}};
-\node[headtail,below=of B.two,yshift=-0.5cm] (current) {\phantom{current}};
+\node[headtail,below=of B.two,yshift=-0.5cm,xshift=0.25cm] (current) {\phantom{current}};
 \node[headtail,below=of C.three,yshift=-0.5cm] (tail) {\phantom{current}};
 
 % The null-pointer cross
