@@ -1,9 +1,9 @@
 %% Use Tikz and friends
 \usepackage{tikz}
-\usetikzlibrary{shapes.misc,fit,chains}
+\usetikzlibrary{shapes.misc,fit,chains,calc}
 \usetikzlibrary{arrows,backgrounds}
 \usetikzlibrary{shapes.geometric, positioning, automata}
-\usetikzlibrary{shapes.multipart, arrows.meta }
+\usetikzlibrary{shapes.multipart, arrows.meta}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
@@ -81,4 +81,4 @@
 
 \tikzset{list/.style={rectangle split, rectangle split parts=3, draw, rectangle split horizontal, minimum height=\unitsize cm}}
 \tikzset{headtail/.style={rectangle, draw, minimum height=\unitsize cm}}
-\tikzset{dotarrow/.style={Circle-latex}}
+\tikzset{dotarrow/.style={center*-latex}}
