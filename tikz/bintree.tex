@@ -1,28 +1,58 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{standalone}
 \usepackage[a4paper,margin=1in,showframe]{geometry}
 \usepackage{tikz}
-\usetikzlibrary{
-  chains,
-  shapes.multipart,
+\usetikzlibrary{shapes.multipart,positioning,calc}
+\makeatletter
+\pgfarrowsdeclare{center*}{center*}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfarrowsrightextend{4.5\pgfutil@tempdima}
 }
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfqpoint{3.0\pgfutil@tempdima}{0bp}}{3.0\pgfutil@tempdima}
+  \pgfusepathqfillstroke
+}
+\makeatother
+
 \begin{document}
-\begin{figure}[!ht]
-\centering
+%\begin{figure}[!ht]
+%\centering
 \begin{tikzpicture}[
   line width=1pt,
   font=\small\ttfamily,
-  list/.style={
+  tree/.style={
      rectangle split,
      rectangle split parts=3,
      draw,
-     minimum width=1.8cm,
+     minimum width=1.5cm,
+     minimum height=1cm,
+     append after command={(\tikzlastnode.south)
+     edge (\tikzlastnode.two split)}
   },
-  start chain,
-  chain default direction=down
 ]
-   \node[list,on chain] (A) {43 \nodepart{two} Name}; 
-   \draw (A.three north) -- (A.three south);
-   \node[list,on chain] (B) {54 \nodepart{two} Jesse}; 
+   \node[rectangle,draw,minimum width=1.5cm] (root) {\phantom{root}};
+   \node[tree,below=of root] (A) {43 \nodepart{two} Name}; 
+   \node[tree,below left=of A] (B) {23 \nodepart{two} Karen}; 
+   \node[tree,below right=of A] (C) {54 \nodepart{two} Jesse};
+   \node[tree,below left=of C,xshift=1cm] (D) {48 \nodepart{two} Kirsten};
+   \node[tree,below right=of C,xshift=-1cm] (E) {55 \nodepart{two} Hallo};
+   
+   \draw[center*-latex] (root.mid) -- (A.north);
+   \draw[center*-latex] ($(A.three west)!0.25!(A.three east)$) -- (B.north);
+   \draw[center*-latex] ($(A.three west)!0.75!(A.three east)$) -- (C.north);
+   
+   \draw[center*-latex] ($(C.three west)!0.25!(C.three east)$) -- (D.north);
+   \draw[center*-latex] ($(C.three west)!0.75!(C.three east)$) -- (E.north);
+   
+   \draw[cap=round,shorten >=1pt,shorten <=1pt] (B.two split west) -- (B.south);
+   \draw[cap=round,shorten >=1pt,shorten <=1pt] (B.two split) -- (B.south west);
+   \draw[cap=round,shorten >=1pt,shorten <=1pt] (B.two split east) -- (B.south);
+   \draw[cap=round,shorten >=1pt,shorten <=1pt] (B.two split) -- (B.south east);
 \end{tikzpicture}
-\end{figure}
+%\end{figure}
 \end{document} 
