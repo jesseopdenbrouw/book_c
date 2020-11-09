@@ -41,6 +41,14 @@ Er zijn enkele regels aan de namen van variabelen:
 \item Mag niet eerder gedefinieerd zijn;
 \end{itemize}
 
+\begin{infobox}[Inhouden en bevatten]
+Als we spreken over ``de variabele'' dan bedoelen we van de inhoud, waarde of adres van de variabele. We schrijven de assignment als
+
+\hspace*{1em}\texttt{a = 2;}
+
+en zeggen dan ``de variabele \texttt{a} is 2 geworden''. We bedoelen dan dat de inhoud van de variabele 2 is geworden. De term waarde is meestal een synoniem van inhoud. We spreken ook we van toekennen, dus aan de variabele wordt een waarde toegekend.
+\end{infobox}
+
 Enkele goede voorbeelden:
 
 \hspace*{1em}\texttt{Count}\quad\texttt{val23}\quad\texttt{loop\_counter}\quad\texttt{ary2to4}
@@ -55,6 +63,7 @@ Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op vo
 
 \hspace*{1em}\texttt{int a = 2;}\\
 \hspace*{1em}\texttt{int b = a + 3 + 5;}
+
 
 \section{Datatypes}
 Een variabele is van een bepaald \textsl{datatype}\index{datatype}. We hebben er al twee gezien, de \texttt{int} en de \texttt{double}. Een datatype heeft een bepaalde grootte. Zo bestaat een \texttt{int} \textsl{meestal} uit 32 bits. Er zijn echter ook systemen en C-compilers waar een \texttt{int} uit 16 bits bestaat. Dat een \texttt{int} uit 32 bits bestaat, betekent dat niet elk willekeurig getal aan de \texttt{int} kunnen worden toegekend. Er is een minimale en maximale waarde. Voor de \texttt{int} is de minimale waarde $-2147483648$ en de maximale waarde $+2147483647$. De \texttt{int} is een \textsl{signed} datatype: zowel positieve als negatieve getallen en 0 zijn mogelijk.
@@ -81,7 +90,7 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
 \end{table}
 
 \indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
-Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code. Om het karakter `A' op te slaan schrijven we:
+Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code (zie bijlage~\ref{cha:asciitabel}). Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = \textquotesingle A\textquotesingle; \ \ \ /* assign character A */}
@@ -328,7 +337,7 @@ De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 Hierin zijn \texttt{==} gelijk aan (let op de dubbele \texttt{=}) en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op.
 De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
 int main(void)
 {
@@ -526,22 +535,22 @@ int main(void)
 
 De expressie \texttt{getal \& 1} zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
 
-De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit~0 (laagste bit) van de (speciale) variabele \texttt{PORTB}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Gebruik van bitsgewijze operatoren.]
-#include <avr/io.h>                /* PINA, PORTB, ... */
-
-int main(void)
-{
-    if ((PINA & 0x80) == 0x80)     /* if key is pressed ... */
-    {
-        PORTB = PORTB ^ 0x01;      /* ... invert lower led */
-    }
-
-}
-\end{lstlisting}
-\end{figure}
+%%%De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit~0 (laagste bit) van de (speciale) variabele \texttt{PORTB}.
+%%%
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Gebruik van bitsgewijze operatoren.]
+%%%#include <avr/io.h>                /* PINA, PORTB, ... */
+%%%
+%%%int main(void)
+%%%{
+%%%    if ((PINA & 0x80) == 0x80)     /* if key is pressed ... */
+%%%    {
+%%%        PORTB = PORTB ^ 0x01;      /* ... invert lower led */
+%%%    }
+%%%
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
 
 \section{Datatypeconversie}
