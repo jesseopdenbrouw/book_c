@@ -24,7 +24,7 @@ C. Voorrangsregels van operatoren
 
 ## Opgaven voor een practicum
 
-Opgaven voor een practicum kunnen gevonden worden op [https://ds.opdenbrouw.nl/gesprg/GESPRG_practicumdocument.pdf](https://ds.opdenbrouw.nl/gesprg/GESPRG_practicumdocument.pdf).
+Opgaven voor een practicum kunnen gevonden worden op [https://github.com/jesseopdenbrouw/gesprg](https://github.com/jesseopdenbrouw/gesprg).
 
 ## Compileren
 
