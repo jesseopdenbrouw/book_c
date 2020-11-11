@@ -959,21 +959,21 @@ int main(int argc, char *argv[]) {
 
 De integer \texttt{argc} (\textbf{arg}ument \textbf{c}ount) geeft aan hoeveel argumenten aan het C-programma zijn meegegeven. De pointer \texttt{argv} (\textbf{arg}ument \textbf{v}ector) is  een pointer naar een lijst van pointers naar strings, gedefinieerd als \texttt{*argv[]}. Elke string bevat een argument. Per definitie wijst \texttt{argv[0]} naar een string waarin de programmanaam vermeld staat. Dat houdt in dat \texttt{argc} dus minstens~1 is. Er zijn dan geen optionele argumenten meegegeven.
 
-Als voorbeeld starten we het programma \texttt{myprog.exe} met de argumenten \texttt{argument1} en \texttt{argument2}. Het programma drukt eenvoudigweg alle argumenten op het beeldscherm af. Te zien is dat ook de programmanaam als argument wordt meegegeven.
+Als voorbeeld starten we het programma \texttt{commandlinearguments.exe} met de argumenten \texttt{argument1} en \texttt{argument2}. Het programma drukt eenvoudigweg alle argumenten op het beeldscherm af. Te zien is dat ook de programmanaam als argument wordt meegegeven.
 
 \begin{dosbox}[title=Afdrukken van programmanaam en argumenten.,label=fig:poiargcv]
-C:\Users\C>(*\textbf{myprog.exe argument1 argument2}*)
+C:\Users\Cbook>(*\textbf{commandlinearguments.exe argument1 argument2}*)
 
 Aantal argumenten: 3
 
-Argument 0: myprog.exe
+Argument 0: commandlinearguments.exe
 Argument 1: argument1
 Argument 2: argument2
 
-C:\Users\C>
+C:\Users\Cbook>
 \end{dosbox}
 
-In het voorbeeldprogramma is \texttt{argc} dus 3 en zijn \texttt{argv[0]}, \texttt{argv[1]} en \texttt{argv[2]} pointers naar respectievelijk \texttt{myprog.exe}, \texttt{argument1} en \texttt{argument2}. In figuur~\ref{fig:poiargcargv} is een uitbeelding van de variabelen \texttt{argc} en \texttt{argv} te zien. De strings worden, zoals gebruikelijk in C,  afgesloten met een nul-karakter. De C-standaard schrijft voor dat de lijst van pointers naar strings wordt afgesloten met een NULL-pointer.
+In het voorbeeldprogramma is \texttt{argc} dus 3 en zijn \texttt{argv[0]}, \texttt{argv[1]} en \texttt{argv[2]} pointers naar respectievelijk \texttt{commandlinearguments.exe}, \texttt{argument1} en \texttt{argument2}. In figuur~\ref{fig:poiargcargv} is een uitbeelding van de variabelen \texttt{argc} en \texttt{argv} te zien. De strings worden, zoals gebruikelijk in C,  afgesloten met een nul-karakter. De C-standaard schrijft voor dat de lijst van pointers naar strings wordt afgesloten met een NULL-pointer.
 
 \begin{figure}[!ht]
 \centering
@@ -988,7 +988,7 @@ In het voorbeeldprogramma is \texttt{argc} dus 3 en zijn \texttt{argv[0]}, \text
 \node (argv2) at (6,-2*\unitsize) [memlocarray] {};
 \node (argv3) at (6,-3*\unitsize) [memlocarraynull] {};
 \draw[center*-latex] (argv.center) -- (argv0.west);
-\node (argv0s) at (8,0) [memloc,anchor=west] {myprog.exe\textbackslash 0};
+\node (argv0s) at (8,0) [memloc,anchor=west] {commandlinearguments.exe\textbackslash 0};
 \node (argv1s) at (8,-\unitsize) [memloc,anchor=west] {argument1\textbackslash 0};
 \node (argv2s) at (8,-2*\unitsize) [memloc,anchor=west] {argument2\textbackslash 0};
 \draw[center*-latex] (argv0.center) -- (argv0s.west);
@@ -999,29 +999,31 @@ In het voorbeeldprogramma is \texttt{argc} dus 3 en zijn \texttt{argv[0]}, \text
 \label{fig:poiargcargv}
 \end{figure}
 
-Het programma \texttt{myprog.exe} is te zien in listing~\ref{cod:myprogexe}. Het
+Het programma \texttt{commandlinearguments.exe} is te zien in listing~\ref{cod:commandlinearguments}. Het
 programma drukt eerst de variabele \texttt{argc} af. Met behulp van een \texttt{for}-statement
 worden de argumenten een voor een afgedrukt. Merk op dat \texttt{argv[i]} een
 pointer is naar het $i^e$ argument. We kunnen \texttt{argv[i]} dus direct gebruiken
 voor het afdrukken van de bijbehorende string.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Het programma myprog.exe.,label=cod:myprogexe]
-#include <stdio.h>
-#include <stdlib.h>
+\booklistingfromproject[]{C}{Afdrukken van de command line argumenten}{commandlinearguments}{c}{!ht}
 
-int main(int argc, char *argv[]) {
-
-    printf("\nAantal argumenten: %d\n\n", argc);
-    
-    for (int i = 0; i < argc; i++) {
-        printf("Argument %d: %s\n", i, argv[i]);
-    }
-    
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Het programma commandlinearguments.exe.,label=cod:commandlineargumentsexe]
+%%%#include <stdio.h>
+%%%#include <stdlib.h>
+%%%
+%%%int main(int argc, char *argv[]) {
+%%%
+%%%    printf("\nAantal argumenten: %d\n\n", argc);
+%%%    
+%%%    for (int i = 0; i < argc; i++) {
+%%%        printf("Argument %d: %s\n", i, argv[i]);
+%%%    }
+%%%    
+%%%    return 0;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
 Merk op dat \texttt{argv} een echte pointer is en niet de naam van een array. We mogen \texttt{argv} dus aanpassen. Dit is te zien in listing~\ref{cod:poiargc2}.
 
