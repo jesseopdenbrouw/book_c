@@ -1,0 +1,43 @@
+\PassOptionsToPackage{x11names}{xcolor}
+
+\documentclass[spinewidth=.37in]{bookcover}
+
+\usepackage{charter}
+\usepackage{etoolbox}
+\usepackage{parskip}
+\makeatletter
+\patchcmd\@arrayparboxrestore{\parskip}{\@gobble}{}{\undefined}
+\makeatother
+
+\newbookcovercomponenttype{center rotate}{
+\parbox[t][\partheight][c]{\partwidth}{
+\begin{center}
+\rotatebox[origin=c]{-90}{#1}
+\end{center}}}
+
+\usepackage[]{xcolor}
+\usepackage{lipsum}
+
+\begin{document}
+\begin{bookcover}
+\bookcovercomponent{color}{bg whole}{color=LightPink1}
+\bookcovercomponent{normal}{front}{%
+\vspace{5cm}
+\begin{center}
+
+\bfseries\Huge De programmeertaal C
+
+\vspace{3cm}
+\Large Jesse op den Brouw
+
+\vspace{7cm}
+\Large Eerste druk
+\end{center}}
+\begin{bookcoverelement}{normal}{back}
+\centering
+\vspace{20mm}
+\parbox{110mm}{\color{black}\lipsum[1-2]}
+\end{bookcoverelement}
+\bookcovercomponent{center rotate}{spine}{\bfseries\LARGE \hfill De programmeertaal C \hspace*{4cm}\Large Jesse op den Brouw \hfill }
+\end{bookcover}
+\end{document}
