@@ -110,7 +110,7 @@ De functie \texttt{scanf} is een veelzijdige functie voor het inlezen van variab
 
 \hspace*{1em}\texttt{scanf("\%d", \&getal);}
 
-De format specification \texttt{\%d} vertelt \texttt{scanf} dat een geheel getal moet worden ingelezen. De variabele waarin het getal moet komen te staan, wordt voorzien van de adres-operator \texttt{\&}\indextwo{\&}{operator} zodat \texttt{scanf} de variabele kan vinden. Het is ook mogelijk om meerdere getallen in te lezen:
+De format specification \texttt{\%d} vertelt \texttt{scanf} dat een geheel getal moet worden ingelezen. De variabele waarin het getal moet komen te staan, wordt voorzien van de adres-operator \texttt{\&}\indextwo{\&}{adres} zodat \texttt{scanf} de variabele kan vinden. Het is ook mogelijk om meerdere getallen in te lezen:
 
 \hspace*{1em}\texttt{scanf("\%d \%d \%d", \&getala, \&getalb, \&getalc);}
 
@@ -473,7 +473,7 @@ We lezen een karakter van de invoerbuffer en dat doen we zolang dat karakter ong
 
 Omdat we vaker gebruik willen maken van het legen van de invoerbuffer plaatsen we de code een functie. We kunnen nu aan de gebruiker vragen om een getal in te voeren:
 
-\begin{lstlisting}[]
+\begin{lstlisting}[caption=Inlezen van een geheel getal.]
 #include <stdio.h>
 
 void purge_stdin(void) {
