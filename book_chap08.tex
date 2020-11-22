@@ -421,7 +421,7 @@ Het complete programma is te zien in listing~\ref{cod:linked_list_simple}.
 
 \booklistingfromproject[lineskip=-1.1pt]{C}{Aanmaken van enkele nodes en de traversal van de nodes}{linked_list_simple}{c}{H}
 
-% Needed to trigger latex to create a new page */
+
 \subsection{Dynamisch gekoppelde lijsten}
 Nu biedt het opzetten van een linked list op deze manier niet veel meerwaarde. We hadden de nodes ook in een array kunnen plaatsen. Het aantal nodes staat namelijk vast.
 
@@ -458,7 +458,7 @@ Laten we nu eens kijken naar de opzet van het programma. We bekijken eerst de fu
 %
 \booklistingfromproject[linerange={26-54}]{C}{De body van het programma}{linked_list_malloc}{c}{!b}
 %
-Het inlezen van de gegevens wordt gedaan met behulp van een \lstc{do while}-lus die loopt van regel 8 t/m 20. Het stopcriterium is een leeftijd kleiner dan of gelijk aan 0. Het inlezen wordt gedaan in de regels 8 t/m 12 middels de bekende \lstc{scanf}-functie. In regel 14 wordt de functie \lstc{create_node} aangeroepen met de leeftijd en naam als argumenten. Als het aanmaken \textsl{niet} lukt, dan wordt het programma met een foutmelding verlaten. Nadat de lus is verlaten, wordt de linked list afgedrukt met de functie \lstc{print_all_nodes}. Als laatste wordt de linked list verwijderd met \lstc{remove_all_nodes}.
+Het inlezen van de gegevens wordt gedaan met behulp van een \mbox{\lstc{do while}}-lus die loopt van regel 8 t/m 20. Het stopcriterium is een leeftijd kleiner dan of gelijk aan 0. Het inlezen wordt gedaan in de regels 8 t/m 12 middels de bekende \lstc{scanf}-functie. In regel 14 wordt de functie \lstc{create_node} aangeroepen met de leeftijd en naam als argumenten. Als het aanmaken \textsl{niet} lukt, dan wordt het programma met een foutmelding verlaten. Nadat de lus is verlaten, wordt de linked list afgedrukt met de functie \lstc{print_all_nodes}. Als laatste wordt de linked list verwijderd met \lstc{remove_all_nodes}.
 
 De functie \lstc{create_node} is te zien in listing~\ref{cod:strcreatenode}. De functie moet drie zaken afhandelen: dynamisch alloceren van geheugen om een nieuwe node aan te maken, het plaatsen van de node aan het einde van de linked list en het vullen van de gegevens in de nieuwe structure.
 
@@ -535,7 +535,7 @@ current = current->next;
 \end{lstlisting}
 
 Dus als \lstc{current} wijst naar $A$ wordt de nieuwe waarde $A$\lstc{->next} oftwel $B$.
-De pointer \lstc{current} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de linked list gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
+De pointer \mbox{\lstc{current}} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de linked list gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
 
 \begin{lstlisting}[style=lstoneline]
 current->next = created;
