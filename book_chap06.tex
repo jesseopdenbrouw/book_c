@@ -272,7 +272,7 @@ definiëren en initialiseren we de array met in dit geval 12 elementen. Omdat de
 \index{array!als argument}\index{array!als parameter}
 Een array kan als argument van een functie worden gebruikt. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop arrays overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën worden doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; de functie kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
 
-In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. Om aan te geven dat de eerste parameter een array is, wordt de definitie \texttt{int ary[]} gegeven. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
+In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Om aan te geven dat de eerste parameter een array is, wordt de definitie \texttt{int ary[]} gegeven. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Functie voor het vinden van een getal in een array.,label=cod:arrfindnumber]
@@ -289,7 +289,7 @@ int findnumber(int ary[], int siz, int num) {
 \end{lstlisting}
 \end{figure}
 
-In listing~\ref{cod:arrfindnumber2} is te zien hoe de functie wordt aangeroepen. Zie regel 9. Als eerste argument wordt de \textsl{naam} van de array opgegeven. De compiler weet aan de hand van de functiedefinitie en de definitie van de array dat het om een array gaat. Het tweede argument is het aantal elementen van de array dat berekend wordt met behulp van  \texttt{sizeof}\indexop{sizeof}. Het derde argument is het getal waarnaar gezocht wordt.
+In listing~\ref{cod:arrfindnumber2} is te zien hoe de functie wordt aangeroepen. Zie regel 12. Als eerste argument wordt de \textsl{naam} van de array opgegeven. De compiler weet aan de hand van de functiedefinitie en de definitie van de array dat het om een array gaat. Het tweede argument is het aantal elementen van de array dat berekend wordt met behulp van  \texttt{sizeof}\indexop{sizeof}. Het derde argument is het getal waarnaar gezocht wordt.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Aanroepen van de functie \texttt{findnumber}.,label=cod:arrfindnumber2]
