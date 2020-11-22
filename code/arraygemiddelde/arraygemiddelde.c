@@ -6,7 +6,8 @@ int main(void)
 	double som = 0.0;
 	int index;
 
-	for (index = 0; index < 5; index = index + 1) {
+	for (index = 0; index < 5; index = index + 1)
+	{
 		som = som + lijst[index];
 	}
 
