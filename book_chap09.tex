@@ -265,7 +265,7 @@ Elk uitvoerbaar (C-)programma krijgt per definitie drie geopende bestanden mee:
 \item \texttt{stderr}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard foutuitvoer}, in de regel het beeldscherm;
 \end{itemize}
 
-Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een uitvoerbaar (C-)programma wordt gestart. We kunnen de variabele \texttt{stdin}, \texttt{stdout} en \texttt{stderr} gewoon gebruiken om karakters in te lezen of weg te schrijven. Sterker nog, \texttt{printf} en \texttt{scanf} zijn niets anders dan aanroepen naar de bestandsvarianten:
+Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een uitvoerbaar (C-)programma wordt gestart. We kunnen de variabelen \texttt{stdin}, \texttt{stdout} en \texttt{stderr} gewoon gebruiken om karakters in te lezen of weg te schrijven. Sterker nog, \texttt{printf} en \texttt{scanf} zijn niets anders dan aanroepen naar de bestandsvarianten:
 
 \hspace*{1em}\texttt{scanf(format, arg1, ...)} $\longrightarrow$ \texttt{fscanf(stdin, format, arg1, ...)}
 
@@ -471,9 +471,10 @@ do { ch = getchar(); } while (ch != '\n' && ch != EOF);
 
 We lezen een karakter van de invoerbuffer en dat doen we zolang dat karakter ongelijk is aan \texttt{\textbackslash n} (end-of-line-karakter) en ongelijk is aan \texttt{EOF}\index{EOF} (end-of-file).
 
-Omdat we vaker gebruik willen maken van het legen van de invoerbuffer plaatsen we de code een functie. We kunnen nu aan de gebruiker vragen om een getal in te voeren:
+Omdat we vaker gebruik willen maken van het legen van de invoerbuffer plaatsen we de code een functie, zie listing~\ref{cod:readandpurge}.
 
-\begin{lstlisting}[caption=Inlezen van een geheel getal.]
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Inlezen van een geheel getal.,label=cod:readandpurge]
 #include <stdio.h>
 
 void purge_stdin(void) {
@@ -499,6 +500,7 @@ int main(void) {
     return 0;
 }
 \end{lstlisting}
+\end{figure}
 
 Er is nog een andere manier om de invoerbuffer te legen. We kunnen de invoerbuffer legen met de functie \texttt{fflush}\indexfunc{fflush} (file flush):
 
