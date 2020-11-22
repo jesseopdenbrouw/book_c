@@ -16,7 +16,65 @@
 
 \documentclass[spinewidth=10.44mm]{bookcover}
 
-\usepackage{charter}
+%% Find out what engine we're running...
+\usepackage{ifluatex,ifxetex}
+
+%% Settings for fonts et al.
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+\usepackage[math-style=TeX]{unicode-math}
+%\usepackage{unicode-math}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Calibri}
+\defaultfontfeatures{Scale=MatchUppercase}
+\setsansfont{Calibri}
+\setmonofont[Scale=0.95]{Consolas}
+\setmathfont[slash-delimiter=frac]{Cambria Math}
+\setmathfont[range=up]{Calibri}
+\setmathfont[range=it]{Calibri Italic}
+\setmathfont[range=bfup]{Calibri Bold}
+\setmathfont[range=bfit]{Calibri Bold Italic}
+\setoperatorfont\normalfont % For log, sin, cos, etc.
+\def\checkmark{\textsl{v}}
+\def\muup{Î¼}
+\makeatletter
+\DeclareRobustCommand{\LaTeX}{L\kern-.20em%
+        {\sbox\z@ T%
+         \vbox to\ht\z@{\hbox{\check@mathfonts
+                              \fontsize\sf@size\z@
+                              \math@fontsfalse\selectfont
+                              A}%
+                        \vss}%
+        }%
+        \kern-.06em%
+        \TeX}
+\makeatother
+\newcommand{\textgreek}[1]{#1}
+\else
+%% Use the Charter and Nimbus Mono fonts
+\usepackage[scale=0.95]{nimbusmono}
+%\usepackage{charter}
+\usepackage[bitstream-charter]{mathdesign}
+%% Use microtype
+\usepackage[stretch=10]{microtype}
+%\pdfminorversion=5
+%\pdfobjcompresslevel=1
+%% Set input encoding to UTF-8
+\usepackage[utf8]{inputenc}
+\makeatletter
+\DeclareRobustCommand{\LaTeX}{L\kern-.20em%
+        {\sbox\z@ T%
+         \vbox to\ht\z@{\hbox{\check@mathfonts
+                              \fontsize\sf@size\z@
+                              \math@fontsfalse\selectfont
+                              A}%
+                        \vss}%
+        }%
+        \kern-.05em%
+        \TeX}
+\makeatother
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+\fi
+
 \usepackage{etoolbox}
 \usepackage{parskip}
 \makeatletter
@@ -75,6 +133,8 @@ Hoofdstuk 9 gaat over invoer en uitvoer. Dit zijn geen onderdelen van de taal ze
 Hoofdstuk 10 gaat over de preprocessor. De preprocessor is een faciliteit die vóór de ``echte'' C-compiler wordt gebruikt. We laten zien hoe we header-bestanden kunnen inlezen, hoe we macro's kunnen definiëren en hoe we macro's kunnen gebruiken voor conditionele compilatie.
 
 Hoofdstuk 11 gaat over het compilatieproces. We behandelen hoe het proces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren.
+
+Dit boek is door iedereen te gebruiken en aan te passen, zowel commercieel als niet-commercieel. Opmerkingen, aanpassingen en suggesties kunnen worden gemaild naar J.E.J.opdenBrouw@hhs.nl.
 }
 \vfill
 \end{bookcoverelement}
