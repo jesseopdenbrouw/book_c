@@ -15,10 +15,10 @@ aan dat in het programma de variabele \texttt{a} wordt gebruikt van het type \te
 
 \hspace*{1em}\texttt{a = 2;}
 
-De C-compiler zorgt ervoor dat in het geheugen van de computer ruimte wordt gereserveerd om de variabele op te slaan. Als we in een programma de variabele \texttt{a} gebruiken dan weet de compiler op welk geheugenadres hij moet zoeken. We mogen de variabele een onbeperkt aantal keer aanpassen. Zo kunnen we schrijven:
+De C-compiler zorgt ervoor dat in het geheugen van de computer ruimte wordt gereserveerd om de variabele op te slaan. Als we in een programma de variabele \texttt{a} gebruiken dan weet de compiler op welk geheugenadres hij moet zoeken. We mogen de variabele een onbeperkt aantal keer aanpassen, zie listing~\ref{cod:assignment}.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Meerdere toekenningen aan een variabele.]
+\begin{lstlisting}[caption=Meerdere toekenningen aan een variabele.,label=cod:assignment]
 int a;
 ...
 a = 2;
@@ -55,7 +55,7 @@ Enkele goede voorbeelden:
 
 Enkele foute voorbeelden:
 
-\hspace*{1em}\texttt{\_loop}\quad\texttt{50cent}\quad\texttt{int}\quad\texttt{printf}
+\hspace*{1em}\texttt{\_loop}\quad\texttt{50cent}\quad\texttt{int}\quad\texttt{static}
 
 De meeste C-compilers accepteren de underscore als eerste karakter. Dit wordt echter afgeraden omdat veel \textsl{systeemroutines} de underscore als eerste karakter gebruiken en dat kan problemen geven in de latere stadia van de compilatie (zie hoofdstuk~\ref{cha:compilatieproces}).
 
@@ -143,7 +143,7 @@ Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \
 
 Al deze datatypes worden \textsl{enkelvoudige datatypes}\index{enkelvoudige datatypes} genoemd. Dat betekent dat de compiler ze ziet als één eenheid. Het is niet mogelijk om enkelvoudige datatypes te splitsen over meerdere andere datatypes.
 
-Naast de genoemde datatypes bestaan er nog twee andere datatypes: \texttt{bool}\index{bool} kan de waarde \texttt{true} of \texttt{false} bevatten en \texttt{complex}\index{complex} kan een complex getal bevatten.
+Naast de genoemde datatypes bestaan er nog twee andere datatypes: \texttt{bool}\index{bool} (vanaf C99) kan de waarde \texttt{true} of \texttt{false} bevatten en \texttt{complex}\index{complex} (vanaf C99) kan een complex getal bevatten.
 
 Een veel gebruikt datatype is de \textsl{pointer}\index{pointer}. Een pointer is een variabele die het \textsl{adres}\index{adres} bevat van een (andere) variabele. Pointers worden in detail behandeld in hoofdstuk~\ref{cha:pointers}.
 
@@ -227,7 +227,7 @@ Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op vo
 \hspace*{1em}\texttt{float tau = 2.0F*3.14159F;}\\
 \hspace*{1em}\texttt{double e = 2.718281828;}\\
 \hspace*{1em}\texttt{double googol = 1E100;}\\
-\hspace*{1em}\texttt{unsigned char = 128+127;}
+\hspace*{1em}\texttt{unsigned char maxbyte = 128+127;}
 
 Let erop dat de constante wordt geconverteerd naar het type van de variabele. Sommige compilers geven een waarschuwing als zo'n conversie plaatsvindt.
 
@@ -484,7 +484,7 @@ Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden e
 \begin{figure}[!ht]
 \centering
 \begin{tabular}{rl}
-\footnotesize 7 \hspace*{4cm} 0 & \\
+\footnotesize 7 \hspace*{3.0cm} 0 & \\
 \fbox{1}\fbox{0}\fbox{1}\fbox{0}\fbox{1}\fbox{0}\fbox{1}\fbox{0} & \\[1ex]
 \fbox{1}\fbox{0}\fbox{0}\fbox{0}\fbox{0}\fbox{0}\fbox{0}\fbox{0} & AND\\[0.5ex]
 \cmidrule{1-1}
@@ -580,14 +580,18 @@ Stel we hebben de temperatuur in graden Celsius opgeslagen in de \texttt{double}
 
 \hspace*{1em}\texttt{f = (double)9/5 * c + 32;}
 
-We hebben hier de integer 9 gecast naar een \texttt{double} want anders gaat bij de deling 9/5 informatie verloren; de \textsl{gehele} uitkomst van de deling \texttt{9/5} is immers \texttt{1}. De constante 32 hoeft niet gecast te worden omdat eerder al de getallen en variabelen naar een \texttt{double} gecast zijn. Het is overigens \textsl{good practice} om \texttt{32.0} te schrijven.
+We hebben hier de integer 9 gecast naar een \texttt{double} want anders gaat bij de deling 9/5 informatie verloren; de \textsl{gehele} uitkomst van de deling \texttt{9/5} is immers \texttt{1}. De constante 32 hoeft niet gecast te worden omdat eerder al de getallen en variabelen naar een \texttt{double} gecast zijn. Natuurlijk hadden we ook kunnen schrijven:
+
+\begin{lstlisting}[style=lstoneline]
+f = 9.0/5.0 * c + 32.0;
+\end{lstlisting}
  
 
 \section{Overflow}
 \textsl{Overflow}\index{overflow} is de situatie wanneer een expressie een waarde oplevert die te groot of te klein is en niet in de variabele kan worden opgeslagen. De C-compiler genereert geen code om hierop te testen. Dat zou wel kunnen, maar dat zou de executietijd van programma's nadelig beïnvloeden. De ontwerper van het programma moet er dus zelf op toezien dat een overflow-conditie niet kan voorkomen. De reden dat overflow voorkomt is dat datatypes (en dus variabelen) uit een eindig aantal bits\index{bit} bestaan. Zo bestaat een \texttt{unsigned char} uit 8 bits en het grootste getal dat kan worden opgeslagen is 255 (binair $11111111_2$). Tellen we daar 1 bij op dat is het resultaat 256 (binair $100000000_2$) maar dat kan niet in de variabele worden opgeslagen. Het resultaat is dat de overvloedige bits gewoonweg worden geschrapt en dat de uitkomst dus $00000000_2$ (0) is.
 
 Overflow bij floating point-getallen werkt anders. Dat heeft te maken met de gebruikte specificatie van de getallen.
-Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als oneindig.}. De deling 0/0 resulteert in NaN.
+Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als $\pm$oneindig.}. De deling 0/0 resulteert in NaN.
 
 
 \section{Vaste-lenge datatypes}
@@ -664,7 +668,7 @@ In deze enumeratie krijgt \texttt{TUNKNOWN} de waarde~0 (impliciet), \texttt{TIN
 C kent veel operatoren. In deze paragraaf beschrijven we ze even kort. In de volgende hoofdstukken worden ze verder uitgelegd.
 
 \subsection{Grootte van een variabele}
-De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \texttt{sizeof}\indexop{sizeof}. Dit kan in principe alleen tijdens \textsl{compile-time} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend\footnote{Er is één uitzondering. Vanaf C99 kan \texttt{sizeof} ook gebruikt worden bij arrays van variabele lengte, waarbij de lengte bij definitie nog niet bekend is, bijvoorbeeld bij \texttt{int a[b]} en \texttt{b} is niet bekend.}. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
+De grootte van een variabele of datatype in \textsl{bytes} kan berekend worden met de operator \mbox{\texttt{sizeof}}\indexop{sizeof}. Dit kan in principe alleen tijdens \textsl{compile-time} van het C-programma gebeuren. Tijdens het uitvoeren van het programma zijn alle grootten berekend\footnote{Er is één uitzondering. Vanaf C99 kan \texttt{sizeof} ook gebruikt worden bij arrays van variabele lengte, waarbij de lengte bij definitie variabel is, bijvoorbeeld bij \texttt{int a[b]} en \texttt{b} als parameter van een functie dient.}. Er is één restrictie in het gebruik van \texttt{sizeof}: bij het gebruik met een datatype \textsl{moeten} haakjes gebruikt worden. Zie listing~\ref{cod:varsizeof}. Deze operator heeft een hoge prioriteit. We zullen \texttt{sizeof} nader behandelen in hoofdstuk~\ref{cha:arrays}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Gebruik van \texttt{sizeof}.,label=cod:varsizeof]
@@ -757,7 +761,7 @@ Zo'n beetje alle gangbare operatoren kunnen worden gebruikt. Een lijst is te vin
 \label{sec:conditioneleexpressie}
 De \textsl{conditionele expressie}\index{conditionele expressie}\indexop{?:} is een operator die aan de hand van de waarde van een variabele (of constante of expressie) een van de twee opgegeven expressies uitvoert. Als we de maximale waarde van \texttt{a} en \texttt{b} willen bepalen dan kunnen we schrijven:
 
-\hspace*{1em}\texttt{max = (a>b) ? a : b; \ \ /* max = maximum(a, b) */}
+\hspace*{1em}\texttt{max = (a > b) ? a : b; \ \ /* max = maximum(a, b) */}
 
 Een typisch voorbeeld is het afdrukken van de meervoudsvorm van een woord (of niet). Stel dat we aan het einde van een programma afdrukken hoeveel documenten verwerkt zijn. Dan kunnen we met behulp van een conditionele expressie het woord \texttt{document} of \texttt{documenten} afdrukken. We doen dat zoals te zien is in de regels 11 en 12 in listing~\ref{cod:varnrdocs}.
 
@@ -773,7 +777,7 @@ int main(void)
     
     /*                 +-------------- nrdcos      */
     /*                 (*|*)         +---- "" or "en"  */
-    /*                 v         v                 */
+    /*                 (*v*)         (*v*)                 */
     printf("In totaal %d document%s verwerkt\n", nrdocs,
                                  (nrdocs == 1) ? "" : "en"));
     return 0;
@@ -783,7 +787,9 @@ int main(void)
 
 Het eerste argument (\texttt{\%d)} is het aantal documenten dat verwerkt is (\texttt{nrdocs}). Het tweede argument is een string (\texttt{\%s}). De conditionele expressie
 
-\hspace*{1em}\lstinline[basicstyle=\ttfamily]|(nrdocs == 1) ? "" | \lstinline[basicstyle=\ttfamily]| : "en";|
+\begin{lstlisting}[style=lstoneline]
+(nrdocs == 1) ? "" : "en";
+\end{lstlisting}
 
 geeft de (lege) string \lstinline[basicstyle=\ttfamily]|""| als \texttt{nrdocs} gelijk is aan 1 of de string \lstinline[basicstyle=\ttfamily]|"en"| als \texttt{nrdocs} ongelijk aan 1 is. De haken rond de expressie \texttt{nrdocs == 1} zijn eigenlijk niet nodig want de prioriteit van de conditionele expressie is erg laag, maar het komt de leesbaarheid wel ten goede.
 
