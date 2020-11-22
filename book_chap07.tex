@@ -243,7 +243,7 @@ printf("De waarde is %d\n", *(int *) p);
 \section{Afdrukken van pointers}
 \label{sec:afdrukkenvanpointers}
 \index{pointer!afdrukken van}
-Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specification \texttt{\%p}. De pointer mag elk type zijn, want het automatisch gecast naar \texttt{void *}. Zie listing~\ref{cod:poiprintpointer}.
+Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specification \texttt{\%p}. De pointer mag elk type zijn, want hij wordt automatisch gecast naar \texttt{void *}. Zie listing~\ref{cod:poiprintpointer}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Afdrukken van een pointer.,label=cod:poiprintpointer]
@@ -393,7 +393,7 @@ Toch is het mogelijk om tijdens het executie van een programma de lengte van de 
 \section{Rekenen met pointers}
 \label{sec:rekenenmetpointers}
 \index{pointer!rekenen met}
-Pointers kunnen rekenkundig worden aangepast, wat vooral nuttig is bij het gebruik van arrays.
+Pointers kunnen rekenkundig worden aangepast, dat vooral nuttig is bij het gebruik van arrays.
 In het onderstaande programma wijst pointer \texttt{p} in eerste instantie naar het begin van de array \texttt{ary} (dus \texttt{ary[0]}). Daarna wordt \texttt{p} twee maal met 1 verhoogd en daarna met 3 verhoogd. Bij rekenkundige operaties op pointers wordt rekening gehouden met de grootte van de datatypes. Door de pointer met 1 te verhogen wordt dus naar het volgende element gewezen.
 
 \begin{figure}[!ht]
@@ -1100,39 +1100,41 @@ Quicksort is een sorteeralgoritme ontworpen door C.A.R. Hoare in 1962. Het is ee
 
 Hierin is \texttt{base} een pointer naar het eerste element van de array, \texttt{nitems} het aantal elementen in de array en \texttt{size} de grootte (in bytes) van één element. Het type \texttt{size\_t} is in de regel gelijk aan een \texttt{int}. De functie \texttt{compar} behoeft wat speciale aandacht. Dit is een functie (door de programmeur zelf te schrijven) die twee pointers naar twee elementen in de array meekrijgt. De pointers zijn van het type \texttt{void~*} want \texttt{qsort} weet niet op voorhand wat het datatypes van de elementen van de array zijn. De functie \texttt{compar} \textsl{moet} een getal geven kleiner dan 0 als het eerste argument kleiner is dan het tweede element, 0 als de twee elementen gelijk zijn en een getal groter dan 0 als het eerste element groter is dan het tweede element.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Sorteren van een array met quicksort.,label=cod:poiexampleqsort]
-#include <stdio.h>
-#include <stdlib.h>
+\booklistingfromproject[]{C}{Sorteren van een array met quicksort}{quick_sort}{c}{!b}
 
-int cmpint (const void* a, const void* b) {
+%%%\begin{figure}[!b]
+%%%\begin{lstlisting}[caption=Sorteren van een array met quicksort.,label=cod:poiexampleqsort]
+%%%#include <stdio.h>
+%%%#include <stdlib.h>
+%%%
+%%%int cmpint (const void* a, const void* b) {
+%%%
+%%%    /* explicit type cast to pointers to integers */
+%%%    return ( *(int*)a - *(int*)b );
+%%%}
+%%%
+%%%int main () {
+%%%
+%%%    int values[] = { 88, 56, 100, 2, 25 };
+%%%
+%%%    printf("De array voor sorteren: \n");
+%%%    for(int n = 0 ; n < 5; n++ ) {
+%%%        printf("%d ", values[n]);
+%%%    }
+%%%
+%%%    qsort(values, 5, sizeof(int), cmpint);
+%%%
+%%%    printf("\nDe array na sorteren: \n");
+%%%    for(int n = 0 ; n < 5; n++ ) {
+%%%        printf("%d ", values[n]);
+%%%    }
+%%%
+%%%    return(0);
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
-    /* explicit type cast to pointers to integers */
-    return ( *(int*)a - *(int*)b );
-}
-
-int main () {
-
-    int values[] = { 88, 56, 100, 2, 25 };
-
-    printf("De array voor sorteren: \n");
-    for(int n = 0 ; n < 5; n++ ) {
-        printf("%d ", values[n]);
-    }
-
-    qsort(values, 5, sizeof(int), cmpint);
-
-    printf("\nDe array na sorteren: \n");
-    for(int n = 0 ; n < 5; n++ ) {
-        printf("%d ", values[n]);
-    }
-
-    return(0);
-}
-\end{lstlisting}
-\end{figure}
-
-In listing~\ref{cod:poiexampleqsort} is een programma te zien dat een array van integers sorteert. De functie \texttt{cmpint} vergelijkt twee integers uit de array. Let op de constructie om bij de integers te komen. De pointers zijn van het type \texttt{void~*} dus er is een expliciete type cast nodig naar een pointer naar een integer. Dat wordt gerealiseerd door \texttt{(int~*)}. Daarna wordt de pointer gebruikt om bij de integer te komen. Om parameter \texttt{a} te verkrijgen is dus \texttt{*(int~*)~a} nodig. Op deze wijze wordt ook parameter \texttt{b} gevonden en de functie geeft eenvoudigweg het verschil tussen de twee parameters terug.
+In listing~\ref{cod:quick_sort} is een programma te zien dat een array van integers sorteert. De functie \texttt{cmpint} vergelijkt twee integers uit de array. Let op de constructie om bij de integers te komen. De pointers zijn van het type \texttt{void~*} dus er is een expliciete type cast nodig naar een pointer naar een integer. Dat wordt gerealiseerd door \texttt{(int~*)}. Daarna wordt de pointer gebruikt om bij de integer te komen. Om parameter \texttt{a} te verkrijgen is dus \texttt{*(int~*)~a} nodig. Op deze wijze wordt ook parameter \texttt{b} gevonden en de functie geeft eenvoudigweg het verschil tussen de twee parameters terug.
 
 %\begin{figure}[!ht]
 %\begin{lstlisting}[caption=Voorbeeld van het gebruik van functie-pointers.]
@@ -1181,7 +1183,7 @@ en
 
 \hspace*{1em}\texttt{int* p;}
 
-In beide gevallen is \texttt{p} en pointer naar een integer. De eerste manier sluit aan bij de gedachte ``\texttt{p} in een pointer'' (naar een \texttt{int}). De tweede manier sluit aan bij: \texttt{p} is een ``pointer naar een int''. Het gebruik van de tweede variant komt goed tot zijn recht bij listing~\ref{cod:poiexampleqsort}. Daarin wordt een expliciete cast gedaan naar een pointer van het type \texttt{int} en die wordt weer gebruikt in een dereferentie naar een \texttt{int}.
+In beide gevallen is \texttt{p} en pointer naar een integer. De eerste manier sluit aan bij de gedachte ``\texttt{p} in een pointer'' (naar een \texttt{int}). De tweede manier sluit aan bij: \texttt{p} is een ``pointer naar een int''. Het gebruik van de tweede variant komt goed tot zijn recht bij listing~\ref{cod:quick_sort}. Daarin wordt een expliciete cast gedaan naar een pointer van het type \texttt{int} en die wordt weer gebruikt in een dereferentie naar een \texttt{int}.
 \end{infobox}
 
 
