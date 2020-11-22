@@ -25,7 +25,7 @@ Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk e
 Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
 Als er in een van de C-bestanden een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
 
-Merk op dat eventuele header-bestanden niet aan de C-compiler opgegeven worden. De header-bestanden worden tijdens compilatie van een C-bestand ingelezen door de compiler.
+Merk op dat eventuele header-bestanden niet aan de C-compiler opgegeven worden. De header-bestanden worden tijdens compilatie van een C-bestand verwerkt door de preprocessor.
 
 \section{Assembler-bestanden}
 Soms is het nodig om bepaalde code te programmeren in \textit{assembly}\index{assembly}. Assembly is een taal die zeer dicht tegen de gebruikte processor ligt. Te denken valt aan code die niet in C geschreven kan worden, zoals opstartcode van het C-programma.
@@ -154,7 +154,7 @@ In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een i
 
 \hspace*{1em}\texttt{register int i;}
 
-Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter welke variabelen in registers moeten worden gehouden. Het gebruik van \texttt{register} wordt daarom niet aanbevolen.
+Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter dan de programmeur welke variabelen in registers moeten worden gehouden. Het gebruik van \texttt{register} wordt daarom niet aanbevolen.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comnothing]
