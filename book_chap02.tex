@@ -59,7 +59,7 @@ Enkele foute voorbeelden:
 
 De meeste C-compilers accepteren de underscore als eerste karakter. Dit wordt echter afgeraden omdat veel \textsl{systeemroutines} de underscore als eerste karakter gebruiken en dat kan problemen geven in de latere stadia van de compilatie (zie hoofdstuk~\ref{cha:compilatieproces}).
 
-Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op voorspraak dat de waarden bekend zijn. Een voorbeeld is hieronder te zien:\index{initialisatie}
+Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op voorspraak dat de waarden bekend zijn of ter plaatse berekend kunnen worden. Een voorbeeld is hieronder te zien:\index{initialisatie}
 
 \hspace*{1em}\texttt{int a = 2;}\\
 \hspace*{1em}\texttt{int b = a + 3 + 5;}
@@ -772,7 +772,7 @@ int main(void)
     /* ... */
     
     /*                 +-------------- nrdcos      */
-    /*                 |         +---- "" or "en"  */
+    /*                 (*|*)         +---- "" or "en"  */
     /*                 v         v                 */
     printf("In totaal %d document%s verwerkt\n", nrdocs,
                                  (nrdocs == 1) ? "" : "en"));
