@@ -12,6 +12,10 @@ Er zijn ook functies die \textsl{zichzelf} aanroepen. Dat worden recursieve func
 
 Binnen een functie kunnen we lokale variabelen definiëren. Deze variabelen zijn alleen binnen de functie beschikbaar. De variabele wordt aangemaakt als de functie begint en wordt verwijderd als de functie wordt geëindigd. De informatie die deze variabele bevat, is dan ook niet meer beschikbaar. Willen we een variabele door meerdere functies laten gebruiken dan moeten we de variabele globaal definiëren.
 
+\vfill
+\hrule width 2in \relax
+{\footnotesize Gebaseerd op een document van Harry Broeders.}
+
 
 \section{Een eenvoudige functie}
 Als sterk versimpeld voorbeeld beschouwen we het programma dat gegeven is in listing~\ref{cod:slaregelsover1}.
@@ -554,16 +558,16 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{ceil(x)} & kleinste gehele getal niet kleiner dan $x$\\
 \texttt{floor(x)} & grootste gehele getal niet groter dan $x$\\
 \texttt{fabs(x)} & berekent $|x|$\\
-\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$\\
+\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$ en $y\neq 0,0$\\
 \end{tabular}
 \end{table}
 
 Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden.
 
-Als voorbeeld ontwikkelen we een programma om een numerieke benadering voor een Riemann-integraal te programmeren. De te integreren functie is het kwadraat van een sinus van 0 tot~$2\pi$. Dit komt onder andere voor bij het bepalen van het gemiddelde elektrisch vermogen over een tijdspanne. De algemene gedaante is:
+Als voorbeeld ontwikkelen we een programma om een numerieke benadering van een Riemann-integraal te programmeren. De te integreren functie is het kwadraat van een sinus van 0 tot~$2\pi$. Dit komt onder andere voor bij het bepalen van het gemiddelde elektrisch vermogen over een tijdspanne. De algemene gedaante is:
 %
 \begin{equation}
-O = \int_{a}^{b}f(x)\,\mathrm{d}x = \lim\limits_{n\to\infty}\,\sum_{k=0}^{n-1}f\left(a+k\frac{b-a}{n}\right)\cdot\frac{b-a}{n}
+O = \int_{a}^{b}f(x)\,\mathrm{d}x = \lim\limits_{n\to\infty}\,\sum_{k=0}^{n-1}f\left(a+k\cdot\frac{b-a}{n}\right)\cdot\frac{b-a}{n}
 \end{equation}
 %
 waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integreren functie wordt verdeeld in een aantal rechthoeken zoals te zien is in figuur~\ref{fig:funriemannleftrule}. De punt linksboven van de rechthoek raakt de functie. Als we nu de oppervlakten van alle rechthoeken bij elkaar optellen dan vinden we een benadering van de oppervlakte. Dit wordt de Riemann-linkersom genoemd. Als we het aantal rechthoeken steeds groter maken (waarbij de breedte van de rechthoek steeds smaller wordt), dan benaderen we de exacte waarde steeds beter.
