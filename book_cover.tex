@@ -1,0 +1,83 @@
+%%
+%%
+%% BOOK COVER -- De programmeertaal C
+%%            -- Jesse op den Brouw
+%%
+%% Please set to width of the spine to match with your paper type
+%%
+%% White std. 80 gr/m2 --> spine is 10.44 mm
+%% White HVO  90 gr/m2 --> spine is 11.06 mm
+%%
+%% NOTE: this cover is set up for academic format
+%%       17x24cm
+
+
+\PassOptionsToPackage{x11names}{xcolor}
+
+\documentclass[spinewidth=10.44mm]{bookcover}
+
+\usepackage{charter}
+\usepackage{etoolbox}
+\usepackage{parskip}
+\makeatletter
+\patchcmd\@arrayparboxrestore{\parskip}{\@gobble}{}{\undefined}
+\makeatother
+
+\newbookcovercomponenttype{center rotate}{
+\parbox[t][\partheight][c]{\partwidth}{
+\begin{center}
+\rotatebox[origin=c]{-90}{#1}
+\end{center}}}
+
+\usepackage[]{xcolor}
+\usepackage{lipsum}
+
+\begin{document}
+\begin{bookcover}
+\bookcovercomponent{color}{bg whole}{color=LightPink1}
+\bookcovercomponent{normal}{front}{%
+\vspace{5cm}
+\begin{center}
+
+\bfseries\Huge De programmeertaal C
+
+\vspace{3cm}
+\Large Jesse op den Brouw
+
+\vspace{7cm}
+\Large Eerste druk
+\end{center}}
+\begin{bookcoverelement}{normal}{back}
+\centering
+%\vspace{20mm}
+\vfill
+\parbox{110mm}{%
+Dit boek over de programmeertaal C geeft een korte introductie over de taal. Alle gangbare concepten worden besproken: toekennen, herhalen, beslissen, functie, arrays, structures en pointers. We bespreken de preprocessor en het compilatieproces.
+
+Hoofdstuk 1 geeft in vogelvlucht enkele belangrijke concepten van  C weer. Er wordt gesproken over wat een computer en een compiler is en hoe een uitvoerbaar bestand wordt gegenereerd. We beginnen met het geven van voorbeelden die de lezer in ontwikkelsoftware kan invoeren om zo de uitvoer te bekijken.
+
+Hoofdstuk 2 gaat dieper in op variabelen, constanten en expressies. Alle beschikbare datatypes worden behandeld alsmede enkele vaste-lengte datatypes.
+
+Hoofdstuk 3 laat zien hoe de executie van een programma kan worden beïnvloed met beslissingen en herhalingen. We behandelen het gebruik van beslissingen aan de hand van een bepaalde voorwaarde (ook wel conditie genoemd).
+
+Hoofdstuk 4 is een hoofdstuk over het documenteren van een (deel van een) programma met behulp van flowcharts.
+
+Hoofdstuk 5 beschrijft het gebruik van functies om een programma op te delen in kleine eenheden die uitgevoerd kunnen worden.
+
+Hoofdstuk 6 gaat over arrays. We tonen hoe een array wordt gedefinieerd en kan worden gebruikt. We laten zien hoe arrays als argument aan functies kan worden meegegeven. Uiteraard wordt ook de string behandeld.
+
+Hoofdstuk 7 gaat over pointers. Er wordt uitgelegd wat een pointer is en wat de relatie met arrays is. Verder wordt beschreven hoe pointers een rol spelen in het doorgeven van veel informatie aan functies.
+
+Hoofdstuk 8 gaat over structures die handig zijn bij het gebruik van complexe datastructuren. We leggen uit wat een structure is en hoe de gegevens binnen een structure kunnen worden benaderd. 
+
+Hoofdstuk 9 gaat over invoer en uitvoer. Dit zijn geen onderdelen van de taal zelf maar komt zo vaak voor dat er er flink stuk aan wijden.
+
+Hoofdstuk 10 gaat over de preprocessor. De preprocessor is een faciliteit die vóór de ``echte'' C-compiler wordt gebruikt. We laten zien hoe we header-bestanden kunnen inlezen, hoe we macro's kunnen definiëren en hoe we macro's kunnen gebruiken voor conditionele compilatie.
+
+Hoofdstuk 11 gaat over het compilatieproces. We behandelen hoe het proces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren.
+}
+\vfill
+\end{bookcoverelement}
+\bookcovercomponent{center rotate}{spine}{\bfseries\LARGE \hfill De programmeertaal C \hspace*{4cm}\Large Jesse op den Brouw \hfill }
+\end{bookcover}
+\end{document}
