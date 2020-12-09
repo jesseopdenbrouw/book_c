@@ -1,2 +1,4 @@
 C:\Users\jesse\source\repos\fibonacci_recursive\Debug\fibonacci_recursive.exe
 C:\Users\jesse\source\repos\fibonacci_recursive\Debug\fibonacci_recursive.pdb
+D:\PROJECTS\Tex\book_c\code\fibonacci_recursive\Debug\fibonacci_recursive.exe
+D:\PROJECTS\Tex\book_c\code\fibonacci_recursive\Debug\fibonacci_recursive.pdb
