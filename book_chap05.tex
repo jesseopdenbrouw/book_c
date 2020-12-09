@@ -543,10 +543,10 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{sin(x)} & berekent de sinus van $x$ ($x$ in radialen)\\
 \texttt{cos(x)} & berekent de cosinus van $x$ ($x$ in radialen)\\
 \texttt{tan(x)} & berekent de tangens van $x$ ($x$ in radialen)\\
-\texttt{asin(x)} & berekent de arcsin $x$ in het bereik $[-\pi/2, \pi/2]$,  $x\in [-1,1]$\\
-\texttt{acos(x)} & berekent de arccos $x$ in het bereik $[0, \pi]$,  $x\in [-1,1]$\\
+\texttt{asin(x)} & berekent de arcsin $x$ in het bereik $[-\pi/2, \pi/2]$, domein is $[-1,1]$\\
+\texttt{acos(x)} & berekent de arccos $x$ in het bereik $[0, \pi]$, domein is $[-1,1]$\\
 \texttt{atan(x)} & berekent de arctan $x$ in het bereik $[-\pi/2, \pi/2]$\\
-\texttt{atan2(x,y)} & berekent de arctan $x/y$ in het bereik $[-\pi, \pi]$\\
+\texttt{atan2(x,y)} & berekent de arctan $x/y$ in het bereik $\langle-\pi, \pi]$, (x,y)\neq(0,0)\\
 \texttt{sinh(x)} & berekent de sinus hyperbolicus van $x$\\
 \texttt{cosh(x)} & berekent de cosinus hyperbolicus van $x$\\
 \texttt{tanh(x)} & berekent de tangens hyperbolicus van $x$\\
@@ -558,7 +558,7 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{ceil(x)} & kleinste gehele getal niet kleiner dan $x$\\
 \texttt{floor(x)} & grootste gehele getal niet groter dan $x$\\
 \texttt{fabs(x)} & berekent $|x|$\\
-\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$ en $y\neq 0,0$\\
+\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$ en $y\neq$ 0,0\\
 \end{tabular}
 \end{table}
 
@@ -631,7 +631,7 @@ waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integrer
 \label{fig:funriemannleftrule}
 \end{figure}
 
-Het programma om de numerieke oplossing te berekenen is te vinden in listing~\ref{cod:riemann_left}. We stellen het aantal stappen (\texttt{n}) in op 1000, $a$ in op 0 (\texttt{left}) en $b$ in op $2\pi$ (\texttt{right}) en berekenen de stapgrootte. Daarna lopen we met behulp van een \texttt{for}-statement van 0 tot $n-1$ en berekenen we de oppervlakte van de huidige rechthoek. Tevens tellen we de oppervlakten van de rechthoeken bij elkaar op. De uitkomst is overigens $\pi$.
+Het programma om de numerieke oplossing te berekenen is te vinden in listing~\ref{cod:riemann_left}. We stellen het aantal stappen (\texttt{n}) in op 1000, $a$ in op 0, $b$ in op $2\pi$ en berekenen de stapgrootte. Daarna lopen we met behulp van een \texttt{for}-statement van 0 tot $n-1$ en berekenen we de oppervlakte van de huidige rechthoek. Tevens tellen we de oppervlakten van de rechthoeken bij elkaar op. Als we $n$ steeds groter maken, benaderen we de exacte uitkomst steeds beter. De uitkomst is overigens $\pi$.
 
 \booklistingfromproject[]{C}{Programma voor het berekenen van de Riemann-linkersom}{riemann_left}{c}{!ht}
 
