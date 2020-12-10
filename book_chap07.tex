@@ -646,29 +646,11 @@ Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En da
 \section{Pointer als return-waarde}
 \label{sec:pointersalsreturnwaarde}
 \index{pointer!als return-waarde}
-Een pointer kan ook als return-waarde dienen. In het onderstaande voorbeeld wordt in een string gezocht naar een bepaalde karakter in een string. Als het karakter gevonden is, wordt een pointer naar het karakter teruggegeven. Als het karakter niet wordt gevonden wordt \texttt{NULL} teruggegeven. Na het uitvoeren van de functie moet hier op getest worden. Tevens wordt in het begin getest of de pointer naar de string wel een geldige waarde heeft. Geldig wil zeggen dat de pointer niet \texttt{NULL} is. Het is \textsl{good practice} om altijd te testen of een pointer \texttt{NULL} is.
+Een pointer kan ook als return-waarde dienen. In listing~\ref{cod:find_token} wordt in een string gezocht naar een bepaalde karakter in een string. Als het karakter gevonden is, wordt een pointer naar het karakter teruggegeven. Als het karakter niet wordt gevonden, wordt \texttt{NULL} teruggegeven. Na het uitvoeren van de functie moet hier op getest worden. Tevens wordt in het begin van de functie getest of de pointer naar de string wel een geldige waarde heeft. Geldig wil zeggen dat de pointer niet \texttt{NULL} is. Het is \textsl{good practice} om altijd te testen of een pointer \texttt{NULL} is.
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Pointer als return-waarde.,escapeinside={}{}]
-char *find_token(char *str, char ch) {
+\booklistingfromproject[linerange={3-17},escapeinside={}{}]{C}{Pointer als return-waarde}{find_token}{c}{!ht}
 
-    if (str == NULL) {       /* sanity check */
-        return NULL;
-    }
-
-    while (*str != '\0') {   /* while not end of string */
-        if (*str == ch) {    /* if character found ... */
-            return str;      /* return pointer */
-        }
-        str++;
-    }
-
-    return NULL;             /* character not found */
-}
-\end{lstlisting}
-\end{figure}
-
-Let goed op de definitie van de functie \texttt{find\_token}. Voor de functienaam is de dereferentie-operator geplaatst. Dit betekent dat de functie een pointer naar een karakter teruggeeft. Deze vorm wordt vaak verward met pointers naar functies. Zie paragraaf~\ref{sec:pointersnaarfunctie}.
+Let goed op de definitie van de functie \texttt{find\_token}. Vóór de functienaam is de dereferentie-operator geplaatst. Dit betekent dat de functie een pointer naar een karakter teruggeeft. Deze vorm wordt vaak verward met pointers naar functies. Zie paragraaf~\ref{sec:pointersnaarfunctie}. De standard library bevat een implementatie van de functie onder de naam \lstinline|strchr|.
 
 
 \section{Pointers naar pointers}
