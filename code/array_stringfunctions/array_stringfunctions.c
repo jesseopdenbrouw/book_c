@@ -24,6 +24,7 @@ int stringcompare(char str1[], char str2[]) {
 }
 
 void stringconcat(char to[], char from[]) {
+
 	int i, j;
 
 	for (i = j = 0; to[i] != '\0'; i++);
@@ -33,17 +34,17 @@ void stringconcat(char to[], char from[]) {
 
 int main(void) {
 
-	char string[] = "Ik ben een string";
+	char van[] = "Ik ben een string";
 	char naar[100];
 
-	printf("Lengte is %d\n", stringlength(string));
+	printf("Lengte is %d\n", stringlength(van));
 
-	stringcopy(naar, string);
+	stringcopy(naar, van);
 
 	printf("Kopie: %s\n", naar);
 
 	printf("Strings zijn %sgelijk.\n",
-						stringcompare(string, naar) ? "on" : "");
+						stringcompare(van, naar) ? "on" : "");
 
 	stringconcat(naar, " en ik ben langer");
 
