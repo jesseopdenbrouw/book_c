@@ -99,7 +99,7 @@ Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat
 
 Een C-bestand wordt in drie stappen gecompileerd. Eerst wordt het C-bestand aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer is een een tijdelijk bestand. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Daarna wordt dit tijdelijke bestand aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert een \textsl{assembler-bestand} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert dit bestand en genereert een \textsl{object-bestand}\index{object-bestand}. In het object-bestand zijn de bitpatronen van de instucties opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. Een assembler-bestand wordt direct door de assembler geassembleerd.
 
-Alle gegenereerde object-bestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de object-bestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
+Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
 Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
 
@@ -132,7 +132,7 @@ Er bestaat op veel besturingssystemen zoiets als \textsl{shared libraries}. Dit 
 
 
 \section{Optimalisatie}
-Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige C-compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing~\ref{cod:comclearary}.
+Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing~\ref{cod:comclearary}.
 
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comclearary]
 #include <stdio.h>
