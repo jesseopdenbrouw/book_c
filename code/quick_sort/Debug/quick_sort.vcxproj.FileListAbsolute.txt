@@ -1,0 +1,2 @@
+D:\PROJECTS\Tex\book_c\code\quick_sort\Debug\quick_sort.exe
+D:\PROJECTS\Tex\book_c\code\quick_sort\Debug\quick_sort.pdb

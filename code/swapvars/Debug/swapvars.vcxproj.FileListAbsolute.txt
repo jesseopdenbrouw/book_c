@@ -1,0 +1,2 @@
+D:\PROJECTS\Tex\book_c\code\swapvars\Debug\swapvars.exe
+D:\PROJECTS\Tex\book_c\code\swapvars\Debug\swapvars.pdb

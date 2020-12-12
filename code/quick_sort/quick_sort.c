@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cmpint(const void* a, const void* b) {
+int cmpint(const void *a, const void *b) {
 
     /* explicit type cast to pointers to integers */
-    return (*(int*)a - *(int*)b);
+    return ( *(int*)a - *(int*)b );
 }
 
 int main() {

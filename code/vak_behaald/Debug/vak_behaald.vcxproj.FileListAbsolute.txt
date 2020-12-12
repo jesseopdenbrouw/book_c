@@ -1,0 +1,2 @@
+D:\PROJECTS\Tex\book_c\code\vak_behaald\Debug\vak_behaald.exe
+D:\PROJECTS\Tex\book_c\code\vak_behaald\Debug\vak_behaald.pdb

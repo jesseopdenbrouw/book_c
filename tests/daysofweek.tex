@@ -1,0 +1,107 @@
+\documentclass{article}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc,fit,chains,calc}
+\usetikzlibrary{arrows,backgrounds}
+\usetikzlibrary{shapes.geometric, positioning, automata}
+\usetikzlibrary{shapes.multipart, arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+
+
+% Definitions of memory units with TikZ
+\newcommand\unitsize{0.80}
+\tikzset{pointerstyle/.style={font=\ttfamily\small, thick}}
+\tikzset{memloc/.style={rectangle,draw=black, minimum height=\unitsize cm, minimum width=1.6*\unitsize cm}}
+\tikzset{memlocarray/.style={rectangle,draw=black, minimum height=\unitsize cm, minimum width=\unitsize cm}}
+\tikzset{memlocnull/.style={memloc, append after command={
+			node [
+			fit=(\tikzlastnode),
+			draw=black,
+			thin,
+			inner sep=-\pgflinewidth,
+			cross out
+			] {}
+		}
+	}
+}
+\tikzset{memlocarraynull/.style={memlocarray, append after command={
+			node [
+			fit=(\tikzlastnode),
+			draw=black,
+			thin,
+			inner sep=-\pgflinewidth,
+			cross out
+			] {}
+		}
+	}
+}\makeatletter
+\pgfarrowsdeclare{center*}{center*}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfarrowsrightextend{4.5\pgfutil@tempdima}
+}
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfqpoint{3.0\pgfutil@tempdima}{0bp}}{3.0\pgfutil@tempdima}
+  \pgfusepathqfillstroke
+}
+
+\pgfarrowsdeclare{centero}{centero}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfarrowsrightextend{4.5\pgfutil@tempdima}
+}
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.2\pgflinewidth%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfqpoint{3.75\pgfutil@tempdima}{0bp}}{3.75\pgfutil@tempdima}
+  \pgfusepathqstroke
+}
+\makeatother
+
+\tikzset{flowchart/.style = {minimum width=2cm, minimum height=0.67cm, text centered, text width=2cm, draw=black,font=\sffamily\small, thick}}
+
+\tikzset{startstop/.style = {flowchart, rectangle, rounded corners, fill=listingbgcolor}}
+\tikzset{io/.style = {flowchart, trapezium, trapezium left angle=70, trapezium right angle=110, trapezium stretches body, text width =\pgfkeysvalueof{/pgf/minimum width}-2*\pgfkeysvalueof{/pgf/inner xsep}, fill=listingbgcolor}}
+\tikzset{process/.style = {flowchart, rectangle, fill=listingbgcolor}}
+\tikzset{decision/.style = {flowchart, diamond, aspect=1.5, fill=listingbgcolor}}
+\tikzset{arrow/.style={thick,->,>=stealth}}
+\tikzset{connector/.style={thick, circle, minimum width=.7cm, radius=.7cm, draw=black, fill=listingbgcolor}}
+
+\tikzset{ghostnode/.style={minimum size=0pt, inner sep=0pt, outer sep=0pt}}
+\tikzset{ghostarrow/.style={arrow, dashed}}
+
+\tikzset{list/.style={rectangle split, rectangle split parts=3, draw, rectangle split horizontal, minimum height=\unitsize cm}}
+\tikzset{headtail/.style={rectangle, draw, minimum height=\unitsize cm}}
+\tikzset{dotarrow/.style={center*-latex}}
+
+
+\begin{document}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[pointerstyle]
+\foreach \ii/\x/\y/\stri in {0/3/2/{z,o,n,d,a,g,\textbackslash 0},1/3/.5/{m,a,a,n,d,a,g,\textbackslash 0},2/3/-1.0/{d,i,n,s,d,a,g,\textbackslash 0},3/3/-2.3/{w,o,e,n,s,d,a,g,\textbackslash 0},4/3/-3.75/{d,o,n,d,e,r,d,a,g,\textbackslash 0},5/3/-5.15/{v,r,i,j,d,a,g,\textbackslash 0},6/3/-6.4/{z,a,t,e,r,d,a,g,\textbackslash 0}} {
+	\node [memlocarray] (nod\ii) at (0,-1*\ii*\unitsize) {};
+    \node [memlocarray] (var\ii) at (\x,\y) {};
+    \foreach \iii [count=\i from 0] in \stri {
+        \node [memlocarray] at (\x+\i*\unitsize,\y) {\strut\iii};
+    }
+    \draw[center*-latex] (nod\ii.center) -- (var\ii.west);
+}
+\draw (nod0) node [yshift=\unitsize cm] {day[]};
+\end{tikzpicture}
+\caption{Voorstelling van een array van poiinters naar strings.}
+\label{fig:poiarrayofpointers}
+\end{figure}
+
+\end{document}
