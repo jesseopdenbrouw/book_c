@@ -46,7 +46,7 @@ Als we spreken over ``de variabele'' dan bedoelen we van de inhoud, waarde of ad
 
 \hspace*{1em}\texttt{a = 2;}
 
-en zeggen dan ``de variabele \texttt{a} is 2 geworden''. We bedoelen dan dat de inhoud van de variabele 2 is geworden. De term waarde is meestal een synoniem van inhoud. We spreken ook we van toekennen, dus aan de variabele wordt een waarde toegekend.
+en zeggen dan ``de variabele \texttt{a} is 2 geworden''. We bedoelen dan dat de inhoud van de variabele 2 is geworden. De term waarde is meestal een synoniem van inhoud. We spreken ook wel van toekennen, dus aan de variabele wordt een waarde toegekend.
 \end{infobox}
 
 Enkele goede voorbeelden:
@@ -302,8 +302,8 @@ Verder moet worden opgelet bij deling van gehele getallen. Een deling rondt naar
 
 de waarde 0 oplevert. Eerst wordt 1/3 berekend en de gehele uitkomst hiervan is 0. Daarna wordt de uitkomst met 3 vermenigvuldigd. De uitkomst is nog steeds 0.
 
-Let overigens goed op bij het delen met negatieve getallen. Het quotiënt wordt afgerond naar 0 toe. Het programma in listing~\ref{cod:vardivproblem} verduidelijkt dat.
-
+Let overigens goed op bij het delen met negatieve getallen. Het quotiënt wordt afgerond naar~0 toe. Het programma in listing~\ref{cod:vardivproblem} verduidelijkt dat.
+%
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Delen van positieve en negatieve getallen.,label=cod:vardivproblem]
 #include <stdio.h>
@@ -318,16 +318,16 @@ int main(void) {
 }
 \end{lstlisting}
 \end{figure}
-
+%
 De uitvoer van het programma is te zien in figuur~\ref{fig:vardivproblem}.
-
+%
 \begin{dosbox}[title=Uitvoer van het deelprogramma.,label=fig:vardivproblem]
  7/ 3 =  2
  7/-3 = -2
 -7/ 3 = -2
 -7/-3 =  2
 \end{dosbox}
-
+%
 Als het resultaat van de deling een positief getal oplevert, wordt het resultaat naar beneden (naar de 0 toe) afgerond. Is het resultaat negatief, dan wordt het resultaat naar boven afgerond (ook naar de 0 toe).
 
 \subsection{Relationele operatoren}
@@ -383,7 +383,7 @@ wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een `0' of een `1' is, anders 
 
 wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd.
 
-De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}. Overigens kan in dit voorbeeld het gebruik van de variabele \texttt{valid} vermeden worden.
+De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
@@ -406,9 +406,18 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 
+Overigens kan in dit voorbeeld het gebruik van de variabele \texttt{valid} vermeden worden door gebruik te maken van
+
+\begin{lstlisting}[style=lstoneline]
+if (!(a<5 || a>10)) { ... }
+\end{lstlisting}
+
 Met al deze operatoren kunnen we willekeurig complexe expressies realiseren. Om bijvoorbeeld te bepalen of een jaartal een schrikkeljaar\index{schrikkeljaar} (Engels: leap year)\index{leap year} is, gebruiken we de volgende expressie:
 
-\hspace*{1em}\texttt{\small int leap = (year \% 4 == 0 \&\& year \% 100 != 0) || year \% 400 == 0};
+\hspace*{1em}\texttt{int leap = (year \% 4 == 0 \&\& year \% 100 != 0) || year \% 400 == 0};
+%%\begin{lstlisting}[style=lstoneline]
+%%int leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0};
+%%\end{lstlisting}
 
 We zullen het even uitleggen. Een schrikkeljaar is een jaar met als extra dag 29 februari. Zo'n jaartal is deelbaar door 4 en niet deelbaar door 100, of als het jaartal deelbaar is door~400, dan is het wel een schrikkeljaar. Dus 1984 is een schrikkeljaar, 2100 is geen schrikkeljaar maar~2000 weer wel. Deze expressie wordt vaak gebruikt bij het bepalen van een geldige datum.
 
@@ -429,7 +438,7 @@ C biedt zes zogenoemde \textsl{bitsgewijze operatoren}\index{bitsgewijze operato
 
 Opmerking: De bitsgewijze operatoren werken op bits van gehele getallen. Dit is iets anders dan de relationele operatoren. Hierbij worden relaties tussen twee expressies gevormd en daar kan waar (1) of onwaar (0) uit volgen.
 
-De \textsl{waarheidstabellen}\index{waarheidstabel} van de AND-, OR- en EXOR-functies zijn gegeven in tabel~\ref{tab:driebaisfuncties}. De AND-functie wordt gebruikt om een of meer bits uit een variabele te selecteren of op 0 te zetten. De OR-functie wordt gebruikt om bits in een variabele op 1 te zetten en de EXOR-functie wordt gebruikt om bits in een variabele te inverteren.
+De \textsl{waarheidstabellen}\index{waarheidstabel} van de AND-, OR- en EXOR-functies zijn gegeven in tabel~\ref{tab:driebaisfuncties}. De AND-functie wordt gebruikt om een of meer bits uit een variabele te selecteren of op 0 te zetten. De OR-functie wordt gebruikt om bits in een variabele op 1 te zetten en de EXOR-functie wordt gebruikt om bits in een variabele te inverteren (een 0 wordt een 1 en een 1 wordt een 0).
 
 
 \begin{table}[!ht]
@@ -703,11 +712,11 @@ of als
 
 \hspace*{1em}\texttt{++i;}
 
-Dit wordt de \textsl{increment operator}\indexop{++}\index{increment operator} genoemd. Het verschil is dat bij \texttt{i++} eerst de waarde van \texttt{i} wordt gebruikt en daarna met 1 wordt opgehoogd (dit wordt \textsl{postfix}\index{postfix} genoemd), bij \texttt{++i} wordt de waarde van \texttt{i} eerst opgehoogd en daarna gebruikt (dit wordt \textsl{prefix}\index{prefix} genoemd). Stel dat \texttt{i} is 5 dan zorgt
+Dit wordt de \textsl{increment operator}\indexop{++}\index{increment operator} genoemd. Het verschil is dat bij \texttt{i++} eerst de waarde van \texttt{i} wordt gebruikt en daarna met 1 wordt opgehoogd (dit wordt \textsl{postfix}\index{postfix} genoemd), bij \texttt{++i} wordt de waarde van \texttt{i} eerst opgehoogd en daarna gebruikt (dit wordt \textsl{prefix}\index{prefix} genoemd). Stel dat \texttt{i} is gelijk is aan 5 dan zorgt
 
 \hspace*{1em}\texttt{k = i++;}
 
-dat \texttt{k} gelijk is aan 5 en \texttt{i} gelijk is aan 6. Bij
+ervoor dat \texttt{k} gelijk is aan 5 en \texttt{i} gelijk is aan 6. Bij
 
 \hspace*{1em}\texttt{k = ++i;}
 
