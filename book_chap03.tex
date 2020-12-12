@@ -34,18 +34,26 @@ if ((*\normalfont\textsl{expressie}*))
 
 Tussen de haakjes moet een expressie staan. Als de expressie waar is, dan worden de statements die bij de \texttt{if} horen uitgevoerd. Een expressie is waar als de uitkomst \textsl{ongelijk} aan 0 is. Een expressie is onwaar als de uitkomst gelijk aan 0 is. Voorbeelden van expressies zijn (zonder de haakjes van de \texttt{if}):
 
-\hspace*{1em}\texttt{hoogte < 10}\\
-\hspace*{1em}\texttt{(lengte > 2) \&\& (lengte < 80)}\\
-\hspace*{1em}\texttt{(getal < 1) || (getal > 10)}\\
-\hspace*{1em}\texttt{(year \% 4 == 0 \&\& year \% 100 != 0) || year \% 400 == 0}
+%%%\hspace*{1em}\texttt{hoogte < 10}\\
+%%%\hspace*{1em}\texttt{(lengte > 2) \&\& (lengte < 80)}\\
+%%%\hspace*{1em}\texttt{(getal < 1) || (getal > 10)}\\
+%%%\hspace*{1em}\texttt{(year \% 4 == 0 \&\& year \% 100 != 0) || year \% 400 == 0}
+
+\begin{lstlisting}[style=lstoneline]
+hoogte < 10
+(lengte > 2) && (lengte < 80)
+(getal < 1) || (getal > 10)
+(year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+\end{lstlisting}
 
 Let erop dat een expressie met relationele operator gelijk aan 1 is als de expressie waar is en gelijk aan 0 is als de expressie onwaar is. Dus
 
 \hspace*{1em}\texttt{getal == 25}
 
-levert een 1 op als de expressie waar is, anders levert de vergelijking een 0 op. Een veel gemaakte fout bij beginnende programmeurs is om de \texttt{==} te schrijven met \texttt{=}. Dit is een toekenning, geen vergelijking. %Zie ook het kader op pagina~\pageref{fig:besif}.
+levert een 1 op als de expressie waar is, anders levert de vergelijking een 0 op. Een veel gemaakte fout bij beginnende programmeurs is om de \texttt{==} te schrijven met \texttt{=}. Dit is een toekenning, geen vergelijking. Zie ook paragraaf~\ref{sec:valreep}.
+%Zie ook het kader op pagina~\pageref{fig:besif}.
 
-Een veel gebruikte operator is de negatie-operator \texttt{!}\index{negatie-operator}. We kunnen deze operator gebruiken zoals te zien is in listing~\ref{cod:besif2}. De functie \texttt{is\_date\_valid} geeft een 1 als er een geldige datum wordt meegegeven, anders geeft de functie een 0. De negatie-operator draait de waarde van een expressie om, dus een waarde \textsl{ongelijk} aan 0 wordt een 0 en een waarde gelijk aan 0 wordt een 1.
+Een veel gebruikte operator is de negatie-operator \texttt{!}\index{negatie-operator}. We kunnen deze operator gebruiken zoals te zien is in listing~\ref{cod:besif2}. De functie \texttt{is\_date\_valid} geeft een 1 als er een geldige datum wordt meegegeven, anders geeft de functie een 0. De negatie-operator draait de waarde van een expressie om, dus een waarde gelijk aan 0 wordt een 1 en een waarde \textsl{ongelijk} aan 0 wordt een 1.
 
 \begin{lstlisting}[caption=Gebruik van de negatie-operator.,label=cod:besif2]
 //..
@@ -75,29 +83,13 @@ else
 }
 \end{lstlisting}
 
-Een voorbeeld van het gebruik van \texttt{if else} is te zien in listing~\ref{cod:ifelse}. We lezen in regel 9 twee gehele getallen in met behulp van de functie \texttt{scanf}. Daarna wordt met behulp van het \texttt{if else}-statement bepaald welk getal het grootste is. Als \texttt{getal1} groter is dan \texttt{getal2} dat kennen we \texttt{getal1} toe aan \texttt{maximum}. Is \texttt{getal1} kleiner dan of gelijk aan \texttt{getal2} dan kennen we \texttt{getal2} toe aan \texttt{maximum}. Daarna drukken we \texttt{maximum} af. Hierbij moet worden opgemerkt dat als de variabele gelijk zijn aan elkaar, dat \texttt{getal2} aan \texttt{maximum} wordt toegekend. Dat is geen probleem omdat de variabelen gelijk zijn aan elkaar.
+%%%%Een voorbeeld van het gebruik van \texttt{if else} is te zien in listing~\ref{cod:ifelse}. We lezen in regel 9 twee gehele getallen in met behulp van de functie \texttt{scanf}. Daarna wordt met behulp van het \texttt{if else}-statement bepaald welk getal het grootste is. Als \texttt{getal1} groter is dan \texttt{getal2} dat kennen we \texttt{getal1} toe aan \texttt{maximum}. Is \texttt{getal1} kleiner dan of gelijk aan \texttt{getal2} dan kennen we \texttt{getal2} toe aan \texttt{maximum}. Daarna drukken we \texttt{maximum} af. Hierbij moet worden opgemerkt dat als de variabele gelijk zijn aan elkaar, dat \texttt{getal2} aan \texttt{maximum} wordt toegekend. Dat is geen probleem omdat de variabelen gelijk zijn aan elkaar.
 
-\booklisting[]{C}{Voorbeeld van een \texttt{if-else}-statement.}{ifelse}{c}{!ht}
+%\booklisting[]{C}{Voorbeeld van een \texttt{if-else}-statement.}{ifelse}{c}{!ht}
 
-%\begin{infobox}[Gelijk of toekennen]
-%\label{fig:besif}
-%Een van de meest voorkomende fouten in een C-programma is het verschil tussen toekennen en vergelijken op is gelijk aan. De expressie:
-%
-%\hspace*{1em}\texttt{getal = 25}
-%
-%kent de waarde 25 aan variabele \texttt{getal} toe. De expressie:
-%
-%\hspace*{1em}\texttt{getal == 25}
-%
-%bepaalt of \texttt{getal} gelijk is aan 25. Een veel gemaakte fout is
-%
-%\hspace*{1em}\texttt{if (getal = 25)}\\
-%\hspace*{1em}\texttt{\{}\\
-%\hspace*{1em}\texttt{\ \ \ \ // doe iets}\\
-%\hspace*{1em}\texttt{\}}
-%
-%Hier wordt de waarde 25 toegekend aan \texttt{getal} én de uitkomst is ook 25, dus ongelijk aan 0, dus waar en de statements worden uitgevoerd. Veel compilers geven een waarschuwing als zo'n toekenning gebruikt wordt.
-%\end{infobox}
+Een voorbeeld van het gebruik van \lstc{if else} is te zien in listing~\ref{cod:vak_behaald}. In dit voorbeeld bepalen we of een vak, bestaande uit twee deeltoetsen, is behaald. Daarvoor geldt dat het gemiddelde van de twee vakken groter is dan of gelijk is aan 5,5 en dat voor beide vakken het cijfer groter is dan of gelijk is aan 4,0. We gebruiken voor het gemak gehele getallen. In de regels~7 t/m~9 vragen we de gebruiker om twee cijfers in te voeren. Daarna bepalen we in regel 12 of de som groter is dan of gelijk is aan 11 (2$\times$5,5) én we bepalen of beide cijfers groter zijn dan of gelijk zijn aan 4,0. Als dat zo is, dan drukken we af dat het vak is behaald. Is de voorwaarde niet waar, dan drukken we af dat het vak niet is behaald.
+
+\booklistingfromproject[lineskip=-0.9pt,linerange={1-2,4-24}]{C}{Voorbeeld van een \texttt{if-else}-statement}{vak_behaald}{c}{!ht}
 
 
 \section{Beslissen met het \texttt{switch}-statement}
@@ -146,9 +138,6 @@ We leggen de werking van het \texttt{while}-statement uit aan de hand van een vo
 
 \booklisting[]{C}{Voorbeeld van een \texttt{while}-statement.}{while}{c}{!ht}
 
-\textbf{}
-
-
 %\begin{figure}[!ht]
 %\begin{lstlisting}[caption=Afdrukken van de tafel van 9 met behulp van de komma-operator.]
 %#include <stdio.h>
@@ -193,10 +182,12 @@ while ((*\normalfont\textsl{expressie$_2$}*))
 
 We kunnen in het \texttt{for}-statement \textsl{expressie$_1$}, \textsl{expressie$_2$} of \textsl{expressie}$_3$ achterwege laten. Hieronder is de opzet te zien van een eeuwigdurende lus.
 
-\hspace*{1em}\texttt{for (;;) \{ ... \}\ \ \    /* do forever */}
+\begin{lstlisting}[style=lstoneline]
+for (;;) { ... }    /* do forever */
+\end{lstlisting}
 
 Stel dat we de tafels van 1 t/m 10 willen afdrukken. We maken dan gebruikt van twee, in elkaar verweven, \texttt{for}-statements. Dit is te zien in listing~\ref{cod:tables_with_for_loops}. We concentreren ons op de opzet van beide \texttt{for}-statements. Er zijn diverse \texttt{printf}-statements te zien die de gegevens op een nette manier afdrukken.
-Zo betekent de \texttt{4} in \texttt{printf("\%4d", i*j)} de veldbreedte van 4 cijfers van het af te drukken getal, zodat de kolommen netjes onder elkaar komen te staan.
+Zo betekent de \texttt{4} in \texttt{printf("\%4d", i * j)} de veldbreedte van 4 cijfers van het af te drukken getal, zodat de kolommen netjes onder elkaar komen te staan.
 
 \booklistingfromproject[]{C}{Programma voor het afdrukken van de tafels}{tables_with_for_loops}{c}{!ht}
 
@@ -241,9 +232,9 @@ Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een 
 
 Bij het \texttt{for}-statement werkt het iets anders. Daarvoor moeten we listing~\ref{cod:besfor1} nog eens bekijken. Aan het einde van het \texttt{for}-statement wordt \textsl{expressie$_3$} (omgezet in een statement) uitgevoerd, waarin normaal gesproken een variabele wordt aangepast (verhogen of verlagen). Een \texttt{continue} zorgt ervoor dat naar dit statement wordt gesprongen.
 
-\booklistingfromproject[]{C}{Gebruik van het \texttt{break}-statement om een lus te verlaten}{while_break_continue}{c}{!ht}
+\booklistingfromproject[]{C}{Gebruik van het \texttt{break}- en \texttt{continue}-statement om een lus te verlaten of opnieuw uit te voeren}{while_break_continue}{c}{!ht}
 
-Overigens kunnen we de code in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
+Overigens kunnen we het programma in listing~\ref{cod:while_break_continue} geheel herschrijven zonder \texttt{break} en \texttt{contine}. Zie listing~\ref{cod:while_without_break_continue}.
 
 \booklistingfromproject[]{C}{Sommeren van positieve getallen}{while_without_break_continue}{c}{!ht}
 
@@ -348,3 +339,44 @@ error:
     // clean up the mess
 \end{lstlisting}
 \end{figure}
+
+
+\section{Op de valreep, het verschil tussen \texttt{=} en \texttt{==}}
+\label{sec:valreep}
+Een van de meest voorkomende fouten in een C-programma is het verschil tussen toekennen aan en vergelijken op is gelijk aan. De expressie:
+
+\hspace*{1em}\texttt{getal = 25}
+
+kent de waarde 25 aan variabele \texttt{getal} toe. De expressie:
+
+\hspace*{1em}\texttt{getal == 25}
+
+bepaalt of \texttt{getal} gelijk is aan 25. Een veel gemaakte fout is
+
+\hspace*{1em}\texttt{if (getal = 25)}\\
+\hspace*{1em}\texttt{\{}\\
+\hspace*{1em}\texttt{\ \ \ \ // doe iets}\\
+\hspace*{1em}\texttt{\}}
+
+Hier wordt de waarde 25 toegekend aan \texttt{getal} én de uitkomst is ook 25, dus ongelijk aan 0, dus waar en de statements worden uitgevoerd. Veel compilers geven een waarschuwing als zo'n toekenning gebruikt wordt.
+
+%%% Could not place nicely
+%%%\begin{infobox}[Gelijk of toekennen]
+%%%\label{fig:besif}%
+%%%Een van de meest voorkomende fouten in een C-programma is het verschil tussen toekennen aan en vergelijken op is gelijk aan. De expressie:
+%%%
+%%%\hspace*{1em}\texttt{getal = 25}
+%%%
+%%%kent de waarde 25 aan variabele \texttt{getal} toe. De expressie:
+%%%
+%%%\hspace*{1em}\texttt{getal == 25}
+%%%
+%%%bepaalt of \texttt{getal} gelijk is aan 25. Een veel gemaakte fout is
+%%%
+%%%\hspace*{1em}\texttt{if (getal = 25)}\\
+%%%\hspace*{1em}\texttt{\{}\\
+%%%\hspace*{1em}\texttt{\ \ \ \ // doe iets}\\
+%%%\hspace*{1em}\texttt{\}}
+%%%
+%%%Hier wordt de waarde 25 toegekend aan \texttt{getal} én de uitkomst is ook 25, dus ongelijk aan 0, dus waar en de statements worden uitgevoerd. Veel compilers geven een waarschuwing als zo'n toekenning gebruikt wordt.
+%%%\end{infobox}
