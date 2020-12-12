@@ -253,7 +253,7 @@ Het ingelezen toetscijfer is 7.
 \section{Zichtbaarheid en levensduur van lokale variabelen}
 Variabelen die binnen een functie gedefinieerd zijn, zijn alleen zichtbaar in de functie. We noemen dat lokale variabelen\index{lokale variabele}\index{variabele!lokaal}. Ze worden aangemaakt als de functie begint en worden verwijderd als de functie terugkeert naar de aanroeper. Dat betekent dat de levensduur loopt van het begin van de executie van een functie tot de terugkeer naar de aanroeper. Lokale variabelen kunnen geïnitialiseerd worden. Elke keer als de functie aangeroepen wordt, krijgt een nieuwe versie van de variabele dan zijn waarde.
 
-Parameters van de functie gedragen zich als lokale variabelen. Er wordt een kopie gemaakt van het bijbehorende argument en die kopie is zichtbaar in de functie. Parameters mogen daarom ook in een functie aangepast worden; de originele variabelen (het argument) wordt dus niet aangepast. Ook de levensduur van parameters is identiek aan die van lokale variabelen.
+Parameters van de functie gedragen zich als lokale variabelen. Er wordt een kopie gemaakt van het bijbehorende argument en die kopie is zichtbaar in de functie. Parameters mogen daarom ook in een functie aangepast worden; de originele variabelen (via de parameters) worden dus niet aangepast. Ook de levensduur van parameters is identiek aan die van lokale variabelen.
 
 Omdat er een kopie van een variabele aan de parameters wordt meegegeven, kan de originele variabele niet worden aangepast. Een voorbeeld waarbij dit wel gewenst is, is een functie die de inhoud van twee variabelen verwisseld. Dit komt voor in sorteerprogramma's. We definiëren een functie \texttt{wissel} met twee parameters \texttt{a} en \texttt{b}. De functie en de aanroep zijn te zien in listing~\ref{cod:foute_wissel}. In de functie wordt een lokale variabele \texttt{hulpje} aangemaakt en met behulp ervan worden \texttt{a} en \texttt{b} verwisseld. De functie \texttt{wissel} wordt met twee argumenten \texttt{x} en \texttt{y} aangeroepen. Vooraf en daarna worden \texttt{x} en \texttt{y} op het scherm afgedrukt.
 
@@ -305,7 +305,7 @@ Elke keer dat we de functie aanroepen, wordt de variabele met 1 verhoogd en word
 
 
 \section{Zichtbaarheid en levensduur van globale variabelen}
-Een globale variabele\index{globale variabele}\index{variabele!globaal} is beschikbaar en zichtbaar tijdens de gehele executie van het programma en binnen het gehele C-programma. Alle functies kunnen deze variabele gebruiken in statements. Het wordt aangemaakt als het programma start en wordt verwijderd als het programma is afgelopen. Een globale variabele kan eenmalig worden geïnitialiseerd, of wordt automatisch op 0 gezet als de initialisatie achterwege is gebleven. Een globale variabele wordt buiten functies gedefinieerd.
+Een globale variabele\index{globale variabele}\index{variabele!globaal} is beschikbaar en zichtbaar tijdens de hele executie van het programma en binnen het gehele C-programma. Alle functies kunnen deze variabele gebruiken in statements. Het wordt aangemaakt als het programma start en wordt verwijderd als het programma is afgelopen. Een globale variabele kan eenmalig worden geïnitialiseerd, of wordt automatisch op 0 gezet als de initialisatie achterwege is gebleven. Een globale variabele wordt buiten functies gedefinieerd.
 
 Lokale variabelen kunnen globale variabele verbergen. In listing~\ref{cod:funzichtglobaal} is een opzet van een C-programma te zien met een definitie van een globale variabele \texttt{i} (regel 1). In de functie \texttt{func1} wordt geen lokale variabele \texttt{i} gedefinieerd en is de globale variabele \texttt{i} zichtbaar. We kunnen in onze statements daar gebruik van maken. In functie \texttt{func2} wordt een lokale variabele \texttt{i} gedefinieerd. Deze definitie zorgt ervoor dat de globale variabele wordt verborgen. Binnen de functie wordt alleen gebruik gemaakt van de lokale variabele \texttt{i}. Er is in C geen mogelijkheid om toch de globale variabele te gebruikten (binnen deze functie natuurlijk).
 
@@ -539,7 +539,7 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \newdimen\delengteb\delengteb=\textwidth\advance\delengteb by -\wd0\advance\delengteb by -2\tabcolsep
 \begin{table}[!ht]
 \centering
-\begin{tabular}{lp{\delengteb}}
+\begin{tabular}{lp{\delengteb}@{}}
 \texttt{sin(x)} & berekent de sinus van $x$ ($x$ in radialen)\\
 \texttt{cos(x)} & berekent de cosinus van $x$ ($x$ in radialen)\\
 \texttt{tan(x)} & berekent de tangens van $x$ ($x$ in radialen)\\
@@ -558,11 +558,11 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{ceil(x)} & kleinste gehele getal niet kleiner dan $x$\\
 \texttt{floor(x)} & grootste gehele getal niet groter dan $x$\\
 \texttt{fabs(x)} & berekent $|x|$\\
-\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$ en $y\neq$ 0,0\\
+\texttt{fmod(x,y)} & berekent de floating point-rest van $x/y$, met hetzelfde teken als $x$ én $y\neq$ 0,0\\
 \end{tabular}
 \end{table}
 
-Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden.
+Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden. Als de parameters niet in in het bereik zijn van de functies wordt een NaN\index{nan} (not a number)\index{Not a Number|see {nan}} teruggegeven.
 
 Als voorbeeld ontwikkelen we een programma om een numerieke benadering van een Riemann-integraal te programmeren. De te integreren functie is het kwadraat van een sinus van 0 tot~$2\pi$. Dit komt onder andere voor bij het bepalen van het gemiddelde elektrisch vermogen over een tijdspanne. De algemene gedaante is:
 %
