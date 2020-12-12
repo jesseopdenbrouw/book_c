@@ -68,7 +68,7 @@ Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op vo
 \section{Datatypes}
 Een variabele is van een bepaald \textsl{datatype}\index{datatype}. We hebben er al twee gezien, de \texttt{int} en de \texttt{double}. Een datatype heeft een bepaalde grootte. Zo bestaat een \texttt{int} \textsl{meestal} uit 32 bits. Er zijn echter ook systemen en C-compilers waar een \texttt{int} uit 16 bits bestaat. Dat een \texttt{int} uit 32 bits bestaat, betekent dat niet elk willekeurig getal aan de \texttt{int} kunnen worden toegekend. Er is een minimale en maximale waarde. Voor de \texttt{int} is de minimale waarde $-2147483648$ en de maximale waarde $+2147483647$. De \texttt{int} is een \textsl{signed} datatype: zowel positieve als negatieve getallen en 0 zijn mogelijk.
 
-Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in een bepaalde situatie. We kunnen dan kiezen voor een ander type. C kent een aantal gehele datatypes van diverse grootten. Deze zijn weergegeven in tabel~\ref{tab:varintdatatypes}.
+Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in een bepaalde situatie. We kunnen dan kiezen voor een ander type. C kent een aantal gehele datatypes van diverse grootten. Deze zijn weergegeven in tabel~\ref{tab:varintdatatypes}. Gehele getallen worden opgeslagen in de two'scomplement representatie maar voor de gebruiker is dan niet van belang. Zie~\cite{opdenbrouw2020}.
 
 \begin{table}[!ht]
 \centering
@@ -90,7 +90,7 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
 \end{table}
 
 \indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
-Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code (zie bijlage~\ref{cha:asciitabel}). Om het karakter `A' op te slaan schrijven we:
+Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler \textsl{en} instellingen van de compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code (zie bijlage~\ref{cha:asciitabel}). Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = \textquotesingle A\textquotesingle; \ \ \ /* assign character A */}
@@ -115,7 +115,7 @@ Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen w
 \hspace*{1em}\texttt{unsigned short int usi; \ \ \ \ \ \ /* range 0 to 65535 */}\\
 \hspace*{1em}\texttt{unsigned long long int ulli; \ /* range 0 to 18446744073709551616 */}
 
-Naast gehele datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier ontstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt, zoals gebruikelijk is in Engelstalige literatuur. We schijven dus $3.14$ en niet $3,14$.
+Naast gehele datatypes kent C ook een drietal \textsl{floating point} datatypes\index{floating point}. Het Nederlandse woord hiervoor is \textsl{drijvende komma}. Hier ontstaat al gelijk de eerste verwarring: in C wordt de komma vervangen door de punt, zoals gebruikelijk is in Engelstalige literatuur. We schijven dus 3.14 en niet 3,14.
 
 Een \texttt{float}\indexkeyword{float} is een datatype met een grootte van 32 bits. Een \texttt{double}\indexkeyword{double} is een datatype met een grootte van 64 bits. We zouden verwachten dat de \texttt{long double}\indexkeyword{long double} dan een datatype van 128 bits is, maar dat is niet altijd waar. De \texttt{long double} is soms ook 80 bits, bijvoorbeeld in Intel-processoren.
 
@@ -131,7 +131,7 @@ Een \texttt{float}\indexkeyword{float} is een datatype met een grootte van 32 bi
 \texttt{long double}   & 80/128                      & $^1$) & $^1$)  \\
 \bottomrule
 \end{tabular}\\\vspace*{1mm}
-\footnotesize$^1$) Afhankelijk van de implementatie 80 of 128 bits.
+\footnotesize$^1$) Afhankelijk van de implementatie is een long double 80 of 128 bits.
 \end{table}
 
 Voorbeelden van floating point variabelen:
@@ -195,8 +195,10 @@ Andere karakters kunnen worden gevormd door de backslash, gevolgd door de letter
 
 Een \textsl{string constante}\index{string constante}, of kortweg string\index{string}, is een rij van karakters die wordt begonnen en afgesloten met aanhalingstekens. De rij mag ook leeg zijn. Dan spreken we dan van een lege string. Twee voorbeelden:
 
-\hspace*{1em}\texttt{"Dit is een string"}\\
-\hspace*{1em}\lstinline[basicstyle=\ttfamily]|""|\texttt{\ \  /* The empty string */}
+\begin{lstlisting}[style=lstoneline]
+"Dit is een string"  /* String with characters */
+""                   /* The empty string */
+\end{lstlisting}
 
 Let erop dat een string \textsl{geen} enkelvoudig datatype is zoals \texttt{int} en \texttt{double}. Een string is een rij karakters die in het geheugen liggen. Technisch gezien is een string een \textsl{array}\index{string array}. We kunnen dus niet de waarde van een string bepalen zoals dat wel mogelijk is van een \texttt{int} of een \texttt{char}. Aan het einde van een string wordt automatisch een nul-karakter\index{nul-karakter} geplaatst. Er is dus altijd één karakter meer nodig dan het aantal karakters in een string. In figuur~\ref{fig:varstrings} zijn de twee strings afgebeeld. De \texttt{\textquotesingle\textbackslash0\textquotesingle} stelt het nul-karakter voor.
 
@@ -508,9 +510,8 @@ Een bekend voorbeeld is het testen of een geheel getal even of oneven is. Een ev
 
 \hspace*{1em}\texttt{if (getal \% 2 == 0) \{ ... \}}
 
-
 We kunnen dit ook realiseren het de \texttt{\&}-operator, zie het programma in listing~\ref{cod:testeven1}.
-
+%
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Testen of een geheel getal even is.,label=cod:testeven1]
 #include <stdio.h>
@@ -535,8 +536,8 @@ int main(void)
 }
 \end{lstlisting}
 \end{figure}
-
-De expressie \texttt{getal \& 1} zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
+%
+De expressie \texttt{getal \& 1} in regel 10 zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
 
 %%%De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit~0 (laagste bit) van de (speciale) variabele \texttt{PORTB}.
 %%%
@@ -591,10 +592,10 @@ f = 9.0/5.0 * c + 32.0;
  
 
 \section{Overflow}
-\textsl{Overflow}\index{overflow} is de situatie wanneer een expressie een waarde oplevert die te groot of te klein is en niet in de variabele kan worden opgeslagen. De C-compiler genereert geen code om hierop te testen. Dat zou wel kunnen, maar dat zou de executietijd van programma's nadelig beïnvloeden. De ontwerper van het programma moet er dus zelf op toezien dat een overflow-conditie niet kan voorkomen. De reden dat overflow voorkomt is dat datatypes (en dus variabelen) uit een eindig aantal bits\index{bit} bestaan. Zo bestaat een \texttt{unsigned char} uit 8 bits en het grootste getal dat kan worden opgeslagen is 255 (binair $11111111_2$). Tellen we daar 1 bij op dat is het resultaat 256 (binair $100000000_2$) maar dat kan niet in de variabele worden opgeslagen. Het resultaat is dat de overvloedige bits gewoonweg worden geschrapt en dat de uitkomst dus $00000000_2$ (0) is.
+\textsl{Overflow}\index{overflow} is de situatie wanneer een expressie een waarde oplevert die te groot of te klein is en niet in de variabele kan worden opgeslagen. De C-compiler genereert geen code om hierop te testen. Dat zou wel kunnen, maar dat zou de executietijd van programma's nadelig beïnvloeden. De ontwerper van het programma moet er dus zelf op toezien dat een overflow-conditie niet kan voorkomen. De reden dat overflow voorkomt is dat datatypes (en dus variabelen) uit een eindig aantal bits\index{bit} bestaan. Zo bestaat een \texttt{unsigned char} uit 8 bits en het grootste getal dat kan worden opgeslagen is 255 (binair $11111111_2$). Tellen we daar 1 bij op dat is het resultaat 256 (binair $100000000_2$) maar dat kan niet in de variabele worden opgeslagen. Het resultaat is dat de overvloedige bits (de leidende 1  in dit geval) gewoonweg worden geschrapt en dat de uitkomst dus $00000000_2$ (0) is. Dit principe geldt ook bij de \lstc{int} en \lstc{long int}.
 
 Overflow bij floating point-getallen werkt anders. Dat heeft te maken met de gebruikte specificatie van de getallen.
-Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als $\pm$oneindig.}. De deling 0/0 resulteert in NaN.
+Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN}\index{nan} (Not A Number). Ze geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als $\pm$oneindig.}. De deling 0/0 resulteert in NaN.
 
 
 \section{Vaste-lenge datatypes}
@@ -811,13 +812,7 @@ De volgende operatoren worden verderop in het boek behandeld:
 \hspace*{1cm}\texttt{[]\ \ ->\ \ .\ \ *} (\textsl{dereference}) \texttt{\ \ \&} (\textsl{address})
 
 \section{Voorrangsregels van operatoren}
-Bij het uitwerken van expressies worden voorrangsregels\index{voorrangsregels} gehanteerd. C kent een groot aantal operatoren. We hebben de \textsl{meest voorkomende} operatoren op volgorde van prioriteit opgesomd in tabel~\ref{tab:varvoorrangsregels}. Merk op dat de toekenningsoperator \texttt{=} ook in de lijst voorkomt.
-
-Een in C-programma's gebruikelijke constructie voor het inlezen van een karakter van het toetsenbord én gelijk testen of het een newline-karakter\index{newline} betreft is:
-
-\hspace*{1em}\texttt{while ((ch = getchar()) != \textquotesingle\textbackslash n\textquotesingle) \{ ... \}}
-
-Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indexfunc{getchar} aangeroepen om een karakter van het toetsenbord te lezen, de haakjes \texttt{()} direct achter \texttt{getchar} hebben de hoogste prioriteit. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de gehele waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter ongelijk is aan het newline-karakter.
+Bij het uitwerken van expressies worden voorrangsregels\index{voorrangsregels} gehanteerd. C kent een groot aantal operatoren. We hebben de \textsl{meest voorkomende} operatoren op volgorde van prioriteit opgesomd in tabel~\ref{tab:varvoorrangsregels}. Let hierbij goed op de \textsl{associativiteit} van de operatoren. Die is van links naar rechts óf van rechts naar links. Dat betekent bijvoorbeeld dat \lstc{1 / 3 * 3} wordt gelezen als \lstc{(1 / 3)} \lstc{* 3}, dus de associatie is van links naar rechts. De deling gaat dus voor op de vermenigvuldiging. Merk op dat de toekenningsoperator \texttt{=} ook in de lijst voorkomt, de associatie is van rechts naar links en dat deze operator een lage prioriteit heeft.
 
 \begin{table}[!ht]
 \centering
@@ -847,6 +842,13 @@ Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{get
 \end{tabular}
 \end{table}
 
+Een in C-programma's gebruikelijke constructie voor het inlezen van een karakter van het toetsenbord én gelijk testen of het een newline-karakter\index{newline} betreft is:
+
+\hspace*{1em}\texttt{while ((ch = getchar()) != \textquotesingle\textbackslash n\textquotesingle) \{ ... \}}
+
+Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{getchar}\indexfunc{getchar} aangeroepen om een karakter van het toetsenbord te lezen, de haakjes \texttt{()} direct achter \texttt{getchar} hebben de hoogste prioriteit. Daarna wordt dit karakter toegekend aan variabele \texttt{ch}. De haakjes zorgen voor de juiste prioriteit. De uitkomst van de toekenning is de gehele waarde van de toekenning en dat is het ingelezen karakter. Daarna wordt getest of het ingelezen karakter ongelijk is aan het newline-karakter (\lstinline|\n|).\indextwo{\textbackslash n}{newline karakter}\index{newline}
+
+
 Uit deze tabel zijn de operatoren voor arrays (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
 
 Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het voor de beginnende programmeur minder goed leesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan.
@@ -860,10 +862,14 @@ De lezer is gewaarschuwd.
 \section{Volgorde van uit\textsl{}rekenen van expressies}
 De volgorde van het uitrekenen van expressies ligt niet vast, behalve bij de operatoren \texttt{\&\&}, \texttt{||}, \texttt{?:} en \texttt{,}. Dit heeft voornamelijk consequenties bij het gebruik van argumenten in functies, zoals te zien is in de onderstaande functie-aanroep:
 
-\hspace*{1em}\texttt{printf("{}\%d \%d\textbackslash n"{}, ++n, --n);}
+\begin{lstlisting}[style=lstoneline]
+printf("{%d %d\n", ++n, --n);
+\end{lstlisting}
 
 De volgorde van het uitrekenen van \texttt{++n} en \texttt{--n} ligt niet vast. Dit kan verschillende resultaten opleveren bij gebruik van verschillende compilers. De oplossing is het gebruik van extra variabelen:
 
-\hspace*{1em}\texttt{i = ++n;}\\
-\hspace*{1em}\texttt{j = --n;}\\
-\hspace*{1em}\texttt{printf("{}\%d \%d\textbackslash n"{}, i, j);}
+\begin{lstlisting}[style=lstoneline]
+int i = ++n;
+int j = --n;
+printf("%d %d\n", i, j);
+\end{lstlisting}
