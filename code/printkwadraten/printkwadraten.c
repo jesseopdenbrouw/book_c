@@ -2,12 +2,8 @@
 
 int main(void)
 {
-	int ondergrens, bovengrens, stap;
+	int ondergrens = 1, bovengrens = 10, stap = 1;
 	int getal, kwadraat;
-
-	ondergrens = 1;
-	bovengrens = 10;
-	stap = 1;
 
 	getal = ondergrens;
 	while (getal <= bovengrens)
