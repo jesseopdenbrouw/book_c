@@ -253,8 +253,10 @@ Een \texttt{if}-statement kan ook gevolgd worden door een \texttt{else}-keyword 
 
 int main(void)
 {
-    int a = 7;
-    int b = 9;
+    int a, b;
+    
+    printf("Geef twee getallen: ");
+    scanf("%d %d", &a, &b);
     
     if (a < b)
     {
@@ -273,7 +275,7 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 
-Technisch gezien hoort de \texttt{else} in regel 16 bij de \texttt{if} in regel 12. Let erop dat het vergelijken van \texttt{a} en \texttt{b} op gelijkheid in regel 12 een \textsl{dubbele is-gelijk-teken} (\texttt{==})\indexop{==} bevat.
+Technisch gezien hoort de \texttt{else} in regel 18 bij de \texttt{if} in regel 14. Let erop dat het vergelijken van \texttt{a} en \texttt{b} op gelijkheid in regel 12 een \textsl{dubbele is-gelijk-teken} (\texttt{==})\indexop{==} bevat.
 
  
 \section{Herhalingen}
@@ -281,13 +283,12 @@ Stel dat we de kwadraten van 1 t/m 10 willen afdrukken. We kunnen ervoor kiezen 
 
 \booklistingfromproject[]{C}{Afdrukken van de kwadraten van 1 t/m 10.}{printkwadraten}{c}{!ht}
 
-We beginnen het programma met de definitie van een aantal variabelen. Vervolgens stellen we de ondergrens, bovengrens en stapgrootte in in de regels 8 t/m 10. We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
+We beginnen het programma met de definitie en initialisatie van een aantal variabelen. Hierin stellen we de ondergrens, bovengrens en stapgrootte in (regel 5). We willen beginnen bij de ondergrens, stoppen bij de bovengrens en bij elke herhaling nieuwe waarden afdrukken. Daarvoor gebruiken we de variabele \texttt{getal}. Zo'n variabele wordt een \textsl{lusvariabele}\index{lusvariabele} genoemd.
 
-In regel 12 zetten we de lusvariabele op de ondergrens en gaan de lus uitvoeren. De lus wordt gekenmerkt door het keyword \texttt{while}\indexkeyword{while}. Achter het keyword \texttt{while} staat, tussen de haken, de conditie waarop de lus moet worden uitgevoerd.
+In regel 8 zetten we de lusvariabele op de ondergrens en gaan de lus uitvoeren. De lus wordt gekenmerkt door het keyword \texttt{while}\indexkeyword{while}. Achter het keyword \texttt{while} staat, tussen de haken, de conditie waarop de lus moet worden uitgevoerd.
 Zolang de conditie \mbox{\texttt{getal <= bovengrens}} waar is, worden de statements binnen de accolades uitgevoerd. We noemen dat een \textsl{iteratie}\index{iteratie}. Is de conditie niet waar dan wordt verder gegaan met het statement dat volgt op het \texttt{while}-statement.
 
-
-Binnen de accolades van het \texttt{while}-statement zien we drie statements. In regel 15 wordt het kwadraat berekend van de (huidige) waarde van de lusvariabele. Daarna worden de lusvariabele en het kwadraat afgedrukt. In regel 17 wordt de lusvariabele aangepast naar de nieuwe (volgende) waarde door de stapgrootte erbij op te tellen\footnote{Het is tegenwoordig in het Nederlands gebruikelijk om het Engelse woord updaten te gebruiken.}.
+Binnen de accolades van het \texttt{while}-statement zien we drie statements. In regel 11 wordt het kwadraat berekend van de (huidige) waarde van de lusvariabele. Daarna worden de lusvariabele en het kwadraat afgedrukt. In regel 13 wordt de lusvariabele aangepast naar de nieuwe (volgende) waarde door de stapgrootte erbij op te tellen\footnote{Het is tegenwoordig in het Nederlands gebruikelijk om het Engelse woord updaten te gebruiken.}.
 
 In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement gebruiken: het \texttt{for}-statement. Het is een compacte schrijfwijze van het \texttt{while}-statement. We kunnen het kwadraat ook uitrekenen in de aanroep van de functie \texttt{printf}. Als argument van een functie mogen we namelijk een expressie gebruiken. Zo sparen we een variabele uit. Zie listing~\ref{cod:unfor}.
 
@@ -417,7 +418,7 @@ In de eerste hoofdstukken gebruiken we de Allman-stijl. In latere hoofdstukken g
 
 Ook voor naamgeving van variabelen zijn diverse gebruiken in omloop. We zullen er drie behandelen.
 
-In de K\&R-stijl zijn er eigenlijk geen regels. Variabelennamen mogen uit één letter bestaan, of natuurlijk uit meerdere letters. Als namen syntactisch uit meerdere woorden bestaan, worden de woorden gescheiden door een \textsl{underscore}.\index{underscore} Het is wel aan te raden dat namen zinvol zijn en dat ze de betekenis vertegenwoordigen. Overigens is het gebruik van eenletterige variabelennamen prima te verantwoorden, bijvoorbeeld binnen het gebruik van een kortduurdende herhaling én als het programma niet al te groot is\footnote{In dit boek gebruiken we vooral de K\&R-stijl. We gebruiken ook vaak eenletterige variabelen. Dat is te verklaren omdat veel voorbeelden kort zijn en we de lezer niet willen vermoeien met lange variabelennamen. Het gebruik van de accolade-openen achter een taalconstructie levert een besparing op van één programmaregel.}.
+In de K\&R-stijl zijn er eigenlijk geen regels. Variabelennamen mogen uit één letter bestaan, of natuurlijk uit meerdere letters. Als namen syntactisch uit meerdere woorden bestaan, worden de woorden gescheiden door een \textsl{underscore}.\index{underscore} Het is wel aan te raden dat namen zinvol zijn en dat ze de betekenis vertegenwoordigen. Overigens is het gebruik van eenletterige variabelennamen prima te verantwoorden, bijvoorbeeld binnen het gebruik van een kortdurdende herhaling én als het programma niet al te groot is\footnote{In dit boek gebruiken we vooral de K\&R-stijl. We gebruiken ook vaak eenletterige variabelen. Dat is te verklaren omdat veel voorbeelden kort zijn en we de lezer niet willen vermoeien met lange variabelennamen. Het gebruik van de accolade-openen achter een taalconstructie levert een besparing op van één programmaregel.}.
 
 In de camelCase-stijl worden variabelen weergegeven met kleine letters en hoofdletters en geven scheidingen aan tussen woorden die syntactisch gescheiden zijn. Er worden geen underscores gebruikt. Deze stijl is afkomsting uit Java.
 
