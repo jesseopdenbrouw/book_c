@@ -303,7 +303,7 @@ int *p = ary; /* p points to first element of array */
 \end{lstlisting}
 \end{figure}
 
-Omdat de naam van een array een synoniem is, mag de naam niet gebruikt worden aan de linkerkant van een toekenning. Zie listing~\ref{cod:poifirstarray3}.
+Omdat de naam van een array een synoniem is, mag de naam niet zomaar gebruikt worden aan de linkerkant van een toekenning. Zie listing~\ref{cod:poifirstarray3}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray3]
@@ -696,7 +696,7 @@ Met behulp van pointers naar pointers kunnen de inhouden van twee pointers verwi
 
 We kunnen dat doen met het programmafragment in listing~\ref{cod:swaptwostrings}. We definiëren drie pointers en laten \texttt{pa} en \texttt{pb} wijzen naar strings. We gebruiken de pointer \texttt{temp} om de verwisseling tot stand te brengen.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Verwisselen van twee pointers.,label=cod:swaptwostrings]
 char *pa = "hello ";
 char *pb = "world!";
@@ -740,9 +740,8 @@ Maar stel dat we zulke verwisselingen vaker in een programma moeten uitvoeren. D
 \label{fig:poipointertopointerstring}
 \end{figure}
 
-In listing~\ref{cod:poiswaptopointers} is de functie te zien voor het verwisselen van twee pointers. De functie heeft twee parameters \texttt{ppa} en \texttt{ppb} die een pointer zijn naar een pointer naar een string. In de functie definiëren we een pointer \texttt{temp} die een pointer is naar string (of eigenlijk: een karakter). Met behulp van de dereferentie \texttt{*ppa} kopiëren we de inhoud van pointer \texttt{pa} naar \texttt{temp}. Daarna kopiëren we \texttt{pb} naar \texttt{pa} en als laatste kopiëren we \texttt{temp} naar \texttt{pb}.
-
-\begin{figure}[!ht]
+In listing~\ref{cod:poiswaptopointers} is de functie te zien voor het verwisselen van twee pointers. De 
+\begin{figure}[!b]
 \begin{lstlisting}[caption=Functie voor het verwisselen van twee pointers.,label=cod:poiswaptopointers]
 #include <stdio.h>
 #include <stdlib.h>
@@ -768,6 +767,7 @@ int main()
 }
 \end{lstlisting}
 \end{figure}
+functie heeft twee parameters \texttt{ppa} en \texttt{ppb} die een pointer zijn naar een pointer naar een string. In de functie definiëren we een pointer \texttt{temp} die een pointer is naar string (of eigenlijk: een karakter). Met behulp van de dereferentie \texttt{*ppa} kopiëren we de inhoud van pointer \texttt{pa} naar \texttt{temp}. Daarna kopiëren we \texttt{pb} naar \texttt{pa} en als laatste kopiëren we \texttt{temp} naar \texttt{pb}.
 
 De uitvoer van dit programma is te zien in de figuur~\ref{fig:poiwisselen}. Te zien is dat de in de eerste regels de string op originele volgorde worden afgedrukt en in de twee regel in omgekeerde volgorde. Deze manier van herschikken van strings is veel efficiënter dan strings kopiëren.
 
