@@ -334,7 +334,7 @@ Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofd
 \end{infobox}
 
 \section{Zichtbaarheid en levensduur van functies}
-Elke functie is in het C-programma te gebruiken. Het is niet mogelijk om een functie alleen maar beschikbaar te stellen voor een andere functie. Willen we een functie alleen maar beschikbaar stellen voor het C-bestand waarin de functie is gedefinieerd, dan moeten we de functie voorzien van de qualifier \texttt{static}\indextwo{static}{functie}. Zie ook hoofdstuk~\ref{cha:compilatieproces}.
+Elke functie is in principe in het C-programma te gebruiken. Het is niet mogelijk om een functie alleen maar beschikbaar te stellen voor een andere functie. Willen we een functie alleen maar beschikbaar stellen voor het C-bestand waarin de functie is gedefinieerd, dan moeten we de functie voorzien van de qualifier \texttt{static}\indextwo{static}{functie}.% Zie ook hoofdstuk~\ref{cha:compilatieproces}.
 
 
 \section{Recursieve functies}
@@ -472,20 +472,20 @@ int fib(int n) {
 Stel dat we $F(10)$ willen uitrekenen, dan vinden we via de functie dat $F(10)= F(9)+F(8)$. Maar $F(9) =F(8)+F(7)$ en $F(8)=F(7)+F(6)$ enzovoorts. Het probleem zit niet zozeer in het groter worden van de getallen maar in het aantal (recursieve) \textsl{aanroepen} van de functie en in het verlengde daarvan de totale tijd die nodig is een Fibonacci-getal te berekenen.
 
 In listing~\ref{cod:fibonacci_recursive} is een programma te zien dat het aantal aanroepen van de functie en de totale tijd om een Fibonacci-getal te berekenen bijhoudt. Omdat de getallen vrij snel groot worden, hebben we gebruik gemaakt van \texttt{unsigned long long}-getallen dat bij veel computers neerkomt op 64-bits getallen.
-We houden bij elke berekening bij hoe vaak de functie is aangeroepen en maken gebruik van de \texttt{clock}-functie in C om de rekentijd bij te houden.
+We houden bij elke berekening bij hoe vaak de functie is aangeroepen en maken gebruik van de \texttt{clock}-functie\indexfunc{clock} in C om de rekentijd bij te houden.
 
 \booklistingfromproject[linerange={1-10,17-39}]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!ht}
 
-We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1200 milliseconden. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 20118 milliseconden.
+We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1,534 seconden. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 22,381 seconden.
 
 \begin{dosbox}[title=Uitvoer van een Fibonacci-programma.,label=fig:outputfib]
-Fib(37) = 24157817, Calls: 78176337, Time: 1200
-Fib(38) = 39088169, Calls: 126491971, Time: 1878
-Fib(39) = 63245986, Calls: 204668309, Time: 3019
-Fib(40) = 102334155, Calls: 331160281, Time: 4817
-Fib(41) = 165580141, Calls: 535828591, Time: 7740
-Fib(42) = 267914296, Calls: 866988873, Time: 12487
-Fib(43) = 433494437, Calls: 1402817465, Time: 20118
+Fib(37) = 24157817, Calls: 78176337, Time: 1.534
+Fib(38) = 39088169, Calls: 126491971, Time: 2.085
+Fib(39) = 63245986, Calls: 204668309, Time: 3.175
+Fib(40) = 102334155, Calls: 331160281, Time: 5.107
+Fib(41) = 165580141, Calls: 535828591, Time: 8.315
+Fib(42) = 267914296, Calls: 866988873, Time: 13.865
+Fib(43) = 433494437, Calls: 1402817465, Time: 22.381
 \end{dosbox}
 
 Het is aan te tonen dat het aantal aanroepen $C(n)$ voor het berekenen van $F(n)$ bedraagt:
@@ -507,7 +507,7 @@ Dit wordt de ``Big O-notation'' genoemd. Dit zegt ons niet zozeer hoeveel rekent
 \begin{split}
 \dfrac{F(43)}{F(42)} &= \dfrac{433494437}{267914296}\approx 1,618\\
 \dfrac{C(43)}{C(42)} &= \dfrac{1402817465}{866988873}\approx 1,618\\
-\dfrac{T(43)}{T(42)} &= \dfrac{20118}{12487}\approx 1,618
+\dfrac{T(43)}{T(42)} &= \dfrac{22.381}{13.865}\approx 1,618
 \end{split}\end{equation}
 %
 Voor steeds groter wordende waarde van $n$ convergeren de verhoudingen naar de exacte waarde $\dfrac{1+\sqrt{5}}{2}$. Deze waarde wordt de \textsl{gulden snede}\index{gulden snede} genoemd\footnote{De waarde is bij benadering $1,61803398874989484820458683436563811772$.}.
