@@ -608,7 +608,7 @@ Naast representeerbare getallen kent de floating point-specificatie nog drie spe
 
 
 \section{Vaste-lenge datatypes}
-Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor problemen zorgen of tot problemen leiden. We weten nu niet of een \texttt{int} 16 of 32 bits is. Dit heeft geleid tot een aantal nieuwe datatypes die in de C99-standaard zijn vastgelegd. De grootte van deze types zijn exact. Zo is een \texttt{int8\_t} een integer van precies 8 bits ($-128$ t/m $+127$). Naast de integer met teken zijn er ook types zonder teken. Zo is een \texttt{uint16\_t} en integer van precies~16 bits met een minimale waarde van 0 en een maximale waarde van 65535.
+Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor problemen zorgen of tot problemen leiden. We weten nu niet of een \texttt{int} 16 of 32 bits is. Dit heeft geleid tot een aantal nieuwe datatypes die in de C99-standaard zijn vastgelegd. De grootte van deze types zijn exact. Zo is een \texttt{int8\_t} een integer van precies 8 bits ($-128$ t/m $+127$). Naast de integer met teken zijn er ook types zonder teken. Zo is een \texttt{uint16\_t} een integer van precies~16 bits met een minimale waarde van 0 en een maximale waarde van 65535.
 
 Voor ``normaal'' gebruik zijn deze datatypes niet echt nodig. Maar bij het schrijven van programma's op microcontrollers is het vaak de enige goede methode om er zeker van te zijn dat een bepaalde grootte van een variabele gegarandeerd is. Dit is met name belangrijk bij het gebruik van zogenoemde \textsl{I/O-adressen}\index{I/O-adressen}. Dat zijn speciale adressen in het geheugen van de microcontroller waarmee communicatie met de buitenwereld mogelijk is, zoals het inlezen van de stand van een schakelaar of het laten branden van een led.
 
@@ -726,7 +726,7 @@ Op vergelijkbare wijze werkt de \textsl{decrement operator}\index{{decrement ope
 
 \hspace*{1em}\texttt{k = --i;}
 
-verlaagt eerst variabele \texttt{i} en kent dan de waarde van \texttt{i} toe aan k. We zullen deze operatoren tegenkomen in hoofdstuk~\ref{cha:arrays}. Deze operatoren hebben een hoge prioriteit. We komen deze operatoren vooral tegen bij herhalingsstatements.
+verlaagt eerst variabele \texttt{i} en kent dan de waarde van \texttt{i} toe aan k. We zullen deze operatoren tegenkomen in de hoofdstuk~\ref{cha:programmabesturing} en~\ref{cha:arrays}. Deze operatoren hebben een hoge prioriteit. We komen deze operatoren vooral tegen bij herhalingsstatements.
 
 \subsection{Toekenningsoperatoren}
 Een toekenning als
