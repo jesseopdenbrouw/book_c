@@ -19,12 +19,11 @@ unsigned long long int fib(unsigned long long int n) {
     return fib(n - 1) + fib(n - 2);
 }
 
-
 int main() {
     
     int i = 1;
 
-    for (i = 1; i < 44; i++) {
+    for (i = 37; i < 44; i++) {
         calls = 0;
         clock_t starttime = clock(), endtime;
 
@@ -32,7 +31,7 @@ int main() {
         endtime = clock() - starttime;
 
         printf("Calls: %lld, ", calls);
-        printf("Time: %d\n", endtime);
+        printf("Time: %.3f\n", (double)endtime/CLOCKS_PER_SEC);
     }
 
     return 0;
