@@ -8,7 +8,7 @@ Het is ook mogelijk om een aantal statements herhaaldelijk uit te voeren aan de 
 
 
 \section{Blok}
-Een \textsl{blok}\index{blok} of \textsl{blokstructuur}\index{blokstructuur}, in C-terminologie ook wel een \textsl{compound statement}\index{compound statement} genoemd, is een reeks van statements tussen accolades. Voor de C-compiler wordt een blok syntactisch als één statement gezien. In listing~\ref{cod:besblok} is te zien dat binnen het blok een lokale variabele \texttt{i} wordt gedefinieerd. Alleen binnen het blok is deze variabele te gebruiken. Buiten het blok bestaat de variabele niet.
+Een \textsl{blok}\index{blok} of \textsl{blokstructuur}\index{blokstructuur}, in C-terminologie ook wel een \textsl{compound statement}\index{compound statement} genoemd, is een reeks van statements tussen accolades. Door de C-compiler wordt een blok syntactisch als één statement gezien. In listing~\ref{cod:besblok} is te zien dat binnen het blok een lokale variabele \texttt{i} wordt gedefinieerd. Alleen binnen het blok is deze variabele te gebruiken. Buiten het blok bestaat de variabele niet.
 
 
 \begin{lstlisting}[caption=Een blok met een lokale variabele.,label=cod:besblok]
@@ -135,7 +135,6 @@ while ((*\normalfont\textsl{expressie}*))
 
 We leggen de werking van het \texttt{while}-statement uit aan de hand van een voorbeeld, te zien in listing~\ref{cod:while}. In regel 8 wordt gevraagd om een positief getal in te voeren. In regel 10 wordt het \texttt{while}-statement uitgevoerd door de expressie \texttt{getal <= 0} uit te rekenen. Is de expressie niet waar dan wordt direct naar regel 16 gesprongen en de statement binnen de \texttt{while} worden niet uitgevoerd. Is het getal kleiner dan of gelijk aan 0 dan worden de statements binnen de \texttt{while} uitgevoerd. Daar wordt weer gevraagd om een positief getal in te voeren. Vervolgens wordt de expressie opnieuw uitgerekend. Zolang de expressie niet waar is worden de statements binnen de \texttt{while} uitgevoerd.
 
-
 \booklisting[]{C}{Voorbeeld van een \texttt{while}-statement.}{while}{c}{!ht}
 
 %\begin{figure}[!ht]
@@ -169,7 +168,7 @@ for ((*\normalfont\textsl{expressie$_1$}*); (*\normalfont\textsl{expressie$_2$}*
 
 Normaal gesproken wordt in \textsl{expressie$_1$} een variabele op een beginwaarde gezet. De \textsl{expressie$_2$} wordt berekend zoals dat in het \texttt{while}-statement ook gebeurt, en \textsl{expressie$_3$} wordt normaal gesproken gebruikt om een variabele aan te passen voor de volgende iteratie\index{iteratie}. Meestal betekent dit dat de variabele wordt verhoogd of verlaagd.
 
-Het \texttt{for}-statement uit listing~\ref{cod:besfor1} is \textsl{semantisch equivalent}\footnote{Semantisch equivalent wil zeggen dat de werkingen gelijk zijn aan elkaar. De twee opzetten zijn \textsl{niet} syntactisch equivalent. Ze hebben immers een andere \textsl{syntax}.} aan:
+Het \texttt{for}-statement (zonder een \texttt{continue}-statement, zie paragraaf~\ref{sec:extralusbewerkingen}) uit listing~\ref{cod:besfor1} is \textsl{semantisch equivalent}\footnote{Semantisch equivalent wil zeggen dat de werkingen gelijk zijn aan elkaar. De twee opzetten zijn \textsl{niet} syntactisch equivalent. Ze hebben immers een verschillende \textsl{syntax}.} aan:
 
 \begin{lstlisting}[caption=\texttt{while}-statement als \texttt{for}-statement.,label=cod:besforaswhile]
 (*\normalfont\textsl{expressie$_1$;}*)
@@ -226,6 +225,7 @@ We kunnen het programma in listing~~\ref{cod:while} ook schrijven met behulp van
 
 
 \section{Extra lusbewerkingen: de \texttt{break} en \texttt{continue}-statements}
+\label{sec:extralusbewerkingen}
 We kunnen een lus voortijdig verlaten met een \texttt{break}-statement. Dit is te zien in listing~\ref{cod:while_break_continue}. De lus wordt vormgegeven door een eeuwig durend \texttt{while}-statement (regel 10). We vragen de gebruiker om een positief getal of 0 in te voeren. Als het getal gelijk is aan 0, wordt de lus verlaten met het \texttt{break}-statement in regel 16. Alleen de lus waar het \texttt{break}-statement bijhoort kan worden verlaten. Als we een lus binnen een lus gebruiken kan dus alleen de binnenste lus worden verlaten.
 
 Met het \texttt{continue}-statement\indexkeyword{continue} kunnen we binnen een lus springen naar de volgende iteratie van de lus. Bij het \texttt{while}-statement wordt dus gesprongen naar het begin van de lus, bij het \texttt{do while}-statement wordt gesprongen naar het einde van de lus. In beide gevallen wordt de expressie die bij de lus hoort opnieuw uitgerekend.
