@@ -83,8 +83,8 @@ Karakter & Argumenttype \\
 \texttt{u} & afdrukken van een \texttt{unsigned int}, decimale notatie\\
 \texttt{c} & afdrukken van een \texttt{char} als karakter\\
 \texttt{s} & afdrukken van een string, argument is een pointer naar een string\\
-\texttt{f} & afdrukken van een \texttt{double}\\
-\texttt{e}, \texttt{E} & afdrukken van een \texttt{double} in wetenschappelijke notatie ($10^x\!\rightarrow$\texttt{E}$x$)\\
+\texttt{f} & afdrukken van een \texttt{double} en \texttt{float} (zie tekst)\\
+\texttt{e}, \texttt{E} & afdrukken van een \texttt{double}/\texttt{float} in wetenschappelijke notatie ($10^x\!\rightarrow$\texttt{E}$x$)\\
 \texttt{p} & afdrukken van een pointer, weergave hangt af van de implementatie\\
 \texttt{\%} & het karakter \texttt{\%} wordt afgedrukt\\
 \bottomrule
@@ -93,7 +93,7 @@ Karakter & Argumenttype \\
 
 De karakters \texttt{d}, \texttt{i}, \texttt{o}, \texttt{x}, \texttt{X} en \texttt{u} kunnen nog extra informatie meekrijgen die tussen \texttt{\%} en het karakter staan. Een minteken (\texttt{-}) zorgt ervoor dat het getal tegen de linkerkant wordt afgedrukt. Een nul (\texttt{0}) zorgt ervoor dat voorloopnullen worden afgedrukt. Een getal anders dan 0 zorgt ervoor dat het argument met een minimum breedte wordt afgedrukt. Dus de specification \texttt{\%04d} zorgt ervoor dat het argument met een minimum breedte van 4 karakters, rechts uitgelijnd en met voorloopnullen wordt afgedrukt. De karakters kunnen nog worden vooraf gegaan door \texttt{h} (\texttt{short int}), \texttt{l} of \texttt{L} (\texttt{long int}) of \texttt{ll} (\texttt{long long int}).
 
-De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers er moeten worden afgedrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld.
+De karakters \texttt{f}, \texttt{e} en \texttt{E} kunnen worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd), een getal dat aangeeft hoeveel cijfers er moeten worden afgedrukt, een punt \texttt{\texttt{.}} dat een scheiding vormt tussen de breedte en de precisie, en een getal dat de precisie aangeeft. De specfication \texttt{\%6.2f} geeft dus aan: totaal 6 karakters (inclusief de punt) en 2 decimalen (cijfers na de punt). Afronding is zoals gebruikelijk in de wetenschappelijke wereld. Merk op dat \texttt{\%f} gebruikt wordt voor het afdrukken van een \texttt{double} én een \texttt{float}. Dat komt omdat een \texttt{float} gepromoot wordt naar een \texttt{double} en de \texttt{double} wordt doorgegeven aan \texttt{printf}.
 
 Het karakter \texttt{s} geeft aan dat het argument een \textsl{string}\index{string} is. Het argument is dus een pointer naar een string. Het karakter mag worden voorafgegaan door een minteken (\texttt{-}) (links uitgelijnd) en een getal dat de breedte aangeeft.
 
@@ -228,7 +228,7 @@ Nadat de acties op een bestand zijn uitgevoerd, moet een bestand gesloten worden
 
 \hspace*{1em}\texttt{fclose(fp);}
 
-waarbij \texttt{fp} een file handle is van een eerder geopend bestand. Let erop dat \texttt{fp} naar een bestaande file handle moet wijzen anders volgt een foutmelding (of in het ergste geval een crash van het programma).
+waarbij \texttt{fp} een file handle is van een eerder geopend bestand. Let erop dat \texttt{fp} naar een bestaande file handle moet wijzen anders volgt een foutmelding (of in het ergste geval een crash van het programma). Als een programma is afgelopen worden geopende bestanden automatisch afgesloten.
 
 
 \section{Schrijven naar een bestand}
