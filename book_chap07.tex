@@ -1,1268 +1,256 @@
-\chapter{Pointers}
-\label{cha:pointers}
+\chapter{Structures}
+\label{cha:structures}
 \thispagestyle{empty}
 
-Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer bij de variabele te komen.
+Een structuur (Engels: structure\footnote{We zullen vanaf nu de Engelse naam structure gebruiken.}) is een verzameling bij elkaar behorende gegevens beschikbaar onder één enkele naam. Dit is vooral handig bij complexe \textsl{datastructuren} want ze helpen om gerelateerde variabelen als een eenheid te bewerken (denk hierbij aan argumenten en parameters van een functie) in plaats van een aantal verschillende variabelen. Structures komen overeen met \textsl{rijen} in een relationele database. Een bekend voorbeeld is de loonlijst van werknemers. Een werknemer heeft een naam, een adres, een salaris en een functie.
 
-Pointers zijn een krachtig middel om efficiënt gegevens te beheren en argumenten over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
+Een structure kan gezien worden als één enkele variabele. Zo mogen we structures eenvoudig kopiëren met een toekenning, we mogen ze meegeven als argumenten aan een functie, een functie kan een structure in zijn geheel teruggeven en we mogen de variabelen binnen de structure gebruiken in expressie. We mogen \textsl{niet} twee structures vergelijken.
 
-Pointers geven de programmeur een krachtig instrument in handen waar verantwoord mee omgegaan moet worden.
-Onzorgvuldig gebruik kan ervoor zorgen dat een programma voortijdig crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen
-programma’s zeer efficiënt geschreven worden.
 
-Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan er gemakshalve van uit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
+\section{Definitie van structures}
+Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We definiëren de structure \texttt{artikel} als volgt (listing~\ref{cod:struct1}).
 
-%picture is a bit to high...
-\vspace*{-0.5\baselineskip}
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {1,...,15} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {};
-}
-\draw[center*-latex,shorten >=2pt] (nod2.center) to [bend left] (nod10.north);
-\draw (nod2.center) node [yshift=-\unitsize cm] {p};
-\draw[center*-latex,shorten >=2pt] (nod4.center) to [bend right] (nod13.south);
-\draw (nod4.center) node [yshift=-\unitsize cm] {q};
-\draw (nod10.center) node [yshift=-\unitsize cm] {i};
-\draw (nod13.center) node [yshift=-\unitsize cm] {j};
-\end{tikzpicture}
-\caption{Uitbeelding van twee pointers die naar variabelen in het geheugen wijzen.}
-\label{fig:poiinmem}
-\end{figure}
+% We gebruiken label=cod:struct1 om de standaard label te wijzigen
+\booklistingfromproject[linerange={6-11},label=cod:struct1]{C}{De structure \texttt{artikel}}{struct_artikel}{c}{!ht}
 
-%Een pointer kan wijzen naar een enkelvoudige variabele, een (element van een) array, een structure (zie hoofdstuk~\ref{cha:structures}), een constante variabele of (het begin van) een functie. Een pointer kan niet wijzen naar een constante expressie of een \texttt{register} variabele (zie hoofdstuk~\ref{cha:compilatieproces}).
+De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
 
-Een pointer kan wijzen naar object in het geheugen zoals variabelen, array-elementen, een structure (zie hoofdstuk~\ref{cha:structures}) of (het begin van) een functie. Een pointer kan niet wijzen naar een expressie of een \texttt{register} variabele (zie hoofdstuk~\ref{cha:compilatieproces}).
+We kunnen nu de structure gebruiken in definities door gebruik te maken van
 
-Het is ook mogelijk om een pointer naar het datatype \texttt{void} te laten ``wijzen''. Deze pointers worden generieke pointers genoemd. We zullen dit behandelen in paragraaf~\ref{sec:pointertovoid}.
+\hspace*{1em}\texttt{struct artikel} \textsl{variabele}\texttt{;}
 
-\section{Pointers naar enkelvoudige datatypes}
-\label{sec:pointersnaarenkelvoudigedatatypes}
-In listing~\ref{cod:poidecla} is de definitie van enkele pointers naar enkelvoudige datatypes te zien. Bij de definitie moet het type variabele waarnaar de pointer wijst worden opgegeven. De asterisk (\texttt{*}) geeft aan dat het de definitie van een pointer betreft.
+om variabelen te definiëren. In listing~\ref{cod:struct2} is een aantal definities te zien:
 
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Enkele definities van pointers.,label=cod:poidecla]
-int *pint;          /* pint is a pointer to an int */
-char *pchar;        /* pchar is a pointer to a character */
-double *pdouble;    /* pdouble is a pointer to a double */
-\end{lstlisting}
-\end{figure}
+\booklistingfromproject[linerange={40-43},label=cod:struct2]{C}{Definitie van enkele variabelen}{struct_artikel}{c}{!ht}
 
-We kunnen pointers uitbeelden door middel van vakjes, zoals te zien is in figuur~\ref{fig:poivoorstelling1}. Elk vakje stelt een pointer voor. Na de definitie hebben de pointers een willekeurige inhoud. Er wordt dan wel gezegd dat de pointer nergens naar toe wijst, maar dat is feitelijk onjuist. Een pointer heeft altijd een adres met inhoud, maar het kan zijn dat de pointer niet naar een bekende variabele wijst.
+In regel 1 wordt de variabele \texttt{floppy} gedefinieerd zonder initialisatie. We kunnen bij definitie gelijk de members initialiseren zoals te zien is in regels 3 en 4. In de initialisatielijst moeten natuurlijk wel de juiste datatypes gebruikt worden, tenzij automatische conversie mogelijk is. Structures mogen zowel globaal als lokaal worden gedefinieerd.
 
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\node[memloc] (A) at (0,0) {};
-\draw (A) node [yshift=\unitsize cm] {pint};
-\node[memloc] (B) at (4,0) {};
-\draw (B) node [yshift=\unitsize cm] {pchar};
-\node[memloc] (C) at (8,0) {};
-\draw (C) node [yshift=\unitsize cm] {pdouble};
-\end{tikzpicture}
-\caption{Voorstelling van drie pointers in het geheugen.}
-\label{fig:poivoorstelling1}
-\end{figure}
+\section{Toegang tot members}
+Om gebruik te maken van een member gebruiken we de \textsl{member operator} \texttt{.}\indexop{.} (punt). Om de prijs van het artikel \texttt{floppy} in te stellen kunnen we bijvoorbeeld gebruiken:
 
-Aan een pointer is het adres van een variabele van hetzelfde type toe te kennen. Hiervoor gebruiken we de \textsl{adresoperator} \texttt{\&} (ampersand)\indextwo{\&}{adres}\index{adres-operator}. In listing~\ref{cod:poiassign} is een aantal toekenningen van adressen te zien.
+\hspace*{1em}\texttt{floppy.prijs = 10.73;}
 
-\begin{figure}[H]
-\begin{lstlisting}[caption=Enkele toekenningen van adressen aan pointers.,label=cod:poiassign]
-int i;           /* the variables */
-char c;
-double d;
+Om het aantal af te drukken gebruiken we \texttt{printf} met de member \texttt{aantal}:
 
-int *pint;       /* the pointers */
-char *pchar;
-double *pdouble;
+\hspace*{1em}\texttt{printf("Aantal beschikbaar is \%d", floppy.aantal);}
 
-pint = &i;       /* pint points to variable i */
-pchar = &c;      /* pchar points to variable c */
-pdouble = &d;    /* pdouble points to variable d */
-\end{lstlisting}
-\end{figure}
+Om het aantal beschikbare exemplaren van een artikel te verhogen kunnen we de member \texttt{aantal} verhogen:
 
-Nu de pointers geïnitialiseerd zijn, kunnen we een voorstelling maken van de relatie tussen de pointers en de variabelen. Dit is te zien in figuur~\ref{fig:poivoorstelling2}. Pointer \texttt{pint} wijst naar variabele \texttt{i}, pointer \texttt{pchar} wijst naar variabele \texttt{c} en pointer \texttt{pdouble} wijst naar variabele \texttt{d}.
+\hspace*{1em}\texttt{floppy.aantal += 5; \ \ // 5 exemplaren erbij}
 
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\node[memloc] (A) at (0,0) {};
-\draw (A) node [yshift=\unitsize cm] {pint};
-\node[memloc] (Aa) at (4,0) {};
-\draw (Aa) node [yshift=\unitsize cm] {i};
-\draw[center*-latex] (A.center) -- (Aa.west);
+Let erop dat de naam van een artikel een \textsl{string} is. Om de naam aan te passen moeten we gebruik maken van de functie \texttt{strcpy}\indexfunc{strcpy}:
 
-\node[memloc] (A) at (0,-2) {};
-\draw (A) node [yshift=\unitsize cm] {pchar};
-\node[memloc] (Aa) at (4,-2) {};
-\draw (Aa) node [yshift=\unitsize cm] {c};
-\draw[center*-latex] (A.center) -- (Aa.west);
+\hspace*{1em}\texttt{strcpy(floppy.naam, "Floppy 3.5 in");}
 
-\node[memloc] (A) at (0,-4) {};
-\draw (A) node [yshift=\unitsize cm] {pdouble};
-\node[memloc] (Aa) at (4,-4) {};
-\draw (Aa) node [yshift=\unitsize cm] {d};
-\draw[center*-latex] (A.center) -- (Aa.west);
-\end{tikzpicture}
-\caption{Voorstelling van drie pointers die naar variabelen wijzen.}
-\label{fig:poivoorstelling2}
-\end{figure}
 
-Via de pointers kunnen we de variabelen gebruiken. Stel dat we variabele \texttt{i} met één willen verhogen. Dat kunnen we doen door gebruik te maken van de \textsl{indirectie}- of \textsl{dereferentie}-operator \texttt{*}\indextwo{*}{dereferentie}. Deze operator heeft voorrang op de rekenkundige operatoren.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Gebruik van pointers bij toekenningen.]
-*pint = *pint + 1;            /* increment i by one */
-*pchar = *pchar + 1;          /* next character in ASCII table */
-*pdouble = *pdouble + 1.0;    /* add 1.0 to double */
-\end{lstlisting}
-\end{figure}
-
-We mogen de dereferentie-operator overal gebruiken waar een variabele gebruikt mag worden, bijvoorbeeld bij een optelling of in een test.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Gebruik van een pointer bij het afdrukken van een variabele.,escapeinside={}{}]
-int i = 2, *pint;
-...
-pint = &i;
-...
-i = *pint + 1;    /* add 1 to variable i */
-...
-if (*pint > 5) {
-    printf("Variabele is %d\n", *pint);
-}
-\end{lstlisting}
-\end{figure}
-
-Overigens kan tijdens definitie ook gelijk de initialisatie van een pointer plaatsvinden. Deze definitie kan verwarrend zijn. In listing~\ref{cod:poidirectiniz} wordt de pointer \texttt{pint} gedefinieerd en geïnitialiseerd met het adres van variabele \texttt{i}. Het betreft hier dus \textsl{geen} dereferentie.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie en initialisatie van een pointer.,label=cod:poidirectiniz]
-int i = 2;
-int *pint = &i;     /* define and initialize pint */
-\end{lstlisting}
-\end{figure}
-
-
-\section{De NULL-pointer}
-\label{sec:nullpointer}
-\index{NULL-pointer}\index{pointer!NULL}
-In principe wijst een pointer naar een variabele (of anders: bevat het geheugenadres van een variabele). Om aan te geven dat een pointer niet naar een variabele wijst, kunnen we de \textsl{NULL-pointer} gebruiken. Let erop dat de NULL-pointer niet hetzelfde is als een niet-geïnitialiseerde pointer. Een NULL-pointer is een pointer waarin alle bits 0 zijn\footnote{In het algemeen is de inhoud van een NULL-pointer het getal 0, maar dat is niet in alle gevallen zo. De C-standaard definieert de NULL-pointer als een pointer die niet naar een bekende variabele wijst.}. Een niet-geïnitialiseerde pointer heeft een willekeurige waarde\footnote{In geval een pointer als globale variabele wordt gedefinieerd, zorgt de compiler ervoor dat de inhoud op \texttt{NULL} gezet wordt.}. In C is een preprocessor-macro (zie hoofdstuk~\ref{cha:preprocessor}) genaamd \texttt{NULL} te gebruiken om een pointer als NULL-pointer te initialiseren. De C-standaard schrijft voor voor dat \texttt{NULL} wordt gedefinieerd in \texttt{locale.h}, \texttt{stddef.h}, \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{string.h}, \texttt{time.h}, en \texttt{wchar.h}. Slechts een van deze header-bestanden is noodzakelijk om \texttt{NULL} te definiëren.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie en initialisatie van een NULL-pointer.]
-#include <stdio.h>
-
-int *p = NULL;   /* p is initialized as NULL-pointer */
-\end{lstlisting}
-\end{figure}
-
-NULL-pointers kunnen \textsl{niet} gebruikt worden bij dereferentie. Dat veroorzaakt over het algemeen dat de executie van een programma wordt afgebroken.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Dereferentie van een NULL-pointer.]
-#include <stdio.h>
-
-int *p = NULL;   /* p is initialized as NULL-pointer */
-
-*p = *p + 1;     /* Oops, dereference of NULL-pointer! */
-\end{lstlisting}
-\end{figure}
-
-Een vergelijking van twee NULL-pointers zal altijd \texttt{true} opleveren.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Vergelijken van twee NULL-pointers.]
-int *p = NULL, *q = NULL;
-...
-if (p == q) { /* true */ }
-\end{lstlisting}
-\end{figure}
-
-De NULL-pointer wordt door diverse standaard functies gebruikt om aan te geven dat er een fout is geconstateerd. Zo geeft de functie \texttt{fopen} de waarde \texttt{NULL} terug als het niet gelukt is om een bestand te openen. De functie \texttt{malloc} geeft de waarde \texttt{NULL} terug als het niet gelukt is om een stuk geheugen te alloceren.
-
-Bij het voorstellen van NULL-pointers zijn diverse mogelijkheden die gebruikt worden (zie figuur~\ref{fig:poinullpointers}). Bij de linker voorstelling wordt er het woord \texttt{NULL} in een vakje gezet, bij de middelste voorstelling wordt een kruis in het vakje gezet en bij de rechter voorstelling wordt een pijl getrokken naar een vakje met een kruis erin.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\node (null1) at (0,0) [memlocnull] {};
-\draw (null1) node [yshift=\unitsize cm] {p};
-\node (null2) at (3,0) [memloc] {};
-\draw (null2) node [yshift=\unitsize cm] {p};
-\node (null20) at (5,0) [memlocnull] {};
-\draw[center*-latex] (null2.center) -- (null20.west);
-\node (null3) at (-3,0) [memloc] {NULL};
-\draw (null3) node [yshift=\unitsize cm] {p};
-\end{tikzpicture}
-\caption{Drie voorstellingen van NULL-pointers.}
-\label{fig:poinullpointers}
-\end{figure}
-
-
-\section{Pointer naar \texttt{void}}
-\index{void-pointer}\index{pointer!naar void}
-\label{sec:pointertovoid}
-%The void pointer, also known as the generic pointer, is a special type of pointer that can be pointed at objects of any data type! A void pointer is declared like a normal pointer, using the void keyword as the pointer’s type:
-
-De void-pointer, ook wel \textsl{generieke pointer}\index{generieke pointer} genoemd, is een speciaal type pointer die naar elk type variabele kan wijzen. Een void-pointer wordt net als een gewone pointer gedeclareerd middels het keyword \texttt{void}. Toekenning aan een void-pointer gebeurt met de adres-operator~\texttt{\&}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie en initialisatie van een \texttt{void}-pointer.]
-int i;
-char c;
-double d;
-
-void *p;  /* void-pointer */
-
-p = &i;   /* valid */
-p = &c;   /* valid */
-p = &d;   /* valid */
-\end{lstlisting}
-\end{figure}
-
-Omdat het type van een void-pointer niet bekend is, kan een void-pointer niet zonder meer in een dereferentie gebruikt worden. De void-pointer moet expliciet gecast worden naar het correcte type. In listing~\ref{cod:poiuseofvoidpointer} gebruiken we pointer \texttt{p} om naar een \texttt{int} te wijzen. De type cast \texttt{(int *)} zorgt ervoor dat pointer \texttt{p} naar een \texttt{int} wijst. Door gebruik te maken van de dereferentie-operator \texttt{*} kunnen we bij de inhoud van variabele \texttt{i}. De constructie \texttt{*(int *)} is dus een expliciete dereferentie naar een integer.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption={Definitie, initialisatie en deference van een \texttt{void}-pointer.},label=cod:poiuseofvoidpointer]
-int i = 2;
-void *p = &i;                    /* void-pointer */
-
-...
-*(int *) p = *(int *) p + 1;     /* explicit type cast */
-
-...
-printf("De waarde is %d\n", *(int *) p);
-\end{lstlisting}
-\end{figure}
-
-
-\section{Afdrukken van pointers}
-\label{sec:afdrukkenvanpointers}
-\index{pointer!afdrukken van}
-Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specification \texttt{\%p}. De pointer mag elk type zijn, want hij wordt automatisch gecast naar \texttt{void *}. Zie listing~\ref{cod:poiprintpointer}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van een pointer.,label=cod:poiprintpointer]
-#include <stdio.h>
-
-int main() {
-
-    int i = 2, *p = &i;
-
-    printf("Pointer: %p\n", p);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-Noot: Bij 32-bits compilers is de grootte van een pointer 32 bits (4 bytes). Zo'n pointer kan maximaal 4 GB adresseren. Bij 64-bits compilers is de grootte van een pointer 64 bits (8 bytes). Zo'n pointer kan maximaal 16 EB (exa-bytes) adresseren.
-
-
-\section{Pointers naar arrays}
-\label{sec:pointersnaararrays}
-\index{pointer!naar array}
-We kunnen een pointer ook laten wijzen naar het eerste element van een array. Dit is te zien in listing~\ref{cod:poifirstarray}. De array bestaat uit negen elementen van het type \texttt{int}. De pointer \texttt{p} laten we wijzen naar het eerste element van de array. We gebruiken hiervoor de adres-operator \texttt{\&} en elementnummer 0.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-
-int *p = &ary[0]; /* p points to first element for array */
-\end{lstlisting}
-\end{figure}
-
-De uitbeelding hiervan is te zien in figuur~\ref{fig:poifirstarray}.
-%
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {3,6,1,0,9,7,6,2,7} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node at (-0.5,0) [left] {ary};
-\node (A) at (-2,-2) [memloc] {};
-\draw (A) node [yshift=\unitsize cm] {p};
-\draw[center*-latex] (A.center) to [bend right] (nod0.south);
-\end{tikzpicture}
-\caption{Uitbeelding van een pointer naar het eerste element van een array.}
-\label{fig:poifirstarray}
-\end{figure}
-%
-Omdat deze toekenning zeer vaak in een C-programma voorkomt, is er een verkorte notatie mogelijk. We kunnen in plaats van \texttt{\&ary[0]} ook de naam van de array gebruiken: \textsl{de naam van een array is een synoniem voor een adres van het eerste element van de array}. Zie listing~\ref{cod:poifirstarray2}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray2]
-int ary[] = {3,6,1,0,9,7,6,2,7};
-
-int *p = ary; /* p points to first element of array */
-\end{lstlisting}
-\end{figure}
-
-Omdat de naam van een array een synoniem is, mag de naam niet zomaar gebruikt worden aan de linkerkant van een toekenning. Zie listing~\ref{cod:poifirstarray3}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een pointer naar het eerste element van een array.,label=cod:poifirstarray3]
-int *p, ary[] = {3,6,1,0,9,7,6,2,7};
-
-p = ary;     /* correct use of pointer and array name */
-ary[2] = *p; /* correct use of pointer and array element */
-
-ary = p;     /* ERROR: array name cannot be used in this context */
-\end{lstlisting}
-\end{figure}
-
-Het is ook mogelijk om een pointer naar een ander element van een array te laten wijzen. De compiler test niet of de toekenning binnen de array-grenzen ligt. Dit moet door de programmeur in de gaten worden gehouden. Zie listing~\ref{cod:poithirdarray}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een pointer naar het derde element van een array.,label=cod:poithirdarray]
-int ary[] = {3,6,1,0,9,7,6,2,7};
-
-int *p = &ary[2]; /* p points to third element of array */
-\end{lstlisting}
-\end{figure}
-
-Een uitbeelding is te zien in figuur~\ref{fig:poithirdarray}. In de figuur wijst \texttt{p} naar het derde element van \texttt{ary}. We kunnen nu de inhoud van dit element opvragen door \texttt{ary[2]} en door \texttt{*p}. Het is zelfs mogelijk om \texttt{p} als de naam van een array te beschouwen. Zie paragraaf~\ref{sec:relatietussenpointersenarrays}.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {3,6,1,0,9,7,6,2,7} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node at (-0.5,0) [left] {ary};
-
-\node (A) at (-1,-2) [memloc] {};
-\draw (A) node [yshift=\unitsize cm] {p};
-\draw[center*-latex] (A.center) to [out=0, in=-90] (nod2.south);
-\end{tikzpicture}
-\caption{Uitbeelding van een pointer naar het derde element van een array.}
-\label{fig:poithirdarray}
-\end{figure}
-
-We kunnen de lengte van \texttt{ary} berekenen met de \texttt{sizeof}-operator. Dat kan alleen via \texttt{ary} omdat de compiler de lengte kan uitrekenen. Het kan \textsl{niet} via pointer \texttt{p} want dat is een pointer naar een \texttt{int}; pointer \texttt{p} ``weet'' niet dat er naar een array gewezen wordt.
-
-
-\section{Strings}
-\label{sec:strings}
-\index{string}
-Een string in C is niets anders dan een array van karakters, afgesloten met een nul-karakter\index{nul-karakter}\indextwo{\textbackslash 0}{nul-karakter} (\lstinline|'\0'|). Er is dus altijd één geheugenplaats meer nodig dan het aantal karakters in de string. Een nul-karakter is niet hetzelfde als een NULL-pointer. Een nul-karakter is een byte met de inhoud 0 (alle bits zijn 0), een NULL-pointer is een pointer met de inhoud 0. In listing~\ref{cod:poistrings} zijn twee definities met strings te zien, een echte array met een string als inhoud en een pointer naar een string in het geheugen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie en initialisatie van twee C-strings.,label=cod:poistrings]
-char str[] = "Hello ";
-char *pstr = "world!";
-\end{lstlisting}
-\end{figure}
-
-Merk op dat \texttt{str} niet aangepast mag worden, want dit is de naam van een array. Pointer \texttt{pstr} mag wel aangepast worden want \texttt{pstr} is een pointer naar het eerste element van de array. Een voorstelling van beide strings is te zien in figuur~\ref{fig:poistrings}.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {h, e, l, l, o, \ , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\strut \ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node at (-0.5,0) [left] {str};
-
-\foreach \ii [count=\i from 0] in {w, o, r, l, d, ! , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,-2) {\strut \ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-
-\node (A) at (-3,-2) [memloc] {};
-\draw (A) node [yshift=\unitsize cm] {pstr};
-\draw[center*-latex] (A.center) -- (nod0.west);
-\end{tikzpicture}
-\caption{Voorstelling van twee C-strings.}
-\label{fig:poistrings}
-\end{figure}
-
-Ook hier merken we op dat we de lengte van \texttt{str} kunnen berekenen met de \texttt{sizeof}-operator. De compiler heeft genoeg informatie beschikbaar. We kunnen de lengte van de tweede string \textsl{niet} door de compiler laten uitrekenen, want \texttt{pstr} in een pointer naar een \texttt{char}. Pointer \texttt{pstr} ``weet'' dus niet dat er naar een string gewezen wordt.
-
-Toch is het mogelijk om tijdens het executie van een programma de lengte van de string te vinden. We kunnen namelijk uitgaan van het feit dat een string in C wordt afgesloten met een nul-karakter. Dit wordt uitgelegd in de volgende paragraaf.
-
-
-\section{Rekenen met pointers}
-\label{sec:rekenenmetpointers}
-\index{pointer!rekenen met}
-Pointers kunnen rekenkundig worden aangepast, dat vooral nuttig is bij het gebruik van arrays.
-In het onderstaande programma wijst pointer \texttt{p} in eerste instantie naar het begin van de array \texttt{ary} (dus \texttt{ary[0]}). Daarna wordt \texttt{p} twee maal met 1 verhoogd en daarna met 3 verhoogd. Bij rekenkundige operaties op pointers wordt rekening gehouden met de grootte van de datatypes. Door de pointer met 1 te verhogen wordt dus naar het volgende element gewezen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Rekenen met pointers.]
-int ary[] = {3,6,1,0,9,7,6,2,7};
-int *p = ary;  /* p pointe to ary[0] */
-
-p = p + 1;     /* p points to ary[1] */
-...
-p = p + 1;     /* p points to ary[2] */
-...
-p = p + 3;     /* p points to ary[5] */
-
-\end{lstlisting}
-\end{figure}
-
-Een mooi voorbeeld van het rekenen met pointers is het bepalen van de lengte van een C-string. In listing~\ref{cod:poistrlen1} wordt pointer \texttt{str} gedefinieerd en wijst naar het begin van de string. Pointer \texttt{begin} wijst ook naar het begin van de string. Daarna verhogen we pointer \texttt{str} totdat het einde van de string is bereikt. Daarna drukken we het verschil van de twee pointers af.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Berekenen van de lengte van een string met behulp van pointers.,label=cod:poistrlen1,escapeinside={}{}]
-#include <stdio.h>
-
-int main() {
-
-    char *str = "Hallo wereld!";
-    char *begin = str;
-
-    while (*str != '\0') { /* while not end of string ... */
-        str = str + 1;     /* point to the next character */
-    }
-
-    printf("Lengte is %d\n", str-begin);
-}
-\end{lstlisting}
-\end{figure}
-
-Let erop dat de twee pointers naar elementen in dezelfde array moeten wijzen (of één na het laatste element). Alleen dan levert de aftrekking \texttt{str-begin} een gedefinieerd resultaat. De aftrekking is van het type \texttt{ptrdiff\_t} (dat meestal gelijk is aan een \texttt{int}) en levert het verschil in elementen. Het programmafragment in listing~\ref{cod:poipointerdiff} geeft als uitvoer de waarde~3.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Het berekenen van het verschil van twee pointers.,label=cod:poipointerdiff]
-int ary[] = {3,6,1,0,9,7,6,2,7};
-int *p = &ary[2];
-int *q = &ary[5];
-
-printf("Verschil is %d\n", q-p);
-\end{lstlisting}
-\end{figure}
-
-Vergelijken van twee pointers kan ook. Zo kunnen pointers op gelijkheid worden vergeleken, maar ongelijkheid kan ook. We zouden de \texttt{printf}-regel van listing~\ref{cod:poistrlen1} kunnen vervangen door het programmafragment in listing~\ref{cod:poicomparepointers}.
-Uiteraard moeten de twee pointers naar hetzelfde datatype wijzen en heeft de vergelijking alleen zin als de pointers naar elementen binnen dezelfde array wijzen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee pointers.,label=cod:poicomparepointers]
-    if (str>begin) {
-        printf("Lengte is %d\n", str-begin);
-    } else {
-        printf("De string is leeg\n");
-    }
-\end{lstlisting}
-\end{figure}
-
-
-\section{Relatie tussen pointers en arrays}
-\label{sec:relatietussenpointersenarrays}
-De relatie tussen pointers en arrays is zo sterk in C, dat we er een aparte paragraaf aan wijden. In listing~\ref{cod:poiarrayandpointer} zijn de definitie en initialisatie van een array en een pointer te zien. De pointer \texttt{p} wijst na initialisatie naar het eerste element van de array.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie en initialisatie van een array en een pointer.,label=cod:poiarrayandpointer]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-int *p = ary;
-\end{lstlisting}
-\end{figure}
-
-Om toegang te krijgen tot het eerste element uit de array kunnen we natuurlijk \texttt{ary[0]} gebruiken. Maar we kunnen via \texttt{p} ook bij het eerste element komen. Hiervoor gebruiken we \texttt{*p}. We mogen echter \texttt{p} ook lezen als de naam van een array. Om bij het eerste element te komen, mogen we dus ook \texttt{p[0]} gebruiken. Om alle elementen van de array bij elkaar op te tellen, kunnen we dus schrijven:
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Bepalen van de som van elementen in een array.,label=cod:poiarrayandpointersym]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-int *p = ary;
-
-int sum = p[0]+p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+p[7]+p[8];
-\end{lstlisting}
-\end{figure}
-
-Aan de andere kant mogen we de naam van de array ook lezen als een pointer naar het eerste element. We kunnen de naam gebruiken in een dereferentie. Dat betekent dat \texttt{*ary} identiek is aan \texttt{ary[0]} en dat \texttt{*(ary+2)} identiek is aan \texttt{ary[2]}. We hebben echter wel haken nodig bij \texttt{*(ary+2)} omdat de dereferentie-operator voorgaat op de optelling. Om de som van de array te bepalen mogen we dus schrijven:
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Bepalen van de som van elementen in een array.,label=cod:poiarrayandpointersym2]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-int *p = ary;
-
-int sum = *ary + *(ary+1) + *(ary+2) + *(ary+3) + ... ;
-\end{lstlisting}
-\end{figure}
-
-Het is mogelijk om een pointer naar een willekeurig element van de array te laten wijzen door de naam van de array als pointer te beschouwen. Als we \texttt{p} willen laten wijzen naar het derde element gebruiken we gewoon de toekenning \texttt{p = ary+2}. Na deze toekenning kunnen we het derde element afdrukken door \texttt{p} als pointer of als array te beschouwen. Zie listing~\ref{cod:poipointstoelement}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Pointer die naar een element in een array wijst.,label=cod:poipointstoelement]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-
-int *p = ary+2;                    /* p points to third element */
-
-printf("Contents is %d\n", *p);    /* prints third element */
-printf("Contents is %d\n", p[0]);  /* prints third element */
-\end{lstlisting}
-\end{figure}
-
-Let erop dat we in het bovenstaande programmafragment \texttt{p[0]} hebben gebruikt. De pointer wijst naar het derde element dus \texttt{p[0]} betekent dat de inhoud van het derde element wordt afgedrukt.
-
-Als we zeker weten dat we een correct element gebruiken, mogen we ook negatieve waarden voor het elementnummer gebruiken. In listing~\ref{cod:poipointstonegeindex} wordt het adres van het derde element uit de array toegekend aan pointer \texttt{p}. We mogen dan \texttt{p[-1]} gebruiken omdat dit het tweede element uit de array betreft. We kunnen echter niet \texttt{ary[-1]} gebruiken want dit leidt tot het gebruik van een element buiten de array. Let erop dat C-compilers over het algemeen niet testen of een adressering binnen de array-grenzen ligt.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Pointer die naar een element in een array wijst.,label=cod:poipointstonegeindex]
-int ary[] = {3, 6, 1, 0, 9, 7, 6, 2, 7};
-
-int *p = ary+2;    /* p points to third element */
-
-int a = p[-1];     /* legal: points to second element */
-int b = ary[-1];   /* ILLEGAL: points outside array */
-\end{lstlisting}
-\end{figure}
-
-
-\section{Pointers als argumenten}
-\label{sec:pointersalsfunctieargumenten}
-\index{pointer!als functie-argument}
-Pointers zijn gewone variabelen en kunnen dus als argumenten bij het aanroepen van een functie gebruikt worden. Let erop dat een kopie van de pointers worden meegegeven. Via die kopie kunnen we bij de variabelen komen waar de pointers naartoe wijzen. We kunnen dus niet de pointers zelf aanpassen.
-
-In listing~\ref{cod:swapvars} is te zien hoe we een functie \texttt{swap} definiëren die de inhouden van twee variabelen verwisselt. Bij het aanroepen van de functie geven we de \textsl{adressen} mee van de te verwisselen variabelen. In de functie gebruiken we pointers om de inhouden van de variabelen te verwisselen.
-
-\booklistingfromproject[]{C}{Een functie om de inhouden van twee variabelen te wisselen}{swapvars}{c}{!ht}
-
-In de functie \lstc{swap} is \lstc{pa} het adres van variabele \lstc{a} en is \lstc{pb} het adres van variabele \lstc{b}. In regel 17 van het programma geven we de adressen van de variabele mee middels de adres-oparator\index{adres-operator}\indextwo{\&}{adres}~\lstc{\&} (ampersand).
-De uitvoer van het programma is te zien in figuur~\ref{fig:swapvars}. %Zie ook het programma in listing~\ref{fig:funwisselfout}, hierin gaat het verwisselen niet goed.
-
-\begin{dosbox}[title=Verwisselen van twee variabelen.,label=fig:swapvars]
-a = 2, b = 3
-a = 3, b = 2
-\end{dosbox}
-
-Een voorbeeld is een functie die een string kopieert naar een andere string. De functie krijgt twee pointers naar strings als argumenten mee. Bij het aanroepen van de functie worden de variabelenamen van de twee strings als argumenten meegegeven. De variabelenaam van een string is immers een pointer naar het eerste karakter van de string. Het programma is te zien in listing~\ref{cod:poicopystrings1}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie voor het kopieren van een string met behulp van pointers.,label=cod:poicopystrings1,escapeinside={}{}]
-void string_copy(char *to, char *from) {
-
-   /* sanity check */
-   if (to == NULL || from == NULL) {
-       return;
-   }
-
-    while (*from != '\0') {   /* while not end of string ... */
-        *to = *from;          /* copy character */
-        to = to + 1;          /* point to the next character */
-        from = from + 1;
-    }
-    *to = '\0';               /* terminate string */
-}
-
-int main() {
-
-    char stra[] = "Hello world!";
-    char strb[100];
-
-    string_copy(strb, stra);  /* copy stra to strb */
-
-	return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-Merk op dat de geheugenruimte voor de kopie groot genoeg moet zijn om de kopie op te slaan en dat de twee strings elkaar in het geheugen niet mogen overlappen. De standard library heeft een functie \texttt{strcpy} die een efficiënte implementatie is van het kopiëren van strings.
-
-Noot: een array kan alleen maar via een pointer als argument aan een functie worden doorgegeven. Dit is veel efficiënter dan de hele array mee te geven. In listing~\ref{cod:poicopystrings1} wordt dus \textsl{niet} de hele array meegegeven, maar alleen de pointers naar de eerste elementen. We mogen daarom de pointers \texttt{to} en \texttt{from} ook als namen van arrays beschouwen.  Zie listing~\ref{cod:poicopystrings2}. Merk op dat we dus de lengte van de meegegeven array \textsl{niet} kunnen uitrekenen met de \texttt{sizeof}-operator. Er wordt immers een pointer meegegeven. Dat we toch het einde van een string kunnen bepalen, komt doordat een string wordt afgesloten met een nul-karakter (\lstinline|\0|).\index{nul-karakter}\indextwo{\textbackslash 0}{nul-karakter} %Overigens testen we niet of \texttt{to} of \texttt{from} NULL zijn.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Functie voor het kopieren van een string met behulp van arrays.,label=cod:poicopystrings2]
-void string_copy(char to[], char from[]) {
-
-    int i=0;
-
-    while (from[i] != '\0') {  /* while not end of string */
-        to[i] = from[i];       /* ... copy character */
-        i = i + 1;             /* point to next character */
-    }
-    to[i] = '\0';              /* .. and terminate string */
-}
-\end{lstlisting}
-\end{figure}
-
-Bij het overdragen van een array aan een functie moet expliciet de grootte worden opgegeven. Het is niet mogelijk om \textsl{in de functie} de grootte van de array uit te rekenen, er wordt immers een pointer meegegeven. Er is dus een extra parameter nodig waarmee we de grootte opgeven. Bij het aanroepen van de functie rekenen we de grootte uit en geven dit mee. Dit is te zien in listing~\ref{cod:poilengthpass}. Let erop dat in \texttt{main} w\'el de grootte van de array kan worden uitgerekend, want daar wordt de array gedefinieerd. We gebruiken twee keer de \texttt{sizeof}-operator, want \texttt{sizeof} geeft de grootte van een object in bytes. We moeten de grootte van de array in bytes delen door de grootte van \'e\'en element in bytes.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Meegeven van de grootte van een array.,label=cod:poilengthpass]
-#include <stdio.h>
-#include <stdlib.h>
-
-void printarray(int ary[], int len) {
-
-    int i;
-
-    for (i=0; i<len; i++) {
-        printf("%d ", ary[i]);
-    }
-}
-
-int main(void) {
-
-    int list[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    int length = sizeof list / sizeof list[0];
-
-    printarray(list, length);
-
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-
-Als we pointers gebruiken als argumenten, kunnen we ook gegevens \textsl{teruggeven} via die pointers. We geven een voorbeeld in listing~\ref{cod:gemiddeldemetminenmax}. In de functie \lstc{gemiddeldeminmax} lezen we een aantal getallen in (aangegeven door de parameter \lstc{aantal}) en bepalen we het gemiddelde van de getallen. Tevens geven we via de pointers \lstc{min} en \lstc{max} het minimale en maximale ingevoerde getal terug. Op deze manier is het mogelijk om een functie meerdere gegevens terug te geven. Merk op dat we in \lstc{main} wel variabelen definiëren maar niet initialiseren. Dat hoeft ook niet want de functie vult de gegevens in, enerzijds via de returnwaarde, anderzijds via de meegegeven pointers. 
-
-\booklistingfromproject[]{C}{Bepalen van een gemiddelde, het minimum en het maximum}{gemiddeldemetminenmax}{c}{!ht}
-
-\begin{infobox}[Call by reference...]
-\index{Call by Reference}%
-In de programmeerwereld is het gebruikelijk om onderscheid te maken tussen twee manieren van argumentenoverdracht: \textsl{Call by Value} en \textsl{Call by Reference}. Bij Call by Value wordt een kopie van de waarde van een variabele aan de functie meegegeven. Alleen de kopie kan veranderd worden door de functie. De variabele waarvan de kopie is gemaakt kan dus niet op deze manier veranderd worden.
-
-Bij Call by Reference wordt het \textsl{adres} van de variabele aan de functie meegegeven. Via dit adres is het dus wel mogelijk om de inhoud van de originele variabele te veranderen.
-
-Sommige programmeurs beweren dat Call by Reference eigenlijk niet bestaat. En daar is wat voor te zeggen. Er wordt immers een waarde aan de functie meegegeven en dat is het adres van een variabele. Dit adres kan in de functie veranderd worden maar het originele adres waar de variabele in het geheugen staat wordt niet aangepast. Toch maken programmeurs onderscheid tussen deze twee manieren van argumentenoverdracht.
-\end{infobox}
-
-
-\section{Pointer als returnwaarde}
-\label{sec:pointersalsreturnwaarde}
-\index{pointer!als return-waarde}
-Een pointer kan ook als returnwaarde dienen. In listing~\ref{cod:find_token} wordt in een string gezocht naar een bepaalde karakter in een string. Als het karakter gevonden is, wordt een pointer naar het karakter teruggegeven. Als het karakter niet wordt gevonden, wordt \texttt{NULL} teruggegeven. Na het uitvoeren van de functie moet hier op getest worden. Tevens wordt in het begin van de functie getest of de pointer naar de string wel een geldige waarde heeft. Geldig wil zeggen dat de pointer niet \texttt{NULL} is. Het is \textsl{good practice} om altijd te testen of een pointer \texttt{NULL} is.
-
-\booklistingfromproject[linerange={3-17},escapeinside={}{}]{C}{Pointer als return-waarde}{find_token}{c}{!ht}
-
-Let goed op de definitie van de functie \texttt{find\_token}. Vóór de functienaam is de dereferentie-operator geplaatst. Dit betekent dat de functie een pointer naar een karakter teruggeeft. Deze vorm wordt vaak verward met pointers naar functies. Zie paragraaf~\ref{sec:pointersnaarfunctie}. De standard library bevat een implementatie van de functie onder de naam \lstinline|strchr|.
-
-
-\section{Pointers naar pointers}
-\index{pointer!naar pointer}
-\label{sec:pointersnaarpointers}
-Een pointer kan ook gebruikt worden om naar een andere pointer te wijzen. In figuur~\ref{fig:poipointertopointer} is te zien dat pointer \texttt{p} wijst naar variabele \texttt{i}. Met behulp van de dereferentie \texttt{*p} kunnen we bij de inhoud van variabele \texttt{i} komen. De pointer \texttt{pp} wijst naar \texttt{p}. We hebben nu een \textsl{dubbele dereferentie}\index{dubbele dereferentie} de nodig om via pointer \texttt{pp} bij de inhoud van variabele \texttt{i} te komen. 
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\node (A) at (0,0) [memloc] {};
-\node (B) at (3,0) [memloc] {};
-\node (C) at (6,0) [memloc] {2};
-\draw[center*-latex] (A.center) -- (B.west);
-\draw[center*-latex] (B.center) -- (C.west);
-\draw (A) node [yshift=\unitsize cm] {pp};
-\draw (B) node [yshift=\unitsize cm] {p};
-\draw (C) node [yshift=\unitsize cm] {i};
-\end{tikzpicture}
-\caption{Uitbeelding van een pointer naar een pointer naar een \texttt{int}.}
-\label{fig:poipointertopointer}
-\end{figure}
-
-Voor de dubbele dereferentie gebruiken we twee keer de dereferentie-operator \texttt{*}. Om toegang te krijgen tot de inhoud van variabele \texttt{i} via pointer \texttt{pp} gebruiken we dus \texttt{**pp}. Dit is te zien in de onderstaande listing.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Voorbeeld van een pointer naar een pointer.]
-int i = 2;        /* the integer */
-int *p = &i;      /* p points to i */
-int **pp = &p;    /* pp points to p */
-
-printf("De waarde is %d\n", **pp);
-\end{lstlisting}
-\end{figure}
-
-Met behulp van pointers naar pointers kunnen de inhouden van twee pointers verwisselen. In figuur~\ref{fig:poipointertostring} is te zien dat de pointers \texttt{pa} en \texttt{pb} wijzen naar twee strings in het geheugen. Als we nu de strings willen `verwisselen', hoeven we alleen maar de pointers er naartoe te verwisselen.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {h, e, l, l, o, \ , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\strut\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node (A) at (-3,0) [memloc] {};
-\draw (A) node [yshift=\unitsize cm] {pa};
-\draw[center*-latex] (A.center) -- (nod0.west);
-
-\foreach \ii [count=\i from 0] in {w, o, r, l, d, ! , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,-2) {\strut\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node (B) at (-3,-2) [memloc] {};
-\draw (B) node [yshift=\unitsize cm] {pb};
-\draw[center*-latex] (B.center) -- (nod0.west);
-\end{tikzpicture}
-\caption{Uitbeelding van pointers naar strings.}
-\label{fig:poipointertostring}
-\end{figure}
-
-We kunnen dat doen met het programmafragment in listing~\ref{cod:swaptwostrings}. We definiëren drie pointers en laten \texttt{pa} en \texttt{pb} wijzen naar strings. We gebruiken de pointer \texttt{temp} om de verwisseling tot stand te brengen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Verwisselen van twee pointers.,label=cod:swaptwostrings]
-char *pa = "hello ";
-char *pb = "world!";
-char *temp;
-
-temp = pa;           /* swap pa and pb */
-pa = pb;
-pb = temp;
-\end{lstlisting}
-\end{figure}
-
-Maar stel dat we zulke verwisselingen vaker in een programma moeten uitvoeren. Dan is het handig om een functie te gebruiken die dat voor ons doet. We geven aan de functie de adressen van de pointers mee zodat de functie ze kan verwisselen. Hoe dit eruit ziet, is te zien in figuur~\ref{fig:poipointertopointerstring}. De pointers \texttt{pa} en \texttt{pb} wijzen naar de strings. In de functie zijn twee pointers gedefinieerd die wijzen naar pointers naar strings. Dus \texttt{ppa} wijst naar pointer \texttt{pa} en \texttt{ppb} wijst naar pointer \texttt{pb}. We kunnen nu in de functie de inhouden van \texttt{pa} en \texttt{pb} verwisselen.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {h, e, l, l, o, \ , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,0) {\strut\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node (A) at (-3,0) [memloc] {};
-\draw (A) node [yshift=\unitsize cm] {pa};
-\draw[center*-latex] (A.center) -- (nod0.west);
-
-\foreach \ii [count=\i from 0] in {w, o, r, l, d, ! , \textbackslash 0} {
-	\node[memlocarray] (nod\i) at (\i*\unitsize,-2) {\strut\ii};
-	\draw (nod\i) node[yshift=\unitsize cm] {\footnotesize\i}; 
-}
-\node (B) at (-3,-2) [memloc] {};
-\draw (B) node [yshift=\unitsize cm] {pb};
-\draw[center*-latex] (B.center) -- (nod0.west);
-
-\node (AA) at (-6,0) [memloc] {};
-\draw (AA) node [yshift=\unitsize cm] {ppa};
-\draw[center*-latex,dashed] (AA.center) -- (A.west);
-\node (BB) at (-6,-2) [memloc] {};
-\draw (BB) node [yshift=\unitsize cm] {ppb};
-\draw[center*-latex,dashed] (BB.center) -- (B.west);
-\end{tikzpicture}
-\caption{Uitbeelding van pointers naar pointers naar strings.}
-\label{fig:poipointertopointerstring}
-\end{figure}
-
-In listing~\ref{cod:poiswaptopointers} is de functie te zien voor het verwisselen van twee pointers. De 
-\begin{figure}[!b]
-\begin{lstlisting}[caption=Functie voor het verwisselen van twee pointers.,label=cod:poiswaptopointers]
-#include <stdio.h>
-#include <stdlib.h>
-
-void swapstr(char **ppa, char **ppb) {
-
-	char *temp;
-
-    temp = *ppa;      /* copy pa into temp */
-    *ppa = *ppb;      /* copy pb into pa */
-    *ppb = temp;      /* copy temp into pb */
-}
-
-int main()
-{
-    char *pa = "hello ";
-    char *pb = "world!";
-
-    printf("%s%s\n", pa, pb);
-    swapstr(&pa, &pb);
-    printf("%s%s\n", pa, pb);
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
-functie heeft twee parameters \texttt{ppa} en \texttt{ppb} die een pointer zijn naar een pointer naar een string. In de functie definiëren we een pointer \texttt{temp} die een pointer is naar string (of eigenlijk: een karakter). Met behulp van de dereferentie \texttt{*ppa} kopiëren we de inhoud van pointer \texttt{pa} naar \texttt{temp}. Daarna kopiëren we \texttt{pb} naar \texttt{pa} en als laatste kopiëren we \texttt{temp} naar \texttt{pb}.
-
-De uitvoer van dit programma is te zien in de figuur~\ref{fig:poiwisselen}. Te zien is dat de in de eerste regels de string op originele volgorde worden afgedrukt en in de twee regel in omgekeerde volgorde. Deze manier van herschikken van strings is veel efficiënter dan strings kopiëren.
-
-\begin{dosbox}[title=Verwisselen van twee stings.,label=fig:poiwisselen]
-hello world!
-world!hello
-\end{dosbox}
-
-Merk op dat we in de functiedefinitie een \textsl{dubbele derefentie} opgeven maar in de functie zelf gebruiken we een enkele derefentie. De enkele derefentie is nodig om bij de pointers \lstc{pa} en \lstc{pb} te komen.
-
-
-\section{Array van pointers}
-\index{pointer!array van}\index{array!van pointers}
-Uiteraard kunnen we ook een array van pointers maken. We demonstreren dat aan de hand van een array van pointers naar karakters. Omdat het pointers zijn, kan een pointer ook wijzen naar het begin van een array van karakters, oftewel strings. Dit is te zien in figuur~\ref{fig:poiarrayofpointers}. Merk op dat de zeven pointers naar karakters wijzen. Dat daar toevallig zeven strings aan gekoppeld zijn, is vanuit het perspectief van de pointers niet te zien (en in principe ook niet belangrijk).
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii/\x/\y/\stri in {0/3/1.5/{z,o,n,d,a,g,\textbackslash 0},1/3/.25/{m,a,a,n,d,a,g,\textbackslash 0},2/3/-1.0/{d,i,n,s,d,a,g,\textbackslash 0},3/3/-2.3/{w,o,e,n,s,d,a,g,\textbackslash 0},4/3/-3.6/{d,o,n,d,e,r,d,a,g,\textbackslash 0},5/3/-4.9/{v,r,i,j,d,a,g,\textbackslash 0},6/3/-6.2/{z,a,t,e,r,d,a,g,\textbackslash 0}} {
-	\node [memlocarray] (nod\ii) at (0,-1*\ii*\unitsize) {};
-    \node [memlocarray] (var\ii) at (\x,\y) {};
-    \foreach \iii [count=\i from 0] in \stri {
-        \node [memlocarray] at (\x+\i*\unitsize,\y) {\strut\iii};
-    }
-    \draw[center*-latex] (nod\ii.center) -- (var\ii.west);
-}
-\draw (nod0) node [yshift=\unitsize cm] {day[]};
-\end{tikzpicture}
-\caption{Voorstelling van een array van pointers naar strings.}
-\label{fig:poiarrayofpointers}
-\end{figure}
-
-We definiëren een array van zeven pointers naar karakters. Daarna laten we de pointers naar strings wijzen. Zie listing~\ref{cod:poiarrayofpointers}. Zoals gebruikelijk worden de strings afgesloten met een \lstinline|\0|.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een array van pointers.,label=cod:poiarrayofpointers]
-char *day[7];          /* array of seven pointers to char */
-
-day[0] = "zondag";     /* points to the 'z' */
-day[1] = "maandag";    /* points to the 'm' */
-day[2] = "dinsdag";    /* points to the 'd' */
-day[3] = "woensdag";   /* points to the 'w' */
-day[4] = "donderdag";  /* points to the 'd' */
-day[5] = "vrijdag";    /* points to the 'v' */
-day[6] = "zaterdag";   /* points to the 'z' */
-\end{lstlisting}
-\end{figure}
-
-Omdat dit soort toekenningen veel voorkomen, mogen de strings ook bij definitie aan de pointers worden toegekend. Dit is te zien in listing~\ref{cod:poiarrayofpointers2}. Ook hier worden de strings afgesloten met een \lstinline|\0|.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een array van pointers naar strings met initialisatie.,label=cod:poiarrayofpointers2]
-char *day[] = {"zondag", "maandag", "dinsdag", "woensdag",
-               "donderdag", "vrijdag", "zaterdag"};
-\end{lstlisting}
-\end{figure}
-
-We kunnen de pointers nu gewoon gebruiken bijvoorbeeld bij het afdrukken van de strings:
+\section{Toekennen van structures}
+Een structure mag toegekend worden aan een andere structure middels de \texttt{=}-operator. We mogen dus schrijven
 
 \begin{lstlisting}[style=lstoneline]
-printf("The Dutch for Saturday is %s\n", day[6]);
+struct artikel a, b;
+...
+a = b;
 \end{lstlisting}
 
+Hierbij worden de members van structure \texttt{b} naar de overeenkomstige members van structure \texttt{a} gekopieerd. In feite is \texttt{a} nu een kopie van \texttt{b}.
 
-%Opmerking: de C++-standaard verbiedt het gebruik van dit soort declaraties en initialisaties. Veel compilers geven echter een waarschuwing en gaan gewoon verder. Omdat de strings in dit soort constructies meestal niet veranderen, kan het keyword \texttt{const} voor de declaratie gezet worden, waarmee wordt aangegeven dat de strings niet veranderen. C++-compilers accepteren deze constructie.
 
-\section{Pointers naar een array van pointers}
-\index{pointer!naar array van pointers}
-\label{sec:pointersnaareenarrayvanpointers}
+\section{Vergelijken van structures}
+Een structure mag niet zomaar met een andere structure vergeleken worden, ook niet als de structures van hetzelfde type zijn. Dus
 
-We bekijken nu een wat complexer voorbeeld van het gebruik van pointers. Dit doen we ter voorbereiding op de volgende paragraaf. We definiëren een array \texttt{p} van vier pointers naar integers. We vullen de array met de adressen van de integers \texttt{i}, \texttt{j}, \texttt{k} en \texttt{l}. Daarna definiëren we een pointer \texttt{pp} die wijst naar (het eerste element van) de array. Een voorstelling van de variabelen is te zien in figuur~\ref{fig:poipointertoarrayofpointers}.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii/\x/\y/\name/\val in {0/3/0.75/i/3,1/2.5/-0.85/j/5,2/4/-2/k/2,3/2/-3/l/4} {
-	\node [memlocarray] (nod\ii) at (0,-1*\ii*\unitsize) {};
-    \node [memloc] (var\ii) at (\x,\y) {\val};
-    \draw (var\ii) node [yshift=0.9*\unitsize cm] {\name};
-    \draw[center*-latex] (nod\ii.center) -- (var\ii.west);
-}
-\draw (nod0) node [yshift=\unitsize cm] {p[]};
-\node (AA) at (-3,0) [memloc] {};
-\draw (AA) node [yshift=\unitsize cm] {pp};
-\draw[center*-latex] (AA.center) -- (nod0.west);
-\end{tikzpicture}
-\caption{Voorstelling van een pointer naar een array van pointers naar integers.}
-\label{fig:poipointertoarrayofpointers}
-\end{figure}
-
-De array \texttt{p} wordt gedefinieerd als:
-
-\hspace*{1em}\texttt{int *p[4];}
-
-De rechte haken hebben een hogere prioriteit dan de dereferentie-operator. We lezen de definitie dus als: \texttt{p} is een array van vier elementen en elk element is een een pointer die wijst naar een integer. De pointer \texttt{pp} wordt gedefinieerd als:
-
-\hspace*{1em}\texttt{int **pp;}
-
-Let goed op wat hier staat: \texttt{pp} is een pointer naar een pointer naar een integer. Vanuit pointer \texttt{pp} is niet af te leiden dat \texttt{pp} wijst naar een array, alleen maar dat er twee dereferenties nodig zijn om bij een integer te komen. We moeten dat in het C-programma zelf scherp in de gaten houden.
-
-We gebruiken de pointers zoals te zien is in listing~\ref{cod:poipointertoarrayofpointers}. In regel 6 worden de vier integers gedefinieerd. In regel 7 definiëren we array \texttt{p} en initialiseren de array met de adressen van de integers. We geven geen array-grootte op want de C-compiler kan dat zelf uitrekenen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Voorbeeld van het gebruik van pointers.,label=cod:poipointertoarrayofpointers]
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-
-    int i=3, j=5, k=2, l=4;
-    int *p[] = {&i, &j, &k, &l};
-    int **pp = p;
-
-    printf("&p: %p, &pp: %p, &p[0]: %p, &p[1]: %p, &p[2]: %p, "
-           "&p[3]: %p\n\n", &p, &pp, &p[0], &p[1], &p[2], &p[3]);
-
-    printf("&i: %p, p[0]: %p\n", &i, p[0]);
-    printf("&j: %p, p[1]: %p\n", &j, p[1]);
-    printf("&k: %p, p[2]: %p\n", &k, p[2]);
-    printf("&l: %p, p[3]: %p\n", &l, p[3]);
-
-    printf("\ni: %d, *p[0]: %d, **pp: %d\n", i, *p[0], **pp);
-
-    return 0;
+\begin{lstlisting}[style=lstoneline]
+struct artikel a, b;
+..
+if (a == b) {        /* WRONG */
+    ...
 }
 \end{lstlisting}
-\end{figure}
 
-In regel 8 definiëren we de pointer \texttt{pp} (let op het gebruik van de dubbele dereferentie-operator) en initialiseren \texttt{pp} met het adres van \texttt{p}. In regel 10 en 11 drukken alle adressen van de pointers af. In de regels 13 t/m 16 drukken we de adressen van de integers en de inhouden van de array-elementen af. Om variabele \texttt{i} af te drukken hebben we drie mogelijkheden: \texttt{i} (de variabele), \texttt{*p[0]} (waar \texttt{p[0]} heen wijst) en \texttt{**pp}. Die wijst dus via dubbele dereferentie ook naar \texttt{i}.
+genereert een foutmelding door de compiler. De juiste manier is door alle members van de structures een voor een (\textsl{member-wise})\index{member-wise} te vergelijken. Dus
 
-Een mogelijke uitvoer is te zien in de figuur~\ref{fig:poienkelepointers}. We zeggen hierbij mogelijk omdat het draaien van het programma op een computer andere waarden (adressen) kan opleveren. In de figuur is te zien dat pointer met acht hexadecimale cijfers worden afgedrukt.  Dat betekent dat de pointers met 32 bits worden opgeslagen. We hebben gebruik gemaakt van een 32-bits C-compiler.
-
-\begin{dosbox}[title=Uitvoer van enkele pointers.,label=fig:poienkelepointers]
-&p: 0061FDF0, &pp: 0061FDE8, &p[0]: 0061FDF0, &p[1]: 0061FDF8,
-&p[2]: 0061FE00, &p[3]: 0061FE08
-
-&i: 0061FE1C, p[0]: 0061FE1C
-&j: 0061FE18, p[1]: 0061FE18
-&k: 0061FE14, p[2]: 0061FE14
-&l: 0061FE10, p[3]: 0061FE10
-
-i: 3, *p[0]: 3, **pp: 3
-\end{dosbox}
-
-Bij gebruik van een 64-bits compilers worden de pointers afgedrukt met 16 hexadecimale cijfers.
-
-
-\section{Argumenten meegeven aan een C-programma}
-\index{argumenten!aan een C-programma}\index{command line argumenten}
-\label{sec:argumentenmeegevenaaneencprogramma}
-In besturingssystemen die C ondersteunen zoals Windows, Linux en OS-X, is het mogelijk om een C-programma \textsl{command line argumenten} mee te geven. Bij het starten van een programma kunnen we (optioneel) gegevens invoeren en overdragen aan een gecompileerd C-programma.
-
-Elk C-programma krijgt per definitie de twee parameters \texttt{argc} en \texttt{argv} mee, die aan \texttt{main} worden meegegeven. Dit is te zien in listing~\ref{cod:poiargs}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Definitie van de command line parameters.,label=cod:poiargs]
-int main(int argc, char *argv[]) {
-
-    /* rest of the code */
-    
-    return 0;
+\begin{lstlisting}[caption=Vergelijken van twee structures.]
+struct artikel a, b;
+..
+if (a.nummer == b.nummer && strcmp(a.naam, b.naam) == 0 &&
+    a.aantal == b.aantal && a.prijs == b.prijs) {
+    /* true */
+} else {
+    /* false */
 }
 \end{lstlisting}
-\end{figure}
-
-De integer \texttt{argc} (\textbf{arg}ument \textbf{c}ount) geeft aan hoeveel argumenten aan het C-programma zijn meegegeven. De pointer \texttt{argv} (\textbf{arg}ument \textbf{v}ector) is  een pointer naar een lijst van pointers naar strings, gedefinieerd als \texttt{*argv[]}. 
-Een voorstelling is gegeven in figuur~\ref{fig:poiargcargv}.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\node (argc) at (0,0) [memloc] {3};
-\draw (argc) node [yshift=\unitsize cm] {argc};
-\node (argv) at (3,0) [memloc] {};
-\draw (argv) node [yshift=\unitsize cm] {argv};
-\node (argv0) at (6,0) [memlocarray] {};
-\draw (argv0) node [yshift=\unitsize cm] {argv[]};
-\node (argv1) at (6,-\unitsize) [memlocarray] {};
-\node (argv2) at (6,-2*\unitsize) [memlocarray] {};
-\node (argv3) at (6,-3*\unitsize) [memlocarraynull] {};
-\draw[center*-latex] (argv.center) -- (argv0.west);
-\node (argv0s) at (8,0) [memloc,anchor=west] {\textsl{programmanaam}\textbackslash 0};
-\node (argv1s) at (8,-\unitsize) [memloc,anchor=west] {argument1\textbackslash 0};
-\node (argv2s) at (8,-2*\unitsize) [memloc,anchor=west] {argument2\textbackslash 0};
-\draw[center*-latex] (argv0.center) -- (argv0s.west);
-\draw[center*-latex] (argv1.center) -- (argv1s.west);
-\draw[center*-latex] (argv2.center) -- (argv2s.west);
-\end{tikzpicture}
-\caption{Voorstelling van de variabelen \texttt{argc} en \texttt{argv}.}
-\label{fig:poiargcargv}
-\end{figure}
-
-Elke string bevat een argument. Per definitie wijst \texttt{argv[0]} naar een string waarin de programmanaam vermeld staat. Dat houdt in dat \texttt{argc} dus minstens~1 is. Er zijn dan geen optionele argumenten meegegeven. De C-standaard schrijft voor dat de lijst van pointers naar strings wordt afgesloten met een NULL-pointer.
-
-Omdat alle argumenten strings zijn, is het eenvoudig om deze argumenten af te drukken. Een voorbeeld is gegeven in listing ~\ref{cod:commandlinearguments}. Het programma drukt eerst de variabele \texttt{argc} af. Met behulp van een \texttt{for}-statement worden de argumenten een voor een afgedrukt. Merk op dat \texttt{argv[i]} een pointer is naar het $i^e$ argument. We kunnen \texttt{argv[i]} dus direct gebruiken voor het afdrukken van de bijbehorende string.
 
 
-\booklistingfromproject[]{C}{Afdrukken van de command line argumenten}{commandlinearguments}{c}{!ht}
-
-Als voorbeeld starten we het programma \texttt{commandlinearguments.exe} met de argumenten \texttt{hallo} en \texttt{wereld!}. Het programma drukt eenvoudigweg alle argumenten op het beeldscherm af. Te zien is dat ook de programmanaam als argument wordt meegegeven.
-
-\begin{dosbox}[title=Afdrukken van programmanaam en argumenten.,label=fig:poiargcv]
-C:\Users\Cbook>(*\textbf{commandlinearguments.exe hallo wereld!}*)
-
-Aantal argumenten: 3
-
-Argument 0: commandlinearguments.exe
-Argument 1: hallo
-Argument 2: wereld!
-
-C:\Users\Cbook>
-\end{dosbox}
-
-In het voorbeeldprogramma is \texttt{argc} dus 3 en zijn \texttt{argv[0]}, \texttt{argv[1]} en \texttt{argv[2]} pointers naar respectievelijk \texttt{commandlinearguments.exe}, \texttt{hallo} en \texttt{wereld!}. De strings worden, zoals gebruikelijk in C,  afgesloten met een nul-karakter.
-
-%%%\begin{figure}[!ht]
-%%%\begin{lstlisting}[caption=Het programma commandlinearguments.exe.,label=cod:commandlineargumentsexe]
-%%%#include <stdio.h>
-%%%#include <stdlib.h>
-%%%
-%%%int main(int argc, char *argv[]) {
-%%%
-%%%    printf("\nAantal argumenten: %d\n\n", argc);
-%%%    
-%%%    for (int i = 0; i < argc; i++) {
-%%%        printf("Argument %d: %s\n", i, argv[i]);
-%%%    }
-%%%    
-%%%    return 0;
-%%%}
-%%%\end{lstlisting}
-%%%\end{figure}
-
-Merk op dat \texttt{argv} een echte pointer is en niet de naam van een array. We mogen \texttt{argv} dus aanpassen. Dit is te zien in listing~\ref{cod:poiargc2}.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van argumenten.,label=cod:poiargc2]
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(int argc, char **argv) {
-
-    printf("\nArguments: ");
-    while (argc > 0) {
-        printf("%s ", *argv);
-        argv = argv + 1;
-        argc = argc - 1;
-    }
-    return 0;
-}
-\end{lstlisting}
-\end{figure}
 
 
-\section{Pointers naar functies}
-\index{pointer!naar functie}
-\label{sec:pointersnaarfunctie}
-Functies zijn stukken programma die ergens in het geheugen liggen opgeslagen. De naam van een functie is het adres van de eerste instructie van de functie. Het is dus mogelijk om de naam van een functie te gebruiken als een pointer. Dit worden \textsl{functie-pointers} genoemd.
-
-In listing~\ref{cod:poipointertofunction} is te zien hoe een functie-pointer wordt gedefinieerd. In de eerste regel wordt een functie gedefinieerd, een zogenoemde prototype, die een \texttt{int} als argument meekrijgt en een \texttt{int} teruggeeft. In de tweede regel wordt \texttt{pf} gedefinieerd als een pointer naar een functie die een \texttt{int} meekrijgt en een \texttt{int} teruggeeft.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction,escapeinside={}{}]
-int func(int a);   /* func is a function returning an int */
-int (*pf)(int a);  /* pf is a pointer to a function
-                                         returning an int */
-
-pf = func;             /* assign pf */
-\end{lstlisting}
-\end{figure}
-
-Let op het gebruik van de haakjes. Die zijn nodig om prioriteiten vast te leggen. Zonder de haken staat er \texttt{int *pf(int a)} en dan is \texttt{pf} een functie die een \texttt{int} als parameters meekrijgt en een pointer naar een \texttt{int} teruggeeft. Zie listing~\ref{cod:poipointertofunction2}.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Een functie en een pointer naar een functie.,label=cod:poipointertofunction2,escapeinside={}{}]
-int (*pf)(int a);  /* pf: pointer to a function returning an int */
-int *pf(int a);    /* pf: function returning a pointer to an int */
-\end{lstlisting}
-\end{figure}
-
-In figuur~\ref{fig:poipointertofunction} is te zien hoe \texttt{pf} wijst naar de functie \texttt{func}. We kunnen nu \texttt{pf} gebruiken om de functie aan te roepen. In de figuur is een aantal instructies gezet.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[pointerstyle]
-\foreach \ii [count=\i from 0] in {LDR,ADD,SUB,MUL,CMP,BLO,RET} {
-	\node [memloc] (nod\i) at (0,-1*\i*\unitsize) {\ii};
-}
-\draw (nod0) node [yshift=\unitsize cm] {func};
-\node (AA) at (-3,0) [memloc] {};
-\draw (AA) node [yshift=\unitsize cm] {pf};
-\draw[center*-latex] (AA.center) -- (nod0.west);
-\end{tikzpicture}
-\caption{Voorstelling van een pointer naar een functie.}
-\label{fig:poipointertofunction}
-\end{figure}
-
-Het gebruik van functie-pointers komt niet zo vaak voor in C-programma's. Het is meer in gebruik bij het schrijven van besturingssystemen. We willen toch even een interessante functie de revue laten passeren waarbij een functie-pointer gebruikt worden.
-
-\subsubsection*{Quicksort}
-\index{quicksort}
-Quicksort is een sorteeralgoritme ontworpen door C.A.R. Hoare in 1962. Het is een van de efficiëntste sorteeralgoritmes voor algemeen gebruik. De exacte werking zullen we niet behandelen, er zijn genoeg boeken die dit beschrijven. De standard library bevat een implementatie onder de naam \texttt{qsort}. Het prototype van \texttt{qsort} is:
 
 
-\hspace*{1em}\texttt{void qsort(void *base, size\_t nitems, size\_t size,}\\
-\hspace*{1em}\texttt{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  int (*compar)(const void *, const void*));}
+\section{Functies met structures}
+Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens van elkaar te scheiden.
 
-Hierin is \texttt{base} een pointer naar het eerste element van de array, \texttt{nitems} het aantal elementen in de array en \texttt{size} de grootte (in bytes) van één element. Het type \texttt{size\_t} is in de regel gelijk aan een \texttt{int}. De functie \texttt{compar} behoeft wat speciale aandacht. Dit is een functie (door de programmeur zelf te schrijven) die twee pointers naar twee elementen in de array meekrijgt. De pointers zijn van het type \texttt{void~*} want \texttt{qsort} weet niet op voorhand wat het datatypes van de elementen van de array zijn. De functie \texttt{compar} \textsl{moet} een getal geven kleiner dan 0 als het eerste argument kleiner is dan het tweede element, 0 als de twee elementen gelijk zijn en een getal groter dan 0 als het eerste element groter is dan het tweede element.
+\booklistingfromproject[linerange={13-18},label=cod:struct3]{C}{Afdrukken van de gegevens van een  artikel}{struct_artikel}{c}{!ht}
 
-In listing~\ref{cod:quick_sort} is een programma te zien dat een array van integers sorteert. De functie \texttt{cmpint} vergelijkt twee integers uit de array. Let op de constructie om bij de integers te komen. De pointers zijn van het type \texttt{void~*} dus er is een expliciete type cast\index{type cast} nodig naar een pointer naar een integer. Dat wordt gerealiseerd door \texttt{(int~*)}. Daarna wordt de pointer gebruikt om bij de integer te komen. Om parameter \texttt{a} te verkrijgen is dus \texttt{*(int~*)~a} nodig. Op deze wijze wordt ook parameter \texttt{b} gevonden en de functie geeft eenvoudigweg het verschil tussen de twee parameters terug.
+Als we een nieuw artikel willen toevoegen, kunnen we alle members van de structure een waarde toekennen. Maar het is gemakkelijker om een functie te definiëren die dat voor ons doet. Een mogelijke functie is te zien in listing~\ref{cod:struct4}.
 
-\booklistingfromproject[]{C}{Sorteren van een array met quicksort}{quick_sort}{c}{!ht}
+\booklistingfromproject[linerange={20-30},label=cod:struct4]{C}{Aanmaken van een nieuw artikel}{struct_artikel}{c}{!ht}
+
+De parameters krijgen de waarden mee die aan de members moeten worden toegekend. Om een nieuwe structure te maken waar de gegevens inkomen, definiëren we in regel 3 een structure met de naam \texttt{nieuw}. We moeten daarna een voor een de waarden aan de members toekennen. Vervolgens geven we de gehele structure terug aan de aanroeper.
+
+We kunnen de structure \texttt{floppy} bijvoorbeeld initialiseren met:
+
+\hspace*{1em}\texttt{floppy = maak\_artikel(7, "Floppy", 5, 10.73);}
 
 
-\begin{infobox}[What's in the name...]
-De schrijfwijze bij definities van pointers kan op twee manieren:
-
-\hspace*{1em}\texttt{int *p;}
-
-en
-
-\hspace*{1em}\texttt{int* p;}
-
-In beide gevallen is \texttt{p} en pointer naar een integer. De eerste manier sluit aan bij de gedachte ``\texttt{p} in een pointer'' (naar een \texttt{int}). De tweede manier sluit aan bij: \texttt{p} is een ``pointer naar een int''. Het gebruik van de tweede variant komt goed tot zijn recht bij listing~\ref{cod:quick_sort}. Daarin wordt een expliciete cast gedaan naar een pointer van het type \texttt{int} en die wordt weer gebruikt in een dereferentie naar een \texttt{int}.
+\begin{infobox}[Relationele databases]
+Het gebruik van structures is nauw gekoppeld aan \textsl{relationele databases}. We kunnen voor onze winkel bijvoorbeeld \textsl{tabellen} aanmaken met klantgegevens, artikelen en bestellingen. Bij de klantgegevens voeren we de uniek klantnummer, naam, het adres en telefoonnummer in, bij de artikelen een uniek artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk. Als we een bestelling invoeren, hoeven we naast een uniek bestelnummer alleen het nummer van de klant in te voeren; we kunnen de klantgegevens via de klanttabel vinden. Als het adres van de klant verandert, dan hoeven we alleen de klanttabel te veranderen. Natuurlijk moet een lijst met gekochte artikelen worden ingevoerd, maar we hoeven dan alleen het artikelnummer en het aantal in te voeren, de rest is via de artikeltabel te vinden. Het uit elkaar trekken van al die gegevens wordt \textsl{normalisatie} genoemd en zorgt ervoor dat spaarzaam met opslag wordt omgegaan en dat gegevens niet meerdere keren in de database voorkomen (redundantie).
 \end{infobox}
 
-%\begin{figure}[!ht]
-%\begin{lstlisting}[caption=Voorbeeld van het gebruik van functie-pointers.]
-%#include <stdio.h>
-%#include <stdlib.h>
+
+
+\section{Typedef}
+\index{structure!typedef}
+Met behulp van het keyword \texttt{typedef}\indexkeyword{typedef} kunnen we een structure beschikbaar stellen onder een eigen datatype. Zo kunnen we het nieuwe type \texttt{artikel\_t} aanmaken met de definitie in listing~\ref{cod:struct11}. Let erop dat \texttt{artikel\_t} geen echt nieuw datatype is, het is meer een synoniem. Het blijft onder alle omstandigheden een structure. We mogen dan ook de naam na \texttt{struct} achterwege laten. Merk op dat de definitie van de oorspronkelijke structure tussen \texttt{typedef} en \texttt{artikel\_t} staat.
+
+\booklistingfromproject[linerange={6-11},label=cod:struct11]{C}{De definitie van datatype \texttt{artikel\_t}}{struct_artikel_typedef}{c}{!ht}
+
+Vervolgens kunnen we variabelen definiëren met de \texttt{typedef}:
+
+\hspace*{1em}\texttt{artikel\_t floppy, sdcard, usbstick;}
+
+We kunnen \texttt{typedef} ook gebruiken bij andere datatypes:
+
+\hspace*{1em}\texttt{typedef unsigned long int ulint;}
+
+\texttt{Typedef}'s zijn handig om een programma onafhankelijke te maken van de C-compiler die gebruikt wordt en de computer waarop het programma draait. Als een programma verplaatst wordt naar een andere computer (dat wordt \textsl{porteren} genoemd), hoeven alleen de \texttt{typedef}'s te worden aangepast. Daarna kan het programma gecompileerd worden met de nieuwe \texttt{typedef}'s.
+
+
+\section{Array van structures}
+\index{array!van structures}\index{structure!array van}
+Natuurlijk is het niet handig om voor elk artikel een variabele te definiëren. We kunnen dan veel beter gebruik maken van een array. De definitie
+
+\hspace*{1em}\texttt{artikel\_t art[10];}
+
+zorgt ervoor dat we een array van tien artikelen kunnen gebruiken. Om een element uit de array te selecteren gebruiken we de blokhaken \texttt{[]}. Die hebben een lagere prioriteit dan de member operator \texttt{.} (punt) dus er zijn geen haakjes nodig om een member te gebruiken:
+
+\hspace*{1em}\texttt{art[6].aantal += 3;}
+
+zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array middels een adres naar het eerste element wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
+
+In listing~\ref{cod:struct14} is een functie te zien die alle gegevens van de artikelen afdrukt. We gaan hier ervan uit dat als een artikel het nummer 0 heeft, dit artikel niet is ingevuld en drukken we de gegevens niet af. 
+
+\booklistingfromproject[linerange={29-36},label=cod:struct14,escapeinside={{}{}}]{C}{Een functie om alle gegevens van artikelen af te drukken}{struct_artikel_typedef}{c}{!ht}
+
+Het aantal elementen kunnen we laten uitrekenen met behulp van de operator \texttt{sizeof}\indexop{sizeof}. We delen de grootte van de totale array door de grootte van één element om het aantal elementen te berekenen.
+We roepen de functie aan met
+
+\begin{lstlisting}[style=lstoneline]
+int aantal = sizeof art / sizeof art[0];
+print_artikelen(art, aantal);
+\end{lstlisting}
+%\hspace*{1em}\texttt{print\_artikelen(art, sizeof art / sizeof art[0]);}
+
+
+\section{Structures binnen structures}
+\index{structure!binnen structure}
+We kunnen ons programma uitbreiden met bestellingen. We definiëren daartoe drie structures voor artikelen, klanten en bestellingen. De structures zijn te zien in listing~\ref{cod:bestel1}. We merken op dat de structure \texttt{bestelling\_t} naast een uniek bestelnummer ook variabelen hebben van de structure \texttt{klant\_t} en van een array van \texttt{artikel\_t} (we gaan er gemakshalve vanuit dat een bestelling niet meer dan tien verschillende artikelen kan bevatten). We hebben dus structures binnen een structure. Als we een bestelling willen aanmaken dan moeten we naast het bestelnummer ook de klantgegevens en de artikelen opgeven.
+
+\booklistingfromproject[linerange={6-23},label=cod:bestel1,escapeinside={{}{}}]{C}{De structures die horen bij een bestelling}{struct_bestelling}{c}{!ht}
+
+Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de andere members wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
+
+\hspace*{1em}\texttt{bestel.bestelnr = 123;}
+
+Om het klantnummer op te geven moeten we via de structure \texttt{klant} in \texttt{bestelling} een waarde opgeven:
+
+\hspace*{1em}\texttt{bestel.klant.klantnr = 73}
+
+We kunnen een artikel bij de bestelling voegen door een artikel in zijn geheel te kopiëren naar een element van de variabele \texttt{artbestel}
+
+\hspace*{1em}\texttt{bestel.artbestel[0] = art[2];}
+
+We moeten dan alleen nog het aantal en de prijs berekenen. Dit is te zien in listing~\ref{cod:bestel2}.
+
+\booklistingfromproject[linerange={46-53},label=cod:bestel2,escapeinside={{}{}}]{C}{Het vormgeven van een bestelling}{struct_bestelling}{c}{!ht}
+
+Overigens is het niet slim om alle informatie van een artikel in de structure \texttt{bestel} op te nemen. Als de naam van de klant verandert, dan moeten we in twee structures de naam aanpassen. We kunnen beter alleen het klantnummer opnemen. De gegevens van de klant zijn dan via de klantstructures op te vragen. Zie ook het kader onder aan de pagina.
+
+
+\section{Teruggeven van meerdere variabelen}
+In C kan een functie slechts één variabele teruggeven. Als we meerdere variabelen willen teruggeven, kunnen we gebruik maken van een structure. De structure `verpakt' dan de variabelen onder één noemer.
+
+Een bekend voorbeeld is het berekenen van de oplossingen van een kwadratische vergelijking met de vorm $ax^2+bx+c=0$. We kunnen de \textsl{wortels} (getallen waarvoor de functie~0 oplevert) berekenen met de wortelformule\index{wortelformule}:
 %
-%void taska(void) {
-%    printf("Task A\n");
-%}
+\begin{equation}
+x_{1,2} = \dfrac{-b\pm\sqrt{b^2-4ac}}{2a}
+\end{equation}
 %
-%void taskb(void) {
-%    printf("Task B\n");
-%}
-%
-%void taskc(void) {
-%    printf("Task C\n");
-%}
-%
-%int main() {
-%
-%    /* Declare an array of function pointers and assign addresses */
-%    void (*func_ptr[])(void) = {taska, taskb, taskc};
-%
-%    /* Calculate size of array */
-%    int size = sizeof(func_ptr)/sizeof(func_ptr[0]);
-%    int i;
-%
-%    /* Loop through all array elements */
-%    for (i=0; i<size; i++) {
-%        /* Start the function */
-%        (*func_ptr[i])();
-%    }
-%
-%    return 0;
-%}
-%\end{lstlisting}
-%\end{figure}
+De expressie onder het wortelteken heet de \textsl{discriminant} en de wortel van de discriminant heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet~0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:struct_wortels}.
 
+\booklistingfromproject[escapeinside={{}{}}]{C}{Een programma om de wortels van een kwadratische vergelijking te berekenen}{struct_wortels}{c}{!p}
 
+We definiëren een structure met de drie gegevens zoals te zien is in regels 4 t/m 8. In de functie \texttt{bereken\_wortels} berekenen we de wortels als dat mogelijk is en we vullen de status van de wortels in. Kunnen ze niet berekend worden dan zetten we variabele \texttt{geldig} op 0, anders zetten we die variabele op 1. Aan het einde van de functie geven we een nieuw aangemaakte variabele terug. In de functie \texttt{print\_wortels} drukken we de wortels af of dat de wortels niet geldig zijn (kunnen niet berekend worden).
 
-
-\section{Dynamische geheugenallocatie}
-\label{sec:dynamischegeheugenallocatie}
-\index{dynamische geheugenallocatie}
-\index{geheugenallocatie}
-Bij het schrijven van een programma definiëren we de variabelen die we nodig hebben. Deze geheugenplaatsen blijven in principe bezet. Wel is het zo dat lokale variabelen worden aangemaakt en verwijderd aan het begin respectievelijk het einde van een functie (tenzij ze als \texttt{static} gekwalificeerd zijn), maar er komt geen extra geheugen bij. Via het besturingssysteem is het mogelijk om extra geheugenruimte aan te vragen als dat nodig is. Is de aangevraagde geheugenruimte niet meer nodig dan geven we het terug aan het besturingssysteem. We noemen dit \textsl{dynamische geheugenallocatie}.
-
-De standard library kent een aantal functies op dit gebied. Om deze functies te gebruiken moet het header-bestand \texttt{malloc.h}\indextwo{malloc.h}{header-bestand} geladen worden. De functie \texttt{malloc}\indextwo{malloc}{functie} vraagt aan het besturingssysteem extra geheugenruimte \textsl{in bytes}. Als dat lukt, dan wordt een \texttt{void}-pointer\index{void-pointer} naar het begin van de geheugenruimte teruggegeven. De \texttt{void}-pointer moet dus gecast worden naar het juiste type. Het geheugen wordt niet geïnitialiseerd, de inhoud van de geheugenplaatsen is onbekend. Als het niet lukt, wordt een NULL-pointer\index{NULL-pointer} teruggegeven. Hier moet uiteraard op getest worden. De functie \texttt{free}\indextwo{free}{functie} geeft eerder gealloceerd geheugen weer vrij. Als argument wordt een pointer naar het gealloceerde geheugenruimte meegegeven. Let erop dat de geheugenruimte niet eerder is vrijgegeven, want dat veroorzaakt over het algemeen een crash van het programma.
-
-Een van de meest voorkomende problemen is dat gealloceerd geheugen niet wordt vrijgegeven. Dit wordt een \textsl{memory leak}\index{memory leak} genoemd. Op zich is dat niet zo erg, want als het programma stopt, ruimt het besturingssysteem alle gealloceerde geheugenruimtes op. Maar als een programma alsmaar geheugen vraagt en niets vrijgeeft, kan het zijn dat uiteindelijk geen geheugen meer beschikbaar is.
-
-Een eenvoudig gebruik van \texttt{malloc} en \texttt{free} is te zien in listing~\ref{cod:mem_alloc}. Regel 5 zorgt ervoor dat Visual Studio de functie \texttt{strcpy}\indexfunc{strcpy} accepteert. In regel 8 definiëren we de constante \texttt{SIZE} met de waarde van 1000. De constante is van het type \texttt{size\_t}. In regel 12 definiëren we een karakterpointer en initialiseren we die met \texttt{NULL}. Regel 14 roept de functie \texttt{malloc} aan om 1000 bytes te alloceren. De functie geeft een \texttt{void}-pointer terug, dus we moeten een type cast naar \texttt{char *} doen. We testen in de regels 16 t/m 19 of de allocatie gelukt is en zo niet, dan drukken we een foutmelding af en stoppen we het programma.
-
-\booklistingfromproject[]{C}{Gebruik van \texttt{malloc} en \texttt{free}}{mem_alloc}{c}{!ht}
-
-In regel 21 t/m 23 kopiëren we een string naar het geheugen en drukken het af. In regel~25 geven we het geheugen weer vrij. De lezer wordt gevraagd om het programma te testen met verschillende waarden voor \texttt{SIZE}.
-
-We vermelden nog even twee andere functies: \texttt{realloc} en \texttt{calloc}. De functie \texttt{realloc}\indextwo{realloc}{functie} heralloceert een stuk geheugen. Met de aanroep
-
-\hspace*{1em}\texttt{pnew = realloc(porig, size);}
-
-wordt het stuk geheugen waar \texttt{porig} naar wijst uitgebreid of ingekrompen, \texttt{pnew} wijst naar de nieuwe geheugenruimte. Er zijn een paar zaken waar we op moeten letten: 1) als het geheugen wordt ingekrompen, blijft de originele inhoud ongewijzigd; 2) als het geheugen wordt uitgebreid blijft de originele inhoud ongewijzigd en het nieuwe, extra geheugen wordt niet geïnitialiseerd, 3) als het niet lukt om het geheugen op de originele plaats uit te breiden, wordt een compleet nieuw geheugenblok gealloceerd en wordt de inhoud van het originele inhoud gekopieerd, de rest wordt niet geïnitialiseerd, het oude geheugenblok wordt vrijgegeven; 4) als er geen geheugenruimte meer vrij is wordt een NULL-pointer teruggegeven en blijven de originele pointer en geheugen intact.
-
-De functie \texttt{calloc}\indextwo{calloc}{functie} alloceert een aantal veelvouden van een elementair datatype en vult de geheugenruimte met nul-bytes\index{nul-bytes}. Dus
-
-\hspace*{1em}\texttt{int *pint = calloc(1000, sizeof(int));}
-
-alloceert 1000 integers en vult ze met nul-bytes. Als het niet lukt, wordt een NULL-pointer teruggegeven.
-
-
-\section{Generieke geheugenfuncties}
-We hebben gezien dat strings met behulp van diverse functies zijn te manipuleren. Deze zijn echter bedoeld voor strings, dus karakters in het geheugen. C kent ook een aantal generieke geheugenfuncties die ook gebruikt kunnen worden bij andere datatypes. Zie tabel~\ref{tab:arymemmanip}.
-
-%% Bereken de breedte van de tweede colom
-%\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
-% Bereken de breedte van de eerste kolom
-\setbox0\hbox{\texttt{memmove(to, from, n)}}
-\begin{table}[!ht]
-\centering
-\caption{Enkele standaard functies voor geheugenmanipulaties.}
-\label{tab:arymemmanip}
-\begin{tabular}{@{}p{\wd0}p{10cm}@{}}
-\toprule
-\texttt{memcpy(to, from, n)} &  Kopieert vanaf \texttt{from} naar \texttt{to} met precies \texttt{n} bytes.\\
-\texttt{memmove(to, from, n)} &  Kopieert vanaf \texttt{from} naar \texttt{to} met precies \texttt{n} bytes, maar kan ook gebruikt worden als \texttt{to} en \texttt{from} elkaar overlappen.\\
-\texttt{memcmp(s1, s2, n)} &  Vergelijkt \texttt{s1} met \texttt{s2} met \texttt{n} bytes, returnwaarde als met \texttt{strcmp}.\\
-\texttt{memset(s, c, n)} & Zet byte \texttt{c} op de eerste \texttt{n} bytes vanaf \texttt{s}.\\
-\bottomrule
-\end{tabular} 
-\end{table}
-
-Let erop dat de pointers van het type \texttt{void *} zijn en dat \texttt{n} het aantal geheugenplaatsen in bytes is.
+Merk overigens op dat als de discriminant 0 is, de wortels $x_1$ en $x_2$ dezelfde waarde hebben.
 
 
 \advanced
-\section{Pointers naar vaste adressen}
-\index{pointer!naar vast adres}
-C is erg coulant bij het toekennen van adressen aan pointers. Zo is het mogelijk om een pointer naar een vast adres te laten wijzen.
-De definitie en initialisatie
+\section{Unions}
+Stel dat we onze eigen C-compiler willen ontwerpen (begin er trouwens niet aan, dat is heel complex). Dan moeten we een lijst bijhouden van gedefinieerde variabelen. Van de variabele moet dan ook het type worden opgeslagen en mogelijk een initiële waarde\footnote{Natuurlijk kan de waarde van een variabele tijdens runtime veranderen, maar het zou kunnen dat de compiler erachter komt dat een variabele op een bepaald moment een bekende waarde heeft. Deze waarde kan dan gebruikt worden bij een expressie of initialisatie.}. We kunnen dan een structure definiëren die alle mogelijke datatypes bevat, maar dat is verkwisten van geheugenruimte; een variabele kan immers maar één datatype hebben. We kunnen dan gebruik maken van een \textsl{union}\indexkeyword{union}.
 
-\hspace*{1em}\texttt{unsigned int *p = (unsigned int *) 0x40fe;}
+Binnen een union wordt ruimte gereserveerd voor het grootste datatype (in het aantal bits). In listing~\ref{cod:union1} is een union variabele gedefinieerd met de naam \texttt{value}.
 
-zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. We kunnen nu iets in die geheugenplaats zetten door een dereferentie:
+\booklistingfromproject[gobble=4,linerange={11-15},label=cod:union1]{C}{Een union om verschillende datatypes te gebruiken}{union}{c}{!ht}
 
-\hspace*{1em}\texttt{*p = 0x3ff;}
+De gereserveerde geheugenruimte is gelijk aan de geheugenruimte van de grootste variabele, in dit geval een \texttt{double}. We kunnen de union opnemen in een structure met daarin de naam en het type (en natuurlijk de union). Een voorbeeld is te zien in listing~\ref{cod:union2}. We hebben tevens gebruik gemaakt van een \textsl{enumeratie}\index{enumeratie} (zie paragraaf~\ref{sec:enumeraties}) voor de verschillende datatypes.
 
-Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal system}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+\booklistingfromproject[linerange={6-16},label=cod:union2,escapeinside={{}{}}]{C}{Een structure om een variabele in een compiler te gebruiken}{union}{c}{!ht}
 
-%%%We geven in listing~\ref{cod:poiatmega} een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel. Overigens bevat de toolchain\index{toolchain} header-bestanden waarin deze definities al staan.
-%%%
-%%%\begin{figure}[!p]
-%%%\begin{lstlisting}[caption=Het gebruik van pointers op een ATmega-microcontroller.,label=cod:poiatmega]
-%%%typedef unsigned char uint8_t;
-%%%
-%%%int main(void) {
-%%%
-%%%    uint8_t c1, c2, i;
-%%%    volatile int i;
-%%%
-%%%    // Pointers to addresses
-%%%    volatile uint8_t *ddrb = (uint8_t*) 0x37;   // DDRB address
-%%%    volatile uint8_t *portb = (uint8_t*) 0x38;  // PORTB address
-%%%
-%%%    *ddrb = 0xFF; // Set PORTB to all outputs
-%%%
-%%%    while (1) {
-%%%        c1 = 0x80;
-%%%        c2 = 0x01;
-%%%
-%%%        for (i = 0; i < 4; i++) {
-%%%            for (i = 0; i < 30000; ++i); // wait a bit
-%%%            *portb = ~(c1 | c2);  // Leds on Port B are active low
-%%%            c1 >>= 1;
-%%%            c2 <<= 1;
-%%%        }
-%%%    }
-%%%
-%%%    return 0;
-%%%}
-%%%\end{lstlisting}
-%%%\end{figure}
+We kunnen nu een variabele definiëren en initialiseren met gegevens. Dit is te zien in listing~\ref{cod:union3}. Te zien is dat de variabele wordt ingesteld als \texttt{float} en dat de waarde 3,14 bedraagt.
+
+\booklistingfromproject[linerange={40-40,43-46},label=cod:union3,escapeinside={{}{}}]{C}{Initialiseren van een variabele}{union}{c}{!ht}
+
+We kunnen op elk moment het type en de waarde veranderen (dat zou in een C-compiler natuurlijk niet kunnen gebeuren). We kunnen de variabele bijvoorbeeld kenmerken als een integer en er een waarde aan toekennen.
+
+\booklistingfromproject[linerange={48-49},label=cod:union4,escapeinside={{}{}}]{C}{Initialiseren van een variabele}{union}{c}{!ht}
+
+Bij het afdrukken van de waarde van de variabele raadplegen we het type. Met behulp van een \texttt{switch}-statement selecteren we hoe de variabele moet worden afgedrukt. Zie listing~\ref{cod:union5}.
+
+\booklistingfromproject[linerange={18-36},label=cod:union5,escapeinside={{}{}}]{C}{Een functie om een variabele af te drukken}{union}{c}{!ht}
 
 
-\section{Subtiele verschillen en complexe definities}
-We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we tot nu toe zijn tegengekomen. Toch willen we een bloemlezing geven van enkele bekende en onbekende, complexe definities.
+\section{Bitvelden}
+Bitvelden maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
 
-%% Bereken de breedte van de tweede colom
-%\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
-% Bereken de breedte van de eerste kolom
-\setbox0\hbox{\texttt{char (*(*x[3])())[5]}}
-\newdimen\delengte\delengte=\textwidth\advance\delengte by -\wd0\advance\delengte by -2\tabcolsep
-\begin{table}[!ht]
-\begin{tabular}{@{}lp{\delengte}@{}}
-\texttt{int *p} & \texttt{p}: pointer to int\\
-\texttt{int **pp} & \texttt{pp}: pointer to pointer to int \\
-\texttt{int ***ppp} & \texttt{ppp}: pointer to pointer to pointer to int \\
-\texttt{int **pp[3]} & \texttt{pp}: array[3] of pointer to pointer to int \\
-\texttt{char **argv} & \texttt{argv}: pointer to pointer to char \\
-\texttt{char *argv[]} &\texttt{argv}: array[] of pointer to char \\
-\texttt{int *list[5]} & \texttt{list}: array[5] of pointer to int \\
-\texttt{int (*list)[5]} & \texttt{list}: pointer to array[5] of int \\
-\texttt{int *(*list)[5]} & \texttt{list}: pointer to array[5] of pointer to int \\
-\texttt{int *pf()} & \texttt{pf}: function returning a pointer to int \\
-\texttt{int (*pf)()} & \texttt{pf}: pointer to function returning an int \\
-\texttt{int *(*pf)()} & \texttt{pf}: pointer to function returning a pointer to int \\
-\texttt{char (*(*x())[])()} & \texttt{x}: function returning pointer to array[] of pointer to function returning char.\\
-\texttt{char (*(*x[3])())[5]} & \texttt{x}: array[3] of pointer to function returning pointer to array[5] of char.\\
-\end{tabular}
-\end{table}
+Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interrupt\_enable}.
 
-Via de website~\cite{cdeclwebsite} kunnen complexe definities omgezet worden in leesbaar Engels.
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Voorbeeld van bitvelden.,label=cod:bitfields]
+struct {
+    unsigned int interrupt_enable : 1; /* Bit 31 */
+    unsigned int padding : 0;          /* Bits 30 down to 21 */
+    unsigned int mode : 3;             /* Bits 20 down to 18 */
+    unsigned int enable : 1;           /* Bit 17 */
+    unsigned int overflow : 1;         /* Bit 16 */
+    unsigned int value : 16;           /* Bits 15 down to 0 */
+} counter;
+\end{lstlisting}
+\end{figure}
+Het veld \texttt{padding} heeft de speciale breedte 0 om ervoor te zorgen dat de velden worden \textsl{opgelijnd} naar de breedte die van nature door de computer worden verwerkt. Een veel gebruikte term hiervoor is \textsl{machinewoord}. De bit \texttt{interrupt\_enable} komt daardoor op positie 31 terecht, de andere bits lopen van 0 t/m 20.
+
+
+Om te teller te starten gebruiken we:
+
+\hspace*{1em}\texttt{counter.enable = 1;}
+
+Om de tellerwaarde te kopiëren naar een variabele gebruiken we:
+
+\hspace*{1em}\texttt{unsigned int value = counter.value;}
+
+Om te testen of een overflow heeft plaatsgevonden, gebruiken we:
+
+\hspace*{1em}\texttt{if (counter.overflow == 1) \{ ... \} }
+
+Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het programma draait en de C-compiler die gebruikt wordt. Dat betekent dat programma's met bitvelden moeilijk overdraagbaar zijn naar andere computers en andere C-compilers. Bij systemen die van nature met 32 bits werken worden de bits (hoogst waarschijnlijk) samengepakt in 32 bits eenheden.
+
+Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
 
 \basic
