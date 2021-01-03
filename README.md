@@ -12,8 +12,8 @@ Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 200 pagina's
 4. Flowcharts
 5. Functies
 6. Arrays
-7. Pointers
-8. Structures
+7. Structures
+8. Pointers
 9. Invoer en uitvoer
 10. Preprocessor
 11. Het compilatieproces
