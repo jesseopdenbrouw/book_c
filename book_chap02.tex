@@ -7,7 +7,8 @@ We gebruiken functies om bewerkingen op de variabelen te beschrijven. We hebben 
 
 
 \section{Variabelen}
-Een \textsl{variabele}\index{variabele} is een object waaraan een waarde kan worden toegekend. Technisch gezien is een variabele een plek in het geheugen van een computer. Een variabele moet in het C-programma kenbaar gemaakt worden. We noemen dat de \textsl{definitie}\index{definitie} van de variabele. Bij de definitie wordt het \textsl{type} van de variabele opgegeven. Zo geeft de definitie
+%Een \textsl{variabele}\index{variabele} is een object waaraan een waarde kan worden toegekend. Technisch gezien is een variabele een plek in het geheugen van een computer. Een variabele moet in het C-programma kenbaar gemaakt worden. We noemen dat de \textsl{definitie}\index{definitie} van de variabele. Bij de definitie wordt het \textsl{type} van de variabele opgegeven. Zo geeft de definitie
+Een \textsl{variabele}\index{variabele} is technisch gezien een plek in het geheugen van een computer waaraan een waarde kan worden toegekend. Een variabele moet in het C-programma kenbaar gemaakt worden. We noemen dat de \textsl{definitie}\index{definitie} van de variabele. Bij de definitie wordt het \textsl{type} van de variabele opgegeven. Zo geeft de definitie
 
 \hspace*{1em}\texttt{int a;}
 
@@ -161,7 +162,7 @@ Gehele constanten kunnen als getal op drie manieren worden ingevoerd: als decima
 \hspace*{1em}\texttt{int b = 0xa9; \ \ \ /* hexadecimal A9 is decimal 169 */}\\ 
 \hspace*{1em}\texttt{int c = 127; \ \ \ \ /* decimal 127 */}
 
-De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers ondersteunen dit toch door de prefix \texttt{0b} of \texttt{0B} te gebruiken. Zo is de constante \texttt{0b10101001} gelijk aan~169.
+De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers ondersteunen dit toch door de prefix \texttt{0b} of \texttt{0B} te gebruiken. Zo is de constante \texttt{0b10101001} gelijk aan~169 (decimaal).
 
 Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofes. Zo is \texttt{\textquotesingle A\textquotesingle} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{\textquotesingle A\textquotesingle} overeen met de waarde 65.
 De standaard ASCII-tabel is te vinden in bijlage~\ref{cha:asciitabel}.
