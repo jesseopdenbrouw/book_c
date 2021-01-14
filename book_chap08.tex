@@ -1612,9 +1612,9 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 \texttt{int *list[5]} & \texttt{list}: array[5] of pointer to int \\
 \texttt{int (*list)[5]} & \texttt{list}: pointer to array[5] of int \\
 \texttt{int *(*list)[5]} & \texttt{list}: pointer to array[5] of pointer to int \\
-\texttt{int *pf()} & \texttt{pf}: function returning a pointer to int \\
-\texttt{int (*pf)()} & \texttt{pf}: pointer to function returning an int \\
-\texttt{int *(*pf)()} & \texttt{pf}: pointer to function returning a pointer to int \\
+\texttt{int *pf(void)} & \texttt{pf}: function (no parameters) returning a pointer to int \\
+\texttt{int (*pf)(void)} & \texttt{pf}: pointer to function (no parameters) returning an int \\
+\texttt{int *(*pf)(void)} & \texttt{pf}: pointer to function (no parameters) returning a pointer to int \\
 \texttt{char (*(*x())[])()} & \texttt{x}: function returning pointer to array[] of pointer to function returning char.\\
 \texttt{char (*(*x[3])())[5]} & \texttt{x}: array[3] of pointer to function returning pointer to array[5] of char.\\
 \end{tabular}
