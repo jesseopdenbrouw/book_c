@@ -2,8 +2,8 @@
 
 Dit boek is gereed voor gebruik. Ik ontvang graag opmerkingen en correcties.
 
-Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 200 pagina's beslaan.
-
+Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 220 pagina's beslaan.
+Onderzoek of er ook een hoofdstuk moet komen m.b.t microcontrollers (ATmega, STM32, MSP430).
 ## Hoofdstukken
 
 1. Un tour de C
