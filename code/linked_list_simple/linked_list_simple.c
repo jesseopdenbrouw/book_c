@@ -14,7 +14,7 @@ int main(void) {
 	struct node a = { 43, "Inge", NULL };
 	struct node b = { 18, "Jesscia", NULL };
 	struct node c = { 37, "Karin", NULL };
-	struct node d = { 14, "Janet", NULL };
+	struct node d = { 14, "Renate", NULL };
 
 	/* Let each item point to the next */
 	a.next = &b;

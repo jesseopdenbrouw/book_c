@@ -98,11 +98,11 @@ void print_all_nodes(void) {
 	/* Traverse all nodes */
 	current = head;
 	while (current != NULL) {
-		printf("Age: %2d, name: %s\n", current->age,
-			                                      current->name);
+		printf("Age: %2d, name: %s\n", current->age, current->name);
 		current = current->next;
 	}
 }
+
 
 /* Function to remove all nodes */
 void remove_all_nodes(void) {
