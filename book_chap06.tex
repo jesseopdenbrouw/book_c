@@ -345,6 +345,7 @@ int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
 
 	for (int pos = 0; pos < siz1; pos++) {
 		if (ary1[pos] != ary2[pos]) {
+            /* Elements are not equal, so arrays are not equal */
 			return 0;
 		}
 	}
@@ -536,3 +537,5 @@ De functie \texttt{strcmp}\indexfunc{strcmp} vergelijkt \texttt{s1} met \texttt{
 Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:array_stringfunctions} waar we overigens gebruik hebben gemaakt van enkele juweeltjes van C-snelschrift. We dagen de lezer uit om de functies te analyseren.
 
 \booklistingfromproject[lineskip=-1.5pt]{C}{Een implementatie van de stringfuncties}{array_stringfunctions}{c}{H}
+
+
