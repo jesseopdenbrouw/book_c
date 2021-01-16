@@ -546,7 +546,7 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \texttt{asin(x)} & berekent de arcsin $x$ in het bereik $[-\pi/2, \pi/2]$, domein is $[-1,1]$\\
 \texttt{acos(x)} & berekent de arccos $x$ in het bereik $[0, \pi]$, domein is $[-1,1]$\\
 \texttt{atan(x)} & berekent de arctan $x$ in het bereik $[-\pi/2, \pi/2]$\\
-\texttt{atan2(x,y)} & berekent de arctan $x/y$ in het bereik $\langle-\pi, \pi]$, (x,y)\neq(0,0)\\
+\texttt{atan2(x,y)} & berekent de arctan $x/y$ in het bereik $\langle-\pi, \pi]$, $(x,y)\neq(0,0)$\\
 \texttt{sinh(x)} & berekent de sinus hyperbolicus van $x$\\
 \texttt{cosh(x)} & berekent de cosinus hyperbolicus van $x$\\
 \texttt{tanh(x)} & berekent de tangens hyperbolicus van $x$\\
@@ -635,3 +635,53 @@ Het programma om de numerieke oplossing te berekenen is te vinden in listing~\re
 
 \booklistingfromproject[]{C}{Programma voor het berekenen van de Riemann-linkersom}{riemann_left}{c}{!ht}
 
+
+\section{Classificatie van karakters}
+C kent een aantal functies om karakters te classificeren. We gaan hierbij uit van de ASCII-code. De ASCII-code is te vinden in bijlage~\ref{cha:asciitabel}.
+
+Om deze functies gebruiken moet header-bestand \lstc{ctype.h} geladen worden. Een lijst met functies is te zien in tabel~\ref{tab:funclassfunc}. Let erop dat de parameter van de functies van het type \lstc{int} is. Karakters die als argumenten worden opgegeven, worden dus gecast naar een \lstc{int}. De reden hiervoor is dat als het karakter overeenkomt met \textsl{end-of-file} (EOF, zie hoofdstuk~\ref{cha:io})\index{EOF}, meestal gedefinieerd als $-1$ dat dan deze waarde wordt teruggegeven. Een returnwaarde ongelijk aan~0 moet gelezen worden als waar, een returnwaarde gelijk aan~0 moet gelezen worden als niet waar.
+
+\begin{table}[!ht]
+\centering
+\caption{Classificatie van karakters.}
+\label{tab:funclassfunc}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Functie & Test karakter op \\ \midrule
+\lstc{isalnum()} & Alfanumeriek (letter of cijfer)\\
+\lstc{isalpha()} & Letter\\
+\lstc{iscntrl()} & Control-teken (ASCII 0 -- 31, 127) \\
+\lstc{isdigit()} & Decimaal cijfer\\
+\lstc{isgraph()} & Grafisch\\
+\lstc{islower()} & Kleine letter\\
+\lstc{isprint()} & Afdrukbaar\\
+\lstc{ispunct()} & Leesteken\\
+\lstc{isspace()} & Whitespace (spatie, tab, newline ...)\\
+\lstc{isupper()} & Hoofdletter\\
+\lstc{isxdigit()} & Hexadecimaal cijfer\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Er zijn nog twee interessante functies: \lstc{tolower()} en \lstc{toupper}. De functie \lstc{tolower()} geeft een kleine letter terug als het argument van de functie een letter is (hoofdletter of kleine letter). De functie \lstc{toupper()} geeft een hoofdletter terug als het argument een letter is (hoofdletter of kleine letter). De functies geven het argument terug als het argument geen letter is.
+
+Dat de functies vrij eenvoudig zijn, kunnen we zien in listing~\ref{cod:funisupperdigit}. De functie \lstc{isupper()} hebben we ook echt geïmplementeerd als een functie. Voor \lstc{isdigit()} hebben we echter een \textsl{macro}\index{macro} gebruikt. Macro's worden beschreven in hoofdstuk~\ref{cha:preprocessor}.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Implementatie van de functies \texttt{isupper()} en \texttt{isdigit()}.,label=cod:funisupperdigit]
+int isupper(int arg) {
+
+	if (arg == EOF) {
+		return arg;
+	}
+
+	return (arg >= 'A' && arg <= 'Z');
+}
+
+#define isdigit(A) ((A) == EOF ? EOF : (A) >= '0' && (A) <= '9')
+\end{lstlisting}
+\end{figure}
+
+In listing~\ref{cod:classificationcharacters} is een programma te zien dat reeks karakters van het toetsenbord inleest, afgesloten met een enter-toets, en deze karakters classificeert.
+
+\booklistingfromproject[]{C}{classificatie van karakters}{classificationcharacters}{c}{!ht}
