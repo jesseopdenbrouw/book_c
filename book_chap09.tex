@@ -63,6 +63,7 @@ Unix-systemen maken geen gebruik van schijfletters. In plaats daarvan kent Unix 
 De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
 
 \section{Uitvoer naar het beeldscherm}
+\label{sec:iouitvoernaarbeeldscherm}
 We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de meest gebruikte behandelen. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
 
 \hspace*{1em}\texttt{int printf(char *formatstring, arg1, arg2, arg3, ... );}
