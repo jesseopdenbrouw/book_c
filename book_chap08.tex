@@ -242,7 +242,7 @@ printf("De waarde is %d\n", *(int *) p);
 \section{Afdrukken van pointers}
 \label{sec:afdrukkenvanpointers}
 \index{pointer!afdrukken van}
-Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specification \texttt{\%p}. De pointer mag elk type zijn, want hij wordt automatisch gecast naar \texttt{void *}. Zie listing~\ref{cod:poiprintpointer}.
+Het afdrukken van de waarde van een pointer kan met de \texttt{printf}-functie en de format specification \texttt{\%p}. De pointer mag elk type zijn, want hij wordt automatisch gecast naar \texttt{void *}. Zie listing~\ref{cod:poiprintpointer} en paragraaf~\ref{sec:iouitvoernaarbeeldscherm}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Afdrukken van een pointer.,label=cod:poiprintpointer]
@@ -1261,7 +1261,7 @@ We kunnen meerdere variabelen (nodes) aanmaken, zie hieronder:
 struct node a = { 43, "Inge", NULL };
 struct node b = { 18, "Jesscia", NULL };
 struct node c = { 37, "Karin", NULL };
-struct node d = { 14, "Janet", NULL };
+struct node d = { 14, "Renate", NULL };
 \end{lstlisting}
 
 We kunnen dit voorstellen met de afbeelding in figuur~\ref{fig:strstr2}.
@@ -1272,7 +1272,7 @@ We kunnen dit voorstellen met de afbeelding in figuur~\ref{fig:strstr2}.
 \node[list,on chain] (A) {43 \nodepart{two} Inge}; 
 \node[list,on chain] (B) {18 \nodepart{two} Jessica};
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
-\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[list,on chain] (D) {14 \nodepart{two} Renate};
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.north east) -- (A.two split south);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (A.south east) -- (A.two split north);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.north east) -- (B.two split south);
@@ -1300,7 +1300,7 @@ kunnen we de member \lstc{next} (de pointer) laten wijzen naar node \lstc{b}. De
 \node[list,on chain] (A) {43 \nodepart{two} Inge}; 
 \node[list,on chain] (B) {18 \nodepart{two} Jessica};
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
-\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[list,on chain] (D) {14 \nodepart{two} Renate};
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.north east) -- (B.two split south);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (B.south east) -- (B.two split north);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (C.north east) -- (C.two split south);
@@ -1327,7 +1327,7 @@ c.next = &d;
 \node[list,on chain] (A) {43 \nodepart{two} Inge}; 
 \node[list,on chain] (B) {18 \nodepart{two} Jessica};
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
-\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[list,on chain] (D) {14 \nodepart{two} Renate};
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.north east) -- (D.two split south);
 \draw[line cap=round, shorten >=.6pt, shorten <=.99pt] (D.south east) -- (D.two split north);
 \draw[dotarrow] (A.three |- A.center) -- (B);
@@ -1381,7 +1381,7 @@ Het complete programma is te zien in listing~\ref{cod:linked_list_simple}.
 \node[list,on chain] (A) {43 \nodepart{two} Inge}; 
 \node[list,on chain] (B) {18 \nodepart{two} Jessica};
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
-\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[list,on chain] (D) {14 \nodepart{two} Renate};
 \node[headtail,below=of dummy,yshift=-0.5cm] (current) {\phantom{current}};
 
 % The null-pointer cross
@@ -1466,7 +1466,7 @@ Om goed te begrijpen hoe het vinden van het einde van de linked list werkt, hebb
 \node[list,on chain] (A) {43 \nodepart{two} Inge}; 
 \node[list,on chain] (B) {18 \nodepart{two} Jessica};
 \node[list,on chain] (C) {37 \nodepart{two} Karin};
-\node[list,on chain] (D) {14 \nodepart{two} Janet};
+\node[list,on chain] (D) {14 \nodepart{two} Renate};
 \node[headtail,below=of dummy,yshift=-0.5cm] (head) {\phantom{head}};
 \node[headtail,below=of B.two,yshift=-0.5cm,xshift=0.25cm] (current) {\phantom{current}};
 \node[headtail,below=of C.three,yshift=-0.5cm] (tail) {\phantom{current}};
@@ -1600,7 +1600,7 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 %\newdimen\delengte\delengte=\textwidth\advance\delengte by -4.6cm\advance\delengte by -2\tabcolsep
 % Bereken de breedte van de eerste kolom
 \setbox0\hbox{\texttt{char (*(*x[3])())[5]}}
-\newdimen\delengte\delengte=\textwidth\advance\delengte by -\wd0\advance\delengte by -2\tabcolsep
+\newdimen\delengte\delengte=\textwidth\advance\delengte by -\wd0\advance\delengte by -7\tabcolsep
 \begin{table}[!ht]
 \begin{tabular}{@{}lp{\delengte}@{}}
 \texttt{int *p} & \texttt{p}: pointer to int\\
@@ -1615,8 +1615,8 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 \texttt{int *pf(void)} & \texttt{pf}: function (no parameters) returning a pointer to int \\
 \texttt{int (*pf)(void)} & \texttt{pf}: pointer to function (no parameters) returning an int \\
 \texttt{int *(*pf)(void)} & \texttt{pf}: pointer to function (no parameters) returning a pointer to int \\
-\texttt{char (*(*x())[])()} & \texttt{x}: function returning pointer to array[] of pointer to function returning char.\\
-\texttt{char (*(*x[3])())[5]} & \texttt{x}: array[3] of pointer to function returning pointer to array[5] of char.\\
+\texttt{char (*(*x())[])(int)} & \texttt{x}: function returning pointer to array[] of pointer to function (with an int as parameter) returning char.\\
+\texttt{char (*(*x[3])(int *))[5]} & \texttt{x}: array[3] of pointer to function (with a pointer to int as parameter) returning pointer to array[5] of char.\\
 \end{tabular}
 \end{table}
 
