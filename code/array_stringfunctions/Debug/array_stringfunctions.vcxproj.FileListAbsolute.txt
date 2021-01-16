@@ -1,2 +1,0 @@
-D:\PROJECTS\Tex\book_c\code\array_stringfunctions\Debug\array_stringfunctions.exe
-D:\PROJECTS\Tex\book_c\code\array_stringfunctions\Debug\array_stringfunctions.pdb

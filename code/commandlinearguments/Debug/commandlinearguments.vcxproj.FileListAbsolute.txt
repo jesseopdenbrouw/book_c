@@ -1,2 +1,0 @@
-D:\PROJECTS\Tex\book_c\code\commandlinearguments\Debug\commandlinearguments.exe
-D:\PROJECTS\Tex\book_c\code\commandlinearguments\Debug\commandlinearguments.pdb
