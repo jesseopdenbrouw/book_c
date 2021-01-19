@@ -56,7 +56,7 @@ levert een 1 op als de expressie waar is, anders levert de vergelijking een 0 op
 Een veel gebruikte operator is de negatieoperator \texttt{!}\index{negatieoperator}. We kunnen deze operator gebruiken zoals te zien is in listing~\ref{cod:besif2}. De functie \texttt{is\_date\_valid} geeft een 1 als er een geldige datum wordt meegegeven, anders geeft de functie een 0. De negatie-operator draait de waarde van een expressie om, dus een waarde gelijk aan 0 wordt een 1 en een waarde \textsl{ongelijk} aan 0 wordt een 1.
 
 \begin{lstlisting}[caption=Gebruik van de negatie-operator.,label=cod:besif2]
-//..
+// ...
 
 valid = is_date_valid("2020/03/21");
 
@@ -93,35 +93,85 @@ Een voorbeeld van het gebruik van \lstc{if else} is te zien in listing~\ref{cod:
 
 
 \section{Beslissen met het \texttt{switch}-statement}
-Het \texttt{switch}-statement\indexkeyword{switch} wordt gebruikt om een expressie te testen op meerdere constante waarden. De expressie na \texttt{switch} is meestal een variabele maar er mag ook een expressie staan. Binnen de \texttt{switch} wordt de expressie vergeleken met een of meerdere constante expressies met behulp van het \texttt{case}-statement\indexkeyword{case}. Is de expressie gelijk aan een constante expressie, dan wordt het statement dat bij de \texttt{case} hoort uitgevoerd. Als geen van de constante expressies gelijk is aan de expressie na de \texttt{switch}, wordt het statement dat bij \texttt{default}\indexkeyword{default} hoort uitgevoerd. Het \texttt{default}-statement mag achterwege blijven. De algemene opzet van het \texttt{switch}-statement is te zien in listing~\ref{cod:switch1}. Het statement achter \texttt{case} hoeft niet tussen accolades gezet te worden.
+Het \texttt{switch}-statement\indexkeyword{switch} wordt gebruikt om een expressie te testen op meerdere constante waarden. De expressie na \texttt{switch} is meestal een variabele maar er mag ook een expressie staan die een constante waarde oplevert. Binnen de \texttt{switch} wordt de expressie vergeleken met een of meerdere constante expressies met behulp van het \texttt{case}-statement\indexkeyword{case}. Is de expressie gelijk aan een constante expressie, dan wordt het statement dat bij de \texttt{case} hoort uitgevoerd. Als geen van de constante expressies gelijk is aan de expressie na de \texttt{switch}, wordt het statement dat bij \texttt{default}\indexkeyword{default} hoort uitgevoerd. Het \texttt{default}-statement mag achterwege blijven. De algemene opzet van het \texttt{switch}-statement is te zien in listing~\ref{cod:switch1}. Het statement achter \texttt{case} hoeft niet tussen accolades gezet te worden en er mogen meerdere statements bij een \lstc{case}-statement geplaatst worden.
 
 \begin{lstlisting}[caption=Opzet van het \texttt{switch}-statment.,label=cod:switch1]
 switch ((*\normalfont\textsl{expressie}*))
 {
-    case (*\normalfont\textsl{constante-expressie}*): (*\normalfont\textsl{statement}*)
-    case (*\normalfont\textsl{constante-expressie}*): (*\normalfont\textsl{statement}*)
-    case (*\normalfont\textsl{constante-expressie}*): (*\normalfont\textsl{statement}*)
+    case (*\normalfont\textsl{constante-expressie\textsubscript{1}}\,*): (*\normalfont\textsl{statement\textsubscript{1}}*)
+                          break;
+    case (*\normalfont\textsl{constante-expressie\textsubscript{2}}\,*): (*\normalfont\textsl{statement\textsubscript{2}}*)
+                          break;
+    case (*\normalfont\textsl{constante-expressie\textsubscript{3}}\,*): (*\normalfont\textsl{statement\textsubscript{3}}*)
+                          break;
     // ...
-    default: (*\normalfont\textsl{statement}*)
+    default: (*\normalfont\textsl{statement\textsubscript{d}}*)
+             break;
 }
 \end{lstlisting}
 
-De waarden bij meerdere \texttt{case}-statement kunnen worden samengevoegd, zodat dezelfde statements worden uitgevoerd bij meerdere mogelijkheden. We noemen dit een \textsl{fall through}. Een voorbeeld is te zien in listing~\ref{cod:switch2}. In het \texttt{switch}-statement wordt \texttt{getal} vergeleken met verschillende waarden. Als \texttt{getal} de waarde 1, 2  of 3 heeft, wordt variabele \texttt{letter} op \texttt{\textquotesingle a\textquotesingle} gezet. Het \texttt{break}-statement\indexkeyword{break} in regel 6 zorgt ervoor dat het \texttt{switch}-statement direct wordt verlaten. Als we die zouden weglaten, worden de statements die horen bij de volgende \texttt{case} uitgevoerd. In regel 9 worden de statements uitgevoerd als geen van de constante expressies achter de \texttt{case}-statement gelijk is aan \texttt{getal}. Het \texttt{break}-statement in regel 10 is logisch gezien overbodig, maar het is \textsl{good practice} om deze wel op te nemen. De volgorde van \texttt{case}s en \texttt{default} is namelijk willekeurig, dus na \texttt{default} zou nog een \texttt{case} mogen komen. Het is wederom \textsl{good practice} om alle \texttt{case}s voor de \texttt{default} te plaatsen.
+In de algemene opzet hebben we het \lstc{break}-statement gebruikt. Dit \lstc{break}-statement zorgt ervoor dat het \lstc{switch}-statement direct wordt verlaten. 
 
-\begin{lstlisting}[caption=Voorbeeld van het gebruik van het \texttt{switch}-statment.,label=cod:switch2]
-switch (getal)
+De waarden bij meerdere \texttt{case}-statement kunnen worden samengevoegd, zodat dezelfde statements worden uitgevoerd bij meerdere mogelijkheden. We noemen dit een \textsl{fall through}\index{fall through}. De algemene opzet van deze vorm is te zien in listing~\ref{cod:switchfallthrough1}. 
+
+\begin{lstlisting}[caption=Opzet van het \texttt{switch}-statment met fall through.,label=cod:switchfallthrough1]
+switch ((*\normalfont\textsl{expressie}*))
 {
-    case 1:
-    case 2:
-    case 3:  letter = 'a';
-             break;
-    case 4:  letter = 'b';
-             break;
-    default: letter = 'c';
+    case (*\normalfont\textsl{constante-expressie\textsubscript{1}}*):
+    case (*\normalfont\textsl{constante-expressie\textsubscript{2}}*):
+    case (*\normalfont\textsl{constante-expressie\textsubscript{3}}*): (*\normalfont\textsl{statement}\,*)
+                          break;
+    // ...
+    default: (*\normalfont\textsl{statement\textsubscript{d}}*)
              break;
 }
 \end{lstlisting}
 
+Let erop dat fall through met zorg moet worden toegepast. Een \lstc{break} die vergeten wordt, levert automatisch een fall through op.
+
+In listing~\ref{cod:convertprefix} is een compleet programma te zien dat een afstand, opgegeven in millimeter, centimeter of decimeter, wordt omgerekend naar meter. De waarde en de eenheid worden gescheiden door een spatie. We lezen in regel 10 de waarde en de eenheid in. De \textsl{prefix} (\texttt{m}, \texttt{c} of \texttt{d}) van de eenheid komt in de karaktervariabele \lstc{prefix}. We testen deze variabele met behulp van een \lstc{switch}-statement in de regels 15 t/m 26.
+%
+\booklistingfromproject[]{C}{Voorbeeld van het \texttt{switch}-statement}{convertprefix}{c}{!b}
+%
+Bij elke \lstc{case} wordt getest op een mogelijke prefix en wordt de variabele \lstc{prefixvalue} op de juiste waarde gezet voor een latere berekening. Als de prefix een geldige waarde heeft, wordt in regel~35 de geconverteerde waarde afgedrukt.
+
+Een voorbeeld van een fall through is gegeven in listing~\ref{cod:switch2}. Het programma leest een geheel toetscijfer in tussen 0 en 10. Daar wordt met behulp van een \lstc{switch}-statement het ingevoerde cijfer omgezet naar de bijbehorende Amerikaanse toetsletter (A, B, C, D en F).
+
+\begin{lstlisting}[caption=Voorbeeld van het gebruik van het \texttt{switch}-statment met fall through.,label=cod:switch2]
+#include <stdio.h>
+
+int main(void)
+{
+
+    int cijfer;
+    char letter;
+
+    do
+    {
+        printf("Geef je cijfer: ");
+        scanf("%d", &cijfer);
+    }
+    while (cijfer < 0 || cijfer > 10);
+
+    switch (cijfer)
+    {
+        case 10:
+        case 9:
+        case 8: letter = 'A'; break;
+        case 7: letter = 'B'; break;
+        case 6: letter = 'C'; break;
+        case 5: letter = 'D'; break;
+        default: letter = 'F'; break;
+    }
+
+    printf("Dit komt overeen met een %c.\n", letter);
+
+    return 0;
+}
+\end{lstlisting}
+
+In het \texttt{switch}-statement wordt \texttt{cijfer} vergeleken met verschillende waarden. Als \texttt{cijfer} de waarde 8, 9  of 10 heeft, wordt variabele \texttt{letter} op \lstc{'A'} gezet. Het \texttt{break}-statement\indexkeyword{break} in regel~14 zorgt ervoor dat het \texttt{switch}-statement direct wordt verlaten. Als we die zouden weglaten, worden de statements die horen bij de volgende \texttt{case} uitgevoerd, dus wordt \lstc{'B'} aan \lstc{letter} toegekend. In regel~22 worden de statements uitgevoerd als geen van de constante expressies achter de \texttt{case}-statement gelijk is aan \texttt{cijfer}.
+Het \texttt{break}-statement in regel~22 is logisch gezien overbodig, maar het is \textsl{good practice} om deze wel op te nemen. De volgorde van \texttt{case}s en \texttt{default} is namelijk willekeurig, dus na \texttt{default} zou nog een \texttt{case} mogen komen. Het is wederom \textsl{good practice} om alle \texttt{case}s voor de \texttt{default} te plaatsen.
 
 \section{Herhalen met het \texttt{while} statement}
 Een \texttt{while}-statement\indexkeyword{while} wordt gebruikt als een reeks statements 0 of meer keer moet worden uitgevoerd. De opzet van het \texttt{while}-statement is te zien in listing~\ref{cod:beswhile1}. Als \textsl{expressie} waar is (een uitkomst ongelijk aan 0) dan worden de statements binnen de accolades uitgevoerd. Nadat de statements zijn uitgevoerd, wordt weer opnieuw begonnen met het uitrekenen van \textsl{expressie}. Is \textsl{expressie} (weer) waar, dan worden de statements nogmaals uitgevoerd. Is \textsl{expressie} niet waar (de uitkomst is gelijk aan 0) dan wordt gesprongen naar het statement na de accolade-sluiten. Het kan zijn dat \textsl{expressie} bij de allereerste keer niet waar is. Dan worden de statements binnen de \texttt{while} niet uitgevoerd.
