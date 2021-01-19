@@ -219,7 +219,7 @@ niet waar.
 \newpage
 \section{\texttt{for}-lus}
 
-Een \texttt{for}-lus van de gedaante (zonder een \texttt{continue}-statement):
+Een \texttt{for}-lus van de gedaante (zonder \texttt{break}- en \texttt{continue}-statemens):
 \newpage
 \begin{lstlisting}[caption=\texttt{for}-lus in C.]
 for ((*\normalfont\textsl{expressie\textsubscript{1}}*); (*\normalfont\textsl{expressie\textsubscript{2}}*); (*\normalfont\textsl{expressie\textsubscript{3}}*)) {
@@ -272,24 +272,24 @@ Een \texttt{switch}-statement is een meervoudige \texttt{if}-statement met steed
 
 \begin{lstlisting}[caption=switch-statement in C.]
 switch ((*\normalfont\textsl{variabele}*)) {
-    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*); break;
-    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*); break;
+    case (*\normalfont\textsl{constante-expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*); break;
+    case (*\normalfont\textsl{constante-expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*); break;
     ...
-    case (*\normalfont\textsl{expressie\textsubscript{n}}*): (*\normalfont\textsl{statements\textsubscript{n}}*); break;
+    case (*\normalfont\textsl{constante-expressie\textsubscript{n}}*): (*\normalfont\textsl{statements\textsubscript{n}}*); break;
     default : (*\normalfont\textsl{statements\textsubscript{d}}*); break;
 }
 \end{lstlisting}
 
-Merk op dat \textsl{expressie\textsubscript{1}}, \textsl{expressie\textsubscript{2}}, \ldots, \textsl{expressie\textsubscript{n}}
+Merk op dat \textsl{constante-expressie\textsubscript{1}}, \textsl{constante-expressie\textsubscript{2}}, \ldots, \textsl{constante-expressie\textsubscript{n}}
 een constante moeten opleveren. De flowchart is te zien in figuur~\ref{fig:switch}.
 
 \begin{figure}[!ht]
 \centering
 \begin{tikzpicture}
 \node [ghostnode] (start) {};
-\node (dec1) [decision, below =of start] {\textsl{variabele = expressie\textsubscript{1}}};
-\node (dec2) [decision, below =of dec1] {\textsl{variabele = expressie\textsubscript{2}}};
-\node (decn) [decision, below =of dec2] {\textsl{variabele = expressie\textsubscript{n}}};
+\node (dec1) [decision, below =of start] {\textsl{constante-expressie\textsubscript{1}}};
+\node (dec2) [decision, below =of dec1] {\textsl{constante-expressie\textsubscript{2}}};
+\node (decn) [decision, below =of dec2] {\textsl{constante-expressie\textsubscript{n}}};
 \node (prod) [process, below =of decn] {\textsl{statements\textsubscript{d}}};
 \node [ghostnode] (stop) [below =of prod] {};
 \node [ghostnode] (stop2) [below of= stop] {};
@@ -321,13 +321,13 @@ een constante moeten opleveren. De flowchart is te zien in figuur~\ref{fig:switc
 \label{fig:switch}
 \end{figure}
 
-Merk op dat we hier expliciet het \texttt{break}-statement hebben toegevoegd. Zonder dit statement wordt verder gegaan met het testen van de volgende expressie. Zie listing~\ref{cod:floswitchnobreak}.
+Merk op dat we hier expliciet het \texttt{break}-statement hebben toegevoegd. Zonder dit statement wordt verder gegaan met het uitvoeren van het volgende statement. Zie listing~\ref{cod:floswitchnobreak}.
 
 \begin{lstlisting}[caption=switch-statement in C.,label=cod:floswitchnobreak]
 switch ((*\normalfont\textsl{variabele}*)) {
     ...
-    case (*\normalfont\textsl{expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*);
-    case (*\normalfont\textsl{expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*);
+    case (*\normalfont\textsl{constante-expressie\textsubscript{1}}*): (*\normalfont\textsl{statements\textsubscript{1}}*);
+    case (*\normalfont\textsl{constante-expressie\textsubscript{2}}*): (*\normalfont\textsl{statements\textsubscript{2}}*);
     ...
 }
 \end{lstlisting}
@@ -338,20 +338,24 @@ De flowchart is te zien in figuur~\ref{fig:switch2}.
 \centering
 \begin{tikzpicture}
 \node [ghostnode] (start) {};
-\node (dec1) [decision, below =of start] {\textsl{variabele = expressie\textsubscript{1}}};
+\node (dec1) [decision, below =of start] {\textsl{constante-expressie\textsubscript{1}}};
+\node [ghostnode, right= of dec1] (ee) {};
 \node [ghostnode, below =of dec1] (ff) {};
-\node (dec2) [decision, below =of ff] {\textsl{variabele = expressie\textsubscript{2}}};
-\node (pro1) [process, right =of dec1] {\textsl{statements\textsubscript{1}}};
-\node (pro2) [ghostnode, right =of dec2] {};
+\node (dec2) [decision, below =of ff] {\textsl{constante-expressie\textsubscript{2}}};
+\node [ghostnode, right= of dec2] (dd) {};
+\node (pro1) [process, right =of ee] {\textsl{statements\textsubscript{1}}};
+\node (pro2) [process, right =of dd] {\textsl{statements\textsubscript{2}}};
 \node (entrypoint1) [ghostnode, right =of pro1] {};
 \node [ghostnode, below = of dec2] (end) {};
 
 \draw [ghostarrow] (start) -- (dec1);
-\draw [ghostarrow] (dec2) -- (pro2);
+\draw [arrow] (dec2) -- node[anchor=south,pos=0.2] {yes} (pro2);
 \draw [ghostarrow] (dec2) -- (end);
 \draw [arrow] (dec1) -- node[anchor=east] {no} (dec2);
-\draw [arrow] (dec1) -- node[anchor=south] {yes} (pro1);
-\draw [arrow] (pro1) -- (entrypoint1) |- (ff);
+\draw [arrow] (dec1) -- node[anchor=south,pos=0.2] {yes} (pro1);
+%\draw [arrow] (pro1) -- (entrypoint1) |- (ff);
+\draw [arrow] (pro1) -- (entrypoint1) |- (ee |- ff) -- (dd);
+\draw [ghostarrow] (pro2.east) -- ++(1,0);
 \end{tikzpicture}
 \caption{Flowchart van een \texttt{switch}-statement zonder \texttt{break}.}
 \label{fig:switch2}
