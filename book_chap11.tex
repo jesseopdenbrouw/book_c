@@ -2,48 +2,34 @@
 \label{cha:compilatieproces}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen,voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd.
+De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd. We moeten direct opmerken dat de ``compiler'' uit meerdere programma's bestaat. Het is eigenlijk een verzameling van programma's. Dit wordt een \textsl{toolchain}\index{toolchain} of \textsl{compiler suite}\index{compiler suite} genoemd.
 
-In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler. Deze compiler wordt veel gebruikt, met name in de markt van microcontrollers. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux), de ATmega-microcontrollers, de STM32-microcontrollers en de MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
+In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler~\cite{gnugcc}. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux) en een keur aan microcontrollers, zoals de ATmega-, STM32, PIC- en MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
+%%%We laten eerst zien hoe een eenvoudig C-programma (we spreken liever van broncode) wordt vertaald naar een uitvoerbaar bestand. Als een C-programma over meerdere bestanden verdeeld is (dit worden \texts{translation units} genoemd)\index{translation units}, kunnen we de C-compiler gebruiken om \textsl{object-bestanden} aan te maken en deze object-bestanden samen te voegen tot één uitvoerbaar bestand. C kent een aantal voorgeprogrammeerde functies (denk aan \lstc{printf} en \lstc{scanf}) die in bibliotheken zijn opgeslagen. De C-compiler kan deze functies samenvoegen
 
-\section{Een C-programma in één bestand}
-De meeste kleine C-programma's worden in één bestand georganiseerd. We compileren het en daarna kan het op de computer worden uitgevoerd. Maar `onder de motorkap' gebeuren toch nog wel wat dingen. Laten we eens kijken hoe de C-compiler gestart wordt. We geven de opdracht (op de command line):
+De GNU C-compiler wordt gestart met het programma \texttt{gcc}. Het \texttt{gcc}-programma is niet de echte compiler maar een programma dat een vertaler is tussen de gebruiker en andere programma's. Het verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
+%
+Om het type van de bestanden te onderscheiden worden \textsl{extensies}\index{extensies, bestand}\index{bestandsextensies} gebruikt. Het Engelse woord hiervoor is \textsl{suffix}\index{suffix}. De belangrijkste extensies zijn te zien in tabel~\ref{tab:comsuffix}.
 
-\hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
-
-Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
-
-
-\section{Een C-programma in meerdere bestanden}
-Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid}. Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} van onderdelen van het programma. 
-
-Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{translation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
-
-\hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
-
-Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
-Als er in een van de C-bestanden een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
-
-Merk op dat eventuele header-bestanden niet aan de C-compiler opgegeven worden. De header-bestanden worden tijdens compilatie van een C-bestand verwerkt door de preprocessor.
-
-\section{Assembler-bestanden}
-Soms is het nodig om bepaalde code te programmeren in \textit{assembly}\index{assembly}. Assembly is een taal die zeer dicht tegen de gebruikte processor ligt. Te denken valt aan code die niet in C geschreven kan worden, zoals opstartcode van het C-programma.
-
-Een assembler-bestand\index{assembler-bestand} heeft meestal de extensie \texttt{.s}, soms ook wel \texttt{.asm}. We kunnen de C-compiler vragen om een assembler-bestand te compileren:
-
-\hspace*{1em}\texttt{gcc file.s -o programma.exe}
-
-Meestal wordt een assembler-bestand samen met C-bestanden gecompileerd:
-
-\hspace*{1em}\texttt{gcc file1.c file2.c startup.s -o programma.exe}
-
-
-%dan wordt elk van de C-bestanden gecompileerd naar een \textsl{objectbestand}\index{object-bestand} en worden deze objectbestanden uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+\begin{table}[!ht]
+\centering
+\caption{Enkele bestandsextensies in de C-omgeving.}
+\label{tab:comsuffix}
+\begin{tabular}{ll}
+\toprule
+\texttt{.c}   & een C-bestand, dient als invoer voor de preprocessor \\
+\texttt{.i}   & uitvoer van de preprocessor, dient als invoer voor de ``echte'' C-compiler \\
+\texttt{.s}   & een assembler-bestand, dient als invoer voor de assembler \\
+\texttt{.o}   & uitvoer van de C-compiler en assembler, dient als invoer voor de linker \\
+\texttt{.a}   & een bibliotheek (archive), dient als invoer voor de linker \\
+\texttt{.exe} & uitvoer van de linker, uitvoerbaar bestand (Windows)
+\end{tabular}
+\end{table}
 
 
 \section{Stappen in de compilatie}
-De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een schematisch overzicht in figuur~\ref{fig:comschematisch} te zien.
+De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een schematisch overzicht in figuur~\ref{fig:comschematisch} te zien. We geven in deze paragraaf een korte introductie. De stappen worden in detail behandeld in de volgende paragrafen.
 
 \begin{sidewaysfigure}[!p]
 \centering
@@ -95,22 +81,273 @@ De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een 
 \label{fig:comschematisch}
 \end{sidewaysfigure}
 
-Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
+%Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 
-Een C-bestand wordt in drie stappen gecompileerd. Eerst wordt het C-bestand aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer is een een tijdelijk bestand. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Daarna wordt dit tijdelijke bestand aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert een \textsl{assembler-bestand} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert dit bestand en genereert een \textsl{object-bestand}\index{object-bestand}. In het object-bestand zijn de bitpatronen van de instucties opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. Een assembler-bestand wordt direct door de assembler geassembleerd.
+C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer zijn tijdelijk bestanden. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Include-bestanden worden ook door de preprocessor verwerkt. Daarna worden de tijdelijke bestanden aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert \textsl{assembler-bestanden} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert deze bestanden en genereert \textsl{object-bestanden}\index{object-bestand}. In een object-bestand zijn de bitpatronen van de instructies opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} (zie paragraaf~\ref{sec:comlinkage}) naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. %Een assembler-bestand wordt direct door de assembler geassembleerd.
 
 Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
 Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
 
 
+\section{Een C-programma in één bestand}
+De meeste kleine C-programma's worden in één bestand georganiseerd. We compileren het en daarna kan het op de computer worden uitgevoerd. Laten we eens kijken hoe de C-compiler gestart wordt. We geven de opdracht (op de command line):
+
+\begin{lstlisting}[style=lstoneline]
+gcc mooi.c -o mooi.exe
+\end{lstlisting}
+%\hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
+
+Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
+Hoewel het uit dit voorbeeld niet blijkt, worden alle stappen uit figuur~\ref{fig:comschematisch} doorlopen.
+
+
+\section{Een C-programma in meerdere bestanden}
+%Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid} (reusability). Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} (responsibility) van onderdelen van het programma. 
+
+Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid}. Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} van onderdelen van het programma.
+
+Tijdens compilatie moeten alle C-bestanden gecompileerd worden om uiteindelijk een uitvoerbaar bestand te krijgen. Stel dat we ons C-programma verdelen over meerdere bestanden (dit worden \textsl{translation units}\index{translation unit} genoemd). Dan kunnen we de C-compiler aanroepen met:
+
+\begin{lstlisting}[style=lstoneline]
+gcc file1.c file2.c file3.c -o programma.exe
+\end{lstlisting}
+%\hspace*{1em}\texttt{gcc file1.c file2.c file3.c -o programma.exe}
+
+Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
+Als er in een van de C-bestanden een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
+
+Dat is natuurlijk niet handig als een een C-programma verdeeld is over een groot aantal bestanden. Het is daarom mogelijk om een C-bestand te compileren naar een \textsl{object-bestand}\index{object-bestand} en daarna de object-bestanden te linken. We kunnen de compilatie ook realiseren met
+
+\begin{lstlisting}[style=lstoneline]
+gcc -c file1.c -o file1.o
+gcc -c file2.c -o file2.o
+gcc -c file3.c -o file3.o
+gcc file1.o file2.o file3.o -o programma.exe
+\end{lstlisting}
+
+Als nu in een C-bestand een fout zit, moet alleen dat ene C-bestand opnieuw naar een object-bestand worden gecompileerd. Natuurlijk moet het laatste commando uitgevoerd om een uitvoerbaar bestand te krijgen.
+
+
+\section{Bibliotheken}
+Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
+
+
+\section{Linkage}
+\label{sec:comlinkage}
+Het samenvoegen van object-bestanden en bibliotheken wordt gedaan door de \textsl{linker} en het proces wordt \textsl{linkage} genoemd. Tijdens het linken worden onbekende \textsl{referenties} (verwijzingen naar functies of globale variabelen) door de linker ingevuld. Een voorbeeld hiervan is de functie \texttt{printf} die niet door ons is geprogrammeerd maar in een bibliotheek is opgeslagen. Als alle referenties kunnen worden ingevuld, volgt een uitvoerbaar bestand.
+
+Tijdens het linken worden bibliotheken gebruikt om de referenties in te vullen. 
 Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
 
-\hspace*{1em}\texttt{gcc file1.c -l m -o programma.exe}
+\begin{lstlisting}[style=lstoneline]
+gcc file1.c -l m -o programma.exe
+\end{lstlisting}
+%\hspace*{1em}\texttt{gcc file1.c -l m -o programma.exe}
 
 Alleen de \texttt{m} moet worden opgegeven, de rest wordt automatisch door de linker ingevuld. Merk op dat de standard library niet expliciet moet worden opgegeven. De C-compiler regelt dat automatisch.
 
-Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
+
+\section{Assembler-bestanden}
+Soms is het nodig om bepaalde code te programmeren in \textit{assembly}\index{assembly}. Assembly is een taal die zeer dicht tegen de gebruikte processor ligt. Te denken valt aan code die niet in C geschreven kan worden, zoals opstartcode van het C-programma, geoptimaliseerde programmafragmenten en Interrupt Service Routines.
+
+Een assembler-bestand\index{assembler-bestand} heeft meestal de extensie \texttt{.s}, soms ook wel \texttt{.asm}. We kunnen \texttt{gcc} vragen om een assembler-bestand te compileren:
+
+\begin{lstlisting}[style=lstoneline]
+gcc file.s -o programma.exe
+\end{lstlisting}
+%\hspace*{1em}\texttt{gcc file.s -o programma.exe}
+
+Meestal wordt een assembler-bestand samen met C-bestanden gecompileerd:
+
+\begin{lstlisting}[style=lstoneline]
+gcc file1.c file2.c startup.s -o programma.exe
+\end{lstlisting}
+%\hspace*{1em}\texttt{gcc file1.c file2.c startup.s -o programma.exe}
+
+
+\section{Definitie en declaratie}
+\index{definitie}\index{declaratie}
+Er is een verschil tussen definitie en declaratie van variabelen en functies. Grosso mode komt het hier op neer: bij definitie wordt geheugenruimte gereserveerd, bij declaratie niet. Dus
+
+\begin{lstlisting}[style=lstoneline]
+int a;
+\end{lstlisting}
+
+definieert een variabele; de variabele wordt kenbaar gemaakt aan de C-compiler én er wordt geheugenruimte gereserveerd. Maar
+
+\begin{lstlisting}[style=lstoneline]
+extern int a;
+\end{lstlisting}
+
+is een declaratie; de variabele wordt kenbaar gemaakt aan de C-compiler, maar er wordt geen geheugenruimte gereserveerd. Dat wordt op een andere plaats gedaan. De C-compiler heeft echter genoeg informatie om bijvoorbeeld het statement \lstc{a = a + 3} te realiseren, ook al is de exacte geheugenplaats nog niet bekend. Een functie wordt gedefinieerd als er ook geheugen wordt gebruikt; de functie heeft een \textsl{body}\index{body (functie)}. Dus
+
+\begin{lstlisting}[style=lstoneline]
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+\end{lstlisting}
+
+definieert de functie \lstc{max} en maakt deze tevens kenbaar aan de C-compiler. Voor de parameters \lstc{a} en \lstc{b} wordt ook geheugenruimte gerealiseerd want er wordt immers een kopie van de argumenten gemaakt. Een functiedeclaratie\index{functiedeclaratie} heeft geen body. Dus
+
+\begin{lstlisting}[style=lstoneline]
+int max(int a, int b);
+\end{lstlisting}
+
+is een declaratie (ook wel functie-prototype genoemd)\index{functie-prototype}\index{prototype (functie)}. De C-compiler heeft dan genoeg informatie om de aanroep van de functie te realiseren. Natuurlijk moet er ook een functiedefinitie beschikbaar zijn.
+
+Declaraties kunnen ook gebruikt worden bij structures en unions. Zo geeft
+
+\begin{lstlisting}[style=lstoneline]
+struct punt {
+    int x;
+    int y;
+};
+\end{lstlisting}
+
+de declaratie van de \textsl{structure identifier}\index{structure identifier} \lstc{punt}. Maar
+
+\begin{lstlisting}[style=lstoneline]
+struct punt oorsprong;
+\end{lstlisting}
+
+definieert de structure \lstc{oorsprong}, er wordt namelijk geheugen gereserveerd.
+
+Er is één uitzondering:
+
+\begin{lstlisting}[style=lstoneline]
+extern int a = 4;
+\end{lstlisting}
+
+zorgt voor definitie van de variabele \lstc{a} en kent daar direct de waarde 4 aan toe.
+
+
+\section{De qualifiers \texttt{extern} en \texttt{static}}
+Een \textsl{globale} variabele\index{globale variabele} is zichtbaar in het gehele programma en de levensduur is tijdens de gehele executie van het programma. Een groot C-programma is echter verdeeld over meerdere bestanden. We kunnen deze globale variabele zichtbaar maken in meerdere C-bestanden. Hiervoor gebruiken de qualifier \texttt{extern}\indexkeyword{extern}. In één bestand geven we de definitie van de variabele en in de andere bestanden geven we de declaratie van de variabele middels \lstc{extern}. Dit is te zien in listings~\ref{cod:comfile1c} en~\ref{cod:comfile2c}.
+
+\begin{minipage}[c]{0.45\textwidth}
+\begin{lstlisting}[caption=\texttt{file1.c},label=cod:comfile1c]
+int counter;
+
+void func1(void) {
+    counter++;
+}
+\end{lstlisting}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.45\textwidth}
+\begin{lstlisting}[caption=\texttt{file2.c},label=cod:comfile2c]
+extern int counter;
+
+void func2(void) {
+    counter--;
+}
+\end{lstlisting}
+\end{minipage}
+
+In bestand \texttt{file1.c} wordt variabele \texttt{counter} gedefinieerd. Hier wordt ook gelijk geheugenruimte gereserveerd. In bestand \texttt{file2.c} wordt \texttt{counter} gedeclareerd; de variabele wordt kenbaar gemaakt maar er wordt geen geheugenruimte gereserveerd. In beide bestanden is \texttt{counter} beschikbaar. Tijdens het linken wordt de referentie (geheugenadres) naar \texttt{counter} in bestand \texttt{file2.c} ingevuld.
+
+Een functie is per definitie globaal beschikbaar en dus zichtbaar in het gehele programma. We definiëren de functie \texttt{add} in \texttt{file3.c}. Daar wordt ook geheugenruimte gereserveerd. In \texttt{file4.c} volgt een functie-declaratie; de functie wordt kenbaar gemaakt, er wordt geen geheugenruimte gereserveerd maar kan wel aangeroepen worden. Tijdens het linken wordt de referentie naar de functie \texttt{add} in \texttt{file4.c} ingevuld.
+
+\begin{minipage}[c]{0.45\textwidth}
+\begin{lstlisting}[caption=\texttt{file3.c},label=cod:comfile3c]
+int add(int a, int b) {
+    return a + b;
+}
+
+void func2(void) {
+    int a = add(2, 3);
+}
+\end{lstlisting}
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.45\textwidth}
+\begin{lstlisting}[caption=\texttt{file4.c},label=cod:comfile4c]
+int add(int a, int b);
+
+void func4(void) {
+    int a = add(2, 3);
+}
+\end{lstlisting}
+\end{minipage}
+
+Soms is het handig om een globale variabele alleen beschikbaar te stellen in het C-bestand waarin hij gedefinieerd is. We voorzien de variabele dan van de qualifier \lstc{static}\indexkeyword{static}. Daarmee is de variabele afgeschermd van de andere C-bestanden en kan de variabele niet in andere C-bestanden (per ongeluk) worden aangepast. We laten dit zien aan de hand van de implementatie van een \textsl{software stack}, listing~\ref{cod:software_stack}.
+\index{software stack}
+
+\booklistingfromproject[]{C}{Implementatie van een software stack}{software_stack}{c}{!ht}
+
+De stack is opgebouwd rond een \textsl{stack pointer} en de feitelijke stack. De stack wordt gerealiseerd met een array van een bepaalde grootte. De stack pointer houdt bij op welke positie het laatste waarde op de stack beschikbaar is. Twee functies manipuleren de stack: de functie \lstc{push} zet een nieuwe waarde op de stack, de functie \lstc{pop} haalt de laatst ingebrachte waarde van de stack. Beide functie passen de stack pointer aan. Het is mogelijk om teveel waarden op de stack te \textsl{pushen}\index{push, software stack}; dan volgt een \textsl{stack overflow}. Het is ook mogelijk om teveel te \textsl{poppen}\index{pop, software stack}; dan volgt een \textsl{stack underflow}. De functies \lstc{push} en \lstc{pop} zijn zichtbaar in het hele programma, de globale variabelen niet. We plaatsen de code in de listing in een apart C-bestand.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=\texttt{file4.c},label=cod:comstackmain]
+#include <stdio.h>
+
+void push(int val);
+int pop(void);
+
+int main(void) {
+
+	push(5);
+	push(3);
+
+	printf("Pop from stack: %d\n", pop());
+	printf("Pop from stack: %d\n", pop());
+	printf("Pop from stack: %d\n", pop());
+}
+\end{lstlisting}
+\end{figure}
+
+We kunnen de stack nu gebruiken in ons programma. Een voorbeeld is te zien in listing~\ref{cod:comstackmain}. In regels 3 en 4 geven we de declaraties van de functies \lstc{push} en \lstc{pop} zodat de compiler weet hoe de functies aangeroepen moeten worden. In regels 8 en 9 worden twee getallen op de stack geplaatst. In regels 11 en 12 wordt de functie \lstc{pop} gebruikt om een waarde van de stack te halen. De \lstc{pop} in regel 13 (what's in the number) zorgt ervoor dat de stack een underflow krijgt en wordt een foutmelding afgedrukt. Opmerking: elke processor implementeert een \textsl{hardware stack}. Die wordt gebruikt om argumenten over te dragen aan functies. Tevens wordt op de hardware stack het terugkeeradres van de aanroepende functie geplaatst.
+
+Het is ook mogelijk om een functie alleen beschikbaar te stellen in het C-bestand waarin hij gedefinieerd is. We voorzien de functie dan van de qualifier \texttt{static}. Daarmee is de functie afgeschermd van de andere C-bestanden. Een voorbeeld is te zien in listing~\ref{cod:comstaticfunc}.
+
+\begin{lstlisting}[caption=Gebruik van een static globale variabele.,label=cod:comstaticfunc]
+static char *searchtok(char *str, char tok) {
+    // ...
+}
+
+int evaluate(char *str) {
+    
+    char *p;
+    
+    if ((p = seachtok(str, '*')) != NULL) {
+        // ...
+    } else if ((p = seachtok(str, '/')) != NULL) {
+        // ...
+    } else if ((p = seachtok(str, '%')) != NULL) {
+        // ...
+    }
+}
+\end{lstlisting}
+
+De functie \lstc{searchtok} zoekt naar de positie van een karakter in een string. Als het karakter gevonden is, wordt een pointer naar dit karakter teruggegeven. Zo niet, dan wordt een NULL-pointer teruggegeven.  De functie is alleen nodig in het C-bestand waarin hij gedefinieerd is dus wordt \lstc{searchtok} voorzien van de qualifier \lstc{static}. De functie \lstc{evaluate} kan deze functie wel gebruiken want die is hetzelfde bestand gedefinieerd.
+
+De qualifier \lstc{static} heeft nog een andere nuttige functie. Wanneer dit wordt toegepast bij de definitie van een \textsl{lokale variabele} dan blijft de inhoud van deze variabele behouden bij het binnengaan en verlaten van een functie. Een voorbeeld is te zien in listing~\ref{cod:comstaticloc}.
+
+\begin{lstlisting}[caption=Gebruik van een static lokale variabele.,label=cod:comstaticloc]
+int countup(void) {
+
+    static int counter = 0;
+    
+    count++;
+    
+    return count;
+}
+\end{lstlisting}
+
+De lokale variabele \lstc{counter} wordt bij het starten van het programma eenmaal geïnitialiseerd en blijft dan zijn toegekende waarde behouden. In tegenstelling tot een gewone lokale variabele wordt \lstc{counter} dus niet steeds opnieuw aangemaakt en verwijderd bij het binnengaan van en terugkeren uit de functie.
+
+%%%Variabelen worden óf globaal óf lokaal gedefinieerd. Dit heeft consequenties voor de zichtbaarheid (visibility), en levensduur (lifetime) van de variabelen. Een globale variabele is, na definitie, zichtbaar in het hele C-programma en beschikbaar tijdens de gehele executie van het programma.  Een lokale variabele is, na definitie, zichtbaar in de functie waarin hij is gedefinieerd en beschikbaar tot het einde van de executie van de functie. Elke keer dat de functie wordt uitgevoerd, wordt de variabele opnieuw aangemaakt en eventueel geïnitialiseerd. Dit is te zien listing~\ref{cod:comgloballocal1}.
+%%%
+%%%\begin{lstlisting}[caption=Een globale en lokale variabele.,label=cod:comgloballocal1]
+%%%int g;             /* global */
+%%%
+%%%void func(void) {
+%%%    int l;         /* local */
+%%%    
+%%%    return;
+%%%}
+%%%\end{lstlisting}
+
+
 
 
 \section{Bibliotheek maken}
@@ -128,7 +365,17 @@ De bibliotheek is nu te linken met:
 
 \hspace*{1em}\texttt{gcc file.c -l my -o programma.exe}
 
-Er bestaat op veel besturingssystemen zoiets als \textsl{shared libraries}. Dit zijn bibliotheken die eenmalig in het geheugen van de computer worden geladen waarna ze gebruikt kunnen worden door programma's. Pas op het moment dat een programma wordt gestart, worden de referenties naar functies en externe variabelen ingevuld. Dit wordt \textsl{dynamic linking} genoemd. Een voorbeeld zijn \textsl{dynamic link libraries} (DLL) op Windows.
+
+\section{Dynamic en static linking}
+Er bestaat op veel besturingssystemen zoiets als \textsl{dynamic linking}. Bibliotheken worden dan eenmalig in het geheugen van de computer worden geladen waarna ze gebruikt kunnen worden door programma's. Pas op het moment dat een programma wordt gestart, worden de referenties naar functies en externe variabelen ingevuld. Dit wordt gedaan door de \textsl{loader}. Het starten kost dus extra tijd omdat bepaalde referenties nog moeten worden ingevuld. Het voordeel is wel duidelijk: de omvang van uitvoerbare programma's wordt geminimaliseerd en dat zorgt weer voor het sneller laden van een programma. Een ander voordeel is dat een veelgebruikte functie, bijvoorbeeld \lstc{printf}, slechts één keer in het geheugen voorkomt. Voorbeelden zijn \textsl{dynamic link libraries} (bestanden met de extensie \texttt{.dll}) op Windows en \textsl{shared objects} (bestanden met de extensie \texttt{.so}) op Linux. 
+
+Soms is het nodig of wenselijk om object-bestanden uit een bibliotheek op te nemen in het uitvoerbare programma, bijvoorbeeld bij een zeer uitgekleed besturingssysteem dat dynamic linking niet ondersteunt. Dit wordt \textsl{static linking} genoemd. Standaard zullen de meeste C-compilers dynamic linking gebruiken maar static linking is te forceren middels een optie aan de compiler. Zo kunnen we de \texttt{gcc}-compiler aanroepen met
+
+\begin{lstlisting}[style=lstoneline]
+gcc mooi.c -o mooi.exe -static
+\end{lstlisting}
+
+om static linking te forceren. Het uitvoerbare programma wordt wel groter omdat bepaalde functies nu aan het programma worden toegevoegd.
 
 
 \section{Optimalisatie}
@@ -150,11 +397,14 @@ int main(void) {
 }
 \end{lstlisting}
 
-In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een integer voor \texttt{i}. Maar de compiler heeft door dat \texttt{i} gebruikt wordt als lusvariabele. Het is dan beter om deze variabele niet in het geheugen van de computer op te slaan maar vast te houden in een \textsl{register}. Een register is een speciale geheugenplaats in de processor. Alle processoren hebben een aantal van deze registers. Als variabele \texttt{i} nu in een register wordt opgeslagen dan hoeft de processor \texttt{i} niet steeds uit het geheugen te halen. Daardoor wordt de executie van het \texttt{for}-statement sneller. Het gevolg is dat voor variabele \texttt{i} helemaal geen geheugenplaats wordt gereserveerd. We kunnen aan de C-compiler opgeven dat een bepaalde variabele beter in een register kan worden opgeslagen met het keyword \texttt{register}\indexkeyword{register}:
+In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een integer voor \texttt{i}. Maar de compiler heeft door dat \texttt{i} gebruikt wordt als lusvariabele. Het is dan beter om deze variabele niet in het geheugen van de computer op te slaan maar vast te houden in een \textsl{register}. Een register is een speciale geheugenplaats in de processor. Alle processoren hebben een aantal van deze registers. Als variabele \texttt{i} nu in een register wordt opgeslagen dan hoeft de processor \texttt{i} niet steeds uit het geheugen te halen en weer terug te zetten. Daardoor wordt de executie van het \texttt{for}-statement sneller. Het gevolg is dat voor variabele \texttt{i} helemaal geen geheugenplaats wordt gereserveerd. We kunnen aan de C-compiler opgeven dat een bepaalde variabele beter in een register kan worden opgeslagen met het keyword \texttt{register}\indexkeyword{register}:
 
 \hspace*{1em}\texttt{register int i;}
 
 Overigens staat het de compiler vrij om \texttt{register} te negeren. Over het algemeen weet de compiler beter dan de programmeur welke variabelen in registers moeten worden gehouden. Het gebruik van \texttt{register} wordt daarom niet aanbevolen.
+
+Een ander voorbeeld is een \texttt{for}-statement waarin ogenschijnlijk niets gebeurt. Dit is te zien in listing~\ref{cod:comnothing}.
+Dit soort herhalingen worden nog wel eens gebruikt als er in een programma een tijdje moet worden gewacht. Als we naar het \texttt{for}-statement kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen want, zo is de gedachte, er gebeurt toch niets. Willen we ervoor zorgen dat het \texttt{for}-statement toch wordt gebruikt dan kunnen we een variabele voorzien van het keyword \texttt{volatile}\indexkeyword{volatile}:
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comnothing]
@@ -173,15 +423,35 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
-Een ander voorbeeld is een \texttt{for}-statement waarin ogenschijnlijk niets gebeurt. Dit is te zien in listing~\ref{cod:comnothing}.
-Dit soort herhalingen worden nog wel eens gebruikt als er in een programma een tijdje moet worden gewacht. Als we naar het \texttt{for}-statement kijken, gebeurt er eigenlijk niets, behalve dat variabele \texttt{i} wordt opgehoogd. De C-compiler kan nu beslissen om het hele \texttt{for}-statement te verwijderen want, zo is de gedachte, er gebeurt toch niets. Willen we ervoor zorgen dat het \texttt{for}-statement toch wordt gebruikt dan kunnen we een variabele voorzien van het keyword \texttt{volatile}\indexkeyword{volatile}:
-
-%\newpage
-\hspace*{1em}\texttt{volatile int i};
+\begin{lstlisting}[style=lstoneline]
+volatile int i;
+\end{lstlisting}
+%\hspace*{1em}\texttt{volatile int i};
 
 Het keyword \texttt{volatile} betekent zoiets als: gebruik variabele \texttt{i} ook al lijkt er niets zinnigs mee te gebeuren. De C-compiler zal hierdoor over het algemeen wel een geheugenplaats voor \texttt{i} realiseren; \texttt{i} wordt dan niet in een register vastgehouden.
 
-De compiler kent nog vele optimalisatiemogelijkheden. We beschrijven er nog één: loop unrolling. Zie listing~\ref{cod:comloopunroll}.
+De compiler kent nog vele optimalisatiemogelijkheden. Dit moeten aan de C-compiler opgegeven worden middels opties. In tabel~\ref{tab:comoptimalisaties} zijn de \textsl{algemene} opties gegeven.
+
+\begin{table}[!ht]
+\centering
+\caption{Optimalisaties bij de \texttt{gcc}-compiler.}
+\label{tab:comoptimalisaties}
+\begin{tabular}{ll}
+Optie & Betekenis \\
+\midrule
+\texttt{-O0} & geen optimalisaties \\
+\texttt{-O1} & enkele optimalisaties \\
+\texttt{-O2} & nog meer optimalisaties \\
+\texttt{-O3} & heel veel optimalisaties (beïnvloedt de nauwkeurigheid van floating point)\\
+\texttt{-Og} & optimalisatie voor debuggen \\
+\texttt{-Os} & optimalisatie voor de grootte van de executable \\
+\texttt{-Ofast} & optimalisatie voor de snelheid van de executable \\
+\end{tabular}
+\end{table}
+
+Daarnaast zijn er nog specifieke optimalisaties maar die zijn veelal afhankelijk van de gebruikte processor. Alle optimalisaties zijn te vinden in~\cite{gnugcc2}.
+
+Bij \textsl{loop unrolling}\index{loop unrolling} worden de statements in een herhaling omgezet in een aantal sequentiële statements zodat het opzetten van de herhaling vermeden wordt. Zie listing~\ref{cod:comloopunroll}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comloopunroll]
@@ -200,7 +470,31 @@ int main(void) {
 \end{lstlisting}
 \end{figure}
 
-De compiler kan beslissen of het wenselijk is om het \texttt{for}-statement om te zetten naar vier toekenningen. Dat is sneller dan een lus op te zetten. Dus wordt het \texttt{for}-statement omgezet naar:
+Na analyse van het \lstc{for}-statement kan de compiler beslissen of het wenselijk is om het \texttt{for}-statement om te zetten naar vier toekenningen; de compiler is in staat om het \textsl{bereik} (range) van variabele \lstc{i} te bepalen. Dat is sneller dan een lus op te zetten. Dus wordt het \texttt{for}-statement omgezet naar:
 
-\hspace*{1em}\texttt{ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;}
+\begin{lstlisting}[style=lstoneline]
+ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;
+\end{lstlisting}
+%\hspace*{1em}\texttt{ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;}
+
+Een sterk staaltje van loop unrolling \textsl{by hand} (dus door de programmeur geschreven) is \textsl{Duff's Device}~\cite{duffsdevice}, ontwikkeld in~\citeyear{duffsdevice}. Het is een slimme manier om een array van integers zeer snel te kopiëren naar één enkel adres. Dit komt onder andere voor bij microcontrollers.
+
+%%%Sommige functies zijn zeer klein in omvang. Het aanroepen van een functie en het overdragen van argumenten kost dan relatief veel tijd ten opzichte van de executie van de body van de functie. Het kan dan wenselijk zijn om de body van de functie te plaatsen op de aanroep van de functie. Hiermee wordt het aanroepen en overdragen vermeden. Dit kunnen we aan de compiler opgeven middels de qualifier \textsl{inline}\indexkeyword{inline}. De regels voor \lstc{inline} zijn complex, daarom behandelen we één mogelijkheid: static inline.
+%%%
+%%%
+%%%\begin{lstlisting}[style=lstoneline]
+%%%#include <stdio.h>
+%%%
+%%%static inline int max(int a, int b) {
+%%%    return a > b ? a : b;
+%%%}
+%%%
+%%%int main(void) {
+%%%
+%%%    int x = max(3, 5);
+%%%
+%%%    printf("Max is: %d\n", x);
+%%%}
+%%%\end{lstlisting}
+
 
