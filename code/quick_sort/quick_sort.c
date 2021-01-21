@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Function to sort elements */
 int cmpint(const void *a, const void *b) {
 
     /* explicit type cast to pointers to integers */
@@ -19,6 +20,7 @@ int main() {
     qsort(values, 5, sizeof(int), cmpint);
 
     printf("\nDe array na sorteren: \n");
+
     for (int n = 0; n < 5; n++) {
         printf("%d ", values[n]);
     }
