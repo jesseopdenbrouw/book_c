@@ -1106,9 +1106,14 @@ Het gebruik van functie-pointers komt niet zo vaak voor in C-programma's. Het is
 \index{quicksort}
 Quicksort is een sorteeralgoritme ontworpen door C.A.R. Hoare in 1962. Het is een van de efficiëntste sorteeralgoritmes voor algemeen gebruik. De exacte werking zullen we niet behandelen, er zijn genoeg boeken die dit beschrijven. De standard library bevat een implementatie onder de naam \texttt{qsort}. Het prototype van \texttt{qsort} is:
 
+%%%
+%%%\hspace*{1em}\texttt{void qsort(void *base, size\_t nitems, size\_t size,}\\
+%%%\hspace*{1em}\texttt{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  int (*compar)(const void *, const void*));}
 
-\hspace*{1em}\texttt{void qsort(void *base, size\_t nitems, size\_t size,}\\
-\hspace*{1em}\texttt{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  int (*compar)(const void *, const void*));}
+\begin{lstlisting}[style=lstoneline]
+void qsort(void *base, size_t nitems, size_t size,
+                    int (*compar)(const void *, const void*));
+\end{lstlisting}
 
 Hierin is \texttt{base} een pointer naar het eerste element van de array, \texttt{nitems} het aantal elementen in de array en \texttt{size} de grootte (in bytes) van één element. Het type \texttt{size\_t} is in de regel gelijk aan een \texttt{int}. De functie \texttt{compar} behoeft wat speciale aandacht. Dit is een functie (door de programmeur zelf te schrijven) die twee pointers naar twee elementen in de array meekrijgt. De pointers zijn van het type \texttt{void~*} want \texttt{qsort} weet niet op voorhand wat het datatypes van de elementen van de array zijn. De functie \texttt{compar} \textsl{moet} een getal geven kleiner dan 0 als het eerste argument kleiner is dan het tweede element, 0 als de twee elementen gelijk zijn en een getal groter dan 0 als het eerste element groter is dan het tweede element.
 
