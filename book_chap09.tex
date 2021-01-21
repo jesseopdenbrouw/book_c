@@ -8,6 +8,7 @@ In dit hoofdstuk kijken we verder dan het toetsenbord en beeldscherm. We zullen 
 
 Het gebruik van bestanden vergt veel interactie met het besturingssysteem. Dat wordt voor de gebruiker verhuld door het gebruik van een aantal functies. Die maken het mogelijk om in een C-programma eenvoudig met bestanden te werken.
 
+
 \section{Bestandsnamen en het bestandssysteem}
 Als we een bestand willen benaderen dan doen we dat door de \textsl{naam}\index{bestandsnaam} van het bestand te gebruiken. De bestanden zijn hiërarchisch georganiseerd door middel van \textsl{mappen}\index{map, bestand} (Engels: folder)\index{folder, bestand}. Deze term is in gebruik geraakt op het Windows-besturingssysteem. Op Unix-achtige systemen, bijvoorbeeld Linux en OS-X, wordt gesproken van \textsl{directories}\index{directory}. Elk bestand valt onder een map en een map kan ook weer onder een map vallen. Willen we een bestand openen, dan moeten we de naam en eventuele mapnamen gebruiken. Het samenstel van een bestandsnaam en mapnamen wordt een \textsl{padnaam}\index{padnaam} genoemd. Een padnaam kan \textsl{absoluut} of \textsl{relatief} zijn.
 
@@ -55,18 +56,22 @@ Dit is wat tekst.
 C:\Users\Cbook>
 \end{dosbox}
 
-
 Unix-systemen maken geen gebruik van schijfletters. In plaats daarvan kent Unix de \textsl{root directory} die wordt aangegeven met een \textsl{forward slash} (\texttt{/}) aan het begin van een bestandsnaam. Een bestandsnaam heeft dan het uiterlijk van
 
-\hspace*{1em}\texttt{/home/cbook/bestand.txt}
+\begin{lstlisting}[style=lstoneline]
+/home/cbook/bestand.txt
+\end{lstlisting}
 
 De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
+
 
 \section{Uitvoer naar het beeldscherm}
 \label{sec:iouitvoernaarbeeldscherm}
 We hebben de functie \texttt{printf}\indexfunc{printf} al vaak gebruikt in onze voorbeelden. We zullen nu wat dieper ingaan op de aanroep. Er zijn heel veel opties mogelijk, we zullen alleen de meest gebruikte behandelen. De functie wordt aangeroepen met een \textsl{format string}\index{format string} gevolgd door 0 of meer (extra) argumenten. Het prototype is
 
-\hspace*{1em}\texttt{int printf(char *formatstring, arg1, arg2, arg3, ... );}
+\begin{lstlisting}[style=lstoneline]
+int printf(char *formatstring, arg1, arg2, arg3, ... );
+\end{lstlisting}
 
 Technisch gezien is de format string het eerste argument maar we zullen \texttt{arg1} als eerste argument beschouwen. In de format string kunnen we gebruik maken van zogenoemde \textsl{format specifications}\index{format specification} die informatie verschaffen over de argumenten die meegegeven worden. Een lijst van mogelijke format specifications is te zien in tabel~\ref{tab:invprintf}.
 
@@ -109,15 +114,21 @@ Let erop dat \texttt{printf} een complexe, grote functie is en niet geschikt is 
 \indexfunc{scanf}
 De functie \texttt{scanf} is een veelzijdige functie voor het inlezen van variabelen. We zullen wat dieper ingaan op het gebruik hiervan. Een bekend voorbeeld is het inlezen van een decimaal geheel getal met:
 
-\hspace*{1em}\texttt{scanf("\%d", \&getal);}
+\begin{lstlisting}[style=lstoneline]
+scanf("%d", &getal);
+\end{lstlisting}
 
 De format specification \texttt{\%d} vertelt \texttt{scanf} dat een geheel getal moet worden ingelezen. De variabele waarin het getal moet komen te staan, wordt voorzien van de adres-operator \texttt{\&}\indextwo{\&}{adres} zodat \texttt{scanf} de variabele kan vinden. Het is ook mogelijk om meerdere getallen in te lezen:
 
-\hspace*{1em}\texttt{scanf("\%d \%d \%d", \&getala, \&getalb, \&getalc);}
+\begin{lstlisting}[style=lstoneline]
+scanf("%d %d %d", &getala, &getalb, &getalc);
+\end{lstlisting}
 
 Bij het invoeren moeten de getallen gescheiden worden door één of meerdere \textsl{whitespaces}\index{whitespace} (spaties, tabs of newlines (enter-toets)). Het aantal whitespaces maakt dus niet uit; deze worden overgeslagen. De spaties in de format specifications mogen ook weggelaten worden. We kunnen ook andere datatypes inlezen zoals een \texttt{float} of een \texttt{char}:
 
-\hspace*{1em}\texttt{scanf("\%f \%c", \&fl, \&ch);}
+\begin{lstlisting}[style=lstoneline]
+scanf("%f %c", &fl, &ch);
+\end{lstlisting}
 
 In tabel~\ref{tab:invscanf} zijn de meeste format specifications te zien. Als er andere karakters in de format string voorkomen, dan moeten die letterlijk ingevoerd worden, behalve whitespaces want die worden overgeslagen.
 
@@ -147,13 +158,17 @@ De karakters \texttt{d}, \texttt{o}, \texttt{u} en \texttt{x} mogen voorafgegaan
 
 Het inlezen van een string is problematisch. De specification \texttt{\%s} leest een string in tot aan de eerste whitespace, dus ook tot de eerste spatie. Willen we eens string inlezen met spaties dan gebruiken we de specification \texttt{[\textasciicircum\textbackslash n]}. Let erop dat de string waarin de karakters moeten komen groot genoeg is. Functie \texttt{scanf} houdt daar geen rekening mee en een \textsl{buffer overflow}\index{buffer overflow} kan het gevolg zijn. Dit kan worden voorkomen door bij de format specification een maximale lengte op te geven:
 
-\hspace*{1em}\texttt{scanf("\%99s", str);}
+\begin{lstlisting}[style=lstoneline]
+scanf("%99s", str);
+\end{lstlisting}
 
-We kunnen de gebruiker dwingen om bepaalde karakters is te voeren. Stel dat we een datum willen inlezen en de onderdelen van de datum zijn gescheiden door een forward slash. Dat kunnen we doen met:
+We kunnen de gebruiker dwingen om bepaalde karakters is te voeren. Stel dat we een datum willen inlezen en de onderdelen van de datum zijn gescheiden door een forward slash. Dat kunnen we doen met
 
-\hspace*{1em}\texttt{scanf("\%d/\%d/\%d", \&day, \&month, \&year);}
+\begin{lstlisting}[style=lstoneline]
+scanf("%d/%d/%d", &day, &month, &year);
+\end{lstlisting}
 
-Dan moeten de getallen in de invoer ook gescheiden worden door forward slashes.
+en moeten de getallen in de invoer ook gescheiden worden door forward slashes.
 
 De functie \texttt{scanf} geeft als return-waarde het aantal correct ingelezen argumenten terug. Daar kunnen we zinnig gebruik van maken zoals te zien is in paragraaf~\ref{sec:problemenmetscanf}.
 
@@ -161,16 +176,21 @@ De functie \texttt{scanf} kan voor problemen zorgen bij het inlezen van gegevens
 
 %Omdat \texttt{scanf} voor problemen kan zorgen wordt het gebruik ervan afgeraden. Er is een andere functie beschikbaar, \texttt{fgets}, die veel beter gebruikt kan worden. Zie paragraaf~\ref{sec:lezenschrijvenstring}.
 
+
 \section{Bestanden openen voor gebruik}
 \index{openen van een bestand}\index{bestand!openen}
 Zoals al eerder is geschreven, kent C een aantal functies om met bestanden in het bestandssysteem te werken. Voordat we met een bestand kunnen werken moeten we het \textsl{openen}. Openen wil zeggen dat we aan het besturingssysteem melden dat we het bestand willen gebruiken. In C is dat te realiseren met de functie \texttt{fopen}\indexfunc{fopen}. De functie heeft het prototype
 
-\hspace*{1em}\texttt{FILE *fopen(char *filename, char *filemode);}
+\begin{lstlisting}[style=lstoneline]
+FILE *fopen(char *filename, char *filemode);
+\end{lstlisting}
 
 De functie krijgt een bestandsnaam en een open-modus mee en geeft een pointer naar een \textsl{file handle} terug.
 De \texttt{filename}\index{filename}\index{bestandsnaam}\index{naam, bestand} is de naam van het bestand in een string. Een voorbeeld van een \textsl{absolute} bestandsnaam is:
 
-\hspace*{1em}\texttt{C:\textbackslash Users\textbackslash Cbook\textbackslash bestand.txt}
+\begin{lstlisting}[style=lstoneline]
+C:\Users\Cbook\bestand.txt
+\end{lstlisting}
 
 De karakters na de punt worden de \textsl{extensie}\index{bestandsextensie}\index{extensie, bestand} genoemd. C maakt geen onderscheid tussen verschillende extensies. Het is meer voor de gebruiker een indicatie wat voor bestand het betreft. De extensie \texttt{txt} geeft aan dat het (vermoedelijk) om een tekstbestand gaat.
 
@@ -206,7 +226,6 @@ Als return-waarde geeft \texttt{fopen} een pointer naar een \textsl{file handle}
 \end{itemize}
 
 Noot: Windows en Linux heeft de onhebbelijke eigenschap om spaties toe te staan in bestandsnamen. Let daar goed op. Programma's kunnen hierdoor in de war raken omdat spaties ook kunnen worden gezien als scheider tussen karakterreeksen.
-
 
 \begin{infobox}[Microsof doet het anders ...]
 De functie \texttt{fopen} wordt door Microsoft gezien als onveilig. Compilatie met Visual Studio eindigt dan met een foutmelding. In plaats daarvan biedt Visual Studio de functie \texttt{fopen\_s}\indexfunc{fopen\_s}. De argumenten die meegegeven moeten worden zijn anders dan bij \texttt{fopen}. De functie heeft het prototype:
@@ -259,20 +278,22 @@ De functie \texttt{fscanf} werkt hetzelfde als de functie \texttt{scanf} maar oo
 
 
 \section{Standaard invoer en uitvoer}
+\label{sec:stdin}
 Elk uitvoerbaar (C-)programma krijgt per definitie drie geopende bestanden mee:
 \index{stdin}\index{stdout}\index{stderr}
 
 \begin{itemize}
 \item \texttt{stdin}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard invoer}, in de regel het toetsenbord;
 \item \texttt{stdout}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard uitvoer}, in de regel het beeldscherm;
-\item \texttt{stderr}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard foutuitvoer}, in de regel het beeldscherm;
+\item \texttt{stderr}: Dit is een pointer naar het geopende bestand dat gekoppeld is aan de \textsl{standaard foutuitvoer}, in de regel het beeldscherm.
 \end{itemize}
 
 Deze bestanden hoeven niet expliciet geopend te worden; ze bestaan al als een uitvoerbaar (C-)programma wordt gestart. We kunnen de variabelen \texttt{stdin}, \texttt{stdout} en \texttt{stderr} gewoon gebruiken om karakters in te lezen of weg te schrijven. Sterker nog, \texttt{printf} en \texttt{scanf} zijn niets anders dan aanroepen naar de bestandsvarianten:
 
-\hspace*{1em}\texttt{scanf(format, arg1, ...)} $\longrightarrow$ \texttt{fscanf(stdin, format, arg1, ...)}
+\hspace*{1em}\texttt{scanf(format, arg1, ...)} \quad $\longrightarrow$ \quad \texttt{fscanf(stdin, format, arg1, ...)}
 
-\hspace*{1em}\texttt{printf(format, arg1, ...)} $\longrightarrow$ \texttt{fprintf(stdout, format, arg1, ...)}
+\hspace*{1em}\texttt{printf(format, arg1, ...)} \quad $\longrightarrow$ \quad \texttt{fprintf(stdout, format, arg1, ...)}
+
 
 \section{Andere bestandsfuncties}
 \label{sec:anderebestandsfuncties}
@@ -288,7 +309,7 @@ De standard library kent een groot aantal functies met betrekking tot het afhand
 \item \texttt{int getchar(void)}\indexfunc{getchar}: is equivalent aan \texttt{fgetc(stdin)}.
 \item \texttt{int putchar(int ch)}\indexfunc{putchar}: is equivalent aan \texttt{fputc(ch, stdout)}.
 \item \texttt{int fseek(FILE *fp, long offset, int origin)}\indexfunc{fseek}: zet voor het lezen of schrijven de positie binnen een bestand. De \texttt{origin} mag een van de drie waarden hebben: \texttt{SEEK\_SET} (begin van het bestand), \texttt{SEEK\_CUR} (huidige positie binnen het bestand) of \texttt{SEEK\_END} (einde van het bestand). Geeft een getal anders dan 0 terug bij een fout.
-\item \texttt{void rewind(FILE *fp)}\indexfunc{rewind}: equivalent aan \texttt{fseek(fp, 0L, SEEK\_SET)} maar heeft geen return-waarde. Zet de positie op het begin van een bestand.
+\item \texttt{void rewind(FILE *fp)}\indexfunc{rewind}: equivalent aan \texttt{fseek(fp, 0L, SEEK\_SET)} maar heeft geen return-waarde. Zet de positie op het begin van een bestand. Eventuele foutindicatoren worden gewist.
 \end{itemize}
 
 Veel van deze functies krijgen een karakter mee als een \texttt{int}. Deze \texttt{int} wordt voor gebruik eerst nog geconverteerd naar een \texttt{unsigned char}. Diverse functies geven een \texttt{int} terug als karakter. De reden daarvoor is dat de functie ook een \textsl{end-of-file}\index{end of file} (\texttt{EOF})\index{EOF} kunnen teruggeven. De \texttt{EOF}\index{EOF} is meestal gedefinieerd als het getal $-1$.
@@ -298,7 +319,27 @@ Er bestaat ook nog een functie \texttt{gets} die een regel van het toetsenbord i
 
 \section{Lezen uit en schrijven naar een string}
 \label{sec:lezenschrijvenstring}
-Naast de bekende \texttt{printf}- en \texttt{scanf}-functies kent de standard library nog twee andere nuttige functies: \texttt{sscanf} en \texttt{sprintf}. Dit zijn varianten die een string gebruiken als invoer- en uitvoermedium.
+Naast de bekende \texttt{printf}- en \texttt{scanf}-functies kent de standard library nog drie andere nuttige functies: \lstc{sscanf}, \lstc{sprintf} en \lstc{snprintf}. Dit zijn varianten die een string gebruiken als invoer- en uitvoermedium.
+
+De functie \lstc{sscanf} leest, net als \lstc{scanf}, gegevens in, maar nu uit een string. Om deze functie te gebruiken moet een pointer naar een string worden opgegeven. Dus om een integer uit een string in te lezen moeten we het volgende statement gebruiken.
+
+\begin{lstlisting}[style=lstoneline]
+sscanf(string, "%d", &getal);
+\end{lstlisting}
+
+De functie \lstc{sprintf} drukt, net als \lstc{printf}, karakters af, maar de karakters worden nu geplaatst in een string. Om een integer in een string te plaatsen gebruiken we
+
+\begin{lstlisting}[style=lstoneline]
+sprintf(string, "%d", getal);
+\end{lstlisting}
+
+Bij \lstc{sprintf} kan een probleem optreden als de grootte van de string te klein is voor het resultaat. Het aantal te schrijven karakters is dan groter dan de grootte van de string. Dit leidt tot een \textsl{buffer overflow}\index{buffer overflow}. Om ervoor te zorgen dat de string niet overschreven wordt, geven we bij de functie \lstc{snprintf} de lengte van de string op
+
+\begin{lstlisting}[style=lstoneline]
+snprintf(string, sizeof buffer, "%d", getal);
+\end{lstlisting}
+
+Bij deze lengte is het afsluitende nul-karakter\index{nul-karakter} meegenomen.
 
 In listing~\ref{cod:sscanf_sprintf} is een programma te zien dat een datum inleest. De datum moet bestaan uit een dag, een maand en een jaar, allemaal als decimaal getal ingegeven. De onderdelen van een datum mogen gescheiden zijn door spaties, slashes (\texttt{/}) of mintekens (\texttt{-}). In regel 13 lezen we een regel tekst met behulp van \texttt{fgets}. We gebruiken als invoerbestand \texttt{stdin}, een \texttt{FILE}-pointer die gekoppeld is aan het toetsenbord. We geven tevens de grootte van de string mee, zodat er niet teveel karakters worden ingelezen. Daarna wordt met behulp van \texttt{sscanf}-functies getest of aan een van de drie formaten wordt voldaan. Als aan een van de formaten wordt voldaan, dan worden de gegevens een in string geplaatst met behulp van \texttt{sprintf}. Daarna wordt de string met behulp van \texttt{puts} afgedrukt.
 
@@ -310,7 +351,8 @@ Overigens kan het gebruik van \texttt{puts} vermeden worden door \texttt{printf}
 \section{Gebruik van command line argumenten en bestanden}
 We kunnen command line argumenten (zie paragraaf~\ref{sec:argumentenmeegevenaaneencprogramma}) gebruiken om aan het programma bestandsnamen op te geven. Daarmee kunnen we, als voorbeeld, een programma ontwerpen dat een bestand kopieert naar een ander bestand. Het complete programma is te zien in listing~\ref{cod:filecopy}.
 %
-\booklistingfromproject[lineskip=-1.5pt]{C}{Programma voor het kopiëren van een bestand}{filecopy}{c}{!p}
+%% ugly hack with aboveskip and belowskip
+\booklistingfromproject[lineskip=-1.3pt,aboveskip=0pt,belowskip=-10pt]{C}{Programma voor het kopiëren van een bestand}{filecopy}{c}{!p}
 %
 Een groot gedeelte van het programma wordt gebruikt om te testen of de gebruiker wel correcte argumenten heeft meegegeven. Zo moeten er minstens twee (extra) argumenten worden meegegeven: het invoerbestandsnaam en het uitvoerbestandsnaam. De test hiervoor is te zien in regels 16 t/m 19. Als er geen argumenten zijn meegegeven dan sluiten we af met een korte beschrijving van het gebruik van het programma en geven we als return-waarde $-1$ terug.
 
@@ -509,7 +551,8 @@ Er is nog een andere manier om de invoerbuffer te legen. We kunnen de invoerbuff
 
 \hspace*{1em}\texttt{fflush(stdin);}
 
-Als parameter van \texttt{fflush} wordt \texttt{stdin} opgegeven. Dat staat voor \textsl{standard input} en daar wordt in de regel het toetsenbord mee bedoeld\footnote{Op de bekende besturingssystemen is het mogelijk om de inhoud van bestanden door te geven aan de \textsl{standard input}. Het programma krijgt dan data uit een bestand in plaats van het toetsenbord. Dat wordt \textsl{redirection} genoemd. We kunnen dat opgeven met \texttt{<}-teken voor de bestandsnaam. Om het programma \texttt{myprog.exe} gegevens uit een bestand via de standard input in te laten lezen, gebruiken we bijvoorbeeld \texttt{myprog.exe < bestand.txt}.}.
+Als parameter van \texttt{fflush} wordt \texttt{stdin} opgegeven. Dat staat voor \textsl{standard input} en daar wordt in de regel het toetsenbord mee bedoeld (zie~\ref{sec:stdin}).
+%Als parameter van \texttt{fflush} wordt \texttt{stdin} opgegeven. Dat staat voor \textsl{standard input} en daar wordt in de regel het toetsenbord mee bedoeld\footnote{Op de bekende besturingssystemen is het mogelijk om de inhoud van bestanden door te geven aan de \textsl{standard input}. Het programma krijgt dan data uit een bestand in plaats van het toetsenbord. Dat wordt \textsl{redirection} genoemd. We kunnen dat opgeven met \texttt{<}-teken voor de bestandsnaam. Om het programma \texttt{myprog.exe} gegevens uit een bestand via de standard input in te laten lezen, gebruiken we bijvoorbeeld \texttt{myprog.exe < bestand.txt}.}.
 
 \textbf{Deze manier werkt echter niet met alle C-compilers en besturingssystemen}. Dat heeft te maken met de definitie van de functie \texttt{fflush}. De functie \texttt{fflush} is bedoeld om uitvoerbuffers te legen. Als de uitvoer naar het beeldscherm is, wordt de buffer naar het beeldscherm geschreven. Als de uitvoer naar een bestand is, wordt de buffer naar het bestand geschreven. De C-standaard schrijft echter alleen voor dat \textsl{flushen} van een uitvoerbuffer gedefinieerd is, niet van een invoerbuffer. Niet zo gek eigenlijk, want wat wordt er nou bedoeld met flushen van de invoerbuffer. Flushen van het toetsenbord is het nog te begrijpen maar flushen van een invoerbestand niet. Moeten we dan helemaal tot einde van het bestand flushen? Of alleen maar de bijbehorende buffer? Dat levert een onvoorspelbaar programma op want we weten immers niet hoeveel karakters in de buffer staan.
 
