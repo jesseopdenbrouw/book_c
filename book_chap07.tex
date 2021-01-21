@@ -8,12 +8,12 @@ Een structure kan gezien worden als één enkele variabele. Zo mogen we structur
 
 
 \section{Definitie van structures}
-Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We definiëren de structure \texttt{artikel} als volgt (listing~\ref{cod:struct1}).
+Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We declareren de structure \texttt{artikel} als volgt (listing~\ref{cod:struct1}).
 
 % We gebruiken label=cod:struct1 om de standaard label te wijzigen
-\booklistingfromproject[linerange={6-11},label=cod:struct1]{C}{De structure \texttt{artikel}}{struct_artikel}{c}{!ht}
+\booklistingfromproject[linerange={6-11},label=cod:struct1]{C}{Declaratie van de structure \texttt{artikel}}{struct_artikel}{c}{!ht}
 
-De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
+Hierin wordt \texttt{artikel} de \textsl{structure identier}\index{structure identifier} genoemd. De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
 
 We kunnen nu de structure gebruiken in definities door gebruik te maken van
 
@@ -218,7 +218,8 @@ Bij het afdrukken van de waarde van de variabele raadplegen we het type. Met beh
 
 
 \section{Bitvelden}
-Bitvelden maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
+\index{bit fields}
+Bitvelden (bit fields) maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
 
 Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interrupt\_enable}.
 
