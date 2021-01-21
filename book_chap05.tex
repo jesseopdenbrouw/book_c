@@ -4,7 +4,7 @@
 
 Als een programma langer wordt, dan wordt het al snel onoverzichtelijk. Sommige stukken code komen misschien meerdere keren in het programma voor, bijvoorbeeld het inlezen van een positief getal. Dit kopiëren van code zorgt ervoor dat het programma slecht onderhoudbaar wordt. Als er namelijk een wijziging in deze code moet worden doorgevoerd dan moeten ook alle kopieën worden aangepast. Ook zijn delen uit zo'n lang programma niet eenvoudig te gebruiken in een ander programma. De code is slecht herbruikbaar.
 
-We kunnen deze problemen oplossen door het gebruik van \textsl{functies}\index{functie}. Een logisch bij elkaar behorend stuk code wordt dan ergens apart (in een functie) geplaatst. Deze functie kunnen we vervolgens naar believen \textsl{aanroepen} om de code van de functie uit te voeren.
+We kunnen deze problemen oplossen door het gebruik van \textsl{functies}\index{functie}. Een logisch bij elkaar behorend stuk code wordt dan ergens apart (in een functie) geplaatst. Deze functie kunnen we vervolgens naar believen \textsl{aanroepen} om de code van de functie uit te voeren. Een Engelse term van de code van een functie wordt de \textsl{body}\index{body} genoemd.
 
 Een functie kan eenvoudige van aard zijn en slechts een simpel stukje programma bevatten. Maar we kunnen functies ook complexer maken door ze \textsl{argumenten}\index{argument} mee te geven. Daarmee kunnen we de functie voor hetzelfde doeleind gebruiken, maar kan het stukje programma wat meer doen. We kunnen een functie ook informatie laten teruggeven. Op die manier is het mogelijk om een functie te schrijven die gegevens meekrijgt, daar iets mee laten doen en dan een resultaat teruggeeft. Een voorbeeld hiervan is een functie om de sinus van een hoek te laten berekenen.
 
@@ -111,8 +111,8 @@ De uitvoer van het in~\ref{cod:print_rechthoek} gegeven programma is te zien in 
 \booklistingfromproject[]{C}{Een voorbeeld van een functie met twee parameters}{print_rechthoek}{c}{!ht}
 
 De functie is bedoeld voor het tekenen van een rechthoek met een breedte groter dan 2 en kleiner dan 80 en een hoogte van groter dan 2 en kleiner dan 40. 
-De standaardfunctie \texttt{assert}\indextwo{assert}{functie} wordt gebruikt om te controleren of de meegegeven argumenten aan deze voorwaarden voldoen.
-Als de expressie die in de \texttt{assert} wordt gebruikt \texttt{false} oplevert, dan wordt het programma afgebroken en wordt een foutmelding gegeven.
+De standaardfunctie \lstc{assert}\indextwo{assert}{functie} wordt gebruikt om te controleren of de meegegeven argumenten aan deze voorwaarden voldoen.
+Als de expressie die in de \lstc{assert} wordt gebruikt \texttt{false} oplevert, dan wordt het programma afgebroken en wordt een foutmelding gegeven.
 
 Merk op dat de functie \texttt{print\_rechthoek} gebruik maakt van de functie \texttt{print\_lijn} om de boven- en onderkant van de rechthoek te printen.
 De uitvoering van het programma start in \texttt{main}.
@@ -283,7 +283,9 @@ C is een blokgestructureerde taal dat betekent dat we in een \textsl{blok}\index
 
 Als we de lokale variabele \texttt{i} alleen maar binnen het \texttt{for}-statement nodig hebben, kunnen we ook gebruik maken van een zeer locale definitie. Dit is te zien in listing~\ref{cod:funvarbinnenblok2}. Voor en na het \texttt{for}-statement is lokale variabele \texttt{i} niet beschikbaar. De zichtbaarheid van \texttt{i} is beperkt tot het \texttt{for}-statement.
 
-\begin{figure}[H]
+%% Ughh, dirty hack to get next code snippet on the same page...
+\vspace*{-0.25em}
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Variabele binnen een blok.,label=cod:funvarbinnenblok2]
     if (n > 0) {
         // variable i does not exists
@@ -294,14 +296,15 @@ Als we de lokale variabele \texttt{i} alleen maar binnen het \texttt{for}-statem
     }
 \end{lstlisting}
 \end{figure}
+\vspace*{-0.75em}
 
-Lokale variabelen worden aan het begin van het uitvoeren van een functie aangemaakt en aan het einde weer verwijderd. Soms is het nodig om een lokale variabele te gebruiken die niet steeds opnieuw wordt aangemaakt en verwijderd wordt, maar behouden blijft \textsl{over aanroepen heen}. Dat kan door bij de definitie van een lokale variabele de qualifier \texttt{static}\indextwo{static}{qualifier}\indextwo{static}{lokale variabele} te gebruiken. Zo'n lokale variabele wordt bij het starten van het programma geïnitialiseerd, expliciet door een constante expressie of impliciet met 0, en is beschikbaar zolang het programma draait, maar alleen binnen de functie waar de variabele gedefinieerd is.
+Lokale variabelen worden aan het begin van het uitvoeren van een functie aangemaakt en aan het einde weer verwijderd. Soms is het nodig om een lokale variabele te gebruiken die niet steeds opnieuw wordt aangemaakt en verwijderd wordt, maar behouden blijft \textsl{over aanroepen heen}. Dat kan door bij de definitie van een lokale variabele de qualifier \texttt{static}\indexkeyword{static} te gebruiken. Zo'n lokale variabele wordt bij het starten van het programma geïnitialiseerd, expliciet door een constante expressie of impliciet met 0, en is beschikbaar zolang het programma draait, maar alleen binnen de functie waar de variabele gedefinieerd is.
 
 In listing~\ref{cod:static_local} is een functie te zien met een \texttt{static} lokale variabele. De variabele wordt bij het starten van het programma met 0 geïnitialiseerd (dit kunnen we ook achterwege laten).
 %Elke keer dat we de functie aanroepen wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper.
 Elke keer dat we de functie aanroepen, wordt de variabele met 1 verhoogd en wordt het resultaat teruggegeven aan de aanroeper, en wordt de variabele niet verwijderd als we terugkeren naar de aanroeper.
 
-\booklistingfromproject[]{C}{Een functie met een static variabele}{static_local}{c}{!ht}
+\booklistingfromproject[]{C}{Een functie met een static variabele}{static_local}{c}{H}
 
 
 \section{Zichtbaarheid en levensduur van globale variabelen}
@@ -309,7 +312,7 @@ Een globale variabele\index{globale variabele}\index{variabele!globaal} is besch
 
 Lokale variabelen kunnen globale variabele verbergen. In listing~\ref{cod:funzichtglobaal} is een opzet van een C-programma te zien met een definitie van een globale variabele \texttt{i} (regel 1). In de functie \texttt{func1} wordt geen lokale variabele \texttt{i} gedefinieerd en is de globale variabele \texttt{i} zichtbaar. We kunnen in onze statements daar gebruik van maken. In functie \texttt{func2} wordt een lokale variabele \texttt{i} gedefinieerd. Deze definitie zorgt ervoor dat de globale variabele wordt verborgen. Binnen de functie wordt alleen gebruik gemaakt van de lokale variabele \texttt{i}. Er is in C geen mogelijkheid om toch de globale variabele te gebruikten (binnen deze functie natuurlijk).
 
-\begin{figure}[!t]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Zichtbaarheid van globale variabelen.,label=cod:funzichtglobaal]
 int i;
 
@@ -323,18 +326,18 @@ void func2{int a} {
 \end{lstlisting}
 \end{figure}
 
-Als we een globale variabele alleen maar zichtbaar willen maken binnen het C-bestand waarin de variabele wordt gedefinieerd dan moeten we de variabele voorzien van de qualifier \texttt{static}\indextwo{static}{globale variabele}.
+Als we een globale variabele alleen maar zichtbaar willen maken binnen het C-bestand waarin de variabele wordt gedefinieerd dan moeten we de variabele voorzien van de qualifier \texttt{static}\indexkeyword{static}.
 De globale variabele is dan alleen zichtbaar voor de functies binnen het C-bestand. Een C-programma kan namelijk verdeeld worden over meerdere bestanden (ook wel \textsl{translation units} genoemd). Zie hoofdstuk~\ref{cha:compilatieproces}.
 
-
 \begin{infobox}[Call by Value]
-De methode waarop de inhoud van een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
+De methode waarop de inhoud van een variabele wordt doorgegeven als parameters van een functie wordt \textsl{Call by Value}\index{Call by Value} genoemd. Er wordt een kopie gemaakt van de variabele en die komt via de functieaanroep in een parameter terecht. De parameter gedraagt zich als een lokale variabele en kan worden aangepast, maar de originele variabele blijft zijn waarde behouden.
 
 Er is ook nog een andere methode, Call by Reference. Deze methode wordt in hoofdstuk~\ref{cha:pointers} behandeld.
 \end{infobox}
 
+
 \section{Zichtbaarheid en levensduur van functies}
-Elke functie is in principe in het C-programma te gebruiken. Het is niet mogelijk om een functie alleen maar beschikbaar te stellen voor een andere functie. Willen we een functie alleen maar beschikbaar stellen voor het C-bestand waarin de functie is gedefinieerd, dan moeten we de functie voorzien van de qualifier \texttt{static}\indextwo{static}{functie}.% Zie ook hoofdstuk~\ref{cha:compilatieproces}.
+Elke functie is in principe in het C-programma te gebruiken. Het is niet mogelijk om een functie alleen maar beschikbaar te stellen voor een andere functie. Willen we een functie alleen maar beschikbaar stellen voor het C-bestand waarin de functie is gedefinieerd, dan moeten we de functie voorzien van de qualifier \texttt{static}\indexkeyword{static}. Zie ook hoofdstuk~\ref{cha:compilatieproces}.
 
 
 \section{Recursieve functies}
@@ -631,7 +634,7 @@ waarbij geldt dat $a=0$ en $b=2\pi$. Wat we doen is het volgende. De te integrer
 \label{fig:funriemannleftrule}
 \end{figure}
 
-Het programma om de numerieke oplossing te berekenen is te vinden in listing~\ref{cod:riemann_left}. We stellen het aantal stappen (\texttt{n}) in op 1000, $a$ in op 0, $b$ in op $2\pi$ en berekenen de stapgrootte. Daarna lopen we met behulp van een \texttt{for}-statement van 0 tot $n-1$ en berekenen we de oppervlakte van de huidige rechthoek. Tevens tellen we de oppervlakten van de rechthoeken bij elkaar op. Als we $n$ steeds groter maken, benaderen we de exacte uitkomst steeds beter. De uitkomst is overigens $\pi$.
+Het programma om de numerieke oplossing te berekenen is te vinden in listing~\ref{cod:riemann_left}. We stellen het aantal stappen (\texttt{n}) in op 1000, $a$ in op 0, $b$ in op $2\pi$ en berekenen de stapgrootte. Daarna lopen we met behulp van een \texttt{for}-statement van 0 tot $n-1$ en berekenen we de oppervlakte van de huidige rechthoek. Tevens tellen we de oppervlakten van de rechthoeken bij elkaar op. Als we $n$ steeds groter maken, benaderen we de exacte uitkomst steeds beter. De exacte uitkomst is overigens $\pi$.
 
 \booklistingfromproject[]{C}{Programma voor het berekenen van de Riemann-linkersom}{riemann_left}{c}{!ht}
 
@@ -684,4 +687,4 @@ int isupper(int arg) {
 
 In listing~\ref{cod:classificationcharacters} is een programma te zien dat reeks karakters van het toetsenbord inleest, afgesloten met een enter-toets, en deze karakters classificeert.
 
-\booklistingfromproject[]{C}{classificatie van karakters}{classificationcharacters}{c}{!ht}
+\booklistingfromproject[]{C}{Classificatie van karakters}{classificationcharacters}{c}{!ht}
