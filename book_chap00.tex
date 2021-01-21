@@ -24,7 +24,8 @@ en dat een boek over de beginselen van C helemaal niet zo groot hoeft te zijn.
 Dat heeft ook te maken met hoe rijk de taal is. C is gebaseerd op een aantal
 kenmerkende taalconstructies die ook bij vele andere programmeertalen voorkomen.
 Daarom is dit boek bedoeld als inleiding op de programmeertaal C en is niet
-toereikend om alle facetten van de taal te leren. Dat is ook niet de
+toereikend om alle facetten van de taal te leren. Het boek beschrijft ook niet
+een specifieke standaard van de taal. Dat is ook niet de
 bedoeling van dit boek. We laten alleen maar zien wat gebruikelijk is bij
 het ontwikkelen van C-programma's. 
 
@@ -47,13 +48,15 @@ het schrijven van programma's op \textsl{microcontrollers}. Dit zijn kleine
 computersystemen
 zonder besturingssysteem. Op deze systemen is C (en C++) de enige taal die
 gebruikt kan worden. Maar C wordt ook gebruikt op systemen die wel een
-besturingssystemen draaien. Zo worden bij het Windows-besturingssysteem
-zogenoemde \textsl{drivers} in C of C++ geschreven. Andere talen zijn niet
-toepasbaar. Bekend is ook dat het Linux-besturingssysteem grotendeels is
-geschreven in C.
+besturingssysteem draaien. Zo worden bij het Windows-besturingssysteem
+zogenoemde \textsl{drivers} (koppelingen tussen een gebruikersprogramma
+en de hardware) in C of C++ geschreven. Andere talen zijn
+daarvoor niet toepasbaar. Bekend is ook dat het Linux-besturingssysteem
+grotendeels is geschreven in C (en bevat duizenden C-bestanden).
 
+%Merk op dat talen als C\#, Java en Python geen instructies voor de pr
 Dit boek is geschreven voor hbo-studenten Elektrotechniek en Informatica. Zij
-komen van in aanraking met \textsl{microcontrollers} en dan is, zoals eerder al
+komen vaak in aanraking met \textsl{microcontrollers} en dan is, zoals eerder al
 is vermeld, C vaak de enige taal die gebruikt kan worden. Daarnaast vonden we dat
 er eigenlijk geen goede boeken zijn op het gebied van C. We hebben getracht het
 boek kort te houden maar toch voorbeelden te geven die makkelijk gevolgd kunnen
@@ -77,7 +80,9 @@ met behulp van de \textsl{listings}-package~\cite{listingsctan}.
 Voor het
 tekenen van arrays, pointers en flowcharts is \textsl{TikZ/PGF} gebruikt~\cite{tikzctan}.
 Alle figuren zijn door de auteur zelf ontwikkeld, behalve de logo's van Creative
-Commons en De Haagse Hogeschool. Alle programmafragmenten zijn door de auteur ontwikkeld.
+Commons en De Haagse Hogeschool.
+Een aantal programmafragmenten is ontwikkeld door collega Harry Broeders, de overige
+fragmenten zijn door de auteur ontwikkeld.
 
 Natuurlijk zullen docenten ook nu opmerken dat dit boek niet aan al hun
 verwachtingen voldoet. Dat zal altijd wel zo blijven. Daarom is de broncode
@@ -86,7 +91,7 @@ vrijelijk aanpassen, mits wijzigingen gedeeld
 worden. Hiermee wordt dit boek een levend document dat nooit af is.
 De broncode
 van dit boek is beschikbaar op \url{https://github.com/jesseopdenbrouw/book_c}. We doen
-een oproep aan alle lezers om fouten en omissies te melden.
+een klemmend beroep aan alle lezers om fouten en omissies te melden.
 
 \subsubsection*{Leeswijzer}
 Hoofdstuk~\ref{cha:tour} geeft in vogelvlucht enkele belangrijke concepten van  C weer. Er wordt gesproken over wat een computer en een compiler zijn en hoe een uitvoerbaar bestand wordt gegenereerd. We beginnen met het geven van voorbeelden die de lezer in ontwikkelsoftware kan invoeren om zo de uitvoer te bekijken. We beschrijven kort hoe uitvoer naar beeldscherm en invoer van het toetsenbord wordt gerealiseerd. We behandelen het concept van variabelen en datatypes. Verder wordt even stilgestaan bij beslissen en herhalen en functies. In dit hoofdstuk worden geen pointers, structures en bestandsbewerkingen behandeld.
@@ -96,7 +101,7 @@ Hoofdstuk~\ref{cha:vardatexp} gaat dieper in op variabelen, constanten en expres
 Hoofdstuk~\ref{cha:programmabesturing} laat zien hoe de executie van een programma kan worden beïnvloed met beslissingen en herhalingen. We behandelen het gebruik van beslissingen aan de hand van een bepaalde voorwaarde (ook wel conditie genoemd). Een beslissing kan uitgebreid worden met een programmadeel dat uitgevoerd moet worden als een conditie waar of onwaar is. Herhalingen komen zeer vaak voor in een programma. We behandelen drie voorkomende taalconstructies hiervoor.
 
 Hoofdstuk~\ref{cha:flowcharts} is een hoofdstuk over het documenteren van een (deel van een) programma met behulp van flowcharts en ligt in het verlengde van hoofdstuk~\ref{cha:programmabesturing}. De symbolen worden uitgelegd en
-getoond wordt hoe bepaalde taalconstructies op grafische wijze kunnen worden beschreven.
+getoond wordt hoe bepaalde taalconstructies op grafische wijze kunnen worden beschreven. Hoewel het gebruik van flowcharts al vrij oud is, wordt het nog volop gebruikt. Het mooie van deze methode is dat het ook bij andere situaties kan worden gebruikt, zoals het beschrijven van de \textsl{flow} van processen in een organisatie
 
 Hoofdstuk~\ref{cha:functies} beschrijft het gebruik van functies om een programma op te delen in kleine eenheden die uitgevoerd kunnen worden. We laten zien hoe een functie gegevens meekrijgt en hoe gegevens worden teruggegeven. Verder laten we zien hoe functies zichzelf kunnen aanroepen: de recursieve functie. We hebben een paragraaf opgenomen over de \textsl{computational complexity} van een recursieve variant van de reeks van Fibonacci. We behandelen verder het gebruik van lokale en globale variabelen en hoe de zichtbaarheid (scope) geregeld is.
 
@@ -106,22 +111,26 @@ Hoofdstuk~\ref{cha:structures} gaat over structures en unions die handig zijn bi
 
 Hoofdstuk~\ref{cha:pointers} gaat over pointers. Er wordt uitgelegd wat een pointer is en wat de relatie met arrays is. Verder wordt beschreven hoe pointers een rol spelen in het doorgeven van veel informatie aan functies. Pointerstructuren kunnen bijzonder complex zijn en we schuwen dan ook niet om pointers-naar-pointers te behandelen. Het gebruik van command line argumenten wordt uitgelegd zodat een uitvoerbaar programma kan worden gestart met optionele argumenten. We geven een introductie in het gebruik van dynamische geheugenallocatie, noodzakelijk bij self-referential structures. Het gebruik van self-referential structures (voor onder andere \textsl{linked lists}) wordt als verdiepend behandeld, hoewel het geen onderdeel van de taal zelf is.
  
-Hoofdstuk~\ref{cha:io} gaat over invoer en uitvoer. Dit zijn geen onderdelen van de taal zelf maar komt zo vaak voor dat er er flink stuk aan wijden. We kijken wat dieper naar het afdrukken op het scherm en het inlezen van het toetsenbord. Natuurlijk behandelen we ook hoe we informatie in bestanden kunnen bewerken: hoe worden bestanden geopend, geschreven, gelezen en gesloten en waar moeten we op letten als we met bestanden werken.
+Hoofdstuk~\ref{cha:io} gaat over invoer en uitvoer. Dit zijn geen onderdelen van de taal zelf maar komt zo vaak voor dat er er flink stuk aan wijden. We kijken wat dieper naar het afdrukken op het scherm en het inlezen van het toetsenbord. Natuurlijk behandelen we ook hoe we informatie in bestanden kunnen bewerken: hoe worden bestanden geopend, geschreven, gelezen en gesloten en waar moeten we op letten als we met bestanden werken. Diverse  besturingssystemen regelen de naamgeving van bestanden op eigen wijze. We laten zien hoe bestandsnamen op Windows en Linux worden vormgegeven.
 
 Hoofdstuk~\ref{cha:preprocessor} gaat over de preprocessor. De preprocessor is een faciliteit die vóór de ``echte'' C-compiler wordt gebruikt. We laten zien hoe we header-bestanden kunnen inlezen, hoe we macro's kunnen definiëren en hoe we macro's kunnen gebruiken voor conditionele compilatie.
 
-Hoofdstuk~\ref{cha:compilatieproces} gaat over het compilatieproces. We behandelen hoe het proces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren.
+Hoofdstuk~\ref{cha:compilatieproces} gaat over het compilatieproces. We behandelen hoe het proces in elkaar steekt en wat er allemaal bij komt kijken voordat een uitvoerbaar programma is gerealiseerd. We laten zien hoe we een C-programma over meerdere bestanden kunnen verdelen en hoe we een bibliotheek kunnen realiseren. Ook behandelen we in dit hoofdstuk het verschil tussen globale en lokale variabelen en laten zien hoe de zichtbaarheid van globale variabelen en functies kan worden beperkt tot het C-bestand waarin ze zijn gedefinieerd. In dit hoofdstuk wordt ook het verschil tussen definitie en declaratie behandeld.
+ 
+In bijlage~\ref{cha:asciitabel} worden de eerste 128 karakters van de ASCII-code behandeld. Diverse karakters zijn niet afdrukbaar, maar worden gebruikt om besturingscommando's tussen systemen te realiseren. De ASCII-code bevat de in westerse landen gebruikelijke tekens.
 
-In bijlage~\ref{cha:asciitabel} worden de eerste 128 karakters van de ASCII-code behandeld. Diverse karakters zijn niet afdrukbaar, maar worden gebruikt om besturingscommando's tussen systemen te realiseren. In bijlage~\ref{cha:visualstudio} is een korte tutorial beschreven voor het ontwikkelen van C-programma's met Visual Studio. In bijlage~\ref{cha:voorrang} is de complete lijst te zien met voorrangsregels van operatoren in C.
+In bijlage~\ref{cha:visualstudio} is een korte tutorial beschreven voor het ontwikkelen van C-programma's met Visual Studio. Hoewel we ons hier concentreren op Visual Studio, werken alle Integrated Development Environments (IDE) op gelijke wijze.
+
+In bijlage~\ref{cha:voorrang} is de complete lijst te zien met voorrangsregels van operatoren in C. De operatoren zijn in aflopende volgorde van prioriteit gerangschikt.
 
 Een aantal paragrafen is gekenmerkt met een \texttt{*} voor het paragraafnummer. Deze paragrafen bevatten verdiepende stof en kunnen bij een eerste cursus worden overgeslagen.
 
 \subsubsection*{Studiewijzer}
-Om de taal te leren zouden eigenlijk alle hoofdstukken aan bod moeten komen. We hebben er naar gestreefd om alleen de taal te behandelen en geen onnodige informatie te verschaffen. 
+Om de taal goed te doorgronden zouden eigenlijk alle hoofdstukken aan bod moeten komen. Bij een eerste introductie van de taal kunnen hoofdstuk~\ref{cha:flowcharts} en~\ref{cha:compilatieproces} worden overgeslagen.
 
 \subsubsection*{Verantwoording inhoud}
 Dit boek voldoet alleen aan aandachtspunt 4,01 van de basis Basic of Knowledge and Skills (BoKS) Elektrotechniek. De
-BoKS is te vinden via~\cite{hboengineering2016boks}. Eigenlijk vertelt het boek alle kennis die elke beginnende C-programmeur moet weten. Het boek gaat niet in op het gebruik van C in microcontroller-omgevingen, zoals Arduino.
+BoKS is te vinden via~\cite{hboengineering2016boks}. Eigenlijk vertelt het boek alle kennis die elke beginnende C-programmeur moet weten. We hebben er naar gestreefd om alleen de taal te behandelen en geen onnodige informatie te verschaffen. Dat resulteert soms in schijnbaar onzinnige voorbeelden. Dat hebben we expres gedaan om de aandacht te houden bij het besproken onderwerp. Toch geven we hier en daar wat uitgebreide voorbeelden die direct aan een C-compiler kunnen worden gevoerd. Het boek gaat niet in op het gebruik van C in microcontroller-omgevingen, zoals Arduino.
 
 \subsubsection*{Gebruik van Engelse woorden}
 Het boek is doorspekt met Engelse woorden. Dat heeft te maken met het gangbare gebruik van deze woorden. Zo spreken we in dit boek over pointers in plaats van het Nederlandse woord wijzers. Aan de andere kant gebruiken we het woord lus bij herhalingen en niet van het Engelse woord loop. Het een en ander komt ook voort uit de persoonlijke voorkeur van de auteur.
@@ -133,8 +142,9 @@ Op de website \url{http://ds.opdenbrouw.nl} zijn slides, practicumopdrachten en 
 Dit boek is opgemaakt op A4 met fontgrootte 12 pt. Het boek kan dus gewoon via een printer worden afgedrukt. Het boek kan ook worden afgedrukt op twee pagina's per bladzijde. De fontgrootte is dan 8,5 pt. Een andere optie is het boek af te drukken op 17x24 cm (academisch formaat). Vele online-printbedrijven ondersteunen dit formaat. De fontgrootte is dan 10 pt.
 
 \subsubsection*{Dankbetuigingen}
-Dit boek had niet tot stand kunnen komen zonder hulp van een aantal mensen. Ik wil collega Harry Broeders van Hogeschool Rotterdam bedanken voor zijn onuitputtelijke stroom van correcties en opmerkingen. Collega Kees de Joode wordt bedankt voor zijn bijdrage aan de wiskundige functies die in dit boek beschreven zijn. Jon van den Helder, Gerard Tuk en Jos Knol worden bedankt voor enkele rake opmerkingen en verbeteringen. René Terhorst wordt bedankt voor informatie over de verschillende C-standaarden. Verder wil ik Piet op den Brouw (mijn vader, een die-hard C programmeur) bedanken voor het opsporen van fouten en het geven van suggesties.
-De ASCII-tabel op pagina~\pageref{tab:talascii-code} is ontwikkeld door Victor Eijkhout. Deze tabel kan gevonden worden op \url{http://www.ctan.org/tex-archive/info/ascii-chart}.
+Dit boek had niet tot stand kunnen komen zonder hulp van een aantal mensen. Ik wil collega Harry Broeders van Hogeschool Rotterdam bedanken voor zijn onuitputtelijke stroom van correcties en opmerkingen. Daarnaast zijn enkele programmavoorbeelden van hem gebruikt en is hoofdstuk~\ref{cha:functies} gebaseerd op een schrijven van zijn hand. Collega Kees de Joode wordt bedankt voor zijn bijdrage aan de wiskundige functies die in dit boek beschreven zijn. Jon van den Helder, Gerard Tuk en Jos Knol worden bedankt voor enkele rake opmerkingen en verbeteringen. René Terhorst wordt bedankt voor informatie over de verschillende C-standaarden. Verder wil ik Piet op den Brouw (mijn vader, een die-hard C programmeur) bedanken voor het opsporen van fouten en het geven van suggesties.
+
+De ASCII-tabel op pagina~\pageref{tab:talascii-code} is ontwikkeld door Victor Eijkhout en is met zijn toestemming gebruikt. De tabel kan gevonden worden op \url{http://www.ctan.org/tex-archive/info/ascii-chart}.
 
 
 \bigskip
