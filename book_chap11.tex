@@ -10,7 +10,7 @@ In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. H
 
 De GNU C-compiler wordt gestart met het programma \texttt{gcc}. Het \texttt{gcc}-programma is niet de echte compiler maar een programma dat een vertaler is tussen de gebruiker en andere programma's. Het verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 %
-Om het type van de bestanden te onderscheiden worden \textsl{extensies}\index{extensies, bestand}\index{bestandsextensies} gebruikt. Het Engelse woord hiervoor is \textsl{suffix}\index{suffix}. De belangrijkste extensies zijn te zien in tabel~\ref{tab:comsuffix}.
+Om het type van de bestanden te onderscheiden worden \textsl{extensies}\index{extensie, bestand}\index{bestandsextensies} gebruikt. Het Engelse woord hiervoor is \textsl{suffix}\index{suffix}. De belangrijkste extensies zijn te zien in tabel~\ref{tab:comsuffix}.
 
 \begin{table}[!ht]
 \centering
@@ -430,7 +430,7 @@ volatile int i;
 
 Het keyword \texttt{volatile} betekent zoiets als: gebruik variabele \texttt{i} ook al lijkt er niets zinnigs mee te gebeuren. De C-compiler zal hierdoor over het algemeen wel een geheugenplaats voor \texttt{i} realiseren; \texttt{i} wordt dan niet in een register vastgehouden.
 
-De compiler kent nog vele optimalisatiemogelijkheden. Dit moeten aan de C-compiler opgegeven worden middels opties. In tabel~\ref{tab:comoptimalisaties} zijn de \textsl{algemene} opties gegeven.
+De \texttt{gcc}-compiler kent nog vele optimalisatiemogelijkheden. Dit moeten aan de C-compiler opgegeven worden middels opties. In tabel~\ref{tab:comoptimalisaties} zijn de \textsl{algemene} opties gegeven.
 
 \begin{table}[!ht]
 \centering
