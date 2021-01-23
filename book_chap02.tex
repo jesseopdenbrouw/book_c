@@ -84,14 +84,35 @@ Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in 
                                       & 32                      & $-2147483648$ --- $+2147483647$ \\
 \multirow{2}{*}{\texttt{long int}}    & 32                      & $-2147483648$ --- $+2147483647$ \\
                                       & 64                      & $-9223372036854775808$ --- $+9223372036854775807$  \\
-%\texttt{long int}                     & 32                      & $-2147483648$ --- $+2147483647$  \\
 \texttt{long long int}                & 64                      & $-9223372036854775808$ --- $+9223372036854775807$  \\
    \bottomrule
 \end{tabular}
 \end{table}
 
 \indexkeyword{int}\indexkeyword{char}\indexkeyword{short}\indexkeyword{long}\indexkeyword{long long}
-Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat een \texttt{char} een signed datatype is. Dat is echter niet zo. Een \texttt{char} kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler \textsl{en} instellingen van de compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code (zie bijlage~\ref{cha:asciitabel}). Om het karakter `A' op te slaan schrijven we:
+
+Naast de signed datatypes kent C ook een aantal \textsl{unsigned}\index{unsigned} datatypes (unsigned = zonder teken).
+We kunnen deze datatypes gebruiken middels de \textsl{qualifier}\index{qualifier} \lstc{unsigned}. De bereiken van deze datatypes zijn te zien in tabel~\ref{tab:varintdatatypesunsiged} waarbij we opmerken dat het kleinste getal altijd~0 is.
+
+\begin{table}[!ht]
+\centering
+\caption{De unsigned dataypes die beschikbaar zijn in C.}
+\label{tab:varintdatatypesunsiged}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+\textbf{type}                               & \textbf{bits} & \textbf{bereik}  \\ \midrule
+\texttt{unsigned char}                      & 8             & $0$ --- $255$  \\
+\texttt{unsigned short int}                 & 16            & $0$ --- $65535$ \\
+\multirow{2}{*}{\texttt{unsigned int}}      & 16            & $0$ --- $65535$ \\
+                                            & 32            & $0$ --- $4294967295$ \\
+\multirow{2}{*}{\texttt{unsigned long int}} & 32            & $0$ --- $4294967295$ \\
+                                            & 64            & $0$ --- $18446744073709551615$  \\
+\texttt{unsigned long long int}             & 64            & $0$ --- $18446744073709551615$  \\
+   \bottomrule
+\end{tabular}
+\end{table}
+
+Een \texttt{char}\footnote{We gaan hier er stilzwijgend vanuit dat integers signed datatypes zijn. Dat is echter niet zo. Een inetger kan ook unsigned zijn. Dit is afhankelijk van de gebruikte compiler \textsl{en} instellingen van de compiler. Het is echter wel mogelijk om tijdens compilatie de \textsl{signedness} in te stellen.} wordt gebruikt om een karakter op te slaan en is 8 bits groot. De interpretatie van het opgeslagen karakter is afhankelijk van de computer waarop het programma draait. Merk op dat een \texttt{char} zowel negatieve als positieve waarden kan bevatten. De meest gebruikte codering is de ASCII-code (zie bijlage~\ref{cha:asciitabel}). Om het karakter `A' op te slaan schrijven we:
 
 \hspace*{1em}\texttt{char karak;}\\
 \hspace*{1em}\texttt{karak = \textquotesingle A\textquotesingle; \ \ \ /* assign character A */}
@@ -137,8 +158,11 @@ Een \texttt{float}\indexkeyword{float} is een datatype met een grootte van 32 bi
 
 Voorbeelden van floating point variabelen:
 
-\hspace*{1em}\texttt{float f;}\\
-\hspace*{1em}\texttt{double d;}
+\begin{lstlisting}[style=lstoneline]
+float f;
+double d;
+long double ld;
+\end{lstlisting}
 
 Met betrekking tot de nauwkeurigheid kunnen we nog het volgende vermelden. Een \texttt{float} heeft een nauwkeurigheid van ongeveer 6 decimale cijfers. Het heeft dus geen zin om meer cijfers toe te voegen, de extra cijfers worden genegeerd. Een \texttt{double} heeft een nauwkeurigheid van ongeveer 16 decimale cijfers. Niet alle getallen kunnen exact in een floating point-variabele worden opgeslagen. Zo is 1/7 niet exact te representeren. Bij veelvuldig rekenen met floating point-variabelen treedt er verlies op in de representatie. Als we bijvoorbeeld 1/3 met 3 vermenigvuldigen, kan het zijn dat het resultaat 0,99999 is en niet 1,0. De floating-point weergave maakt het mogelijk om een breed dynamisch bereik van waarden te bestrijken met een constant aantal significante cijfers.
 
@@ -153,7 +177,6 @@ Een veel gebruikt datatype is de \textsl{pointer}\index{pointer}. Een pointer is
 \index{constante}
 Een gehele constante zoals \texttt{123} is van het type \texttt{int}. Door er een \texttt{L} of \texttt{l} achter te zetten wordt de constante een \texttt{long}. Dus \texttt{123L} is een \texttt{long}. Als een constante te groot is voor een \texttt{int} wordt het automatisch gezien als een \texttt{long}. Een unsigned constante wordt aangegeven met een \texttt{U} of \texttt{u} aan het einde. Dat mag in combinatie met de \texttt{L}. Om een constante als long long aan te duiden wordt de constante gevolgd door \texttt{LL} of \texttt{ll} eventueel vooraf gegaan door een \texttt{U} of \texttt{u} om de constante als unsigned te typeren.
 
-
 Een floating point-constante bestaat uit cijfers en een punt. Dus \texttt{1.23} is een floating point-constante. Om 10-machten aan te geven wordt de $E$-notatie gebruikt. Zo staat \texttt{125.0E-3} voor $0,125$. Een floating point-constante is automatisch van het type \texttt{double}, tenzij er een \texttt{F} of \texttt{f} aan het einde staat, dan is de constante van het type \texttt{float}.
 
 Gehele constanten kunnen als getal op drie manieren worden ingevoerd: als decimaal getal, als octaal getal of als hexadecimaal getal. Een constante die begint met \texttt{0} wordt gezien als octaal getal. Een octaal getal bestaat alleen uit de cijfers 0 t/m 7. Een constante die begin met de \textsl{prefix}\index{prefix} \texttt{0x} of \texttt{0X} wordt gezien als een hexadecimaal getal. Een constante die begint met de cijfers \texttt{1} t/m \texttt{9} wordt gezien als een decimaal getal.
@@ -167,7 +190,7 @@ De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers
 Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofes. Zo is \texttt{\textquotesingle A\textquotesingle} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{\textquotesingle A\textquotesingle} overeen met de waarde 65.
 De standaard ASCII-tabel is te vinden in bijlage~\ref{cha:asciitabel}.
 
-Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \texttt{\textquotesingle} zelf. Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\texttt{\textbackslash}) en een karakter. We kunnen de apostrofe dus invoeren als \texttt{\textquotesingle\textbackslash\textquotesingle\textquotesingle}.
+Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \lstc{'} zelf (apostrofe of \textsl{quote} genoemd). Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\lstinline[style=lstoneline]|\|) en een karakter. We kunnen de apostrofe dus invoeren als \lstinline[style=lstoneline]|\'|. Om de backslash zelf in te voeren gebruiken we \lstinline[style=lstoneline]|\\|.
 
 De C-standaard kent een hele verzameling van dit soort escape sequences. Eén daarvan hebben we al meerdere malen gezien: de newline. Deze wordt aangegeven met \texttt{\textquotesingle\textbackslash n\textquotesingle}. Een aantal escape sequences is vermeld in tabel~\ref{tab:varescseq}.
 
@@ -268,8 +291,8 @@ is een expressie die 4 oplevert als de waarde van \texttt{a} 4 is, alhoewel er m
 
 \hspace*{1em}\texttt{a = b == c; \ \ \  /* note the == */}
 
-Als \texttt{b} gelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan 1. Als \texttt{b} ongelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan~0. We zullen het vergelijken van variabelen en constanten nader bekijken in hoofdstuk~\ref{cha:programmabesturing}.
-
+Als \texttt{b} gelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan 1. Als \texttt{b} ongelijk is aan \texttt{c} dan wordt \texttt{a} gelijk aan~0. We zullen het vergelijken van variabelen en constanten nader behandelen in hoofdstuk~\ref{cha:programmabesturing}.
+%
 Een expressie mag willekeurig complex zijn, maar let op de voorrangsregels: vermenigvuldigen en delen gaan voor op optellen en aftrekken. Haakjes worden gebruikt om de prioriteiten te veranderen:
 
 \hspace*{1em}\texttt{a = (2+b)*5+c;}
@@ -321,15 +344,14 @@ int main(void) {
 \end{figure}
 %
 De uitvoer van het programma is te zien in figuur~\ref{fig:vardivproblem}.
-%
+Als het resultaat van de deling een positief getal oplevert, wordt het resultaat naar beneden (naar de 0 toe) afgerond. Is het resultaat negatief, dan wordt het resultaat naar boven afgerond (ook naar de 0 toe).
+
 \begin{dosbox}[title=Uitvoer van het deelprogramma.,label=fig:vardivproblem]
  7/ 3 =  2
  7/-3 = -2
 -7/ 3 = -2
 -7/-3 =  2
 \end{dosbox}
-%
-Als het resultaat van de deling een positief getal oplevert, wordt het resultaat naar beneden (naar de 0 toe) afgerond. Is het resultaat negatief, dan wordt het resultaat naar boven afgerond (ook naar de 0 toe).
 
 \subsection{Relationele operatoren}
 De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
@@ -340,33 +362,56 @@ De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 Hierin zijn \texttt{==} gelijk aan (let op de dubbele \texttt{=}) en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op.
 De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
 int main(void)
 {
     int a, b;
     
-    printf("Geef getal a: ");
-    scanf("%d", &a);
-    printf("Geef getal b: ");
-    scanf("%d", &b);
+    printf("Geef twee gehele getallen a en b: ");
+    scanf("%d %d", &a, &b);
 
     if (a < b)
     {
         printf("a is kleiner dan b\n");
     }
-    else if (a == b)
-    {
-        printf("a is gelijk aan b\n");
-    }
     else
     {
-        printf("a is groter dan b\n");
+        printf("a is groter dan of gelijk aan b\n")
     }
+    
     return 0;
 }
 \end{lstlisting}
 \end{figure}
+
+%%%\begin{figure}[!ht]
+%%%\begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
+%%%int main(void)
+%%%{
+%%%    int a, b;
+%%%    
+%%%    printf("Geef getal a: ");
+%%%    scanf("%d", &a);
+%%%    printf("Geef getal b: ");
+%%%    scanf("%d", &b);
+%%%
+%%%    if (a < b)
+%%%    {
+%%%        printf("a is kleiner dan b\n");
+%%%    }
+%%%    else if (a == b)
+%%%    {
+%%%        printf("a is gelijk aan b\n");
+%%%    }
+%%%    else
+%%%    {
+%%%        printf("a is groter dan b\n");
+%%%    }
+%%%    return 0;
+%%%}
+%%%\end{lstlisting}
+%%%\end{figure}
 
 \subsection{Logische operatoren}
 \index{logische operatoren}
@@ -382,7 +427,15 @@ wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een `0' of een `1' is, anders 
 
 \hspace*{1em}\texttt{i==5 \&\& j>3}
 
-wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd.
+wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd. Dit zorgt ervoor dat
+
+\begin{lstlisting}[style=lstoneline]
+if (b != 0 && a/b > 5) {
+   ...
+}
+\end{lstlisting}
+
+geen foutmelding oplevert als \lstc{b} gelijk aan 0 is.
 
 De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
 
@@ -390,14 +443,12 @@ De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
 int main(void)
 {
-    int a, valid;
+    int a;
     
     printf("Geef een getal tussen 5 en 10: ");
     scanf("%d", &a);
     
-    valid = a<5 || a>10;
-
-    if (!valid)   /* if valid is 0 */
+    if ( !(a<5 || a>10) )
     {
         /* do something ... */
     }
@@ -407,11 +458,11 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 
-Overigens kan in dit voorbeeld het gebruik van de variabele \texttt{valid} vermeden worden door gebruik te maken van
-
-\begin{lstlisting}[style=lstoneline]
-if (!(a<5 || a>10)) { ... }
-\end{lstlisting}
+%%%Overigens kan in dit voorbeeld het gebruik van de variabele \texttt{valid} vermeden worden door gebruik te maken van
+%%%
+%%%\begin{lstlisting}[style=lstoneline]
+%%%if (!(a<5 || a>10)) { ... }
+%%%\end{lstlisting}
 
 Met al deze operatoren kunnen we willekeurig complexe expressies realiseren. Om bijvoorbeeld te bepalen of een jaartal een schrikkeljaar\index{schrikkeljaar} (Engels: leap year)\index{leap year} is, gebruiken we de volgende expressie:
 
@@ -863,13 +914,6 @@ Hier gebeuren eigenlijk drie dingen. Eerst wordt de \textsl{functie} \texttt{get
 
 Uit deze tabel zijn de operatoren voor arrays (\texttt{[]}), pointers (\texttt{*} en \texttt{\&}) en structures (\texttt{->} en~\texttt{.}) weggelaten. Deze operatoren worden behandeld in volgende hoofdstukken.
 
-Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het voor de beginnende programmeur minder goed leesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan.
-Donald Knuth schreef al eens~\cite{knuth1974}:
-
-\begin{displayquote}
-Premature optimization is the root of all evil.
-\end{displayquote}
-De lezer is gewaarschuwd.
 
 \section{Volgorde van uit\textsl{}rekenen van expressies}
 De volgorde van het uitrekenen van expressies ligt niet vast, behalve bij de operatoren \texttt{\&\&}, \texttt{||}, \texttt{?:} en \texttt{,}. Dit heeft voornamelijk consequenties bij het gebruik van argumenten in functies, zoals te zien is in de onderstaande functie-aanroep:
@@ -885,3 +929,12 @@ int i = ++n;
 int j = --n;
 printf("%d %d\n", i, j);
 \end{lstlisting}
+
+%%%%Veel van deze operatoren volgen uit de noodzaak (of is het drang) om programma's compact te schrijven. Doorgewinterde programmeurs kunnen op deze manier vlot, zij het voor de beginnende programmeur minder goed leesbare, code produceren. Een eerste gedachte is dat zulke constructies bijdragen aan compacte uitvoerbare bestanden. Maar de huidige generatie compilers is zeer goed in het herkennen van de taal en genereren al bijna-minimale uitvoerbare bestanden. Het is beter om eerst een leesbaar programma te schrijven dat correct werkt en daarna gaan nadenken of het slimmer kan.
+%%%%Donald Knuth schreef al eens~\cite{knuth1974}:
+%%%%
+%%%%\begin{displayquote}
+%%%%Premature optimization is the root of all evil.
+%%%%\end{displayquote}
+%%%%De lezer is gewaarschuwd.
+%%%%
