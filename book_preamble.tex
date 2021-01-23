@@ -257,8 +257,8 @@
 \titleformat{\section}{\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0\else\fontfamily{phv}\selectfont\fi\large\bfseries}{\secmark\thesection}{1em}{}
 \titleformat{\subsection}{\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0\else\fontfamily{phv}\selectfont\fi\bfseries}{\secmark\thesubsection}{1em}{}
 \titlespacing*{\section}{0pt}{\baselineskip}{0.4\aftersubsection}
-\titlespacing*{\subsection}{0pt}{.8\baselineskip}{0.0\aftersubsection}
-\titlespacing*{\subsubsection}{0pt}{.6\baselineskip}{0pt}
+%\titlespacing*{\subsection}{0pt}{.8\baselineskip}{0.0\aftersubsection}
+%\titlespacing*{\subsubsection}{0pt}{.6\baselineskip}{0pt}
 \titlespacing*{\paragraph}{0pt}{1.0ex plus 1ex minus .2ex}{1.5em}
 \newlength{\aftersubtitle}
 \setlength{\aftersubtitle}{1.2\baselineskip}
@@ -266,7 +266,7 @@
 \setlength{\aftersubsection}{\aftersubtitle}
 \addtolength{\aftersubsection}{-\baselineskip}
 \titlespacing*{\subsection}{0pt}{.8\baselineskip}{\aftersubsection}
-\titlespacing*{\subsubsection}{0pt}{.6\baselineskip}{0pt}
+\titlespacing*{\subsubsection}{0pt}{.4\baselineskip}{0pt}
 %% Remove page number on first page of ToC
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{fancy}}}
 %% Make space for page number in TOC wider
@@ -470,7 +470,7 @@
     pdftitle={\booktitleI\ \booktitleII, \booksubtitle},
     pdfauthor={\bookauthor},
     %pdfsubject={Beginselen van de digitale techniek},
-    pdfsubject={},
+    pdfsubject={versie \bookversion},
     pdfkeywords={\bookkeywords},
 	pdfdisplaydoctitle=true,
 	pdfpagelayout=TwoPageRight
