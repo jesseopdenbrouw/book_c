@@ -52,17 +52,18 @@ Om de inhoud van het bestand \texttt{bestand.txt} op het scherm af te drukken, g
 \begin{dosbox}[title=Afdrukken van een bestand.,label=fig:invdosbox3]
 C:\Users\Cbook>(*\textbf{type bestand.txt}*)
 Dit is wat tekst.
-
 C:\Users\Cbook>
 \end{dosbox}
 
+Let op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam  \textsl{in een string} op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
+ 
 Unix-systemen maken geen gebruik van schijfletters. In plaats daarvan kent Unix de \textsl{root directory} die wordt aangegeven met een \textsl{forward slash} (\texttt{/}) aan het begin van een bestandsnaam. Een bestandsnaam heeft dan het uiterlijk van
 
 \begin{lstlisting}[style=lstoneline]
 /home/cbook/bestand.txt
 \end{lstlisting}
 
-De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen. Let wel op het volgende: onder Windows worden mappen en bestanden gescheiden door de backslash, maar dat is C het begin van een \textsl{escape sequence}\index{escape sequence}. Om een padnaam op te geven moeten we een \textsl{dubbele backslash} (\texttt{\textbackslash\textbackslash}) gebruiken. We komen hier in dit hoofdstuk nog op terug.
+De mappen worden dus gescheiden door de \textsl{forward slash} en de eerste forward slash stelt de root directory voor. Dit geeft problemen als we een C-programma willen schrijven dat op beide besturingssystemen moet draaien. Gelukkig kunnen de bestandsfuncties \textsl{meestal} overweg met beide naamgevingen.
 
 
 \section{Uitvoer naar het beeldscherm}
