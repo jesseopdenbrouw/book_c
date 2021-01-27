@@ -4,7 +4,7 @@
 
 De C-compiler is uitgerust met een \textsl{preprocessor}\index{preprocessor}. Dit kan een apart programma zijn dat door de C-compiler zelf gestart wordt, of het kan ingebed zijn in de C-compiler.
 
-De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Tegenwoordig wordt dit ook wel een hashtag genoemd.} (\texttt{\#}). Dit worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
+De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Tegenwoordig wordt dit ook wel een hashtag genoemd.} (\texttt{\#}). Die worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
 
 \section{Invoegen van bestanden}
 \index{include@{\texttt{\#include}}, preprocessor directive}
@@ -25,7 +25,7 @@ Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include direct
 
 De extensie \texttt{.h} geeft aan dat het om een header-bestand gaat. Dit is niet verplicht maar wel \textsl{good practice}. Het is \textsl{niet} de bedoeling om andere C-bestanden via de include directive in te lezen. Dat kan wel, maar is \textsl{bad practice}.
 
-Header-bestanden kunnen zelf ook weer include directives bevatten, dat ook vaak het geval is. Daarbij moet erop gelet  worden dat header-bestanden niet meerdere keren geladen worden. Hoe dan vermeden kan worden, zien we in paragraaf~\ref{sec:conditioneelinlezen}.
+Header-bestanden kunnen zelf ook weer include directives bevatten, wat ook vaak het geval is. Daarbij moet erop gelet  worden dat header-bestanden niet meerdere keren geladen worden. Hoe dat vermeden kan worden, zien we in paragraaf~\ref{sec:conditioneelinlezen}.
 
 
 \section{Macrovervanging}
@@ -60,6 +60,7 @@ Het kan alsnog verkeerd gaan als we de increment- of decrement-operator gebruike
 
 \hspace*{1em}\texttt{j = sqr(++i);}
 
+Dit wordt geëxpandeerd tot \lstc{j = ((++i)} \lstc{* (++i))} dus i wordt twee keer verhoogd.
 Een voordeel van een macro is dat de argumenten onafhankelijk zijn van het datatype. Als we een floating point-getal willen kwadrateren, dan kan dat ook:
 
 \hspace*{1em}\texttt{double j = sqr(2.16);}
@@ -118,7 +119,7 @@ int main(void) {
 \index{ifdef@{\texttt{\#ifdef}}, preprocessor directive}
 \index{endif@{\texttt{\#endif}}, preprocessor directive}
 
-Welke predefines macros gedefinieerd zijn, is afhankelijk van de C-compiler. De documentatie moet hiervoor geraadpleegd worden. Sommige macro's hebben ook nuttige waarden zoals te zien is in listing~\ref{cod:premscver}.
+Welke predefined macros gedefinieerd zijn, is afhankelijk van de C-compiler. De documentatie moet hiervoor geraadpleegd worden. Sommige macro's hebben ook nuttige waarden zoals te zien is in listing~\ref{cod:premscver}.
 
 \begin{lstlisting}[caption=Gebruik van de \texttt{\_MSC\_VER}-macro.,label=cod:premscver]
 #ifdef _MSC_VER
@@ -136,7 +137,7 @@ Welke predefines macros gedefinieerd zijn, is afhankelijk van de C-compiler. De 
 \index{elif@{\texttt{\#elif}}, preprocessor directive}
 \index{else@{\texttt{\#else}}, preprocessor directive}
 
-Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgt ervoor dat er conditioneel gecomplieerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
+Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgen ervoor dat er conditioneel gecomplieerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
 
 \hspace*{1em}\texttt{\#if defined(\_\_linux\_\_) \&\& !defined(\_\_ANDROID\_\_)}
 
