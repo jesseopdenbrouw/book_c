@@ -2,7 +2,7 @@
 \label{cha:compilatieproces}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Het compileert C-bestanden, voegt ze samen, voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd. We moeten direct opmerken dat de ``compiler'' uit meerdere programma's bestaat. Het is eigenlijk een verzameling van programma's. Dit wordt een \textsl{toolchain}\index{toolchain} of \textsl{compiler suite}\index{compiler suite} genoemd.
+De compiler is een ingewikkeld stuk gereedschap. Hij compileert C-bestanden, voegt ze samen, voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd. We moeten direct opmerken dat de ``compiler'' uit meerdere programma's bestaat. Het is eigenlijk een verzameling van programma's. Dit wordt een \textsl{toolchain}\index{toolchain} of \textsl{compiler suite}\index{compiler suite} genoemd.
 
 In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler~\cite{gnugcc}. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux) en een keur aan microcontrollers, zoals de ATmega-, STM32, PIC- en MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
@@ -87,7 +87,7 @@ C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan
 
 Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
-Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
+Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling}\index{cross compiler} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
 
 
 \section{Een C-programma in één bestand}
@@ -103,7 +103,7 @@ Hoewel het uit dit voorbeeld niet blijkt, worden alle stappen uit figuur~\ref{fi
 
 
 \section{Een C-programma in meerdere bestanden}
-%Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid} (reusability). Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} (responsibility) van onderdelen van het programma. 
+%Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veelgebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid} (reusability). Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} (responsibility) van onderdelen van het programma. 
 
 Een groot C-programma kunnen we onderverdelen in meerdere C-bestanden. Dit heeft een aantal voordelen. Ten eerste kunnen we veel gebruikte programmadelen, denk hierbij aan functies, afzonderen van het grote geheel. We kunnen deze functies zo opstellen dat ze door meerdere programma's gebruikt kunnen worden. Dit is goed voor de \textsl{herbruikbaarheid}. Ten tweede kunnen we de ontwikkeling van het programma makkelijk verdelen onder meerdere personen. Dit is goed voor de \textsl{verantwoordelijkheid} van onderdelen van het programma.
 
@@ -130,15 +130,17 @@ Als nu in een C-bestand een fout zit, moet alleen dat ene C-bestand opnieuw naar
 
 
 \section{Bibliotheken}
-Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het is namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
+\index{bibliotheek}
+Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het heeft namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
 
 
 \section{Linkage}
 \label{sec:comlinkage}
-Het samenvoegen van object-bestanden en bibliotheken wordt gedaan door de \textsl{linker} en het proces wordt \textsl{linkage} genoemd. Tijdens het linken worden onbekende \textsl{referenties} (verwijzingen naar functies of globale variabelen) door de linker ingevuld. Een voorbeeld hiervan is de functie \texttt{printf} die niet door ons is geprogrammeerd maar in een bibliotheek is opgeslagen. Als alle referenties kunnen worden ingevuld, volgt een uitvoerbaar bestand.
+\index{linker}
+Het samenvoegen van object-bestanden en bibliotheken wordt gedaan door de \textsl{linker} en het proces wordt \textsl{linkage} genoemd. Tijdens het linken worden onbekende \textsl{referenties} (verwijzingen naar functies of globale variabelen) door de linker ingevuld. Een voorbeeld hiervan is de functie \texttt{printf} die niet door ons is geprogrammeerd maar die in een bibliotheek is opgeslagen. Als alle referenties kunnen worden ingevuld, volgt een uitvoerbaar bestand.
 
 Tijdens het linken worden bibliotheken gebruikt om de referenties in te vullen. 
-Twee veel gebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
+Twee veelgebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
 
 \begin{lstlisting}[style=lstoneline]
 gcc file1.c -l m -o programma.exe
@@ -149,6 +151,7 @@ Alleen de \texttt{m} moet worden opgegeven, de rest wordt automatisch door de li
 
 
 \section{Assembler-bestanden}
+\index{assembler}
 Soms is het nodig om bepaalde code te programmeren in \textit{assembly}\index{assembly}. Assembly is een taal die zeer dicht tegen de gebruikte processor ligt. Te denken valt aan code die niet in C geschreven kan worden, zoals opstartcode van het C-programma, geoptimaliseerde programmafragmenten en Interrupt Service Routines.
 
 Een assembler-bestand\index{assembler-bestand} heeft meestal de extensie \texttt{.s}, soms ook wel \texttt{.asm}. We kunnen \texttt{gcc} vragen om een assembler-bestand te compileren:
@@ -270,11 +273,11 @@ void func4(void) {
 \end{minipage}
 
 Soms is het handig om een globale variabele alleen beschikbaar te stellen in het C-bestand waarin hij gedefinieerd is. We voorzien de variabele dan van de qualifier \lstc{static}\indexkeyword{static}. Daarmee is de variabele afgeschermd van de andere C-bestanden en kan de variabele niet in andere C-bestanden (per ongeluk) worden aangepast. We laten dit zien aan de hand van de implementatie van een \textsl{software stack}, listing~\ref{cod:software_stack}.
-\index{software stack}
+\index{software stack}\index{stack, in software}
 
 \booklistingfromproject[]{C}{Implementatie van een software stack}{software_stack}{c}{!ht}
 
-De stack is opgebouwd rond een \textsl{stack pointer} en de feitelijke stack. De stack wordt gerealiseerd met een array van een bepaalde grootte. De stack pointer houdt bij op welke positie het laatste waarde op de stack beschikbaar is. Twee functies manipuleren de stack: de functie \lstc{push} zet een nieuwe waarde op de stack, de functie \lstc{pop} haalt de laatst ingebrachte waarde van de stack. Beide functie passen de stack pointer aan. Het is mogelijk om teveel waarden op de stack te \textsl{pushen}\index{push, software stack}; dan volgt een \textsl{stack overflow}. Het is ook mogelijk om teveel te \textsl{poppen}\index{pop, software stack}; dan volgt een \textsl{stack underflow}. De functies \lstc{push} en \lstc{pop} zijn zichtbaar in het hele programma, de globale variabelen niet. We plaatsen de code in de listing in een apart C-bestand.
+De stack is opgebouwd rond een \textsl{stack pointer}\index{stack pointer} en de feitelijke stack. De stack wordt gerealiseerd met een array van een bepaalde grootte. De stack pointer houdt bij op welke positie het laatste waarde op de stack beschikbaar is. Twee functies manipuleren de stack: de functie \lstc{push} zet een nieuwe waarde op de stack, de functie \lstc{pop} haalt de laatst ingebrachte waarde van de stack. Beide functie passen de stack pointer aan. Het is mogelijk om teveel waarden op de stack te \textsl{pushen}\index{push, software stack}; dan volgt een \textsl{stack overflow}. Het is ook mogelijk om teveel te \textsl{poppen}\index{pop, software stack}; dan volgt een \textsl{stack underflow}. De functies \lstc{push} en \lstc{pop} zijn zichtbaar in het hele programma, de globale variabelen niet. We plaatsen de code in de listing in een apart C-bestand.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=\texttt{file4.c},label=cod:comstackmain]
