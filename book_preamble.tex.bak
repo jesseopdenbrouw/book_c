@@ -455,7 +455,8 @@
 	urlcolor=black,
     pdftitle={\booktitleI\ \booktitleII, \booksubtitle},
     pdfauthor={\bookauthor},
-    pdfsubject={\booktitle, versie \bookversion},
+    %pdfsubject={Beginselen van de digitale techniek},
+    pdfsubject={},
     pdfkeywords={\bookkeywords},
 	pdfdisplaydoctitle=true,
 	pdfpagelayout=TwoPageRight
@@ -468,7 +469,8 @@
 	urlcolor=bookcolor,
     pdftitle={\booktitleI\ \booktitleII, \booksubtitle},
     pdfauthor={\bookauthor},
-    pdfsubject={\booktitle, versie \bookversion},
+    %pdfsubject={Beginselen van de digitale techniek},
+    pdfsubject={versie \bookversion},
     pdfkeywords={\bookkeywords},
 	pdfdisplaydoctitle=true,
 	pdfpagelayout=TwoPageRight
