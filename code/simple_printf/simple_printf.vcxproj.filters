@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="simple_printf.cpp">
+    <ClCompile Include="simple_printf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
