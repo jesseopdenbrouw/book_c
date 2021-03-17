@@ -157,7 +157,7 @@ Karakter & Argumenttype \\
 
 De karakters \texttt{d}, \texttt{o}, \texttt{u} en \texttt{x} mogen voorafgegaan worden door een \texttt{h} (\texttt{short int}) of een \texttt{l} (\texttt{long int}). De karakters \texttt{f} en \texttt{e} moeten voorafgegaan worden door een \texttt{l} als een \texttt{double} moet worden ingelezen. Zonder de \texttt{l} wordt een \texttt{float} ingelezen.
 
-Het inlezen van een string is problematisch. De specification \texttt{\%s} leest een string in tot aan de eerste whitespace, dus ook tot de eerste spatie. Willen we eens string inlezen met spaties dan gebruiken we de specification \texttt{[\textasciicircum\textbackslash n]}. Let erop dat de string waarin de karakters moeten komen groot genoeg is. Functie \texttt{scanf} houdt daar geen rekening mee en een \textsl{buffer overflow}\index{buffer overflow} kan het gevolg zijn. Dit kan worden voorkomen door bij de format specification een maximale lengte op te geven:
+Het inlezen van een string is problematisch. De specification \texttt{\%s} leest een string in tot aan de eerste whitespace, dus ook tot de eerste spatie. Willen we een string inlezen met spaties dan gebruiken we de specification \texttt{[\textasciicircum\textbackslash n]}. Let erop dat de string waarin de karakters moeten komen groot genoeg is. Functie \texttt{scanf} houdt daar geen rekening mee en een \textsl{buffer overflow}\index{buffer overflow} kan het gevolg zijn. Dit kan worden voorkomen door bij de format specification een maximale lengte op te geven:
 
 \begin{lstlisting}[style=lstoneline]
 scanf("%99s", str);
