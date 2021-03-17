@@ -30,7 +30,7 @@
 \newcommand{\booksubtitle}{}
 \newcommand{\bookinstitution}{De Haagse Hogeschool}
 \newcommand{\bookedition}{Eerste druk}
-\newcommand{\bookversion}{0.577$\gamma$}
+\newcommand{\bookversion}{0.577$\delta$}
 \newcommand{\bookkeywords}{digitaal C programmeertaal}
 \newcommand{\email}{J.E.J.opdenBrouw@hhs.nl}
 %% Nice text on empty pages, or not...
@@ -50,7 +50,7 @@
 
 
 %% Pull in the preamble, includes the document class
-%\PassOptionsToPackage{showframe}{geometry}
+\PassOptionsToPackage{showframe}{geometry}
 \input{book_preamble}
 \input{book_preamble_tikz}
 %\usepackage[contents=Preliminary,color=red,opacity=0.1]{background}
@@ -61,8 +61,6 @@
 \begin{document}
 \raggedbottom
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  THE FRONTMATTER - title page, preface and table of contents
@@ -71,10 +69,11 @@
 \frontmatter
 
 % Pull in the title page, preface and table of contents
-\input{book_title.tex}
-\input{book_chap00.tex}
-\input{book_toc.tex}
+\input{book_title}
+\input{book_chap00}
+\input{book_toc}
 
+\mainmatter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -115,13 +114,13 @@
 
 
 %%%% Pull in the references
-\input{book_refs.tex}
+\input{book_refs}
 
 %%% Pull in the appendices
 \appendix
-\input{book_chapA.tex}
-\input{book_chapB.tex}
-\input{book_chapC.tex}
+\input{book_chapA}
+\input{book_chapB}
+\input{book_chapC}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
