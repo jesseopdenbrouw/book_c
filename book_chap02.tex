@@ -133,7 +133,7 @@ De keywords \texttt{short} en \texttt{long} worden \textsl{qualifiers}\index{qua
 
 Als we aan een integer alleen maar positieve waarden of 0 toekennen dan kunnen we de qualifier \texttt{unsigned}\index{unsigned} bij definitie opgeven. Het (positieve) bereik is dan ongeveer twee keer zo groot als bij de signed variant:
 
-\hspace*{1em}\texttt{unsigned char uch; \ \ \ \ \ \ \ \ \ \ \ /* range 0 to 255, a.k.a byte */}\\
+\hspace*{1em}\texttt{unsigned char uch; \ \ \ \ \ \ \ \ \ \ \ /* range 0 to 255, a.k.a. byte */}\\
 \hspace*{1em}\texttt{unsigned short int usi; \ \ \ \ \ \ /* range 0 to 65535 */}\\
 \hspace*{1em}\texttt{unsigned long long int ulli; \ /* range 0 to 18446744073709551616 */}
 
@@ -354,13 +354,14 @@ Als het resultaat van de deling een positief getal oplevert, wordt het resultaat
 \end{dosbox}
 
 \subsection{Relationele operatoren}
+\label{sec:relationeleoperatoren}
 De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 
 \hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{<=}
 
 \indexop{==}\indexop{"!=}\indexop{>}\indexop{>=}\indexop{<}\indexop{<=}
-Hierin zijn \texttt{==} gelijk aan (let op de dubbele \texttt{=}) en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op.
-De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
+Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op. De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
+Let op het verschil tussen \lstc{==} en \lstc{=}. De eerste is een \textsl{test} of twee expressies gelijk zijn aan elkaar. De tweede is een \textsl{toekenning}. Dus \lstc{a == b} test of \lstc{a} gelijk is aan \lstc{b}. Bij \lstc{a = b} wordt \lstc{b} toegekend aan \lstc{a}.
 
 \begin{figure}[H]
 \begin{lstlisting}[caption=Voorbeeld van een beslissing.,label=cod:varexampleif0]
@@ -437,7 +438,7 @@ if (b != 0 && a/b > 5) {
 
 geen foutmelding oplevert als \lstc{b} gelijk aan 0 is.
 
-De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}.
+De unaire \textsl{negatieoperator}\index{negatieoperator} \texttt{!}\indextwo{"!}{logische negatie} zet een expressie die 0 oplevert om in een 1 en een expressie die \textsl{niet-nul}\index{niet-nul} oplevert wordt omgezet in een 0. Een typisch gebruik van \texttt{!} is te zien in listing~\ref{cod:varnegop}. Overigens leveren de relationele operatoren altijd 0 (niet waar) of 1 (waar) op. Zie paragraaf~\ref{sec:relationeleoperatoren}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van de negatieoperator.,label=cod:varnegop]
@@ -573,7 +574,7 @@ Een bekend voorbeeld is het testen of een geheel getal even of oneven is. Een ev
 
 We kunnen dit ook realiseren het de \texttt{\&}-operator, zie het programma in listing~\ref{cod:testeven1}.
 %
-\begin{figure}[!ht]
+\begin{figure}[!t]
 \begin{lstlisting}[caption=Testen of een geheel getal even is.,label=cod:testeven1]
 #include <stdio.h>
 
@@ -598,7 +599,7 @@ int main(void)
 \end{lstlisting}
 \end{figure}
 %
-De expressie \texttt{getal \& 1} in regel 10 zorgt ervoor dat alle bits op 0 gezet worden, behalve het minst significante bit. Dit bit geeft aan of het getal even (0) of oneven (1) is.
+De expressie \texttt{getal \& 1} in regel 10 zorgt ervoor dat alle bits op 0 gezet worden, behalve de minst significante bit. Deze bit geeft aan of het getal even (0) of oneven (1) is.
 
 %%%De bitsgewijze operatoren zijn bijzonder handig bij het gebruik van \textsl{microcontrollers}. In een ``normaal'' C-programma komen ze eigenlijk niet voor. We geven ter illustratie een voorbeeld voor een ATmega-microcontroller\index{ATmega}. Deze processor wordt onder andere gebruikt in de Arduino Uno~\cite{arduinouno}. We willen testen of een schakelaar is ingedrukt. We lezen de stand van de schakelaars in via de (speciale) variabele \texttt{PINA}. Als de schakelaar op bit 7 (hoogste bit van \texttt{PINA}) is ingedrukt, dan inverteren we de stand van de led die is gekoppeld aan bit~0 (laagste bit) van de (speciale) variabele \texttt{PORTB}.
 %%%
