@@ -1229,13 +1229,13 @@ Let erop dat de pointers van het type \texttt{void *} zijn en dat \texttt{n} het
 
 \advanced
 \section{Gekoppelde lijsten}
-We kunnen structures en pointers gebruiken voor het ontwikkelen van \textsl{gekoppelde lijsten}\index{gekoppelde lijsten}. We zullen in het vervolg echter gebruik maken van de Engelse term \textsl{linked lists}\index{linked lists}. De basis van een linked list wordt gevormd door een structure met daarin een pointer member die kan wijzen naar een andere structure van hetzelfde type. Zo'n structure wordt doorgaans een \textsl{node}\index{node} genoemd. Laten we eens een lijst maken met leeftijden en namen. We definiëren een node met daarin de member \lstc{age} voor de leeftijd en een member \lstc{name} voor de naam. Daarnaast definiëren we een \textsl{pointer} naar zo'n zelfde node met de naam \lstc{next}. De definitie van de node is hieronder te zien.
+We kunnen structures en pointers gebruiken voor het ontwikkelen van \textsl{gekoppelde lijsten}\index{gekoppelde lijsten}. We zullen in het vervolg echter gebruik maken van de Engelse term \textsl{linked lists}\index{linked lists}. De basis van een linked list wordt gevormd door een structure met daarin een pointer member die kan wijzen naar een andere structure van hetzelfde type. Zo'n structure wordt doorgaans een \textsl{node}\index{node} genoemd. Laten we eens een lijst maken met leeftijden en namen. We declareren een node met daarin de member \lstc{age} voor de leeftijd en een member \lstc{name} voor de naam. Daarnaast definiëren we een \textsl{pointer} naar zo'n zelfde node met de naam \lstc{next}. De declaratie van de node is hieronder te zien.
 
 \begin{lstlisting}[style=lstoneline]
 struct node {
 	int age;
 	char name[20];
-	struct list *next;
+	struct node *next;
 };
 \end{lstlisting}
 
