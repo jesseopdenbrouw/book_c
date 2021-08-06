@@ -254,4 +254,7 @@ Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het pr
 
 Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
 
+\section{Pointers naar structures}
+Een structure kan een groot aantal members hebben en dus veel geheugenruimte innemen. Het doorgeven als parameter en teruggeven als returnwaarde kan dan veel geheugenruimte kosten omdat de gehele structure gekopieerd moet worden (zowel als argument als returnwaarde). Daarnaast kost dit veel executietijd van het programma. Het is dan beter om structures via \textsl{pointers} over te dragen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
+	
 \basic

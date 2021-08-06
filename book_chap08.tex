@@ -33,7 +33,7 @@ Een handige manier om pointers weer te geven, is door het geheugen van een compu
 
 %Een pointer kan wijzen naar een enkelvoudige variabele, een (element van een) array, een structure (zie hoofdstuk~\ref{cha:structures}), een constante variabele of (het begin van) een functie. Een pointer kan niet wijzen naar een constante expressie of een \texttt{register} variabele (zie hoofdstuk~\ref{cha:compilatieproces}).
 
-Een pointer kan wijzen naar object in het geheugen zoals variabelen, array-elementen, een structure (zie hoofdstuk~\ref{cha:structures}) of (het begin van) een functie. Een pointer kan niet wijzen naar een expressie of een \texttt{register} variabele (zie hoofdstuk~\ref{cha:compilatieproces}).
+Een pointer kan wijzen naar variabele in het geheugen zoals enkelvoudige variabelen, array-elementen, een structure of (het begin van) een functie. Een pointer kan niet wijzen naar een expressie of een \texttt{register} variabele (zie hoofdstuk~\ref{cha:compilatieproces}).
 
 Het is ook mogelijk om een pointer naar het datatype \texttt{void} te laten ``wijzen''. Deze pointers worden generieke pointers genoemd. We zullen dit behandelen in paragraaf~\ref{sec:pointertovoid}.
 
@@ -584,7 +584,7 @@ void string_copy(char to[], char from[]) {
 \end{lstlisting}
 \end{figure}
 
-Bij het overdragen van een array aan een functie moet expliciet de grootte worden opgegeven. Het is niet mogelijk om \textsl{in de functie} de grootte van de array uit te rekenen, er wordt immers een pointer meegegeven. Er is dus een extra parameter nodig waarmee we de grootte opgeven. Bij het aanroepen van de functie rekenen we de grootte uit en geven dit mee. Dit is te zien in listing~\ref{cod:poilengthpass}. Let erop dat in \texttt{main} w\'el de grootte van de array kan worden uitgerekend, want daar wordt de array gedefinieerd. We gebruiken twee keer de \texttt{sizeof}-operator, want \texttt{sizeof} geeft de grootte van een object in bytes. We moeten de grootte van de array in bytes delen door de grootte van \'e\'en element in bytes.
+Bij het overdragen van een array aan een functie moet expliciet de grootte worden opgegeven. Het is niet mogelijk om \textsl{in de functie} de grootte van de array uit te rekenen, er wordt immers een pointer meegegeven. Er is dus een extra parameter nodig waarmee we de grootte opgeven. Bij het aanroepen van de functie rekenen we de grootte uit en geven dit mee. Dit is te zien in listing~\ref{cod:poilengthpass}. Let erop dat in \texttt{main} w\'el de grootte van de array kan worden uitgerekend, want daar wordt de array gedefinieerd. We gebruiken twee keer de \texttt{sizeof}-operator, want \texttt{sizeof} geeft de grootte van een variabele in bytes (dit kan ook een array of een structure zijn). We moeten de grootte van de array in bytes delen door de grootte van \'e\'en element in bytes.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Meegeven van de grootte van een array.,label=cod:poilengthpass]

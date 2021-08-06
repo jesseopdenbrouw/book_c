@@ -6,7 +6,7 @@ De compiler is een ingewikkeld stuk gereedschap. Hij compileert C-bestanden, voe
 
 In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler~\cite{gnugcc}. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux) en een keur aan microcontrollers, zoals de ATmega-, STM32, PIC- en MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
-%%%We laten eerst zien hoe een eenvoudig C-programma (we spreken liever van broncode) wordt vertaald naar een uitvoerbaar bestand. Als een C-programma over meerdere bestanden verdeeld is (dit worden \texts{translation units} genoemd)\index{translation units}, kunnen we de C-compiler gebruiken om \textsl{object-bestanden} aan te maken en deze object-bestanden samen te voegen tot één uitvoerbaar bestand. C kent een aantal voorgeprogrammeerde functies (denk aan \lstc{printf} en \lstc{scanf}) die in bibliotheken zijn opgeslagen. De C-compiler kan deze functies samenvoegen
+%%%We laten eerst zien hoe een eenvoudig C-programma (we spreken liever van broncode) wordt vertaald naar een uitvoerbaar bestand. Als een C-programma over meerdere bestanden verdeeld is (dit worden \texts{translation units} genoemd)\index{translation units}, kunnen we de C-compiler gebruiken om \textsl{objectbestanden} aan te maken en deze objectbestanden samen te voegen tot één uitvoerbaar bestand. C kent een aantal voorgeprogrammeerde functies (denk aan \lstc{printf} en \lstc{scanf}) die in bibliotheken zijn opgeslagen. De C-compiler kan deze functies samenvoegen
 
 De GNU C-compiler wordt gestart met het programma \texttt{gcc}. Het \texttt{gcc}-programma is niet de echte compiler maar een programma dat een vertaler is tussen de gebruiker en andere programma's. Het verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 %
@@ -83,7 +83,7 @@ De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een 
 
 %Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 
-C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer zijn tijdelijk bestanden. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Include-bestanden worden ook door de preprocessor verwerkt. Daarna worden de tijdelijke bestanden aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert \textsl{assembler-bestanden} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert deze bestanden en genereert \textsl{object-bestanden}\index{object-bestand}. In een object-bestand zijn de bitpatronen van de instructies opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} (zie paragraaf~\ref{sec:comlinkage}) naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. %Een assembler-bestand wordt direct door de assembler geassembleerd.
+C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer zijn tijdelijk bestanden. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Include-bestanden worden ook door de preprocessor verwerkt. Daarna worden de tijdelijke bestanden aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert \textsl{assembler-bestanden} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert deze bestanden en genereert \textsl{objectbestanden}\index{objectbestand}. In een objectbestand zijn de bitpatronen van de instructies opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} (zie paragraaf~\ref{sec:comlinkage}) naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. %Een assembler-bestand wordt direct door de assembler geassembleerd.
 
 Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
@@ -117,7 +117,7 @@ gcc file1.c file2.c file3.c -o programma.exe
 Alle C-bestanden worden gecompileerd en uiteindelijk samengevoegd tot het uitvoerbare bestand \texttt{programma.exe}.
 Als er in een van de C-bestanden een fout zit, moet die hersteld worden en moeten alle C-programma's opnieuw gecompileerd worden op de bovenstaande wijze.
 
-Dat is natuurlijk niet handig als een een C-programma verdeeld is over een groot aantal bestanden. Het is daarom mogelijk om een C-bestand te compileren naar een \textsl{object-bestand}\index{object-bestand} en daarna de object-bestanden te linken. We kunnen de compilatie ook realiseren met
+Dat is natuurlijk niet handig als een een C-programma verdeeld is over een groot aantal bestanden. Het is daarom mogelijk om een C-bestand te compileren naar een \textsl{objectbestand}\index{objectbestand} en daarna de objectbestanden te linken. We kunnen de compilatie ook realiseren met
 
 \begin{lstlisting}[style=lstoneline]
 gcc -c file1.c -o file1.o
@@ -126,18 +126,18 @@ gcc -c file3.c -o file3.o
 gcc file1.o file2.o file3.o -o programma.exe
 \end{lstlisting}
 
-Als nu in een C-bestand een fout zit, moet alleen dat ene C-bestand opnieuw naar een object-bestand worden gecompileerd. Natuurlijk moet het laatste commando uitgevoerd om een uitvoerbaar bestand te krijgen.
+Als nu in een C-bestand een fout zit, moet alleen dat ene C-bestand opnieuw naar een objectbestand worden gecompileerd. Natuurlijk moet het laatste commando uitgevoerd om een uitvoerbaar bestand te krijgen.
 
 
 \section{Bibliotheken}
 \index{bibliotheek}
-Een bibliotheek is eigenlijk een verzameling van object-bestanden. Tijdens het linken worden uit de bibliotheek alleen de object-bestanden meegenomen die nodig zijn. De overige object-bestanden worden dus niet meegenomen. Het heeft namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
+Een bibliotheek is eigenlijk een verzameling van objectbestanden. Tijdens het linken worden uit de bibliotheek alleen de objectbestanden meegenomen die nodig zijn. De overige objectbestanden worden dus niet meegenomen. Het heeft namelijk geen zin om de functie \texttt{strlen} erbij te voegen als de functie niet aangeroepen wordt.
 
 
 \section{Linkage}
 \label{sec:comlinkage}
 \index{linker}
-Het samenvoegen van object-bestanden en bibliotheken wordt gedaan door de \textsl{linker} en het proces wordt \textsl{linkage} genoemd. Tijdens het linken worden onbekende \textsl{referenties} (verwijzingen naar functies of globale variabelen) door de linker ingevuld. Een voorbeeld hiervan is de functie \texttt{printf} die niet door ons is geprogrammeerd maar die in een bibliotheek is opgeslagen. Als alle referenties kunnen worden ingevuld, volgt een uitvoerbaar bestand.
+Het samenvoegen van objectbestanden en bibliotheken wordt gedaan door de \textsl{linker} en het proces wordt \textsl{linkage} genoemd. Tijdens het linken worden onbekende \textsl{referenties} (verwijzingen naar functies of globale variabelen) door de linker ingevuld. Een voorbeeld hiervan is de functie \texttt{printf} die niet door ons is geprogrammeerd maar die in een bibliotheek is opgeslagen. Als alle referenties kunnen worden ingevuld, volgt een uitvoerbaar bestand.
 
 Tijdens het linken worden bibliotheken gebruikt om de referenties in te vullen. 
 Twee veelgebruikte bibliotheken zijn de \textsl{standard library}\index{standard library} en de \textsl{mathematical library}\index{mathematical libray}. De standard library heeft de naam \texttt{libc.a} (bij de GNU C-compiler onder de naam \texttt{glibc.a}). De extensie \texttt{.a} (\textsl{archive}) geeft aan dat het om een bibliotheek gaat. De mathematical library heeft de naam \texttt{libm.a} en moet in veel gevallen expliciet worden opgegeven:
@@ -354,7 +354,7 @@ De lokale variabele \lstc{counter} wordt bij het starten van het programma eenma
 
 
 \section{Bibliotheek maken}
-Het is ook mogelijk om een bibliotheek te maken. Daarvoor moet een C-bestand gecompileerd worden naar een object-bestand:
+Het is ook mogelijk om een bibliotheek te maken. Daarvoor moet een C-bestand gecompileerd worden naar een objectbestand:
 
 \hspace*{1em}\texttt{gcc -c file1.c -o file1.o}\\
 \hspace*{1em}\texttt{gcc -c file2.c -o file2.o}\\
@@ -372,7 +372,7 @@ De bibliotheek is nu te linken met:
 \section{Dynamic en static linking}
 Er bestaat op veel besturingssystemen zoiets als \textsl{dynamic linking}. Bibliotheken worden dan eenmalig in het geheugen van de computer worden geladen waarna ze gebruikt kunnen worden door programma's. Pas op het moment dat een programma wordt gestart, worden de referenties naar functies en externe variabelen ingevuld. Dit wordt gedaan door de \textsl{loader}. Het starten kost dus extra tijd omdat bepaalde referenties nog moeten worden ingevuld. Het voordeel is wel duidelijk: de omvang van uitvoerbare programma's wordt geminimaliseerd en dat zorgt weer voor het sneller laden van een programma. Een ander voordeel is dat een veelgebruikte functie, bijvoorbeeld \lstc{printf}, slechts één keer in het geheugen voorkomt. Voorbeelden zijn \textsl{dynamic link libraries} (bestanden met de extensie \texttt{.dll}) op Windows en \textsl{shared objects} (bestanden met de extensie \texttt{.so}) op Linux. 
 
-Soms is het nodig of wenselijk om object-bestanden uit een bibliotheek op te nemen in het uitvoerbare programma, bijvoorbeeld bij een zeer uitgekleed besturingssysteem dat dynamic linking niet ondersteunt. Dit wordt \textsl{static linking} genoemd. Standaard zullen de meeste C-compilers dynamic linking gebruiken maar static linking is te forceren middels een optie aan de compiler. Zo kunnen we de \texttt{gcc}-compiler aanroepen met
+Soms is het nodig of wenselijk om objectbestanden uit een bibliotheek op te nemen in het uitvoerbare programma, bijvoorbeeld bij een zeer uitgekleed besturingssysteem dat dynamic linking niet ondersteunt. Dit wordt \textsl{static linking} genoemd. Standaard zullen de meeste C-compilers dynamic linking gebruiken maar static linking is te forceren middels een optie aan de compiler. Zo kunnen we de \texttt{gcc}-compiler aanroepen met
 
 \begin{lstlisting}[style=lstoneline]
 gcc mooi.c -o mooi.exe -static
