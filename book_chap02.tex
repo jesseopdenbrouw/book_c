@@ -332,8 +332,8 @@ Let overigens goed op bij het delen met negatieve getallen. Het quotiënt wordt 
 \begin{lstlisting}[caption=Delen van positieve en negatieve getallen.,label=cod:vardivproblem]
 #include <stdio.h>
 
-int main(void) {
-
+int main(void)
+{
 	printf(" 7/ 3 = %2d\n",  7/ 3);
 	printf(" 7/-3 = %2d\n",  7/-3);
 	printf("-7/ 3 = %2d\n", -7/ 3);
@@ -427,12 +427,16 @@ gelijk aan 1 als \texttt{ch} een cijferkarakter is, anders wordt \texttt{isdig} 
 
 wordt \texttt{isbit} gelijk aan 1 als \texttt{ch} een `0' of een `1' is, anders wordt \texttt{isbit} gelijk aan 0. Het berekenen van een dergelijke expressie wordt gestopt op het moment dat de uitkomst al duidelijk is. Dus de berekening van
 
-\hspace*{1em}\texttt{i==5 \&\& j>3}
+%\hspace*{1em}\texttt{i==5 \&\& j>3}
+\begin{lstlisting}[style=lstoneline]
+i==5 && j>3
+\end{lstlisting}
 
 wordt gestopt als \texttt{i} ongelijk aan 5 is. De uitkomst staat dan namelijk al vast. Dit wordt \textsl{shortcut evaluation}\index{shortcut evaluation} genoemd. Dit zorgt ervoor dat
 
 \begin{lstlisting}[style=lstoneline]
-if (b != 0 && a/b > 5) {
+if (b != 0 && a/b > 5)
+{
    ...
 }
 \end{lstlisting}
