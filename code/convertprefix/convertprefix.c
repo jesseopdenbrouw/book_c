@@ -4,7 +4,7 @@
 
 int main(void)
 {
-    double getal, prefixvalue;
+    double getal, prefixvalue = 0.0;
     char space, prefix, unit;
 
     printf("Geef een afstand in mm, cm of dm (bv. 2.6 dm): ");
@@ -26,7 +26,7 @@ int main(void)
         }
     }
     
-    if (prefixvalue == 0)
+    if (prefixvalue == 0.0)
     {
         printf("De invoer is ongeldig!\n");
     }
