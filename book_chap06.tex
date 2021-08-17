@@ -180,11 +180,9 @@ Merk op dat \texttt{sizeof} een hogere prioriteit heeft dan \texttt{/} maar lage
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Bepalen van het aantal elementen in een array.,label=cod:arrberekenensomrijkwadraten2]
-    ...
     for (i = 0; i < sizeof rij / sizeof rij[0]; i = i + 1) {
         som = som + kwad[rij[i]];
     }
-    ...
 \end{lstlisting}
 \end{figure}
 
@@ -212,6 +210,7 @@ We mogen hierbij het aantal rijen weglaten. De compiler berekent die automatisch
 \begin{lstlisting}[style=lstoneline]
 int i = matrix[2][1];    /* row 2, column 1 */
 \end{lstlisting}
+
 Een vaak voorkomende fout is om het rijnummer en kolomnummer te scheiden door een komma. Dat kan niet want de komma werkt als de komma-operator:
 
 \begin{lstlisting}[style=lstoneline]
@@ -226,8 +225,7 @@ matrix[2][1]} (* en *) matrix[1][2]
 
 zijn twee verschillende elementen.
 
-We kunnen het aantal rijen en kolommen van een array bepalen met behulp van \texttt{sizeof}. Dit is te zien in listing~\ref{cod:arrsizetwodim}.
-In regel 7 bepalen we het aantal rijen door de grootte van de gehele array te delen door de grootte van een rij. Dus
+We kunnen het aantal rijen en kolommen van een array bepalen met behulp van \texttt{sizeof}. Dit is te zien in listing~\ref{cod:arrsizetwodim}. In regel 7 bepalen we het aantal rijen door de grootte van de gehele array te delen door de grootte van een rij. Dus
 
 \begin{lstlisting}[style=lstoneline]
 int rows = sizeof twodim / sizeof twodim[0];
@@ -259,9 +257,11 @@ int main(void) {
 }
 \end{lstlisting}
 \end{figure}
+
+
 \section{Afdrukken van array}
 Een array kan niet als één eenheid worden afgedrukt. We moeten dat doen met behulp van een herhaling. Dit is te zien in listing~\ref{cod:arrafdrukkenarray}. In regel 5 %
-\begin{figure}[!b]
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Afdrukken van een array.,label=cod:arrafdrukkenarray]
 #include <stdio.h>
 
@@ -383,9 +383,11 @@ De standard library bevat een aantal functies waarmee we gemakkelijk arrays kunn
 \index{array!als argument}\index{array!als parameter}
 Een array kan als argument van een functie worden gebruikt. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop arrays overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën worden doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; de functie kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
 
-In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Om aan te geven dat de eerste parameter een array is, wordt de declaratie \texttt{int ary[]} gegeven. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
+In listing~\ref{cod:arrfindnumber} is een functie te zien die de positie bepaalt van een getal dat in een array voorkomt. Als het getal meerdere keren voorkomt, wordt de eerst gevonden positie teruggegeven. De waarde \texttt{-1} wordt teruggegeven als het getal niet in de array voorkomt. De aanroepende functie moet hierop testen. Om aan te geven dat de eerste parameter een array is, wordt de declaratie \texttt{int ary[]} gegeven. De compiler weet nu dat er een array wordt overgedragen ook al weet hij de exacte grootte niet. De tweede parameter is het aantal elementen in de array en de derde parameter is het getal dat gezocht wordt.
 
-\begin{figure}[H]
+In de functie wordt ``langs de array gelopen'' middels een lus (regel 3). Binnen de lus vergelijken we het huidige element met de gezochte waarde (regel 4). Als deze overeenkomen, dan wordt meteen de functie verlaten en wordt de positie als returnwaarde teruggegeven (regel 5). Als de lus volledig wordt doorlopen, komen we bij regel 9 en dat betekent dat de gezochte waarde niet in de array voorkomt. Dan geven we in regel 9 de waarde $-1$ terug.
+
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=Functie voor het vinden van een getal in een array.,label=cod:arrfindnumber]
 int findnumber(int ary[], int siz, int num) {
 
