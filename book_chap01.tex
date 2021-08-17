@@ -18,6 +18,7 @@ C moet concurreren met vele andere talen zoals C++, C\#, Java en Rust~\cite{rust
 
 Standaard C staat ook wel bekend als ANSI C of C89~\cite{1989programming}. Momenteel is C17 de standaard voor de C programmeertaal. C2x zal waarschijnlijk in december 2021 worden geratificeerd.
 
+
 \section{De computer}
 Een \textsl{computer}\index{computer} is een elektronisch, digitaal systeem dat \textsl{data} (gegevens) verwerkt aan de hand van een lijst \textsl{instructies}\index{instructie}. Het Engelse werkwoord voor verwerken is ``to process''. En daar komt de naam vandaan van een belangrijk onderdeel van de computer: de \textsl{processor}\index{processor}. 
 
@@ -43,6 +44,7 @@ We kunnen natuurlijk niet de \textsl{smartphones} vergeten. Zo'n beetje iedereen
 Bij PC's en laptops is een klein programma in ROM aanwezig. Dit zorgt ervoor dat de PC kan opstarten. Het heeft tot doel om het besturingssysteem te laden (Windows, Linux). Het besturingssysteem en de programma's worden dus in RAM geladen, net als de data waarmee de programma's werken. Op smartphones is het besturingssysteem opgeslagen in ROM die herprogrammeerbaar is. Zo kunnen updates van het besturingssysteem geïnstalleerd worden. De apps en data worden geladen in de RAM. Bij microcontrollers is het complete programma geladen in ROM, die ook herprogrammeerbaar is. De data is geplaatst in RAM.
 
 % Dat worden \textsl{compiler suites} of \textsl{toolchains}\index{toolchain} genoemd.
+
 
 \section{De compiler}
 C is een zogenoemde derde-generatie-taal. De broncode van een C-programma is voor een mens gewoon te lezen. Deze broncode kan niet direct door de processor worden uitgevoerd. De \textsl{C-compiler}\index{compiler} vertaalt de broncode naar instructies die de processor wel kan uitvoeren. Dat vertalen wordt \textsl{compileren}\index{compileren} genoemd. De instructies worden in bitpatronen in het geheugen opgeslagen. De bitpatronen noemen we \textsl{machinecode}\index{machinecode}. Elk type processor heeft zijn eigen verzameling bitpatronen, dat wordt de \textsl{Instruction Set Architecture}\index{ISA} genoemd. De ISA van een Intel-processor is dus anders dan die van een ATmega-processor, maar we kunnen wel zeggen dat elke processor ongeveer dezelfde soort instructies bevat. De C-compiler moet weten voor welke processor een C-programma wordt vertaald.
@@ -110,7 +112,7 @@ Het C-programma begint met de definitie van de \textsl{functie} \texttt{main}\in
  
 Statements die in het C-programma gebruikt worden, zijn afgebakend met \textsl{accolades}\index{accolades}. Het Engelse woord hiervoor is \textsl{curly braces} of gewoon \textsl{braces}. De accolades geven het begin en einde aan van \textsl{blok}. Een blok begint met een accolade-openen (\texttt{\{}) en eindigt met een accolade-sluiten (\texttt{\}}). Over de plaats van de accolades zijn er diverse meningen. In listing~\ref{cod:unminimaalcprogramma} is de accolade-openen geplaatst onder de definitie van \texttt{main}, maar het is ook gebruikelijk om de accolade-openen te schrijven achter de definitie van \texttt{main}.
  
-Binnen \texttt{main} zien we één \textsl{statement}\index{statement}. Een statement is een opdracht in de C-taal. Het statement wordt gevormd door het keyword \texttt{return}\indexkeyword{return} gevolgd door het getal 0 en een punt-komma. Bij uitvoering van dit statement wordt de waarde 0 teruggegeven aan het besturingssysteem. Dat behoeft enige uitleg. Een (gecompileerd) programma wordt gestart door het besturingssysteem. Aan het einde wordt het programma afgesloten. Het besturingssysteem ``ruimt'' het programma op en zorgt ervoor dat het gebruikte geheugen weer vrijgegeven wordt voor volgende programma's. We kunnen aan het besturingssysteem een getal teruggeven, in dit geval 0. Het is aan het besturingssysteem om hier wat mee te doen. Gebruikelijk is om 0 terug te geven als alles goed verlopen is. Een ander getal dan 0 geeft over het algemeen aan dat er iets fout gegaan is. Vanaf C99 is het niet meer nodig om dit \texttt{return}-statement uit te voeren. Dan wordt automatisch het getal 0 teruggegeven.
+Binnen \texttt{main} zien we één \textsl{statement}\index{statement}. Een statement is een opdracht in de C-taal. Het statement wordt gevormd door het keyword \texttt{return}\indexkeyword{return} gevolgd door het getal 0 en een punt-komma. Bij uitvoering van dit statement wordt de waarde 0 teruggegeven aan het besturingssysteem. Dat behoeft enige uitleg. Een (gecompileerd) programma wordt gestart door het besturingssysteem. Aan het einde wordt het programma afgesloten. Het besturingssysteem ``ruimt'' het programma op en zorgt ervoor dat het gebruikte geheugen weer vrijgegeven wordt voor volgende programma's. We kunnen aan het besturingssysteem een getal teruggeven, in dit geval~0. Het is aan het besturingssysteem om hier wat mee te doen. Gebruikelijk is om 0 terug te geven als alles goed verlopen is. Een ander getal dan 0 geeft over het algemeen aan dat er iets fout gegaan is. Vanaf C99 is het niet meer nodig om dit \texttt{return}-statement uit te voeren. Dan wordt automatisch het getal 0 teruggegeven.
 
 
 \section{Afdrukken op het scherm}
@@ -158,6 +160,7 @@ Dat de return-waarde een geheel getal moet zijn, kunnen we zien aan de definitie
 
 Hoe weet de C-compiler nu hoe de functie \texttt{printf} moet worden aangeroepen? Dat wordt geregeld met een \textsl{function prototype}. We hoeven dat zelf niet op te geven want dat is al gedaan en is te vinden in het header-bestand \texttt{stdio.h}\indextwo{stdio.h}{header-bestand}. De eerste regel geeft dus aan dat dit bestand geladen moet worden. De tekens \texttt{<} en \texttt{>} geven aan dat gezocht moet worden op een bepaalde plek in het bestandssysteem. We hoeven dat verder niet te weten.
 
+
 \section{Invoer van het toetsenbord}
 We kunnen het vorige programma interessanter maken door aan de gebruiker te vragen om twee gehele getallen in te voeren. Naast het afdrukken van tekst met de functie \texttt{printf} maken we nu ook gebruik van de functie \texttt{scanf}\indexfunc{scanf} om gehele getallen in te lezen. Het programma is te zien in listing~\ref{cod:sumoftwo}.
 
@@ -189,8 +192,8 @@ De Microsoft C-compiler bestempelt \texttt{scanf} als ``onveilig''. Een compilat
 We geven aan dat de C-compiler fout 4996 moet negeren. Op andere compilers, bijvoorbeeld de GNU-C compiler, wordt deze regel overgeslagen (er volgt wel een waarschuwing en met behulp van \textsl{conditionele compilatie} kan deze pragma overgeslagen worden). Overigens wordt op vele fora gewaarschuwd voor de onveiligheid van \texttt{scanf} en worden alternatieven gegeven. Wij gebruiken \texttt{scanf} hier wel \textsl{for the sake of simplicity}. Het is beter om \texttt{scanf} te vermijden.
 \end{infobox}
 
-\section{Keywords}
 
+\section{Keywords}
 In tabel~\ref{tab:unkeywords} is een lijst te zien met gereserveerde woorden. Een aantal van deze woorden hebben we al gezien zoals \texttt{int}, \texttt{void} en \texttt{return}. Deze woorden worden \textsl{keywords}\index{keyword} genoemd en vormen de vocabulaire van de taal C.
 
 \begin{table}[!ht]
@@ -305,47 +308,6 @@ In geval van het kwadratenprogramma kunnen we ook een ander herhalingsstatement 
 \end{figure}
 
 
-\section{Arrays}
-Een \textsl{array}\index{array} is een lijst variabelen onder een gemeenschappelijke noemer. Zo definiëren we vijf floating point-getallen (getallen met een komma)\index{floating point} met
-
-\begin{lstlisting}[style=lstoneline]
-double lijst[5];
-\end{lstlisting}
-\indexkeyword{double}
-
-en kunnen we gebruik maken van de variabelen
-
-\begin{lstlisting}[style=lstoneline]
-lijst[0] lijst[1] lijst[2] lijst[3] lijst[4]
-\end{lstlisting}
-
-Tussen de blokhaken \texttt{[]}\indexop{[]} staat het \textsl{elementnummer} en de variabelen worden de \textsl{elementen} van de array genoemd. In listing~\ref{cod:arraygemiddelde} is een programma te zien met een array.
-
-\booklistingfromproject[]{C}{Gemiddelde van vijf getallen}{arraygemiddelde}{c}{!ht}
-
-De array mag bij definitie gelijk geïnitialiseerd worden zoals te zien is in regel 5\footnote{We hebben als getallen vijf wiskundige constanten genomen. De lezer wordt uitgedaagd uit te zoeken welke constanten dat zijn.}. We berekenen van deze vijf elementen de gemiddelde waarde. We doen dat door eerst de som van de vijf element te berekenen en vervolgens te delen door 5. Met behulp van een \texttt{for}-statement wordt ``langs de array gelopen''; bij elke iteratie selecteren we een element en tellen dat op bij de som van de tot dan toe gesommeerde elementen. De regel
-
-\begin{lstlisting}[style=lstoneline]
-som = som + lijst[index];
-\end{lstlisting}
-
-selecteert dus een element uit de array en telt dat op bij de som. In regel 13 drukken we het gemiddelde af door de som te delen door 5. We hoeven daarvoor niet een aparte variabele te definiëren, we kunnen als argument gewoon \texttt{som / 5.0} gebruiken.
-
-Een veel gebruikte arraytype is de \textsl{string}. Dit is een array van karakters, afgesloten met een speciaal karakter dat het \textsl{null-karakter} of \textsl{null-byte} genoemd worden. C heeft geen ingebouwde taalconstructies die direct met strings werken, maar er zijn veel \textsl{functies} beschikbaar om strings te verwerken. Een voorbeeld van een string is:
-
-\begin{lstlisting}[caption=Voorbeeld van een string.]
-char str[] = "Ik ben een string";
-\end{lstlisting}
-
-We hoeven de lengte van de string in dit geval niet op te geven, dat wordt automatisch door de C-compiler uitgerekend. Strings worden behandeld in hoofdstuk~\ref{cha:arrays}. 
-
-% Past niet op pagina
-%We kunnen de string bijvoorbeeld door het programma laten afdrukken met \lstinline|printf|:
-%
-%\begin{lstlisting}[caption=Afdrukken van een string.]
-%    printf("%s", str);
-%\end{lstlisting}
-
 \section{Functies}
 C biedt een handige manier om een groep statement, bijvoorbeeld berekeningen, onder te brengen in een \textsl{functie}\index{functie}. Als de functie eenmaal geschreven is, hoeven we ons niet druk te maken over hoe de de berekeningen worden gedaan, we moeten alleen maar weten hoe we de functie moeten gebruiken. We hebben al drie functies gezien: \texttt{printf}, \texttt{scanf} en \texttt{main}. De functies \texttt{printf} en \texttt{scanf} zijn al beschikbaar via de standard library. We hoeven niet te weten hoe de functies werken, alleen maar hoe ze moeten worden aangeroepen.
 
@@ -378,11 +340,75 @@ In het \texttt{for}-statement worden tien iteraties van de middelste formule uit
 Overigens bevat de \textsl{mathematical library} een implementatie van de wortel-functie. We hoeven dat niet zelf te schrijven. Functies worden behandeld in hoofdstuk~\ref{cha:functies}.
 
 
+\section{Arrays}
+Een \textsl{array}\index{array} is een lijst variabelen onder een gemeenschappelijke noemer. Zo definiëren we vijf floating point-getallen (getallen met een komma)\index{floating point} met
+
+\begin{lstlisting}[style=lstoneline]
+double lijst[5];
+\end{lstlisting}
+\indexkeyword{double}
+
+en kunnen we gebruik maken van de variabelen
+
+\begin{lstlisting}[style=lstoneline]
+lijst[0] lijst[1] lijst[2] lijst[3] lijst[4]
+\end{lstlisting}
+
+Tussen de blokhaken \texttt{[]}\indexop{[]} staat het \textsl{elementnummer} en de variabelen worden de \textsl{elementen} van de array genoemd. In listing~\ref{cod:arraygemiddelde} is een programma te zien met een array. We hebben als getallen vijf wiskundige constanten genomen. De lezer wordt uitgedaagd uit te zoeken welke constanten dat zijn.
+
+\booklistingfromproject[]{C}{Gemiddelde van vijf getallen}{arraygemiddelde}{c}{!ht}
+
+De array mag bij definitie gelijk geïnitialiseerd worden zoals te zien is in regel 5. We berekenen van deze vijf elementen de gemiddelde waarde. We doen dat door eerst de som van de vijf element te berekenen en vervolgens te delen door 5. Met behulp van een \texttt{for}-statement wordt ``langs de array gelopen''; bij elke iteratie selecteren we een element en tellen dat op bij de som van de tot dan toe gesommeerde elementen. De regel
+
+\begin{lstlisting}[style=lstoneline]
+som = som + lijst[index];
+\end{lstlisting}
+
+selecteert dus een element uit de array en telt dat op bij de som. In regel 13 drukken we het gemiddelde af door de som te delen door 5. We hoeven daarvoor niet een aparte variabele te definiëren, we kunnen als argument gewoon \texttt{som / 5.0} gebruiken.
+
+
+\section{Strings}
+Een veel gebruikte arraytype is de \textsl{string}. Dit is een array van karakters, afgesloten met een speciaal karakter dat het \textsl{null-karakter} of \textsl{null-byte} genoemd worden. C heeft geen ingebouwde taalconstructies die direct met strings werken, maar er zijn veel \textsl{functies} beschikbaar om strings te verwerken. Een voorbeeld van een string is:
+
+\begin{lstlisting}[caption=Voorbeeld van een string.]
+char str[] = "Ik ben een string";
+\end{lstlisting}
+
+We hoeven de lengte van de string in dit geval niet op te geven, dat wordt automatisch door de C-compiler uitgerekend. Dat C functies heeft voor het afhandelen van string is te zien in listing~\ref{cod:intexamplestrlen}. In dit programma gebruiken we de functie \lstinline|strlen| (string length) om de lente van de string te bepalen. Wel moeten we het header-bestand \lstinline|string.h| laden waarin de stringfuncties gedeclareerd zijn.
+
+\begin{lstlisting}[caption=Voorbeeld van een stringfunctie.,label=cod:intexamplestrlen]
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char string[] = "Ik ben een string";
+
+    int len = strlen(string);
+
+    printf("De lenge is %d\n", len);
+    
+    return 0;
+}
+\end{lstlisting}
+
+Strings worden behandeld in hoofdstuk~\ref{cha:arrays}. 
+
+
+% Past niet op pagina
+%We kunnen de string bijvoorbeeld door het programma laten afdrukken met \lstinline|printf|:
+%
+%\begin{lstlisting}[caption=Afdrukken van een string.]
+%    printf("%s", str);
+%\end{lstlisting}
+
+
+
 \section{Programmeerstijlen}
 C is erg coulant in het vormgeven van een programma.
 %Het maakt meestal niet uit waar we de statements zetten en hoe een groep statements worden afgebakend.
 We kunnen regels overslaan (een lege regel) en we kunnen statements vooraf laten gaan door een willekeurig aantal spaties of we kunnen statements achter elkaar op een regel plaatsen.
-Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal. We kunnen één letter gebruiken of een compleet woord.
+Ook het gebruik van variabelenamen en functienamen staat geheel los van de taal, behalve de functie \lstinline|main|. We kunnen één letter gebruiken of een compleet woord.
 
 Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we zien in listing~\ref{cod:sqrt_babylonian_bad_style}. De functie wordt door de C-compiler correct vertaald maar is voor een mens slecht leesbaar. De code in listing~\ref{cod:sqrt_babylonian} is veel beter leesbaar.
 
@@ -391,7 +417,9 @@ Een mooi voorbeeld hoe we onze wortelfunctie onleesbaar kunnen maken, kunnen we 
 Hoe een programma uiterlijk wordt vormgegeven noemen we een \textsl{programmeerstijl}\index{programmeerstijl}. Er zijn behoorlijk wat stijlen. We geven hieronder de meest gebruikte aan.
 
 \subsubsection*{Layout van het programma}
-In de K\&R-stijl (Kernighan en Ritchie)\index{K\&R-stijl} wordt de accolade-openen \textsl{achter} een functie, beslis-sings- of herhalingstatement geschreven. De statements hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statements verder of dieper ingesprongen. 
+In de K\&R-stijl (Kernighan en Ritchie)\index{K\&R-stijl} wordt de accolade-openen \textsl{achter} een functie, beslis-sings- of herhalingstatement geschreven. De statements hierbinnen worden \textsl{ingesprongen} (dat wordt in het Engels \textsl{indentation} genoemd)\index{inspringen!van code}\index{indentation}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statements verder of dieper ingesprongen. De reden van de K\&R-stijl is dat ouderwetse editors per regel werkte (en niet full-screen zoals nu). Daardoor konden programmeurs zien of er een blok begon.
+
+\begin{figure}[!ht]
 \begin{lstlisting}[caption=K\&R-stijl.]
 while (a < b) {
     (*\normalfont\textsl{statements}*)
@@ -401,6 +429,7 @@ while (a < b) {
 }
 \end{lstlisting}
 
+\end{figure}
 In de Allman-stijl\index{Allman-stijl} wordt de accolade-openen \textsl{onder} een functie, beslissings- of herhalingstatement geschreven. De statement hierbinnen worden \textsl{ingesprongen}. Bij gebruik van in elkaar verweven beslissings- of herhalingstatement worden de statement verder of dieper ingesprongen.
 
 \begin{lstlisting}[caption=Allman-stijl.]
@@ -437,6 +466,46 @@ Bij de Hungarian Notation worden variabelennamen vooraf gegaan door een omschrij
 \end{lstlisting}
 
 Deze stijl wordt vooral gebruikt bij grote teams programmeurs die gezamenlijk aan één programma werken. Het nadeel van deze stijl is dat de typering niet gestandaardiseerd is. Overigens kan met ontwikkelomgevingen het type gevonden worden door op de variabele te klikken.
+
+
+\section{Commentaar}
+``To comment or not to comment --- that's the question.''.
+
+Commentaar kan op twee manieren worden toegevoegd. Ten eerste is er het \textsl{regelcommentaar}\index{commentaar, regel} (vanaf C99). Zodra de compiler een dubbele \textsl{slash} \lstinline|//| tegenkomt (maar \textsl{niet} in een string), wordt de rest van de regel als commentaar gezien en door de compiler overgeslagen. Zie listing~\ref{cod:intcommentaarregel}. Regelcommentaar is vooral handig om even snel aan te geven wat de regel doet.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Voorbeeld van commentaarregels.,label=cod:intcommentaarregel]
+// Dit is een commentaarregel
+int a = 2; // Vanaf nu is het een commentaarregel
+\end{lstlisting}
+\end{figure}
+
+Ten tweede is er het \textsl{blokcommentaar}. Het blokcommentaar begint met \lstinline|/*| en eindigt met \lstinline|*/|. Let erop dat het blokcommentaar niet \textsl{genest} mag zijn, dus een \lstinline|/*| -- \lstinline|*/|-paar mag niet binnen een blokcommentaar voorkomen.
+
+\begin{lstlisting}[caption=Voorbeeld van commentaarregels.]
+/* Dit is een blokcommentaar
+   en mag over
+   meerdere regels
+   gebruikt worden */
+int a = 2;
+\end{lstlisting}
+
+Het is verstandig om elk bestand (in feite elk leesbaar bestand, dit is niet beperkt tot een C-programma) commentaar op te nemen over de auteur, de datum, de versie en het doel van het programma (of deelprogramma, zie hoofdstuk~\ref{cha:compilatieproces}). Daarnaast is het verstandig om kort toe te lichten wat het programma doet.
+
+\begin{lstlisting}[caption=Commentaar aan het begin van het bestand.]
+/*  File:    intro.c
+ *  Author:  A.J. Kwak
+ *  Date:    2021/08/16
+ *  Version: 0.1
+ *  Licence: GPL v2
+ *  
+ *  This is just some comment to show how a useful
+ *  comment can provide the reader some basic
+ *  information */
+\end{lstlisting}
+
+%Broncode van een programma kan vallen onder een \textsl{licentie}. Er zijn twee vormen: \textsl{closed source} en \textsl{open source}. Bij closed source is de \textsl{broncode} eigendom van het bedrijf en mag het niet verspreid of gebruikt worden. De executable mag natuurlijk wel gebruikt worden. Open source kent veel varianten. Afhankelijk van de licentie mag de broncode gebruikt worden bij het ontwikkelen van programma's die zelf ook weer open source zijn. Soms mag de broncode ook gebruikt worden bij closed source programmatuur. Soms moeten wijzigen aan de broncode openbaar gemaakt worden. Deze opsomming is niet uitputtend. Het beste is om de licentie van de broncode te onderzoeken.
+
 
 \section{En verder...}
 We hebben nu enkele concepten van C uitgelegd. Maar de taal kan meer. Wat we niet behandeld hebben zijn \textsl{pointers} en \textsl{structures}, onderdelen van de taal. We hebben ook \textsl{bestandsverwerking} niet behandeld. Dit is technisch gezien geen onderdeel van de taal, maar wordt vaak gebruikt in programma's. Al deze concepten zullen in de volgende hoofdstukken worden uitgelegd.
