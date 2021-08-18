@@ -1,6 +1,6 @@
 # Boek Programmeren in C
 
-Dit boek is gereed voor gebruik. Ik ontvang graag opmerkingen en correcties.
+Dit boek is gereed voor gebruik. Ik ontvang graag opmerkingen en correcties of maak een [issue](https://github.com/jesseopdenbrouw/book_c/issues) aan.
 
 Issues: meer bruikbare voorbeelden, maar het boek mag niet meer dan 220 pagina's beslaan.
 Onderzoek of er ook een hoofdstuk moet komen m.b.t microcontrollers (ATmega, STM32, MSP430).
@@ -26,7 +26,7 @@ C. Voorrangsregels van operatoren
 
 ## Opgaven voor een practicum
 
-Opgaven voor een practicum kunnen gevonden worden op [https://github.com/jesseopdenbrouw/gesprg](https://github.com/jesseopdenbrouw/gesprg).
+Opgaven voor een practicum kunnen gevonden worden op [https://github.com/jesseopdenbrouw/CPROUC-practicum](https://github.com/jesseopdenbrouw/CPROUC-practicum).
 
 ## Compileren
 
