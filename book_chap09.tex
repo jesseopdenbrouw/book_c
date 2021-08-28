@@ -585,6 +585,45 @@ int main(void) {
 }
 \end{lstlisting}
 
+\section{Redirection}
+Op moderne besturingssystemen zoals Windows, Linux en mac-OSX, is het mogelijk om de invoer van het toetsenbord uit een bestand te laten inlezen. We kunnen deze invoer realiseren met een \textsl{redirection}.
+Stel dat we een programma ontwikkelen dat de som bepaalt van een aantal positieve getallen. De getallen worden van het toetsenbord ingelezen, een 0 dient als afsluiting. De som wordt afgedrukt op het beeldscherm. We plaatsen deze getallen in een bestand met de naam \lstinline|getallen.txt|. De inhoud van het bestand is hieronder te zien.
+
+\begin{lstlisting}[style=lstoneline]
+23
+67
+94
+41
+0
+\end{lstlisting}
+
+We kunnen ons programma, dat van het toetsenbord inleest, aanroepen met:
+
+\begin{lstlisting}[style=lstoneline]
+berekensom.exe < getallen.txt
+\end{lstlisting}
+
+De invoer komt nu uit het bestand \lstinline|getallen.txt| en niet van het toetsenbord. Evenzo kunnen we de uitvoer naar het beeldscherm naar een bestand omleiden. De opdracht
+
+\begin{lstlisting}[style=lstoneline]
+berekensom.exe > som.txt
+\end{lstlisting}
+
+zorgt ervoor dat de uitvoer in het bestand \lstinline|som.txt| komt. We mogen invoer en uitvoer tegelijk omleiden
+
+\begin{lstlisting}[style=lstoneline]
+berekensom.exe < getallen.txt > som.txt
+\end{lstlisting}
+
+zorgt ervoor dat de invoer uit het bestand \lstinline|getallen.txt| wordt ingelezen en dat de uitvoer in het bestand \lstinline|som.txt| komt.
+
+Het is ook mogelijk om de uitvoer van een programma te laten dienen als de invoer van een tweede programma met behulp van een \textsl{pipe}
+
+\begin{lstlisting}[style=lstoneline]
+prog1.exe | prog2.exe | prog3.exe
+\end{lstlisting}
+
+De invoer van \lstinline|prog1.exe| komt van het toetsenbord (of een bestand, als redirection is gebruikt), de uitvoer gaat naar de invoer van \lstinline|prog2.exe|. De uitvoer van \lstinline|prog2.exe| gaat naar de invoer van \lstinline|prog3.exe|. De uitvoer van \lstinline|prog3.exe| gaat naar het beeldscherm (of naar een bestand, als redirection is gebruikt).
 
 
 \iffalse
