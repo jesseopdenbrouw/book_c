@@ -268,9 +268,9 @@ de variabele \texttt{aantal} gebruiken als vervanging voor het getal 10. Als lat
 
 Uiteraard moet de constante passen. Als we bijvoorbeeld
 
-\hspace*{1em}\texttt{char ch = 65536;}
+\hspace*{1em}\texttt{int getal = 89123340928347509832234;}
 
-uitvoeren zal de compiler een waarschuwing geven dat de constante niet past in een \texttt{char}.
+uitvoeren zal de compiler een waarschuwing geven dat de constante niet past in een \texttt{int}.
 
 
 \section{Expressies}
@@ -540,15 +540,17 @@ De \textsl{waarheidstabellen}\index{waarheidstabel} van de AND-, OR- en EXOR-fun
 
 De schuifoperator\index{schuifoperator} \texttt{<<} schuift de bits in een variabele een aantal plekken naar links. De vrijgekomen bits worden opgevuld met nullen. De bits die aan de linkerkant ``eruit vallen'' gaan verloren. De expressie
 
-\hspace*{1em}\texttt{ 1 << 4}
+\begin{lstlisting}[style=lstoneline]
+1 << 4
+\end{lstlisting}
 
-geeft als resultaat 16. De schuifoperator \texttt{>>} schuift de bits in een variabele een aantal plekken naar rechts. De vrijgekomen bits worden \textsl{bij unsigned variabelen} aangevuld met nullen. Bij  \textsl{signed variabelen} worden ze aangevuld met de \textsl{tekenbit}\index{tekenbit}. De bits die aan de rechterkant eruit vallen gaan verloren. De unaire operator \texttt{\textasciitilde} inverteert\index{inverteren} alle bits in een variabele. Een bit die 1 is wordt een 0 en een bit die 0 is wordt een 1. Dit wordt ook wel \textsl{one's complement}\index{one's complement} genoemd.
+geeft als resultaat 16. De schuifoperator \texttt{>>} schuift de bits in een variabele een aantal plekken naar rechts. De vrijgekomen bits worden aangevuld met nullen. De bits die aan de rechterkant eruit vallen gaan verloren. Let erop dat de schuifoperatoren alleen gebruikt mogen worden bij \textsl{unsigned} getallen. Bij \textsl{signed} getallen is de werking \textsl{ongedefinieerd}. De unaire operator \texttt{\textasciitilde} inverteert\index{inverteren} alle bits in een variabele. Een bit die 1 is wordt een 0 en een bit die 0 is wordt een~1. Dit wordt ook wel \textsl{one's complement}\index{one's complement} genoemd.
 
 De operatoren kunnen door elkaar gebruikt worden. Een voorbeeld is:
 
 \hspace*{1em}\texttt{a = a \& \textasciitilde 0xff;}
 
-Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden en de overige bits ongemoeid laat. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanupilaties met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
+Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden en de overige bits ongemoeid laat. In figuur~\ref{fig:threeexamples} zijn drie voorbeelden te zien van bitmanipulaties met AND, OR en EXOR. Hiervoor zijn de gegevens uit tabel~\ref{tab:driebaisfuncties} gebruikt.
 
 \begin{figure}[!ht]
 \centering
@@ -569,6 +571,7 @@ Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden e
 \cmidrule{1-1}
 \fbox{0}\fbox{0}\fbox{1}\fbox{0}\fbox{1}\fbox{0}\fbox{1}\fbox{0} & \\[3ex]
 \end{tabular}
+\vspace*{-1em}
 \caption{Drie voorbeelden van AND, OR en EXOR.}
 \label{fig:threeexamples}
 \end{figure}
