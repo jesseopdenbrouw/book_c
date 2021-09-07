@@ -415,7 +415,7 @@ Dit soort herhalingen worden nog wel eens gebruikt als er in een programma een t
 
 int main(void) {
 
-    int i;
+    volatile int i;
     
     for (i = 0; i < 30000; i++) {
         // do nothing, just waste processor time
@@ -480,7 +480,7 @@ ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;
 \end{lstlisting}
 %\hspace*{1em}\texttt{ary[0] = 0; ary[1] = 0; ary[2] = 0; ary[3] = 0;}
 
-Een sterk staaltje van loop unrolling \textsl{by hand} (dus door de programmeur geschreven) is \textsl{Duff's Device}~\cite{duffsdevice}, ontwikkeld in~\citeyear{duffsdevice}. Het is een slimme manier om een array van integers zeer snel te kopiëren naar één enkel adres. Dit komt onder andere voor bij microcontrollers.
+Een sterk staaltje van loop unrolling \textsl{by hand} (dus door de programmeur geschreven) is \textsl{Duff's Device}~\cite{duffsdevice}, ontwikkeld in~\citeyear{duffsdevice}. Het is een slimme manier om een array van integers zeer snel te kopiëren naar één enkel adres. Dit komt onder andere voor bij microcontrollers\index{microcontrollers}.
 
 %%%Sommige functies zijn zeer klein in omvang. Het aanroepen van een functie en het overdragen van argumenten kost dan relatief veel tijd ten opzichte van de executie van de body van de functie. Het kan dan wenselijk zijn om de body van de functie te plaatsen op de aanroep van de functie. Hiermee wordt het aanroepen en overdragen vermeden. Dit kunnen we aan de compiler opgeven middels de qualifier \textsl{inline}\indexkeyword{inline}. De regels voor \lstc{inline} zijn complex, daarom behandelen we één mogelijkheid: static inline.
 %%%
