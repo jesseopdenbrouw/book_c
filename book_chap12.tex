@@ -3,13 +3,17 @@
 
 C is niet beperkt tot het schrijven van programma's op de bekende besturingsystemen (Windows, Linux, mac-OSX) zoals we hebben gezien in de vorige hoofdstukken. We kunnen (en moeten) C ook gebruiken voor het schrijven van programma's op microcontrollers.
 
+We geven hier slechts een introductie van een aantal gangbare microcontrollers. Er is veel beschikbaar via websites.
+
+
 %Een \textsl{microcontroller}\index{microcontroller} is een afkorting van microprocessor\index{microprocessor} en controller. Een microprocessor is het hart van elke computer en kan met behulp van RAM, ROM en externe opslag (HDD, SSD, USB-stick) een programma uitvoeren. Zo'n microprocessor is te vinden in elke gangbare computer, voorzien van een \textsl{besturingssysteem}\index{besturingssyteem} (Engels: operaring system) zoals Windows, Linux of mac-OSX. Het besturingssysteem zorgt voor een ordentelijk verloop van de computer en de programma's. Programma's kunnen worden gestart en afgesloten, via een een grafische interface. Iedereen heeft wel eens te maken gehad met zo'n computer.
 
+\section{Arduino Uno R3}
 Een \textsl{microcontroller}\index{microcontroller} is een klein computersysteem waarop een microprocessor, RAM en ROM zijn ge\"integreerd. Op een microcontroller is geen besturingssysteem ge\"installeerd. We spreken dan van een \textsl{bare metal system}\index{bare metal system}. Daarnaast heeft de microcontroller \textsl{peripherals} om invoer en uitvoer naar de omgeving mogelijk te maken. Microcontrollers worden gebruikt bij eenvoudige systemen waarbij de taak van het systeem vastligt, zoals thermostaten, wasmachines en magnetrons. Invoer en uitvoer gaat niet via toetsenbord en scherm, maar via \textsl{pinnen} op de microcontroller. Een bekend systeem is de Arduino Uno met daarop een ATmega328-microcontroller. Dit systeem is te zien in figuur~\ref{fig:arduinouno}.
 
 \begin{figure}[!ht]
 \centering
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=0.99]
 \node at (0,0) {\includegraphics[scale=0.25]{images/arduino-uno-r3}};
 \draw[red,*-] (0.5,-0.5) -- ++(3,0) node[right] {microcontroller};
 \draw[red,*-] (-1.5,1.9) -- ++(0,.5) -- ++(2,0) node[right] {USB-connector};
@@ -41,7 +45,7 @@ We kunnen de Arduino iets zinnigs laten doen, zoals het inlezen van de stand van
 \begin{lstlisting}[caption={Inlezen van een pin en het resultaat schrijven naar een pin.},label=cod:arduinoio]
 int inPin = 7;    /* pushbutton connected to digital pin 7 */
 int ledPin = 13;  /* LED connected to digital pin 13 */
-int val = 0;      /* variable to store the read value */
+int val = 0;      /* variable to store the value read*/
 
 void setup() {
   pinMode(inPin, INPUT);    /* sets the digital pin 7 as input */
@@ -54,9 +58,11 @@ void loop() {
 }
 \end{lstlisting}
 
-In de functie \lstinline|setup| wordt pin 7 als input bestempeld en pin~13 als output. Daarmee leggen we vast welke \textsl{richting} de pin heeft. In de functie \lstinline|loop|, die zoals eerder is vermeld continu wordt uitgevoerd, lezen we de stand van pin~7 in en schrijven dat naar pin~13. We moeten wel een schakelaar aan pin~7 en een leed aan pin~13 plaatsen, die zijn niet op het Arduino-bord aanwezig.
+In de functie \lstinline|setup| wordt pin 7 als input bestempeld en pin~13 als output. Daarmee leggen we vast welke \textsl{richting} de pin heeft. In de functie \lstinline|loop|, die zoals eerder is vermeld continu wordt uitgevoerd, lezen we de stand van pin~7 in en schrijven dat naar pin~13. We moeten wel een schakelaar aan pin~7 en een led aan pin~13 plaatsen, die zijn niet op het Arduino-bord aanwezig.
 
-We kunnen ip  de PC dit programma compileren en vervolgens in de microcontroller plaatsen waarna het wordt uitgevoerd zolang de spanning aanwezig is,
+We kunnen ip  de PC dit programma compileren en vervolgens in de microcontroller plaatsen waarna het wordt uitgevoerd zolang de spanning aanwezig is.
+
+We hebben bij dit programma gebruik gemaakt van de functies \lstinline|pinMode|, \lstinline|digitalRead| en \lstinline|digitalWrite|. Deze functies alleen beschikbaar bij de Arduino Uno. Ze zorgen ervoor dat de programmeur niet precies hoeft te weten hoe de hardware van de microcontroller is georganiseerd. De hardware wordt als het ware geabstraheerd. Er zijn meer functies beschikbaar zoals het inlezen van de analoog-digitaal-converter. Als deze functies zijn samengebracht in de \textsl{Hardware Abstraction Layer} (HAL)\index{HAL}\index{Hardware Abstraction Layer} en wordt standaard geladen bij compilatie.
 
 Overigens zijn de functies \lstinline|setup| en \lstinline|loop| als volgt te simuleren op een PC:
 
@@ -74,3 +80,8 @@ int main(void)
 \end{lstlisting}
 
 De functie \lstinline|main| is te zien als functie die aangeroepen wordt door het systeem. Daarna wordt in regel 4 eenmalig de functie \lstinline|setup| aangeroepen. De functie \lstinline|loop| wordt herhaaldelijk aangeroepen in de functie \lstinline|main|.
+
+\section{AVR ATmega}
+Op de Arduino Uno R3 wordt de ATmega328 microcontroller van Microchip gebruikt~\cite{atmega328p}. Deze controller is ook te gebruiken zonder de Arduino-omgeving, maar dan is de HAL niet beschikbaar. Er zijn wel ontwikkelingsborden zoals de STK500~\cite{stk500}. Daarop kan de ATmega328 geplaatst worden. Programmeren kan via de ISP (In-circuit Serial Programming) of via de JTAG-interface. Deze laatste interface kan ook gebruikt worden voor debuggen op de chip, iets wat niet met de Arduino Uno kan.
+
+Zoals gezegd is de HAL van de Arduino Uno niet bschikbaar, dus moeten alle functies zelf geschreven worden.
