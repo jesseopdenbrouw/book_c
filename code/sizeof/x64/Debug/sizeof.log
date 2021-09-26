@@ -1,0 +1,12 @@
+﻿  sizeof.c
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(5,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(5,12): message : consider using '%zd' in the format string
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(6,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(6,12): message : consider using '%zd' in the format string
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(7,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(7,12): message : consider using '%zd' in the format string
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(8,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(8,12): message : consider using '%zd' in the format string
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(9,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+D:\PROJECTS\Tex\book_c\code\sizeof\sizeof.c(9,12): message : consider using '%zd' in the format string
+  sizeof.vcxproj -> D:\PROJECTS\Tex\book_c\code\sizeof\x64\Debug\sizeof.exe
