@@ -315,70 +315,6 @@ definiëren en initialiseren we de array met in dit geval 12 elementen. Omdat de
 %Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
 
 
-\section{Arrays vergelijken}
-\index{array!vergelijken van}
-Een array is een samengesteld datatype en kan niet zonder meer met een andere array vergeleken worden. Het is verleidelijk om de twee arrays te vergelijken alsof het enkelvoudige variabelen zijn zoals te zien is in listing~\ref{cod:arrcompare}. Door de manier waarop C met de namen omgaat zorgt ervoor dat niet de inhouden van de arrays vergeleken worden, maar de adressen van het eerste element. Dit is vergelijkbaar met de array als argument van een functie.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee arrays (foutief).,label=cod:arrcompare]
-#include <stdio.h>
-
-int main(void) {
-
-	int ary1[10] = { 0 }, ary2[10] = { 0 };
-
-	printf("De arrays zijn %sgelijk\n", ary1 == ary2 ? "" : "on");
-}
-\end{lstlisting}
-\end{figure}
-
-De juiste manier om twee arrays te vergelijken is om de elementen uit de arrays met identiek elementnummer een voor een te vergelijken. We doen dit met behulp van de functie \texttt{arraycompare}, te zien in listing~\ref{cod:arrcompare2}.
-
-\begin{figure}[H]
-\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare2]
-int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
-
-    /* If sizes are not equal, return 0 */
-    if (siz1 != siz2) {
-        return 0;
-    }
-
-	for (int pos = 0; pos < siz1; pos++) {
-		if (ary1[pos] != ary2[pos]) {
-            /* Elements are not equal, so arrays are not equal */
-			return 0;
-		}
-	}
-    
-    /* Array elements are equal, return 1 */
-	return 1;
-}
-\end{lstlisting}
-\end{figure}
-
-De twee arrays en het aantal elementen worden als argumenten meegegeven. De arrays moeten natuurlijk uit een gelijk aantal elementen bestaan. Dat testen we in regel 3 en we keren gelijk terug met een waarde 0 als de aantallen verschillend zijn. Met een \texttt{for}-statement lopen we langs alle elementen van de arrays. We vergelijken telkens twee elementen op dezelfde positie. Zodra twee elementen ongelijk aan elkaar zijn, weten we dat de arrays niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een~1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare3]
-#include <stdio.h>
-
-int arraycompare(int ary1[], int ary2[], int siz1, int siz2);
-	
-int main(void) {
-
-	int ary1[10] = { 0 }, ary2[10] = { 0 };
-    int siz1 = sizeof ary1 / sizeof ary1[0];
-    int siz2 = sizeof ary2 / sizeof ary2[0];
-    
-	printf("De arrays zijn %sgelijk\n", arraycompare(ary1, ary2,
-                                          siz1, siz2) ? "" : "on");
-}
-\end{lstlisting}
-\end{figure}
-
-De standard library bevat een aantal functies waarmee we gemakkelijk arrays kunnen vergelijken, onafhankelijk van het datatype. Dit wordt behandeld in hoofdstuk~\ref{cha:pointers}.
-
-
 \section{Arrays als argument en parameter}
 \index{array!als argument}\index{array!als parameter}
 Een array kan als argument van een functie worden gebruikt. Een functie kan \textsl{geen} array teruggeven. Dat heeft te maken met de manier waarop arrays overgedragen worden. Bij enkelvoudige datatypes wordt een \textsl{kopie} gemaakt van de originele variabelen en die kopieën worden doorgegeven. Bij overdragen van een array wordt geen kopie gemaakt, maar wordt de plaats in het geheugen waar de array begint overgedragen\footnote{Dit is gedaan uit efficiëntieoverwegingen. Stel dat een array uit 10000 elementen bestaat, dan zou er een kopie moeten worden gemaakt van al die elementen. Niet alleen de geheugenruimte is een probleem, ook de snelheid waarmee de kopie wordt gemaakt vormt een obstakel. En wat te denken als een functie weer een functie aanroept met dezelfde array. Dan moet er weer een kopie gemaakt worden.}. Omdat niet een complete kopie wordt gemaakt, kan de functie de grootte van de array niet uitrekenen; de functie kent immers de definitie niet. Er moet dus altijd een parameter met de grootte van de array worden overgedragen.
@@ -460,6 +396,70 @@ int patcharray(int ary[], int siz, int what, int with) {
 %%%}
 %%%\end{lstlisting}
 %%%\end{figure}
+
+
+\section{Arrays vergelijken}
+\index{array!vergelijken van}
+Een array is een samengesteld datatype en kan niet zonder meer met een andere array vergeleken worden. Het is verleidelijk om de twee arrays te vergelijken alsof het enkelvoudige variabelen zijn zoals te zien is in listing~\ref{cod:arrcompare}. Door de manier waarop C met de namen omgaat zorgt ervoor dat niet de inhouden van de arrays vergeleken worden, maar de adressen van het eerste element. Dit is vergelijkbaar met de array als argument van een functie.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Vergelijken van twee arrays (foutief).,label=cod:arrcompare]
+#include <stdio.h>
+
+int main(void) {
+
+	int ary1[10] = { 0 }, ary2[10] = { 0 };
+
+	printf("De arrays zijn %sgelijk\n", ary1 == ary2 ? "" : "on");
+}
+\end{lstlisting}
+\end{figure}
+
+De juiste manier om twee arrays te vergelijken is om de elementen uit de arrays met identiek elementnummer een voor een te vergelijken. We doen dit met behulp van de functie \texttt{arraycompare}, te zien in listing~\ref{cod:arrcompare2}.
+
+\begin{figure}[H]
+\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare2]
+int arraycompare(int ary1[], int ary2[], int siz1, int siz2) {
+
+    /* If sizes are not equal, return 0 */
+    if (siz1 != siz2) {
+        return 0;
+    }
+
+	for (int pos = 0; pos < siz1; pos++) {
+		if (ary1[pos] != ary2[pos]) {
+            /* Elements are not equal, so arrays are not equal */
+			return 0;
+		}
+	}
+    
+    /* Array elements are equal, return 1 */
+	return 1;
+}
+\end{lstlisting}
+\end{figure}
+
+De twee arrays en het aantal elementen worden als argumenten meegegeven. De arrays moeten natuurlijk uit een gelijk aantal elementen bestaan. Dat testen we in regel 3 en we keren gelijk terug met een waarde 0 als de aantallen verschillend zijn. Met een \texttt{for}-statement lopen we langs alle elementen van de arrays. We vergelijken telkens twee elementen op dezelfde positie. Zodra twee elementen ongelijk aan elkaar zijn, weten we dat de arrays niet aan elkaar gelijk zijn en geven een 0 terug. Als alle elementen vergeleken zijn en we uit het \texttt{for}-statement komen dan weten we dat alle elementen gelijk zijn en geven we een~1 terug. In listing~\ref{cod:arrcompare3} is te zien hoe we de functie moeten aanroepen.
+
+\begin{figure}[!ht]
+\begin{lstlisting}[caption=Vergelijken van twee arrays.,label=cod:arrcompare3]
+#include <stdio.h>
+
+int arraycompare(int ary1[], int ary2[], int siz1, int siz2);
+	
+int main(void) {
+
+	int ary1[10] = { 0 }, ary2[10] = { 0 };
+    int siz1 = sizeof ary1 / sizeof ary1[0];
+    int siz2 = sizeof ary2 / sizeof ary2[0];
+    
+	printf("De arrays zijn %sgelijk\n", arraycompare(ary1, ary2,
+                                          siz1, siz2) ? "" : "on");
+}
+\end{lstlisting}
+\end{figure}
+
+De standard library bevat een aantal functies waarmee we gemakkelijk arrays kunnen vergelijken, onafhankelijk van het datatype. Dit wordt behandeld in hoofdstuk~\ref{cha:pointers}.
 
 
 \section{Strings}
