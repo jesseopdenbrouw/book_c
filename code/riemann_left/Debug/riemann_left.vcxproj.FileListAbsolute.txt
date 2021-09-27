@@ -1,2 +1,3 @@
 C:\Users\jesse\source\repos\riemann_left\Debug\riemann_left.exe
 C:\Users\jesse\source\repos\riemann_left\Debug\riemann_left.pdb
+D:\PROJECTS\Tex\book_c\code\riemann_left\Debug\riemann_left.exe
