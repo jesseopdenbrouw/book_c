@@ -477,7 +477,7 @@ Stel dat we $F(10)$ willen uitrekenen, dan vinden we via de functie dat $F(10)= 
 In listing~\ref{cod:fibonacci_recursive} is een programma te zien dat het aantal aanroepen van de functie en de totale tijd om een Fibonacci-getal te berekenen bijhoudt. Omdat de getallen vrij snel groot worden, hebben we gebruik gemaakt van \texttt{unsigned long long}-getallen dat bij veel computers neerkomt op 64-bits getallen.
 We houden bij elke berekening bij hoe vaak de functie is aangeroepen en maken gebruik van de \texttt{clock}-functie\indexfunc{clock} in C om de rekentijd bij te houden.
 
-\booklistingfromproject[linerange={1-10,17-39}]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!ht}
+\booklistingfromproject[linerange={1-10,15-39}]{C}{Programma om Fibonacci-getallen af te drukken}{fibonacci_recursive}{c}{!ht}
 
 We berekenen de getallen $F(37)$ t/m $F(43)$. De uitvoer van het programma is te zien in figuur~\ref{fig:outputfib}. We zien dat voor het berekenen van $F(37)$ 24157817 functieaanroepen nodig zijn en de rekentijd bedraagt 1,534 seconden. Voor het berekenen van $F(43)$ zijn meer dan 1,4 miljard aanroepen nodig en de rekentijd bedraagt 22,381 seconden.
 
@@ -497,7 +497,7 @@ Het is aan te tonen dat het aantal aanroepen $C(n)$ voor het berekenen van $F(n)
 C(n) = 2F(n+1)-1
 \end{equation}
 %
-Voor het tijd die een berekening kost is van de orde:
+De ordegrootte van de tijd die een berekening kost is:
 %
 \begin{equation}
 T(n) = O(1,618^n)
@@ -677,7 +677,6 @@ int isupper(int arg) {
 	if (arg == EOF) {
 		return arg;
 	}
-
 	return (arg >= 'A' && arg <= 'Z');
 }
 
@@ -687,4 +686,4 @@ int isupper(int arg) {
 
 In listing~\ref{cod:classificationcharacters} is een programma te zien dat reeks karakters van het toetsenbord inleest, afgesloten met een enter-toets, en deze karakters classificeert.
 
-\booklistingfromproject[]{C}{Classificatie van karakters}{classificationcharacters}{c}{!ht}
+\booklistingfromproject[lineskip=-1pt]{C}{Classificatie van karakters}{classificationcharacters}{c}{!ht}
