@@ -3,8 +3,8 @@
 int main(void)
 {
     char day[7][10] = { "zondag", "maandag", "dinsdag",
-                           "woensdag", "donderdag", "vrijdag",
-                           "zaterdag" };
+                        "woensdag", "donderdag", "vrijdag",
+                        "zaterdag" };
 
     int aantal = sizeof day / sizeof day[0]; /* bereken aantal strings */
 
