@@ -316,11 +316,11 @@ Lokale variabelen kunnen globale variabele verbergen. In listing~\ref{cod:funzic
 \begin{lstlisting}[caption=Zichtbaarheid van globale variabelen.,label=cod:funzichtglobaal]
 int i;
 
-void func1{int a} {
+void func1(int a) {
     // global i visible
 }
 
-void func2{int a} {
+void func2(int a) {
     int i;     // overrules the global i
 }
 \end{lstlisting}
