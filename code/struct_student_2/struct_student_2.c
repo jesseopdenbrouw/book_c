@@ -35,6 +35,21 @@ void verhoog(student_t studenten[], int aantal, double hoeveel)
     }
 }
 
+int bereken_langste_naam(student_t studs[], int aantal)
+{
+    int langste = 0;
+    int huidige_len = 0;
+
+    for (int i = 0; i < aantal; i++) {
+        huidige_len = strlen(studs[i].achternaam);
+        if (huidige_len > langste) {
+            langste = huidige_len;
+        }
+    }
+
+    return langste;
+}
+
 void printheadfoot(void) {
     printf("+----------+-------------------------------+-----------+------+\n");
 }
@@ -45,8 +60,8 @@ int main(void)
     {
         { 19001234, "Alberts", "ep13", 7.3 },
         { 19001235, "Blokland", "ep14", 6.9 },
-        { 19001236, "Cornelie", "ep15", 4.9 },
-        { 19001237, "Demmerie", "ep16", 10.0},
+        { 19001236, "Cornelius", "ep15", 4.9 },
+        { 19001237, "Demmer", "ep16", 10.0},
     };
 
     int nr_studs = sizeof studenten / sizeof studenten[0];
@@ -68,6 +83,10 @@ int main(void)
         print_student(studenten[i]);
     }
     printheadfoot();
+
+    int langste = bereken_langste_naam(studenten, nr_studs);
+
+    printf("Langste naam: %d\n", langste);
 
     return 0;
 }
