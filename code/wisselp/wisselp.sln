@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wisselp", "wisselp.vcxproj", "{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Debug|x64.ActiveCfg = Debug|x64
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Debug|x64.Build.0 = Debug|x64
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Debug|x86.ActiveCfg = Debug|Win32
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Debug|x86.Build.0 = Debug|Win32
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Release|x64.ActiveCfg = Release|x64
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Release|x64.Build.0 = Release|x64
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Release|x86.ActiveCfg = Release|Win32
+		{000B47C9-BCD9-443D-B0CB-7F02A57FD62B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32DDBAD6-89FD-4FC1-9D56-D6A8340C3E1A}
+	EndGlobalSection
+EndGlobal
