@@ -360,7 +360,7 @@ De zes \textsl{relationele operatoren}\index{relationele operatoren} zijn
 \hspace*{1em}\texttt{==} \quad \texttt{!=} \quad \texttt{>} \quad \texttt{>=} \quad \texttt{<} \quad \texttt{<=}
 
 \indexop{==}\indexop{"!=}\indexop{>}\indexop{>=}\indexop{<}\indexop{<=}
-Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op. De relationele operatoren hebben vooral nut bij beslissingen. Zie listing~\ref{cod:varexampleif0}.
+Hierin zijn \texttt{==} gelijk aan en \texttt{!=} ongelijk aan. Verder is \texttt{>} groter dan, \texttt{>=} is groter dan of gelijk aan, \texttt{<} is kleiner dan en \texttt{<=} is kleiner dan of gelijk aan. Deze hebben een lagere prioriteit dan de alle rekenkundige en unaire operatoren, dus \mbox{\texttt{i < len-1}} wordt gelezen als \texttt{i < (len-1)}. Overigens hebben \texttt{==} en \texttt{!=} een lagere prioriteit dan de overige vier. Een relationele operator levert de waarde 1 op als de vergelijking waar is en anders levert de relationele operator~0 op. De relationele operatoren hebben vooral nut bij beslissingen en herhalingen. Zie listing~\ref{cod:varexampleif0}.
 
 Let op het verschil tussen \lstc{==} en \lstc{=}. De eerste is een \textsl{test} of twee expressies gelijk zijn aan elkaar. De tweede is een \textsl{toekenning}. Dus \lstc{a == b} test of \lstc{a} gelijk is aan \lstc{b}. Bij \lstc{a = b} wordt \lstc{b} toegekend aan \lstc{a}.
 
@@ -576,7 +576,7 @@ Deze expressie zorgt ervoor dat de 8 minst significante bits allemaal 0 worden e
 \label{fig:threeexamples}
 \end{figure}
 
-Een bekend voorbeeld is het testen of een geheel getal even of oneven is. Een even geheel getal is exact deelbaar door 2. We kunnen dit realiseren met de modulo-operator\indexop{modulo} \texttt{\%}:
+Een bekend voorbeeld is het testen of een geheel getal even of oneven is. Een even geheel getal is exact deelbaar door 2. We kunnen dit realiseren met de modulus-operator\indexop{modulus} \texttt{\%}:
 
 \hspace*{1em}\texttt{if (getal \% 2 == 0) \{ ... \}}
 
