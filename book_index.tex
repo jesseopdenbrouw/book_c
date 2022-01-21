@@ -12,5 +12,7 @@
 % Next doesn't work with imakeidx, use \indexsetup{othercode=\thispagestyle{fancy}}
 %\thispagestyle{fancy}
 
-\printindex
+%% Just a nice trick to get ``recursie'' in the index, pointing to itself ;-)
+\newcommand{\indexownpage}[1]{\textcolor{bookcolor}{\thepage}}
+\printindex\index{recursie|indexownpage}
 
