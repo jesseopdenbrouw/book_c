@@ -2,7 +2,7 @@
 \label{cha:compilatieproces}
 \thispagestyle{empty}
 
-De compiler is een ingewikkeld stuk gereedschap. Hij compileert C-bestanden, voegt ze samen, voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbaar bestand bevat de instructies die door de computer kunnen worden uitgevoerd. We moeten direct opmerken dat de ``compiler'' uit meerdere programma's bestaat. Het is eigenlijk een verzameling van programma's. Dit wordt een \textsl{toolchain}\index{toolchain} of \textsl{compiler suite}\index{compiler suite} genoemd.
+De compiler is een ingewikkeld stuk gereedschap. Hij compileert C-bestanden, voegt ze samen, voegt er bibliotheken met vooraf geprogrammeerde functies aan toe en zorgt ervoor dat uiteindelijk een uitvoerbaar bestand\index{uitvoerbaar bestand} of \textsl{executable}\index{executable} wordt gegenereerd. Dit uitvoerbare bestand bevat de instructies die door de computer kunnen worden uitgevoerd. We moeten direct opmerken dat de ``compiler'' uit meerdere programma's bestaat. Het is eigenlijk een verzameling van programma's. Dit wordt een \textsl{toolchain}\index{toolchain} of \textsl{compiler suite}\index{compiler suite} genoemd.
 
 In dit hoofdstuk zullen we enige aspecten van het compilatieproces behandelen. Hoewel er veel verschillende C-compilers bestaan, volgen de C-compilers min of meer dezelfde lijn als het om compilatie van bestanden gaat. We zullen ons richten op een veelgebruikte C-compiler, namelijk de GNU C-compiler~\cite{gnugcc}. Deze compiler is geschikt voor onder andere de PC of laptop (Windows en Linux) en een keur aan microcontrollers, zoals de ATmega-, STM32, PIC- en MSP430-microcontrollers. Natuurlijk wordt alles geregeld door de Integrated Development Environment\index{Integrated Development Environment} (IDE)\index{IDE} en hoeft de gebruiker niet zelf alle commando's te geven. We doen dat in dit hoofdstuk wel, om te laten zien wat er nou eigenlijk gebeurt.
 
@@ -83,9 +83,9 @@ De compilatie van een programma gebeurt in een aantal stappen. Deze zijn in een 
 
 %Het \texttt{gcc}-programma is niet de echte compiler maar meer een programma dat een vertaler is tussen de gebruiker en andere programma's. \texttt{gcc} verzamelt bestandsnamen en opties en start dan de benodigde programma's met opties.
 
-C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer zijn tijdelijk bestanden. Dit is eigenlijk geen echte compilatie want er worden alleen \textsl{macro's}\index{macro} verwerkt. Include-bestanden worden ook door de preprocessor verwerkt. Daarna worden de tijdelijke bestanden aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert \textsl{assembler-bestanden} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert deze bestanden en genereert \textsl{objectbestanden}\index{objectbestand}. In een objectbestand zijn de bitpatronen van de instructies opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} (zie paragraaf~\ref{sec:comlinkage}) naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. %Een assembler-bestand wordt direct door de assembler geassembleerd.
+C-bestanden worden in drie stappen gecompileerd. Eerst worden de C-bestanden aan de \textsl{preprocessor} (PRE) doorgegeven (zie hoofdstuk~\ref{cha:preprocessor}). De uitvoer zijn tijdelijke bestanden. Dit is eigenlijk geen echte compilatie, want er worden alleen \textsl{macro's}\index{macro} verwerkt. Include-bestanden worden ook door de preprocessor verwerkt. Daarna worden de tijdelijke bestanden aan de ``echte'' C-compiler (C) doorgegeven. De C-compiler genereert \textsl{assembler-bestanden} met daarin de instructies voor de gekozen processor. De \textsl{assembler} (AS) assembleert deze bestanden en genereert \textsl{objectbestanden}\index{objectbestand}. In een objectbestand zijn de bitpatronen van de instructies opgeslagen, maar het kan zijn dat bepaalde \textsl{referenties} (zie paragraaf~\ref{sec:comlinkage}) naar functies en globale variabelen nog niet zijn ingevuld. Denk hierbij aan de \texttt{printf}-functie die we niet zelf geschreven hebben maar in een \textsl{bibliotheek}\index{library}\index{bibliotheek} is opgeslagen. %Een assembler-bestand wordt direct door de assembler geassembleerd.
 
-Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die de objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
+Alle gegenereerde objectbestanden worden aan de \textsl{linker}\index{linker} doorgegeven, die deze objectbestanden samenvoegt met functies en globale variabelen uit de bibliotheken. Daarna wordt een uitvoerbaar programma gegenereerd.
 
 Als we een programma ontwikkelen voor een microcontroller (dat wordt \textsl{cross-compiling}\index{cross compiler} genoemd, omdat de compiler instructies genereert voor een andere processor), volgt vaak nog een \textsl{post-processing}-stap. Deze stap is nodig om een bestand te genereren dat met behulp van een \textsl{programmer} in de microcontroller kan worden geladen.
 
@@ -171,7 +171,7 @@ gcc file1.c file2.c startup.s -o programma.exe
 
 \section{Definitie en declaratie}
 \index{definitie}\index{declaratie}
-Er is een verschil tussen definitie en declaratie van variabelen en functies. Grosso mode komt het hier op neer: bij definitie wordt geheugenruimte gereserveerd, bij declaratie niet. Dus
+Er is een verschil tussen definitie en declaratie van variabelen en functies. Grofweg komt het hier op neer: bij definitie wordt geheugenruimte gereserveerd, bij declaratie niet. Dus
 
 \begin{lstlisting}[style=lstoneline]
 int a;
@@ -400,7 +400,7 @@ int main(void) {
 }
 \end{lstlisting}
 
-In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een integer voor \texttt{i}. Maar de compiler heeft door dat \texttt{i} gebruikt wordt als lusvariabele. Het is dan beter om deze variabele niet in het geheugen van de computer op te slaan maar vast te houden in een \textsl{register}. Een register is een speciale geheugenplaats in de processor. Alle processoren hebben een aantal van deze registers. Als variabele \texttt{i} nu in een register wordt opgeslagen dan hoeft de processor \texttt{i} niet steeds uit het geheugen te halen en weer terug te zetten. Daardoor wordt de executie van het \texttt{for}-statement sneller. Het gevolg is dat voor variabele \texttt{i} helemaal geen geheugenplaats wordt gereserveerd. We kunnen aan de C-compiler opgeven dat een bepaalde variabele beter in een register kan worden opgeslagen met het keyword \texttt{register}\indexkeyword{register}:
+In principe alloceert de compiler 1000 integers voor array \texttt{ary} en een integer voor \texttt{i}. Maar de compiler ``begrijpt'' dat \texttt{i} gebruikt wordt als lusvariabele. Het is dan beter om deze variabele niet in het geheugen van de computer op te slaan maar vast te houden in een \textsl{register}. Een register is een speciale geheugenplaats in de processor. Alle processoren hebben een aantal van deze registers. Als variabele \texttt{i} nu in een register wordt opgeslagen dan hoeft de processor \texttt{i} niet steeds uit het geheugen te halen en weer terug te zetten. Daardoor wordt de executie van het \texttt{for}-statement sneller. Het gevolg is dat voor variabele \texttt{i} helemaal geen geheugenplaats wordt gereserveerd. We kunnen aan de C-compiler opgeven dat een bepaalde variabele beter in een register kan worden opgeslagen met het keyword \texttt{register}\indexkeyword{register}:
 
 \hspace*{1em}\texttt{register int i;}
 
@@ -433,7 +433,7 @@ volatile int i;
 
 Het keyword \texttt{volatile} betekent zoiets als: gebruik variabele \texttt{i} ook al lijkt er niets zinnigs mee te gebeuren. De C-compiler zal hierdoor over het algemeen wel een geheugenplaats voor \texttt{i} realiseren; \texttt{i} wordt dan niet in een register vastgehouden.
 
-De \texttt{gcc}-compiler kent nog vele optimalisatiemogelijkheden. Dit moeten aan de C-compiler opgegeven worden middels opties. In tabel~\ref{tab:comoptimalisaties} zijn de \textsl{algemene} opties gegeven.
+De \texttt{gcc}-compiler kent nog vele optimalisatiemogelijkheden. Deze moeten aan de C-compiler opgegeven worden door middel van opties. In tabel~\ref{tab:comoptimalisaties} zijn de \textsl{algemene} opties gegeven.
 
 \begin{table}[!ht]
 \centering
