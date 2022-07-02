@@ -3,7 +3,7 @@
 \thispagestyle{empty}
 \index{array}
 
-De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een definitie geven en in het programma moeten we de som bepalen door alle variabelen op te tellen. Willen we nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
+De enkelvoudige datatypes hebben een beperking in de zin dat een groot aantal variabelen niet gemakkelijk kan worden verwerkt. Stel dat we de som van een aantal variabelen willen bepalen. We moeten dan voor elke variabele een definitie geven en in het programma moeten we de som bepalen door alle variabelen bij elkaar op te tellen. Willen we nu meer variabelen optellen, dan moeten we door het hele programma aanpassingen maken. Dat is nog wel te doen als het aantal variabelen beperkt is, maar naar mate dat aantal groeit, wordt het programma groter en complexer. We kunnen veel van dit soort vraagstukken elegant oplossen met behulp van een \textsl{array}.
 
 We behandelen arrays op vele manieren, onder andere hoe een array wordt gedefinieerd en gebruikt. We laten zien dat het mogelijk is om ``langs een array te lopen'' met behulp van een herhaling. We kunnen tweedimensionale arrays gebruiken waarbij een array uit rijen en kolommen bestaat. We zien dat een \textsl{string}\index{string} een array is van karakters en dat in C bewerkingen op strings mogelijk zijn. We kunnen een array als parameter aan een functie meegeven met de kanttekening dat de grootte van de array niet berekend kan worden in de functie. Maar er zijn ook zaken die we hier niet behandelen, namelijk de relatie tussen arrays en pointers. Die wordt behandeld in hoofdstuk~\ref{cha:pointers}.
 
@@ -23,7 +23,7 @@ a[0]  a[1]  a[2]  a[3]  a[4]  a[5]  a[6]  a[7]  a[8]  a[9]
 \end{lstlisting}
 
 
-Bij de definitie wordt het aantal \textsl{elementen}\index{array element}\index{element} opgegeven. In het voorbeeld zijn dat er 10. De nummering van de elementen begint bij 0 en loopt tot en met het aantal elementen minus~1. Tevens wordt bij de definitie het datatype opgegeven. Dit mag elk gangbaar datatype zijn.
+Bij de definitie wordt het aantal \textsl{elementen}\index{array element}\index{element} opgegeven. In het voorbeeld zijn dat er tien. De nummering van de elementen begint bij 0 en loopt tot en met het aantal elementen minus~1. Tevens wordt bij de definitie het datatype opgegeven. Dit mag elk gangbaar datatype zijn.
 
 We kunnen een element selecteren door gebruik te maken van de blokhaken \texttt{[]}\indexop{[]} met daarin het elementnummer. Dit elementnummer mag ook berekend worden met een expressie als het resultaat van de expressie maar een integer is. Om het achtste element toe te kennen aan de variabele \texttt{i} gebruiken we de toekenning:
 
