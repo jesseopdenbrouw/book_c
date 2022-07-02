@@ -4,7 +4,7 @@
 
 De C-compiler is uitgerust met een \textsl{preprocessor}\index{preprocessor}. Dit kan een apart programma zijn dat door de C-compiler zelf gestart wordt, of het kan ingebed zijn in de C-compiler.
 
-De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Tegenwoordig wordt dit ook wel een hashtag genoemd.} (\texttt{\#}). Die worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
+De preprocessor is \textsl{geen} compiler in de zin van het genereren van uitvoerbare code voor een computer. De preprocessor verwerkt het C-bestand aan de hand van bepaalde opdrachten die allemaal beginnen met een \textsl{hash}\footnote{Met een woord erachter wordt dit een hashtag genoemd.} (\texttt{\#}). Die worden \textsl{directives} genoemd. De uitvoer van de preprocessor is een bestand waarin geen directive meer voorkomt en dat bestand wordt aan de C-compiler doorgegeven. De C-compiler heeft dus geen weet van directives.
 
 \section{Invoegen van bestanden}
 \index{include@{\texttt{\#include}}, preprocessor directive}
@@ -25,7 +25,7 @@ Invoegen gebeurt op het punt waar \texttt{\#include} voorkomt. De include direct
 
 De extensie \texttt{.h} geeft aan dat het om een header-bestand gaat. Dit is niet verplicht maar wel \textsl{good practice}. Het is \textsl{niet} de bedoeling om andere C-bestanden via de include directive in te lezen. Dat kan wel, maar is \textsl{bad practice}.
 
-Header-bestanden kunnen zelf ook weer include directives bevatten, wat ook vaak het geval is. Daarbij moet erop gelet  worden dat header-bestanden niet meerdere keren geladen worden. Hoe dat vermeden kan worden, zien we in paragraaf~\ref{sec:conditioneelinlezen}.
+Header-bestanden kunnen zelf ook include directives bevatten, wat ook vaak het geval is. Daarbij moet erop gelet  worden dat header-bestanden niet meerdere keren geladen worden. Hoe dat vermeden kan worden, zien we in paragraaf~\ref{sec:conditioneelinlezen}.
 
 
 \section{Macrovervanging}
@@ -48,7 +48,7 @@ wordt dan vervangen door
 
 \hspace*{1em}\texttt{x = ((p+q) > (r+s) ? (p+q) : (r+s));}
 
-Een veel gemaakte fout is het als volgt definiëren van een kwadraat:
+Een veelgemaakte fout is het als volgt definiëren van een kwadraat:
 
 \hspace*{1em}\texttt{\#define sqr(x) x * x \ \ \ \ /* WRONG */}
 
@@ -72,7 +72,7 @@ We kunnen de preprocessor ook een macro laten vergeten:
 
 
 \section{Conditionele compilatie}
-Het gebruik van macro's is bijzonder handig als we delen van een C-bestand wel of niet willen laten compileren. Een veel gebruikt voorbeeld is het afdrukken van debug-informatie:
+Het gebruik van macro's is bijzonder handig als we delen van een C-bestand wel of niet willen laten compileren. Een veelgebruikt voorbeeld is het afdrukken van debug-informatie:
 
 \begin{lstlisting}[caption=Conditionele compilatie.]
 #include <stdio.h>
