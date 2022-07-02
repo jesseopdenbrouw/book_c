@@ -8,12 +8,12 @@ Een structure kan gezien worden als één enkele variabele. Zo mogen we structur
 
 
 \section{Definitie van structures}
-Een welhaast klassiek voorbeeld van een structure is een aantal artikelen. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We declareren de structure \texttt{artikel} als volgt (listing~\ref{cod:struct1}).
+Een welhaast klassiek voorbeeld van een structure zijn artikelen die te koop zijn in een winkel. Van de artikelen geven we het artikelnummer, de naam, het aantal dat beschikbaar is en de prijs per stuk op. We declareren de structure \texttt{artikel} als volgt (listing~\ref{cod:struct1}).
 
 % We gebruiken label=cod:struct1 om de standaard label te wijzigen
 \booklistingfromproject[linerange={6-11},label=cod:struct1]{C}{Declaratie van de structure \texttt{artikel}}{struct_artikel}{c}{!ht}
 
-Hierin wordt \texttt{artikel} de \textsl{structure identier}\index{structure identifier} genoemd. De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
+Hierin wordt \texttt{artikel} de \textsl{structure identifier}\index{structure identifier} genoemd. De variabelen binnen de structure worden \textsl{leden} genoemd maar we zullen gebruik maken van de Engelse naam \textsl{members}\index{member}\index{structure!member}\indexkeyword{struct}.
 
 We kunnen nu de structure gebruiken in definities door gebruik te maken van
 
@@ -23,7 +23,7 @@ om variabelen te definiëren. In listing~\ref{cod:struct2} is een aantal definit
 
 \booklistingfromproject[linerange={40-43},label=cod:struct2]{C}{Definitie van enkele variabelen}{struct_artikel}{c}{!ht}
 
-In regel 1 wordt de variabele \texttt{floppy} gedefinieerd zonder initialisatie. We kunnen bij definitie gelijk de members initialiseren zoals te zien is in regels 3 en 4. In de initialisatielijst moeten natuurlijk wel de juiste datatypes gebruikt worden, tenzij automatische conversie mogelijk is. Structures mogen zowel globaal als lokaal worden gedefinieerd.
+In regel 1 wordt de variabele \texttt{floppy} gedefinieerd zonder initialisatie. We kunnen bij definitie meteen de members initialiseren zoals te zien is in regels 3 en 4. In de initialisatielijst moeten natuurlijk wel de juiste datatypes gebruikt worden, tenzij automatische conversie mogelijk is. Structures mogen zowel globaal als lokaal worden gedefinieerd.
 
 \section{Toegang tot members}
 Om gebruik te maken van een member gebruiken we de \textsl{member operator} \texttt{.}\indexop{.} (punt). Om de prijs van het artikel \texttt{floppy} in te stellen kunnen we bijvoorbeeld gebruiken:
@@ -44,7 +44,7 @@ Let erop dat de naam van een artikel een \textsl{string} is. Om de naam aan te p
 
 
 \section{Toekennen van structures}
-Een structure mag toegekend worden aan een andere structure middels de \texttt{=}-operator. We mogen dus schrijven
+Een structure mag toegekend worden aan een andere structure met de \texttt{=}-operator. We mogen dus schrijven
 
 \begin{lstlisting}[style=lstoneline]
 struct artikel a, b;
@@ -85,11 +85,11 @@ if (a.nummer == b.nummer && strcmp(a.naam, b.naam) == 0 &&
 
 
 \section{Functies met structures}
-Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben extra spaties toegevoegd om de gegevens van elkaar te scheiden.
+Stel dat we de gegevens van een artikel willen afdrukken. Dan kunnen we natuurlijk alle members apart afdrukken. Maar is het handiger om een functie te definiëren die dat voor ons doet. Een structure mag gewoon als argument aan een functie worden weergegeven\index{structure!als argument} of dienen als parameter in een functie\index{structure!als parameter}. In de functie kunnen we dan de members een voor een afdrukken. Dit is te zien in listing~\ref{cod:struct3}. We hebben spaties toegevoegd om de gegevens van elkaar te scheiden.
 
 \booklistingfromproject[linerange={13-18},label=cod:struct3]{C}{Afdrukken van de gegevens van een  artikel}{struct_artikel}{c}{!ht}
 
-Als we een nieuw artikel willen toevoegen, kunnen we alle members van de structure een waarde toekennen. Maar het is gemakkelijker om een functie te definiëren die dat voor ons doet. Een mogelijke functie is te zien in listing~\ref{cod:struct4}.
+Als we een nieuw artikel willen toevoegen, kunnen we aan alle members van de structure een waarde toekennen. Maar het is gemakkelijker om een functie te definiëren die dat voor ons doet. Een mogelijke functie is te zien in listing~\ref{cod:struct4}.
 
 \booklistingfromproject[linerange={20-30},label=cod:struct4]{C}{Aanmaken van een nieuw artikel}{struct_artikel}{c}{!ht}
 
@@ -120,7 +120,7 @@ We kunnen \texttt{typedef} ook gebruiken bij andere datatypes:
 
 \hspace*{1em}\texttt{typedef unsigned long int ulint;}
 
-\texttt{Typedef}'s zijn handig om een programma onafhankelijke te maken van de C-compiler die gebruikt wordt en de computer waarop het programma draait. Als een programma verplaatst wordt naar een andere computer (dat wordt \textsl{porteren} genoemd), hoeven alleen de \texttt{typedef}'s te worden aangepast. Daarna kan het programma gecompileerd worden met de nieuwe \texttt{typedef}'s.
+\texttt{Typedef}'s zijn handig om een programma onafhankelijk te maken van de C-compiler die gebruikt wordt en de computer waarop het programma draait. Als een programma verplaatst wordt naar een andere computer (dat wordt \textsl{porteren} genoemd), hoeven alleen de \texttt{typedef}'s te worden aangepast. Daarna kan het programma gecompileerd worden met de nieuwe \texttt{typedef}'s.
 
 
 \section{Array van structures}
@@ -129,11 +129,11 @@ Natuurlijk is het niet handig om voor elk artikel een variabele te definiëren. 
 
 \hspace*{1em}\texttt{artikel\_t art[10];}
 
-zorgt ervoor dat we een array van tien artikelen kunnen gebruiken. Om een element uit de array te selecteren gebruiken we de blokhaken \texttt{[]}. Die hebben een lagere prioriteit dan de member operator \texttt{.} (punt) dus er zijn geen haakjes nodig om een member te gebruiken:
+zorgt ervoor dat we een array van tien artikelen kunnen gebruiken. Om een element uit de array te selecteren gebruiken we blokhaken \texttt{[]}. Die hebben een lagere prioriteit dan de member operator \texttt{.} (punt) dus er zijn geen haakjes nodig om een member te gebruiken:
 
 \hspace*{1em}\texttt{art[6].aantal += 3;}
 
-zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven omdat een array middels een adres naar het eerste element wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
+zorgt ervoor dat \texttt{aantal} van \texttt{art[6]} met 3 wordt verhoogd. Bij het meegeven van de array aan een functie moeten we expliciet het aantal arrayelementen opgeven, omdat een array met een adres naar het eerste element wordt meegegeven. Zie ook hoofdstuk~\ref{sec:pointersalsfunctieargumenten}.
 
 In listing~\ref{cod:struct14} is een functie te zien die alle gegevens van de artikelen afdrukt. We gaan hier ervan uit dat als een artikel het nummer 0 heeft, dit artikel niet is ingevuld en drukken we de gegevens niet af. 
 
@@ -151,11 +151,11 @@ print_artikelen(art, aantal);
 
 \section{Structures binnen structures}
 \index{structure!binnen structure}
-We kunnen ons programma uitbreiden met bestellingen. We definiëren daartoe drie structures voor artikelen, klanten en bestellingen. De structures zijn te zien in listing~\ref{cod:bestel1}. We merken op dat de structure \texttt{bestelling\_t} naast een uniek bestelnummer ook variabelen hebben van de structure \texttt{klant\_t} en van een array van \texttt{artikel\_t} (we gaan er gemakshalve vanuit dat een bestelling niet meer dan tien verschillende artikelen kan bevatten). We hebben dus structures binnen een structure. Als we een bestelling willen aanmaken dan moeten we naast het bestelnummer ook de klantgegevens en de artikelen opgeven.
+We kunnen ons programma uitbreiden met bestellingen. We definiëren daartoe drie structures voor artikelen, klanten en bestellingen. De structures zijn te zien in listing~\ref{cod:bestel1}. We merken op dat de structure \texttt{bestelling\_t} naast een uniek bestelnummer ook variabelen heeft van de structure \texttt{klant\_t} en van een array van \texttt{artikel\_t} (we gaan er gemakshalve vanuit dat een bestelling niet meer dan tien verschillende artikelen kan bevatten). We hebben dus structures binnen een structure. Als we een bestelling willen aanmaken dan moeten we naast het bestelnummer ook de klantgegevens en de artikelen opgeven.
 
 \booklistingfromproject[linerange={6-23},label=cod:bestel1,escapeinside={{}{}}]{C}{De structures die horen bij een bestelling}{struct_bestelling}{c}{!ht}
 
-Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de andere members wordt automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
+Om een bestelling aan te maken definiëren we eerst een variabele van het nieuwe datatype \texttt{bestelling\_t} en initialiseren we de structure met nullen. Dit is te zien in listing~\ref{cod:bestel2}. Dat kan door alleen het bestelnummer expliciet met een 0 te initialiseren, de andere members worden automatisch op 0 gezet. Daarna vullen we het bestelnummer in via
 
 \hspace*{1em}\texttt{bestel.bestelnr = 123;}
 
@@ -171,7 +171,7 @@ We moeten dan alleen nog het aantal en de prijs berekenen. Dit is te zien in lis
 
 \booklistingfromproject[linerange={46-53},label=cod:bestel2,escapeinside={{}{}}]{C}{Het vormgeven van een bestelling}{struct_bestelling}{c}{!ht}
 
-Overigens is het niet slim om alle informatie van een artikel in de structure \texttt{bestel} op te nemen. Als de naam van de klant verandert, dan moeten we in twee structures de naam aanpassen. We kunnen beter alleen het klantnummer opnemen. De gegevens van de klant zijn dan via de klantstructures op te vragen. Zie ook het kader onder aan de pagina.
+Overigens is het niet aan te raden om alle informatie van een artikel in de structure \texttt{bestel} op te nemen. Als de naam van de klant verandert, dan moeten we in twee structures de naam aanpassen. We kunnen beter alleen het klantnummer opnemen. De gegevens van de klant zijn dan via de klantstructures op te vragen. Zie ook het kader onderaan de pagina.
 
 
 \section{Teruggeven van meerdere variabelen}
@@ -183,7 +183,7 @@ Een bekend voorbeeld is het berekenen van de oplossingen van een kwadratische ve
 x_{1,2} = \dfrac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
 %
-De expressie onder het wortelteken heet de \textsl{discriminant} en de wortel van de discriminant heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet~0 zijn, want dan kunnen we niet delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:struct_wortels}.
+De expressie onder het wortelteken heet de \textsl{discriminant} en de wortel van de discriminant heeft alleen een reële waarde als deze groter is dan of gelijk is aan 0. Verder mag $a$ niet~0 zijn, want dan kunnen we delen. We moeten nu in feite drie gegevens bepalen: de wortels $x_1$ en $x_2$ en of de wortels geldig zijn. We pakken deze drie gegevens in in een structure. Het volledige programma is te zien in listing~\ref{cod:struct_wortels}.
 
 \booklistingfromproject[escapeinside={{}{}}]{C}{Een programma om de wortels van een kwadratische vergelijking te berekenen}{struct_wortels}{c}{!p}
 
@@ -221,7 +221,7 @@ Bij het afdrukken van de waarde van de variabele raadplegen we het type. Met beh
 \index{bit fields}
 Bitvelden (bit fields) maken het mogelijk om delen van een geheugenplaats (of meerdere geheugenplaatsen gegroepeerd als één geheel), onder te verdelen in afzonderlijke bits. Dit is vooral handig bij het aansturen van hardware.
 
-Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch} dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interrupt\_enable}.
+Stel dat we een (fictieve) hardwarematige \textsl{teller} (Engels: counter) willen aansturen. De gegevens van de teller worden met 32 bits weergegeven. In listing~\ref{cod:bitfields} is de indeling van de~32 bits te zien. De tellerwaarde bestaat uit 16 bits, dus de teller kan tellen van 0 t/m 65535. Dit wordt weergegeven met het veld \texttt{value}. De teller telt \textsl{cyclisch}, dus na de hoogste waarde volgt weer de laagste waarde. De teller heeft dan een \textsl{overflow} gehad. Dit wordt weergegeven met het veld \texttt{overflow}. De teller heeft acht mogelijke manieren van tellen (omhoog, omlaag etc.). Dit wordt weergegeven met het veld \texttt{mode}. Als een speciale \textsl{interruptfunctie} gestart moet worden, geven we dat aan met het veld \texttt{interrupt\_enable}.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Voorbeeld van bitvelden.,label=cod:bitfields]
@@ -238,7 +238,7 @@ struct {
 Het veld \texttt{padding} heeft de speciale breedte 0 om ervoor te zorgen dat de velden worden \textsl{opgelijnd} naar de breedte die van nature door de computer worden verwerkt. Een veel gebruikte term hiervoor is \textsl{machinewoord}. De bit \texttt{interrupt\_enable} komt daardoor op positie 31 terecht, de andere bits lopen van 0 t/m 20.
 
 
-Om te teller te starten gebruiken we:
+Om te teller te starten, gebruiken we:
 
 \hspace*{1em}\texttt{counter.enable = 1;}
 
@@ -255,6 +255,6 @@ Alles aan het gebruik van bitvelden is afhankelijk van de hardware waarop het pr
 Bitvelden werden vroeger gebruikt om geheugenruimte te besparen. Tegenwoordig is dat niet meer nodig omdat de meeste computers genoeg geheugen hebben. Het gebruik van bitvelden wordt daarom ook afgeraden.
 
 \section{Pointers naar structures}
-Een structure kan een groot aantal members hebben en dus veel geheugenruimte innemen. Het doorgeven als parameter en teruggeven als returnwaarde kan dan veel geheugenruimte kosten omdat de gehele structure gekopieerd moet worden (zowel als argument als returnwaarde). Daarnaast kost dit veel executietijd van het programma. Het is dan beter om structures via \textsl{pointers} over te dragen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
+Een structure kan een groot aantal members hebben en dus veel geheugenruimte innemen. Het doorgeven als parameter en teruggeven als returnwaarde kan dan veel geheugenruimte kosten omdat de gehele structure gekopieerd moet worden (zowel als argument als returnwaarde). Daarnaast kost dit veel executietijd van het programma. Het is dan beter om structures via \textsl{pointers} over te dragen. Daarnaast is het mogelijk om via pointer-overdracht de members van de structure aan te passen. We bespreken dit in hoofdstuk~\ref{cha:pointers}.
 	
 \basic
