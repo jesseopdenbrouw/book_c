@@ -2,13 +2,12 @@
 \label{cha:pointers}
 \thispagestyle{empty}
 
-Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer bij de variabele te komen.
+Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variabele waarvan de inhoud het adres is van een andere variabele. We zeggen dan ook wel dat de pointer \textsl{wijst} (Engels: ``points to'') naar de andere variabele. Als een pointer naar een variabele wijst, is het mogelijk om via de pointer de inhoud van de variabele te lezen of te veranderen.
 
 Pointers zijn een krachtig middel om efficiënt gegevens te beheren en argumenten over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
 
 Pointers geven de programmeur een krachtig instrument in handen waar verantwoord mee omgegaan moet worden.
-Onzorgvuldig gebruik kan ervoor zorgen dat een programma voortijdig crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen
-programma’s zeer efficiënt geschreven worden.
+Onzorgvuldig gebruik kan ervoor zorgen dat een programma crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen programma’s zeer efficiënt geschreven worden.
 
 Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan er gemakshalve van uit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
 
@@ -39,7 +38,7 @@ Het is ook mogelijk om een pointer naar het datatype \texttt{void} te laten ``wi
 
 \section{Pointers naar enkelvoudige datatypes}
 \label{sec:pointersnaarenkelvoudigedatatypes}
-In listing~\ref{cod:poidecla} is de definitie van enkele pointers naar enkelvoudige datatypes te zien. Bij de definitie moet het type variabele waarnaar de pointer wijst worden opgegeven. De asterisk (\texttt{*}) geeft aan dat het de definitie van een pointer betreft.
+In listing~\ref{cod:poidecla} is de definitie van enkele pointers naar enkelvoudige datatypes te zien. Bij de definitie moet het type van de variabele waarnaar de pointer wijst worden opgegeven. De asterisk (\texttt{*}) geeft aan dat het de definitie van een pointer betreft.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=Enkele definities van pointers.,label=cod:poidecla]
