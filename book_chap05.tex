@@ -6,7 +6,7 @@ Als een programma langer wordt, dan wordt het al snel onoverzichtelijk. Sommige 
 
 We kunnen deze problemen oplossen door het gebruik van \textsl{functies}\index{functie}. Een logisch bij elkaar behorend stuk code wordt dan ergens apart (in een functie) geplaatst. Deze functie kunnen we vervolgens naar believen \textsl{aanroepen} om de code van de functie uit te voeren. Een Engelse term van de code van een functie wordt de \textsl{body}\index{body} genoemd.
 
-Een functie kan eenvoudig van aard zijn en slechts een simpel stukje programma bevatten. Maar we kunnen functies ook complexer maken door ze \textsl{argumenten}\index{argument} mee te geven. Daarmee kunnen we de functie voor hetzelfde doeleind gebruiken, maar kan het stukje programma wat meer doen. We kunnen een functie ook informatie laten teruggeven. Op die manier is het mogelijk om een functie te schrijven die gegevens meekrijgt, daar iets mee laten doen en dan een resultaat teruggeeft. Een voorbeeld hiervan is een functie om de sinus van een hoek te laten berekenen.
+Een functie kan eenvoudig van aard zijn en slechts een simpel stukje programma bevatten. Maar we kunnen functies ook complexer maken door ze \textsl{argumenten}\index{argument} mee te geven. Daarmee kunnen we de functie voor hetzelfde doeleind gebruiken, maar kan het stukje programma wat meer doen. We kunnen een functie ook informatie laten teruggeven. Op die manier is het mogelijk om een functie te schrijven die gegevens meekrijgt, daar iets mee te doen en dan een resultaat teruggeeft. Een voorbeeld hiervan is een functie om de sinus van een hoek te laten berekenen.
 
 Er zijn ook functies die \textsl{zichzelf} aanroepen. Dat worden recursieve functies genoemd. De functie roept zichzelf aan met (meestal) een gewijzigd argument. Op deze manier kunnen complexe programmeerproblemen elegant worden opgelost maar we zullen zien dat het wel zijn weerslag heeft op het geheugen en de executietijd.
 
@@ -91,7 +91,7 @@ Doordat de parameter \texttt{aantal} nu is geïnitialiseerd met de waarde \textt
 Een functie kan meerdere parameters hebben. 
 De verschillende parameters worden van elkaar gescheiden door een komma.
 Elke parameter heeft zijn eigen typeaanduiding.
-Bij aanroep moet het aantal argumenten overeenkomen met het aantal parameters, en de datatypes moeten overeenkomen óf ze worden geconverteerd.
+Bij aanroep moet het aantal argumenten overeenkomen met het aantal parameters, en de datatypes moeten overeenkomen óf kunnen worden geconverteerd.
 De waarde van het eerste argument wordt gekopieerd naar de eerste parameter en de waarde van het tweede argument wordt gekopieerd naar de tweede parameter enzovoort.
 
 In listing~\ref{cod:print_rechthoek} is een voorbeeld gegeven van een functie met twee parameters.
@@ -185,7 +185,7 @@ De waarde van de expressie achter \texttt{return} wordt gekopieerd naar de plaat
 De aanroep van de functie wordt als het ware vervangen door de returnwaarde.
 In \texttt{main} wordt de waarde die wordt teruggegeven door de functie \texttt{gemiddelde} opgeslagen in de variabele \texttt{gem} en vervolgens afgedrukt met behulp van \texttt{printf}.
 
-Er is in het voorbeeld dat is weergegeven in listing~\ref{cod:gemiddelde1} gebruik gemaakt van de variabelen \texttt{resultaat} en \texttt{gem}, maar beide variabelen zijn in feite niet nodig.
+Er is in het voorbeeld dat is weergegeven in listing~\ref{cod:gemiddelde1} gebruik gemaakt van de variabelen \mbox{\texttt{resultaat}} en \texttt{gem}, maar beide variabelen zijn in feite niet nodig.
 In listing~\ref{cod:gemiddelde2} is een compactere versie van dit voorbeeld weergegeven.
 
 \booklisting[]{C}{Een compactere versie van het programma uit listing~\ref{cod:gemiddelde1}}{gemiddelde2}{c}{!ht}
