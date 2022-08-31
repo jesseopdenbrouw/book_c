@@ -109,7 +109,7 @@ De array \texttt{a} wordt na de definitie
 int a[10];
 \end{lstlisting}
 
-een \textsl{eendimenationale}\index{eendimensionaal} array genoemd.
+een \textsl{eendimensionale}\index{eendimensionaal} array genoemd.
 Zoals al eerder is geschreven, mogen we het elementnummer van een array met een expressie uitrekenen, op voorwaarde dat de uitkomst een geheel getal is en binnen de grenzen van de array ligt. In listing~\ref{cod:arrberekenenkwadraten} is een programma te zien dat een array vult met kwadraten van~0 t/m~9. We gebruiken \texttt{i} als lusvariabele en berekenen voor elk element het kwadraat. Daarna bepalen we de som van twee kwadraten door de juiste elementen uit de array bij elkaar op te tellen. Vervolgens drukken we de gegevens op het scherm af.
 
 \begin{figure}[!ht]
@@ -312,7 +312,7 @@ definiëren en initialiseren we de array met in dit geval 12 elementen. Omdat de
 %
 %\hspace*{1em}\texttt{i < len-1 ? \textquotesingle\ \textquotesingle\ : \textquotesingle\textbackslash n\textquotesingle}
 %
-%Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatse element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
+%Dit werkt als volgt. Voor het vraagteken staat de relationele expressie \texttt{i < len-1}. Als de expressie waar is, dan wordt een \textsl{spatie}\index{spatie} afgedrukt. Als de expressie onwaar is dan wordt een \textsl{newline}\index{newline} afdrukt. Het gevolg is dat na een element een spatie wordt afgedrukt, behalve na het laatste element, dan wordt een newline afgedrukt. De conditionele expressie wordt besproken in paragraaf~\ref{sec:conditioneleexpressie}.
 
 
 \section{Arrays als argument en parameter}
@@ -540,5 +540,3 @@ Dat deze functies niet zo ingewikkeld zijn is te zien listing~\ref{cod:array_str
 
 %% Dirty hack to fill the page
 \booklistingfromproject[lineskip=-1.3pt,aboveskip=7pt,belowskip=0pt]{C}{Een implementatie van de stringfuncties}{array_stringfunctions}{c}{!p}
-
-

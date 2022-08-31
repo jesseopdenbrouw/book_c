@@ -142,7 +142,7 @@ In regel 1 wordt een zogenoemd \textsl{header-bestand}\index{header-bestand} gel
 
 In regel 3 wordt kenbaar gemaakt dat het programma de functie \texttt{main}\indextwo{main}{functie} heeft. Een C-programma heeft \textsl{altijd} de functie \texttt{main}. Het (gecompileerde) programma wordt hier gestart. Het programma wordt gestopt na het laatste statement in \texttt{main}. Dit is per definitie een \mbox{\texttt{return}}-statement.
 
-In regel 5 en 6 worden twee \textsl{variabelen}\index{variabele} gedefinieerd, de variabelen \texttt{a} en \texttt{b}. Technisch gezien is een variabele een plek in het geheugen van de computer. Een variabele kan door het programma gebruikt worden om gegevens te bewerken. Definitie\index{definitie} wil zeggen dat een variabele kenbaar wordt gemaakt én dat er geheugenruimte wordt gereserveerd. Bij de defnitie wordt opgegeven wat het type is van de variabele. Dit gebeurt middels het keyword \texttt{int}, dat betekent dat \texttt{a} en \texttt{b} alleen gehele getallen kunnen opslaan (Engels: integer). Aan de variabelen worden gelijk waarden toegekend. We noemen dit \textsl{initialisatie}\index{initialisatie} van variabelen.
+In regel 5 en 6 worden twee \textsl{variabelen}\index{variabele} gedefinieerd, de variabelen \texttt{a} en \texttt{b}. Technisch gezien is een variabele een plek in het geheugen van de computer. Een variabele kan door het programma gebruikt worden om gegevens te bewerken. Definitie\index{definitie} wil zeggen dat een variabele kenbaar wordt gemaakt én dat er geheugenruimte wordt gereserveerd. Bij de definitie wordt opgegeven wat het type is van de variabele. Dit gebeurt middels het keyword \texttt{int}, dat betekent dat \texttt{a} en \texttt{b} alleen gehele getallen kunnen opslaan (Engels: integer). Aan de variabelen worden gelijk waarden toegekend. We noemen dit \textsl{initialisatie}\index{initialisatie} van variabelen.
 
 %%%\begin{infobox}[Definitie versus declaratie]
 %%%Bij programmeertalen wordt twee termen gebruikt: definitie en declaratie. Een definitie van een variabele is het kenbaar maken van een variabele en het reserveren van geheugenruimte op het moment van definiëren. Declaratie wil zeggen dat de variabele op een andere plek in het programma is gedefinieerd en dat het vanaf het punt van declaratie kan worden gebruikt.
@@ -225,7 +225,7 @@ Dit bepaalt de grootte (het aantal bits) van variabele \texttt{a}. Zie hoofdstuk
 
 \section{Beslissingen}
 
-Met behulp van de keyswords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen we in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We definiëren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden 
+Met behulp van de keywords \texttt{if}\indexkeyword{if} en \texttt{else}\indexkeyword{else} kunnen we in het programma beslissingen nemen op basis van een \textsl{conditie}\index{conditie}. Dit is te zien in listing~\ref{cod:unif}. We definiëren twee variabelen \texttt{a} en \texttt{b} en kennen gelijk de waarden 
 %
 \begin{figure}[!b]
 \begin{lstlisting}[caption=Afdrukken van tekst op basis van een beslissing.,label=cod:unif]
@@ -386,7 +386,7 @@ int main(void)
 
     int len = strlen(string);
 
-    printf("De lenge is %d\n", len);
+    printf("De lengte is %d\n", len);
     
     return 0;
 }
@@ -450,7 +450,7 @@ Ook voor naamgeving van variabelen zijn diverse gebruiken in omloop. We zullen e
 
 In de K\&R-stijl zijn er eigenlijk geen regels. Variabelennamen mogen uit één letter bestaan, of natuurlijk uit meerdere letters. Als namen syntactisch uit meerdere woorden bestaan, worden de woorden gescheiden door een \textsl{underscore}.\index{underscore} Het is wel aan te raden dat namen zinvol zijn en dat ze de betekenis vertegenwoordigen. Overigens is het gebruik van eenletterige variabelennamen prima te verantwoorden, bijvoorbeeld binnen het gebruik van een kortdurdende herhaling én als het programma niet al te groot is\footnote{In dit boek gebruiken we vooral de K\&R-stijl. We gebruiken ook vaak eenletterige variabelen. Dat is te verklaren omdat veel voorbeelden kort zijn en we de lezer niet willen vermoeien met lange variabelennamen. Het gebruik van de accolade-openen achter een taalconstructie levert een besparing op van één programmaregel.}.
 
-In de camelCase-stijl worden variabelen weergegeven met kleine letters en hoofdletters geven scheidingen aan tussen woorden die syntactisch gescheiden zijn. Er worden geen underscores gebruikt. Deze stijl is afkomsting uit Java.
+In de camelCase-stijl worden variabelen weergegeven met kleine letters en hoofdletters geven scheidingen aan tussen woorden die syntactisch gescheiden zijn. Er worden geen underscores gebruikt. Deze stijl is afkomstig uit Java.
 
 \begin{figure}[!ht]
 \begin{lstlisting}[caption=camelCase-stijl.]
