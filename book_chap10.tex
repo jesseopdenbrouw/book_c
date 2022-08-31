@@ -137,7 +137,7 @@ Welke predefined macros gedefinieerd zijn, is afhankelijk van de C-compiler. De 
 \index{elif@{\texttt{\#elif}}, preprocessor directive}
 \index{else@{\texttt{\#else}}, preprocessor directive}
 
-Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgen ervoor dat er conditioneel gecomplieerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
+Meerdere macro's mogen in een logische expressie voorkomen. De onderstaande regels zorgen ervoor dat er conditioneel gecompileerd wordt als de macro \texttt{\_\_linux\_\_} wel bestaat en de macro \texttt{\_\_ANDROID\_\_} niet bestaat.
 
 \hspace*{1em}\texttt{\#if defined(\_\_linux\_\_) \&\& !defined(\_\_ANDROID\_\_)}
 
@@ -159,4 +159,3 @@ Om ervoor te zorgen dat tijdens een compilatie van een C-bestand een header-best
 #endif
 \end{lstlisting}
 \index{ifndef@{\texttt{\#ifndef}}, preprocessor directive}
-

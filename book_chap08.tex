@@ -7,7 +7,7 @@ Een pointer-variabele, of kortweg \textsl{pointer}\index{pointer}, is een variab
 Pointers zijn een krachtig middel om efficiënt gegevens te beheren en argumenten over te dragen aan functies. Soms zijn pointers zelfs de enige manier voor het bewerken van data. Het is dan ook niet verwonderlijk dat in veel C-programma's pointers gebruikt worden. 
 
 Pointers geven de programmeur een krachtig instrument in handen waar verantwoord mee omgegaan moet worden.
-Onzorgvuldig gebruik kan ervoor zorgen dat een programma crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen programma’s zeer efficiënt geschreven worden.
+Onzorgvuldig gebruik kan ervoor zorgen dat een programma crasht. Het maakt het ook moeilijk om aan te tonen dat een programma correct functioneert. Maar met discipline kunnen programma's zeer efficiënt geschreven worden.
 
 Een handige manier om pointers weer te geven, is door het geheugen van een computer voor te stellen als een rij vakjes. In figuur~\ref{fig:poiinmem} is dat te zien. Elk vakje stelt een geheugenplaats voor\footnote{We gaan er gemakshalve van uit dat elke variabele precies één geheugenplaats in beslag neemt. In de praktijk bestaan variabelen en pointers meestal uit meer dan één geheugenplaats.}. In de figuur zijn de variabelen \texttt{i} en \texttt{j} te zien. De twee pointers \texttt{p} en \texttt{q} wijzen respectievelijk naar variabele \texttt{i} en \texttt{j}. Dit is weergegeven met de twee pijlen. De inhoud van pointer \texttt{p} is dus het adres van variabele \texttt{i} en de inhoud van pointer \texttt{q} is het adres van variabele \texttt{j}.
 
@@ -810,7 +810,7 @@ hello world!
 world!hello
 \end{dosbox}
 
-Merk op dat we in de functiedefinitie een \textsl{dubbele derefentie} opgeven maar in de functie zelf gebruiken we een enkele derefentie. De enkele derefentie is nodig om bij de pointers \lstc{pa} en \lstc{pb} te komen.
+Merk op dat we in de functiedefinitie een \textsl{dubbele dereferentie} opgeven maar in de functie zelf gebruiken we een enkele dereferentie. De enkele dereferentie is nodig om bij de pointers \lstc{pa} en \lstc{pb} te komen.
 
 
 \section{Array van pointers}
@@ -1263,7 +1263,7 @@ We kunnen meerdere variabelen (nodes) aanmaken, zie hieronder:
 
 \begin{lstlisting}[style=lstoneline]
 struct node a = { 43, "Inge", NULL };
-struct node b = { 18, "Jesscia", NULL };
+struct node b = { 18, "Jessica", NULL };
 struct node c = { 37, "Karin", NULL };
 struct node d = { 14, "Renate", NULL };
 \end{lstlisting}
@@ -1526,7 +1526,7 @@ Als er een opvolger is dan springen we naar de opvolger. Dit doen we door gebrui
 current = current->next;
 \end{lstlisting}
 
-Dus als \lstc{current} wijst naar $A$ wordt de nieuwe waarde $A$\lstc{->next} oftwel $B$.
+Dus als \lstc{current} wijst naar $A$ wordt de nieuwe waarde $A$\lstc{->next} oftewel $B$.
 De pointer \mbox{\lstc{current}} wijst na het uitvoeren van het statement naar $B$. Uiteindelijk is de laatste node in de linked list gevonden en wijst \lstc{current} naar node $D$. Dit is weergegeven met de (pseudo)-pointer \lstc{current@end}. Daarna laten we deze laatste node $D$ wijzen naar de nieuwe node. Dat doen we met het statement
 
 \begin{lstlisting}[style=lstoneline]

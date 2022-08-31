@@ -69,7 +69,7 @@ Bij de definitie van variabelen mogen ook gelijk waarden worden toegekend, op vo
 \section{Datatypes}
 Een variabele is van een bepaald \textsl{datatype}\index{datatype}. We hebben er al twee gezien, de \texttt{int} en de \texttt{double}. Een datatype heeft een bepaalde grootte. Zo bestaat een \texttt{int} \textsl{meestal} uit 32 bits. Er zijn echter ook systemen en C-compilers waar een \texttt{int} uit 16 bits bestaat. Dat een \texttt{int} uit 32 bits bestaat, betekent dat niet elk willekeurig getal aan de \texttt{int} kunnen worden toegekend. Er is een minimale en maximale waarde. Voor de \texttt{int} is de minimale waarde $-2147483648$ en de maximale waarde $+2147483647$. De \texttt{int} is een \textsl{signed} datatype: zowel positieve als negatieve getallen en 0 zijn mogelijk.
 
-Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in een bepaalde situatie. We kunnen dan kiezen voor een ander type. C kent een aantal gehele datatypes van diverse grootten. Deze zijn weergegeven in tabel~\ref{tab:varintdatatypes}. Gehele getallen worden opgeslagen in de two'scomplement representatie maar voor de gebruiker is dat niet van belang. Zie~\cite{opdenbrouw2020}.
+Nu is de grootte van een \texttt{int} niet altijd noodzakelijk of toereikend in een bepaalde situatie. We kunnen dan kiezen voor een ander type. C kent een aantal gehele datatypes van diverse grootten. Deze zijn weergegeven in tabel~\ref{tab:varintdatatypes}. Gehele getallen worden opgeslagen in de two's complement representatie maar voor de gebruiker is dat niet van belang. Zie~\cite{opdenbrouw2020}.
 
 \begin{table}[!ht]
 \centering
@@ -96,7 +96,7 @@ We kunnen deze datatypes gebruiken middels de \textsl{qualifier}\index{qualifier
 
 \begin{table}[!ht]
 \centering
-\caption{De unsigned dataypes die beschikbaar zijn in C.}
+\caption{De unsigned datatypes die beschikbaar zijn in C.}
 \label{tab:varintdatatypesunsiged}
 \begin{tabular}{@{}lcl@{}}
 \toprule
@@ -143,7 +143,7 @@ Een \texttt{float}\indexkeyword{float} is een datatype met een grootte van 32 bi
 
 \begin{table}[!ht]
 \centering
-\caption{De floating point dataypes die beschikbaar zijn in C.}
+\caption{De floating point datatypes die beschikbaar zijn in C.}
 \label{tab:varfloatdatatypes}
 \begin{tabular}{@{}lccc@{}}
 \toprule
@@ -187,10 +187,10 @@ Gehele constanten kunnen als getal op drie manieren worden ingevoerd: als decima
 
 De C-standaard kent geen manier om binaire getallen in te voeren. Veel compilers ondersteunen dit toch door de prefix \texttt{0b} of \texttt{0B} te gebruiken. Zo is de constante \texttt{0b10101001} gelijk aan~169 (decimaal).
 
-Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofes. Zo is \texttt{\textquotesingle A\textquotesingle} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{\textquotesingle A\textquotesingle} overeen met de waarde 65.
+Een\textsl{ karakterconstante}\index{karakterconstante} is een geheel getal, geschreven als een één karakter tussen apostrofs. Zo is \texttt{\textquotesingle A\textquotesingle} een karakterconstante. De interne representatie is een geheel getal dat overeen komt met de karakterset van de computer. Over het algemeen wordt de ASCII-code gebruikt en komt \texttt{\textquotesingle A\textquotesingle} overeen met de waarde 65.
 De standaard ASCII-tabel is te vinden in bijlage~\ref{cha:asciitabel}.
 
-Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \lstc{'} zelf (apostrofe of \textsl{quote} genoemd). Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\lstinline[style=lstoneline]|\|) en een karakter. We kunnen de apostrofe dus invoeren als \lstinline[style=lstoneline]|\'|. Om de backslash zelf in te voeren gebruiken we \lstinline[style=lstoneline]|\\|.
+Niet alle karakters kunnen zo worden ingevoerd. Een voorbeeld is het karakter \lstc{'} zelf (apostrof of \textsl{quote} genoemd). Om dit karakter in te voeren gebruiken we een \textsl{escape sequence}\index{escape sequence}. Een escape sequence bestaat uit een \textsl{backslash}\index{backslash karakter} (\lstinline[style=lstoneline]|\|) en een karakter. We kunnen de apostrof dus invoeren als \lstinline[style=lstoneline]|\'|. Om de backslash zelf in te voeren gebruiken we \lstinline[style=lstoneline]|\\|.
 
 De C-standaard kent een hele verzameling van dit soort escape sequences. Eén daarvan hebben we al meerdere malen gezien: de newline. Deze wordt aangegeven met \texttt{\textquotesingle\textbackslash n\textquotesingle}. Een aantal escape sequences is vermeld in tabel~\ref{tab:varescseq}.
 
@@ -668,7 +668,7 @@ Overflow bij floating point-getallen werkt anders. Dat heeft te maken met de geb
 Naast representeerbare getallen kent de floating point-specificatie nog drie speciale getallen: $+\infty$ (oneindig positief), $-\infty$ (oneindig negatief) en \texttt{NaN}\index{nan} (Not A Number). Zo geeft de deling 1/0 als resultaat $+\infty$\footnote{Volgens de wiskunde is het resultaat van een deling door 0 onbepaald. De specificatie definieert echter de deling als $\pm$oneindig.}. De deling 0/0 resulteert in NaN.
 
 
-\section{Vaste-lenge datatypes}
+\section{Vaste-lengte datatypes}
 Dat de grootte van integers aan elkaar gerelateerd zijn, kan in programma's voor problemen zorgen of tot problemen leiden. We weten nu niet of een \texttt{int} 16 of 32 bits is. Dit heeft geleid tot een aantal nieuwe datatypes die in de C99-standaard zijn vastgelegd. De grootte van deze types zijn exact. Zo is een \texttt{int8\_t} een integer van precies 8 bits ($-128$ t/m $+127$). Naast de integer met teken zijn er ook types zonder teken. Zo is een \texttt{uint16\_t} een integer van precies~16 bits met een minimale waarde van 0 en een maximale waarde van 65535.
 
 Voor ``normaal'' gebruik zijn deze datatypes niet echt nodig. Maar bij het schrijven van programma's op microcontrollers is het vaak de enige goede methode om er zeker van te zijn dat een bepaalde grootte van een variabele gegarandeerd is. Dit is met name belangrijk bij het gebruik van zogenoemde \textsl{I/O-adressen}\index{I/O-adressen}. Dat zijn speciale adressen in het geheugen van de microcontroller waarmee communicatie met de buitenwereld mogelijk is, zoals het inlezen van de stand van een schakelaar of het laten branden van een led.
@@ -677,7 +677,7 @@ In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de
 
 \begin{table}[!ht]
 \centering
-\caption{De vaste-lengte dataypes die beschikbaar zijn in C (signed).}
+\caption{De vaste-lengte datatypes die beschikbaar zijn in C (signed).}
 \label{tab:varinttdatatypes}
 \begin{tabular}{@{}lcrl@{}}
 \toprule
@@ -692,7 +692,7 @@ In de tabellen~\ref{tab:varinttdatatypes} en~\ref{tab:varuinttdatatypes} zijn de
 
 \begin{table}[!ht]
 \centering
-\caption{De vaste-lengte dataypes die beschikbaar zijn in C (unsigned).}
+\caption{De vaste-lengte datatypes die beschikbaar zijn in C (unsigned).}
 \label{tab:varuinttdatatypes}
 \begin{tabular}{@{}lcr@{}}
 \toprule

@@ -311,11 +311,11 @@ int evaluate(char *str) {
     
     char *p;
     
-    if ((p = seachtok(str, '*')) != NULL) {
+    if ((p = searchtok(str, '*')) != NULL) {
         // ...
-    } else if ((p = seachtok(str, '/')) != NULL) {
+    } else if ((p = searchtok(str, '/')) != NULL) {
         // ...
-    } else if ((p = seachtok(str, '%')) != NULL) {
+    } else if ((p = searchtok(str, '%')) != NULL) {
         // ...
     }
 }
@@ -499,5 +499,3 @@ Een sterk staaltje van loop unrolling \textsl{by hand} (dus door de programmeur 
 %%%    printf("Max is: %d\n", x);
 %%%}
 %%%\end{lstlisting}
-
-
