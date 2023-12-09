@@ -98,7 +98,7 @@ gcc mooi.c -o mooi.exe
 \end{lstlisting}
 %\hspace*{1em}\texttt{gcc mooi.c -o mooi.exe}
 
-Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en OS-X, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
+Als alles goed verloopt, wordt er een uitvoerbaar bestand \texttt{mooi.exe} gegenereerd\footnote{Op Unix-systemen, dus ook Linux en macOS, heeft een uitvoerbaar bestand geen extensie. De compilatie-opdracht wordt dan \texttt{gcc mooi.c -o mooi}, waarna we \texttt{mooi} kunnen uitvoeren.}. We kunnen dit bestand uitvoeren met \texttt{.\textbackslash mooi.exe}. Soms kan de \texttt{.\textbackslash} weggelaten worden, afhankelijk van de instellingen van Windows.
 Hoewel het uit dit voorbeeld niet blijkt, worden alle stappen uit figuur~\ref{fig:comschematisch} doorlopen.
 
 
@@ -382,6 +382,7 @@ om static linking te forceren. Het uitvoerbare programma wordt wel groter omdat 
 
 
 \section{Optimalisatie}
+\label{sec:optimalisatie}
 Zoals al eerder is vermeld, is de C-compiler een ingewikkeld programma\footnote{De vraag is altijd: in welke taal is de C-compiler geschreven? Het antwoord is: in C zelf. Dit levert natuurlijk het kip-en-ei-probleem. Het antwoord is dat de C-compiler in eerste instantie in assembly is geschreven en vandaar uit is een echte C-compiler gebouwd. Opvolgende generaties van C-compilers kunnen dus gecompileerd worden door (oudere) C-compilers.}. De huidige compilers zijn zeer pienter in het herkennen van de C-taal. Laten we eens kijken naar het programma in listing~\ref{cod:comclearary}.
 
 \begin{lstlisting}[caption=Een C-programma.,label=cod:comclearary]
