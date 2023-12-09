@@ -952,7 +952,7 @@ Bij gebruik van een 64-bits compilers worden de pointers afgedrukt met 16 hexade
 \section{Argumenten meegeven aan een C-programma}
 \index{argumenten!aan een C-programma}\index{command line argumenten}
 \label{sec:argumentenmeegevenaaneencprogramma}
-In besturingssystemen die C ondersteunen zoals Windows, Linux en OS-X, is het mogelijk om een C-programma \textsl{command line argumenten} mee te geven. Bij het starten van een programma kunnen we (optioneel) gegevens invoeren en overdragen aan een gecompileerd C-programma.
+In besturingssystemen die C ondersteunen zoals Windows, Linux en macOS, is het mogelijk om een C-programma \textsl{command line argumenten} mee te geven. Bij het starten van een programma kunnen we (optioneel) gegevens invoeren en overdragen aan een gecompileerd C-programma.
 
 Elk C-programma krijgt per definitie de twee parameters \texttt{argc} en \texttt{argv} mee, die aan \texttt{main} worden meegegeven. Dit is te zien in listing~\ref{cod:poiargs}. Merk op dat dit een andere aanroep van \lstinline|main| dan in eerdere hoofdstukken.
 
@@ -1627,18 +1627,37 @@ We zullen in de praktijk nauwelijks complexere situaties tegenkomen dan dat we t
 Via de website~\cite{cdeclwebsite} kunnen complexe definities omgezet worden in leesbaar Engels.
 
 
-%%%\section{Pointers naar vaste adressen}
-%%%\index{pointer!naar vast adres}
-%%%C is erg coulant bij het toekennen van adressen aan pointers. Zo is het mogelijk om een pointer naar een vast adres te laten wijzen.
-%%%De definitie en initialisatie
-%%%
-%%%\hspace*{1em}\texttt{unsigned int *p = (unsigned int *) 0x40fe;}
-%%%
-%%%zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. We kunnen nu iets in die geheugenplaats zetten door een dereferentie:
-%%%
-%%%\hspace*{1em}\texttt{*p = 0x3ff;}
-%%%
-%%%Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal system}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+\advanced
+\section{Pointers naar vaste adressen}
+\index{pointer!naar vast adres}
+C is erg coulant bij het toekennen van adressen aan pointers. Zo is het mogelijk om een pointer naar een vast adres te laten wijzen.
+De definitie en initialisatie
+
+\begin{lstlisting}[style=lstC]
+unsigned int *p = (unsigned int *) 0x40fe;}
+\end{lstlisting}
+
+zorgt ervoor dat \texttt{p} een pointer is naar een unsigned integer op adres 40FE$_{16}$ (hexadecimale notatie). Er is een expliciete type cast nodig om de integer \texttt{0x40fe} om te zetten naar een adres. Let erop dat bij de meeste systemen een \texttt{int} 32 bits is, dus 4 bytes. We kunnen nu iets in die geheugenplaatsen zetten door een dereferentie:
+
+\begin{lstlisting}[style=lstC]
+*p = 0x3ff;
+\end{lstlisting}
+
+Nu zullen dit soort toekenningen niet voorkomen op systemen waar een besturingssysteem op draait. Het gebruik van de pointer zal hoogst waarschijnlijk een crash van het programma veroorzaken. Maar op kleine computersystemen zonder besturingssysteem, de zogenoemde \textsl{bare metal}-systemen\index{bare metal system}, is het vaak de enige manier om informatie naar binnen en naar buiten te krijgen.
+
+Met behulp van een macro en een \textsl{anonieme pointer}\index{anonieme pointer}\index{pointer!anoniem}, is het mogelijk om de macro te gebruiken alsof het een gewone variabele is. We defini\"eren:
+
+\hspace*{1em}\texttt{\#define GPIOA\_OUT  (*(volatile unsigned int *)(0xf0000000))}
+
+We kunnen \texttt{GPIOA\_OUT} nu gebruiken alsof het een variabele is:
+
+\begin{lstlisting}[style=lstC]
+unsigned int value;
+value = GPIOA_OUT; /* Read data from address */
+GPIOA_OUT = 0x3fc; /* Write data to address */
+\end{lstlisting}
+
+Het keyword \texttt{volatile}\indexkeyword{volatile} is noodzakelijk om compiler-optimalizatie te verhinderen. Zie paragraaf~\ref{sec:optimalisatie}.
 
 %%%We geven in listing~\ref{cod:poiatmega} een voorbeeld van het gebruik van dit soort pointers op een ATmega32-microcontroller van Atmel. Overigens bevat de toolchain\index{toolchain} header-bestanden waarin deze definities al staan.
 %%%
