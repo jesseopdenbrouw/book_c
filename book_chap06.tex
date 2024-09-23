@@ -137,7 +137,7 @@ int main(void) {
 Een interessant geval is dat we de inhoud van een element van een array mogen gebruiken als een elementnummer van een andere array. Dit is te zien in listing~\ref{cod:arrberekenensomrijkwadraten}. We definiëren een array \texttt{rij} en initialiseren de array met de getallen waarvan we de kwadraten willen optellen. Daarna vullen we de array \texttt{kwad} met de kwadraten zoals we dat al eerder deden. In de regels 13 t/m 15 worden een voor een de waarden uit array \texttt{rij} opgevraagd en gebruikt als elementnummer voor array \texttt{kwad}. Merk op dat \texttt{rij[i]} eerst wordt bepaald en de uitkomst daarvan wordt gebruikt om een element uit de array \texttt{kwad} te selecteren.
 
 \begin{figure}[!ht]
-\begin{lstlisting}[caption=Afdrukken van de som van twee  kwadraten.,label=cod:arrberekenensomrijkwadraten]
+\begin{lstlisting}[caption=Afdrukken van de som van vijf  kwadraten.,label=cod:arrberekenensomrijkwadraten]
 #include <stdio.h>
 
 int main(void) {
@@ -198,7 +198,7 @@ int matrix[5][3];
 
 Het eerste elementnummer wordt het \textsl{rijnummer}\index{rijnummer} genoemd en het tweede elementnummer wordt het \textsl{kolomnummer}\index{kolomnummer} genoemd. Het aantal rijen en kolommen mag natuurlijk aan elkaar gelijk zijn.
 
-We kunnen de array tegelijk met de definitie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we drie groepen die zijn afgebakend door accolades en gescheiden zijn door komma's. Om een $5\times3$ matrix te definiëren en te initialiseren, gebruiken we:
+We kunnen de array tegelijk met de definitie initialiseren. We gebruiken een dubbele array-initialisatie met accolades. De buitenste accolades geven de afbakening van de initialisatie aan. Binnen de accolades vormen we groepen die zijn afgebakend door accolades en gescheiden zijn door komma's. Om een $5\times3$ matrix te definiëren en te initialiseren, gebruiken we:
 
 \begin{lstlisting}[style=lstoneline]
 int matrix[5][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9},
@@ -465,7 +465,7 @@ De standard library bevat een aantal functies waarmee we gemakkelijk arrays kunn
 \section{Strings}
 Een \textsl{string}\index{string} is een eendimensionale array van karakters afgesloten met een \textsl{nul-karakter}\index{nul-karakter}. In tegenstelling tot veel andere talen is een string in C dus \textsl{geen} enkelvoudig datatype. Dat betekent dat we niet op eenvoudige wijze strings kunnen manipuleren zoals het bepalen van de lengte, inkorten en veranderen. Gelukkig zijn er functies beschikbaar die het programmeerwerk enigszins verlichten. 
 
-We definiëren een string door de rij karakters te beginnen en af te sluiten met dubbele aanhalingstekens. De definitie
+We definiëren een string door de rij karakters te beginnen en af te sluiten met aanhalingstekens. De definitie
 
 \begin{lstlisting}[style=lstoneline]
 char str[] = "Ik ben een string";
