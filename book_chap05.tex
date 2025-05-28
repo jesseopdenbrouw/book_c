@@ -565,7 +565,7 @@ Hoewel C niet specifiek bedoeld is voor het berekenen van wiskundige formules, k
 \end{tabular}
 \end{table}
 
-Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden. Als de parameters niet in in het bereik zijn van de functies wordt een NaN\index{nan} (not a number)\index{Not a Number|see {nan}} teruggegeven.
+Alle argumenten en returnwaarden zijn van het type \texttt{double}. De hoeken in goniometrische functies zijn in radialen. Om de functies te gebruiken, moet het header-bestand \texttt{math.h}\indextwo{math.h}{header-bestand} geladen worden. Als de parameters niet in het domein van een functie liggen, wordt een NaN\index{nan} (not a number)\index{Not a Number|see {nan}} teruggegeven.
 
 Als voorbeeld ontwikkelen we een programma om een numerieke benadering van een Riemann-integraal te programmeren. De te integreren functie is het kwadraat van een sinus van 0 tot~$2\pi$. Dit komt onder andere voor bij het bepalen van het gemiddelde elektrisch vermogen over een tijdspanne. De algemene gedaante is:
 %
