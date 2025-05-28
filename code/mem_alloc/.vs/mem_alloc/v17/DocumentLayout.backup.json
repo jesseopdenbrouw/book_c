@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROJECTS\\Tex\\book_c\\code\\mem_alloc\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{197B8307-C273-4022-A4A0-96BE8A46A703}|mem_alloc.vcxproj|D:\\PROJECTS\\Tex\\book_c\\code\\mem_alloc\\mem_alloc.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{197B8307-C273-4022-A4A0-96BE8A46A703}|mem_alloc.vcxproj|solutionrelative:mem_alloc.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "mem_alloc.c",
+              "DocumentMoniker": "D:\\PROJECTS\\Tex\\book_c\\code\\mem_alloc\\mem_alloc.c",
+              "RelativeDocumentMoniker": "mem_alloc.c",
+              "ToolTip": "D:\\PROJECTS\\Tex\\book_c\\code\\mem_alloc\\mem_alloc.c*",
+              "RelativeToolTip": "mem_alloc.c*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-11-19T13:44:06.888Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

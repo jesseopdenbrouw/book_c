@@ -43,7 +43,7 @@ int main(void) {
 	low = 0.0; high = U0; mid = (high - low) / 2.0;
 	printf("Iteration  0, Ud: %.16lf\n", mid);
 
-	for (int i = 1; i <= 20; i++) {
+	for (int i = 1; i <= 53; i++) {
 		printf("Iteration %2d, ",i);
 		if (f(mid) > g(mid)) {
 			low = mid;

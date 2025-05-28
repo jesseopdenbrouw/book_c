@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROJECTS\\Tex\\book_c\\code\\afdrukken_strings\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{13F43997-37AC-4BE3-89B0-0C0467666945}|afdrukken_strings.vcxproj|D:\\PROJECTS\\Tex\\book_c\\code\\afdrukken_strings\\afdrukken_strings.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{13F43997-37AC-4BE3-89B0-0C0467666945}|afdrukken_strings.vcxproj|solutionrelative:afdrukken_strings.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "afdrukken_strings.c",
+              "DocumentMoniker": "D:\\PROJECTS\\Tex\\book_c\\code\\afdrukken_strings\\afdrukken_strings.c",
+              "RelativeDocumentMoniker": "afdrukken_strings.c",
+              "ToolTip": "D:\\PROJECTS\\Tex\\book_c\\code\\afdrukken_strings\\afdrukken_strings.c",
+              "RelativeToolTip": "afdrukken_strings.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2022-08-13T07:34:55.981Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

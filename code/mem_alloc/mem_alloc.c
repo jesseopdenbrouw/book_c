@@ -4,7 +4,7 @@
 
 #pragma warning(disable : 4996)
 
-/* Define 1000 bytes of space*/
+/* Define 1000 bytes of space */
 const size_t SIZE = 1000;
 
 int main(void) {

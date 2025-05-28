@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROJECTS\\Tex\\book_c\\code\\werkpunt_diode\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BCD64C13-B372-4E26-A13D-4387D51E5109}|werkpunt_diode.vcxproj|D:\\PROJECTS\\Tex\\book_c\\code\\werkpunt_diode\\werkpunt_diode.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BCD64C13-B372-4E26-A13D-4387D51E5109}|werkpunt_diode.vcxproj|solutionrelative:werkpunt_diode.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "werkpunt_diode.c",
+              "DocumentMoniker": "D:\\PROJECTS\\Tex\\book_c\\code\\werkpunt_diode\\werkpunt_diode.c",
+              "RelativeDocumentMoniker": "werkpunt_diode.c",
+              "ToolTip": "D:\\PROJECTS\\Tex\\book_c\\code\\werkpunt_diode\\werkpunt_diode.c",
+              "RelativeToolTip": "werkpunt_diode.c",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-11-19T12:58:27.999Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
